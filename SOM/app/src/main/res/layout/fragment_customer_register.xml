@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.register.customer.CustomerRegisterFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scrollViewParent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textLayoutCRegitId"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                app:boxBackgroundColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/btnCRegitCheckIdDuplication"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTextCRegitId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="아이디(이메일 주소)"
+                    android:inputType="textPersonName" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnCRegitCheckIdDuplication"
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:text="중복 확인"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textLayoutCRegitId"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textLayoutCRegitPw"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                app:boxBackgroundColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitId">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCRegitPw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="비밀번호"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textLayoutCRegitCheckPw"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                app:boxBackgroundColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitPw">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCRegitCheckPw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="비밀번호 확인"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textLayoutCRegitPhoneNumber"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                app:boxBackgroundColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/btnCRegitSendAuthorizationCode"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitCheckPw">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCRegitPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="전화번호 ('-' 제외)"
+                    android:inputType="textPersonName" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/btnCRegitSendAuthorizationCode"
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:text="인증번호 전송"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textLayoutCRegitPhoneNumber"
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitCheckPw" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textLayoutCRegitAuthorizationCode"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                app:boxBackgroundColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/btnCRegitCheckAuthorizationCode"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitPhoneNumber">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCRegitAuthorizationCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="인증번호"
+                    android:inputType="textPersonName" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnCRegitCheckAuthorizationCode"
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:text="확인"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textLayoutCRegitAuthorizationCode"
+                app:layout_constraintTop_toBottomOf="@+id/btnCRegitSendAuthorizationCode" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textLayoutCRegitBirthdate"
+                android:layout_width="180dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                app:boxBackgroundColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/chBoxCRegitFemale"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitAuthorizationCode">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCRegitBirthdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="생년월일 (8자리 입력)"
+                    android:inputType="textPersonName" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <CheckBox
+                android:id="@+id/chBoxCRegitFemale"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="여성"
+                app:layout_constraintEnd_toStartOf="@+id/chBoxCRegitMale"
+                app:layout_constraintStart_toEndOf="@+id/textLayoutCRegitBirthdate"
+                app:layout_constraintTop_toBottomOf="@+id/btnCRegitCheckAuthorizationCode" />
+
+            <CheckBox
+                android:id="@+id/chBoxCRegitMale"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:text="남성"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/chBoxCRegitFemale"
+                app:layout_constraintTop_toBottomOf="@+id/btnCRegitCheckAuthorizationCode" />
+
+            <CheckBox
+                android:id="@+id/chBoxCRegitTermsOfUse"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:text="이용약관 동의"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitBirthdate" />
+
+            <CheckBox
+                android:id="@+id/chBoxCRegitPersonalInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:text="개인정보 취급방침 동의"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chBoxCRegitTermsOfUse" />
+
+            <CheckBox
+                android:id="@+id/chBoxCRegitMarketingInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:text="마케팅 정보 수신 동의"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chBoxCRegitPersonalInfo" />
+
+            <ImageView
+                android:id="@+id/imgViewToTermsOfUse"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chBoxCRegitMale" />
+
+            <ImageView
+                android:id="@+id/imgViewToPersonalInfo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgViewToTermsOfUse" />
+
+            <ImageView
+                android:id="@+id/imgViewToMarketingInfo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgViewToPersonalInfo" />
+
+            <Button
+                android:id="@+id/btnCRegitFinish"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                android:text="회원가입 완료"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chBoxCRegitMarketingInfo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
