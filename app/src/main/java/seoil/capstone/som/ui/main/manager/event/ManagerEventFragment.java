@@ -33,7 +33,12 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 }

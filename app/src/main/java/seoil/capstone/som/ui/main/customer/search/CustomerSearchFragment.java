@@ -33,7 +33,12 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 }

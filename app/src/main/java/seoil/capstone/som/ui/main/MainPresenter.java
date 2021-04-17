@@ -1,7 +1,6 @@
 package seoil.capstone.som.ui.main;
 
 import android.content.Context;
-import android.content.res.Resources;
 
 import com.kakao.sdk.user.UserApiClient;
 import com.nhn.android.naverlogin.OAuthLogin;
@@ -12,8 +11,7 @@ import kotlin.jvm.functions.Function1;
 public class MainPresenter implements MainContract.Presenter, Function1<Throwable, Unit> {
 
     private MainContract.View view;
-    private Context context;
-    private Resources res;
+    private Context mContext;
 
     @Override
     public void setView(MainContract.View view) {
@@ -26,28 +24,28 @@ public class MainPresenter implements MainContract.Presenter, Function1<Throwabl
     }
 
     @Override
+    public void createInteractor() {
+
+    }
+
+    @Override
+    public void releaseInteractor() {
+
+    }
+
+    @Override
     public void setContext(Context context) {
-        this.context = context;
+        this.mContext = context;
     }
 
     @Override
     public void releaseContext() {
-        this.context = null;
-    }
-
-    @Override
-    public void setResources(Resources res) {
-        this.res = res;
-    }
-
-    @Override
-    public void releaseResources() {
-        this.res = null;
+        this.mContext = null;
     }
 
     @Override
     public void naverLogout() {
-        OAuthLogin.getInstance().logout(context);
+        OAuthLogin.getInstance().logout(mContext);
     }
 
     @Override

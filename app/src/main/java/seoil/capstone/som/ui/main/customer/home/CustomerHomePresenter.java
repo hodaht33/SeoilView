@@ -3,13 +3,9 @@ package seoil.capstone.som.ui.main.customer.home;
 import android.content.Context;
 import android.content.res.Resources;
 
-import seoil.capstone.som.ui.main.MainContract;
-
 public class CustomerHomePresenter implements CustomerHomeContract.Presenter {
 
     private CustomerHomeContract.View view;
-    private Context context;
-    private Resources res;
 
     @Override
     public void setView(CustomerHomeContract.View view) {
@@ -22,22 +18,12 @@ public class CustomerHomePresenter implements CustomerHomeContract.Presenter {
     }
 
     @Override
-    public void setContext(Context context) {
-        this.context = context;
+    public void createInteractor() {
+
     }
 
     @Override
-    public void releaseContext() {
-        this.context = null;
-    }
+    public void releaseInteractor() {
 
-    @Override
-    public void setResources(Resources res) {
-        this.res = res;
-    }
-
-    @Override
-    public void releaseResources() {
-        this.res = null;
     }
 }

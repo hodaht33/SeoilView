@@ -34,7 +34,7 @@
                     android:id="@+id/editTextTextCRegitId"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="아이디(이메일 주소)"
+                    android:hint="아이디"
                     android:inputType="textPersonName" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -94,6 +94,27 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textLayoutCRegitEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                app:boxBackgroundColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitCheckPw">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCRegitEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="이메일"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textLayoutCRegitPhoneNumber"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
@@ -102,7 +123,7 @@
                 app:boxBackgroundColor="@color/white"
                 app:layout_constraintEnd_toStartOf="@+id/btnCRegitSendAuthorizationCode"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitCheckPw">
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitEmail">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextCRegitPhoneNumber"
@@ -124,7 +145,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutCRegitPhoneNumber"
-                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitCheckPw" />
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitEmail" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textLayoutCRegitAuthorizationCode"
@@ -231,26 +252,31 @@
 
             <ImageView
                 android:id="@+id/imgViewToTermsOfUse"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="24dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="29dp"
                 android:layout_marginEnd="32dp"
+                android:src="@drawable/image_right_arrow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/chBoxCRegitMale" />
 
             <ImageView
                 android:id="@+id/imgViewToPersonalInfo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="32dp"
+                android:src="@drawable/image_right_arrow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgViewToTermsOfUse" />
 
             <ImageView
                 android:id="@+id/imgViewToMarketingInfo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="32dp"
+                android:src="@drawable/image_right_arrow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgViewToPersonalInfo" />
 

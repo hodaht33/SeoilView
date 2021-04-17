@@ -6,8 +6,6 @@ import android.content.res.Resources;
 public class SelectUserPresenter implements SelectUserContract.Presenter {
 
     private SelectUserContract.View view;
-    private Context context;
-    private Resources res;
 
     @Override
     public void setView(SelectUserContract.View view) {
@@ -20,22 +18,12 @@ public class SelectUserPresenter implements SelectUserContract.Presenter {
     }
 
     @Override
-    public void setContext(Context context) {
-        this.context = context;
+    public void createInteractor() {
+
     }
 
     @Override
-    public void releaseContext() {
-        this.context = null;
-    }
+    public void releaseInteractor() {
 
-    @Override
-    public void setResources(Resources res) {
-        this.res = res;
-    }
-
-    @Override
-    public void releaseResources() {
-        this.res = null;
     }
 }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "349765949148",
+    "project_id": "societyofmerchant",
+    "storage_bucket": "societyofmerchant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349765949148:android:03d0fa32f03b5e04978619",
+        "android_client_info": {
+          "package_name": "seoil.capstone.som"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349765949148-7k3lrmt2hs9i3o7156vc0qafsam40jr4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "seoil.capstone.som",
+            "certificate_hash": "253c2d3c35e44d32fa0b4a2dd3350ba6aeebe2f1"
+          }
+        },
+        {
+          "client_id": "349765949148-qjaip572v0lfa9ms0ramdo22m6l0c87n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhSKk_U91QV58tWyzGVxinazOBLenqKTk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349765949148-qjaip572v0lfa9ms0ramdo22m6l0c87n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

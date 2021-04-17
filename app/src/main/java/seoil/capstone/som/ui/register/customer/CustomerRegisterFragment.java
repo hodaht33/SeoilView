@@ -82,8 +82,6 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
     @Override
     public void onDestroy() {
-        mPresenter.releaseResources();
-        mPresenter.releaseContext();
         mPresenter.releaseView();
         mPresenter = null;
         mCommunicator = null;
@@ -99,7 +97,12 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 }

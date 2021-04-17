@@ -71,7 +71,12 @@ public class CustomerHomeFragment extends Fragment implements CustomerHomeContra
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 

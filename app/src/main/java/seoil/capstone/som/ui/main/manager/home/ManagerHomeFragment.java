@@ -58,8 +58,6 @@ public class ManagerHomeFragment extends Fragment implements ManagerHomeContract
 
     @Override
     public void onDestroy() {
-        mPresenter.releaseResources();
-        mPresenter.releaseContext();
         mPresenter.releaseView();
         mPresenter = null;
 
@@ -74,7 +72,12 @@ public class ManagerHomeFragment extends Fragment implements ManagerHomeContract
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 

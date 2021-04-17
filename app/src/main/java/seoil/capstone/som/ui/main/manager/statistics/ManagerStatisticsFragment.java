@@ -33,7 +33,12 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 }

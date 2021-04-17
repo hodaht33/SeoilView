@@ -1,42 +1,25 @@
-package seoil.capstone.som.data.model;
+package seoil.capstone.som.data.network.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User {
-
-    public static final int USER_CUSTOMER = 0;
-    public static final int USER_MANAGER = 1;
-
-    public static final int LOGIN_PLATFORM_NORMAL = 0;
-    public static final int LOGIN_PLATFORM_NAVER = 1;
-    public static final int LOGIN_PLATFORM_KAKAO = 2;
+public class RegisterRequest {
 
     @SerializedName("id")
+    @Expose
     private String id;
-
     @SerializedName("birthdate")
+    @Expose
     private String birthdate;
-
     @SerializedName("gender")
+    @Expose
     private int gender;
-
     @SerializedName("email")
+    @Expose
     private String email;
-
     @SerializedName("phoneNumber")
+    @Expose
     private String phoneNumber;
-
-    @SerializedName("code")
-    private String code;
-
-    public User(String id, String birthdate, int gender, String email, String phoneNumber, String code) {
-        this.id = id;
-        this.birthdate = birthdate;
-        this.gender = gender;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.code = code;
-    }
 
     public String getId() {
         return id;
@@ -76,13 +59,5 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 }

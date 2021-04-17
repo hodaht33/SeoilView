@@ -74,8 +74,6 @@ public class SelectUserFragment extends Fragment implements SelectUserContract.V
 
     @Override
     public void onDestroy() {
-        mPresenter.releaseResources();
-        mPresenter.releaseContext();
         mPresenter.releaseView();
         mPresenter = null;
 
@@ -90,7 +88,12 @@ public class SelectUserFragment extends Fragment implements SelectUserContract.V
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 }

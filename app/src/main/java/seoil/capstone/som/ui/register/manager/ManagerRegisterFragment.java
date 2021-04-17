@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.register.RegisterCommunicator;
 import seoil.capstone.som.ui.register.select.SelectUserFragment;
@@ -22,6 +24,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private ManagerRegisterPresenter mPresenter;
     private RegisterCommunicator.Communicator mCommunicator;
     private OnBackPressedCallback mBackPressedCallback;
+    private TextInputEditText mEditTextId;
     private Button mBtnFinish;
 
     public ManagerRegisterFragment() {
@@ -45,6 +48,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mCommunicator.changeAnotherFragment(new SelectUserFragment());
             }
         };
+
         requireActivity().getOnBackPressedDispatcher().addCallback(mBackPressedCallback);
     }
 
@@ -59,6 +63,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manager_register, container, false);
+
+        mEditTextId = view.findViewById(R.id.editTextTextMRegitId);
 
         mBtnFinish = view.findViewById(R.id.btnMRegitFinish);
 
@@ -89,7 +95,12 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 }

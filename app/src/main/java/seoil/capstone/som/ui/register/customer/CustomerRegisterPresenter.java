@@ -6,8 +6,6 @@ import android.content.res.Resources;
 public class CustomerRegisterPresenter implements CustomerRegisterContract.Presenter {
 
     private CustomerRegisterContract.View view;
-    private Context context;
-    private Resources res;
 
     @Override
     public void setView(CustomerRegisterContract.View view) {
@@ -20,22 +18,12 @@ public class CustomerRegisterPresenter implements CustomerRegisterContract.Prese
     }
 
     @Override
-    public void setContext(Context context) {
-        this.context = context;
+    public void createInteractor() {
+
     }
 
     @Override
-    public void releaseContext() {
-        this.context = null;
-    }
+    public void releaseInteractor() {
 
-    @Override
-    public void setResources(Resources res) {
-        this.res = res;
-    }
-
-    @Override
-    public void releaseResources() {
-        this.res = null;
     }
 }

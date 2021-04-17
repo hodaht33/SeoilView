@@ -5,37 +5,26 @@ import android.content.res.Resources;
 
 public class ManagerRegisterPresenter implements ManagerRegisterContract.Presenter {
 
-    private ManagerRegisterContract.View view;
-    private Context context;
-    private Resources res;
+    private ManagerRegisterContract.View mView;
+    private ManagerRegisterInteractor mInteractor;
 
     @Override
     public void setView(ManagerRegisterContract.View view) {
-        this.view = view;
+        mView = view;
     }
 
     @Override
     public void releaseView() {
-        this.view = null;
+        mView = null;
     }
 
     @Override
-    public void setContext(Context context) {
-        this.context = context;
+    public void createInteractor() {
+        mInteractor = new ManagerRegisterInteractor();
     }
 
     @Override
-    public void releaseContext() {
-        this.context = null;
-    }
-
-    @Override
-    public void setResources(Resources res) {
-        this.res = res;
-    }
-
-    @Override
-    public void releaseResources() {
-        this.res = null;
+    public void releaseInteractor() {
+        mInteractor = null;
     }
 }

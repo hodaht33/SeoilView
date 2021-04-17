@@ -33,7 +33,12 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 }

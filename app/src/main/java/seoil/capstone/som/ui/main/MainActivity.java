@@ -35,9 +35,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         String userId = getIntent().getStringExtra("userId");
         Toast.makeText(this, "Login to " + userId, Toast.LENGTH_LONG);
 
-        mUserCode = getIntent().getIntExtra("userCode", User.USER_CUSTOMER);
-
-
+        mUserCode = getIntent().getIntExtra("code", User.USER_CUSTOMER);
 
         mNavView = findViewById(R.id.bottomNavMain);
         mFragmentLayoutId = R.id.fragmentLayoutMain;
@@ -139,7 +137,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 

@@ -15,7 +15,12 @@ public class FindActivity extends AppCompatActivity implements FindContract.View
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 }

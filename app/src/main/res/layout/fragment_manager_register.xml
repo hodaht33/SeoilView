@@ -34,7 +34,7 @@
                     android:id="@+id/editTextTextMRegitId"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="아이디(이메일 주소)"
+                    android:hint="아이디"
                     android:inputType="textPersonName" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -50,6 +50,27 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitId"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textLayoutMRegitEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                app:boxBackgroundColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitCheckPw">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextMRegitEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="이메일"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textLayoutMRegitPw"
@@ -98,11 +119,11 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
+                app:boxBackgroundColor="@color/white"
                 app:layout_constraintEnd_toStartOf="@+id/btnMRegitCheckCorporateRegistrationNumber"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitCheckPw"
-                app:boxBackgroundColor="@color/white">
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitEmail">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextMRegitCorporateRegistrationNumber"
@@ -119,13 +140,13 @@
                 android:id="@+id/btnMRegitCheckCorporateRegistrationNumber"
                 android:layout_width="140dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
                 android:text="확인"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitCorporateRegistrationNumber"
-                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitCheckPw" />
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitEmail" />
 
 
 
@@ -171,7 +192,8 @@
                 app:boxBackgroundColor="@color/white"
                 app:layout_constraintEnd_toStartOf="@+id/btnMRegitCheckAuthorizationCode"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitPhoneNumber">
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitPhoneNumber"
+                tools:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextMRegitAuthorizationCode"
@@ -192,7 +214,8 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitAuthorizationCode"
-                app:layout_constraintTop_toBottomOf="@+id/btnMRegitSendAuthorizationCode" />
+                app:layout_constraintTop_toBottomOf="@+id/btnMRegitSendAuthorizationCode"
+                tools:visibility="visible" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textLayoutMRegitBirthdate"
@@ -267,28 +290,33 @@
 
             <ImageView
                 android:id="@+id/imgViewToTermsOfUse"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="24dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="29dp"
                 android:layout_marginEnd="32dp"
+                android:src="@drawable/image_right_arrow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/chBoxMRegitMale" />
 
             <ImageView
                 android:id="@+id/imgViewToPersonalInfo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="32dp"
+                android:src="@drawable/image_right_arrow"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgViewToTermsOfUse" />
 
             <ImageView
                 android:id="@+id/imgViewToMarketingInfo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgViewToPersonalInfo" />
+                app:layout_constraintTop_toBottomOf="@+id/imgViewToPersonalInfo"
+                android:src="@drawable/image_right_arrow"/>
 
             <Button
                 android:id="@+id/btnMRegitFinish"

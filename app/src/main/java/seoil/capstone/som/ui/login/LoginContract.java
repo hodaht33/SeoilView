@@ -6,26 +6,32 @@ import android.content.res.Resources;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.nhn.android.naverlogin.OAuthLogin;
-import com.nhn.android.naverlogin.OAuthLoginHandler;
-import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
 
 import seoil.capstone.som.base.BaseContract;
+import seoil.capstone.som.data.repository.OnFinishRepositoryListener;
 
 public interface LoginContract {
 
+    interface Interactor {
+
+        void login(String id, String pwd, OnFinishRepositoryListener onFinishRepositoryListener);
+    }
+
     interface View extends BaseContract.View {
+
+        void loginFail(int errorCode);
         void toMain(Intent intent);
         void toRegit(Intent intent);
         void showToast(String text);
     }
 
     interface Presenter extends BaseContract.Presenter<View> {
+
         void setContext(Context content);
         void releaseContext();
         void setResources(Resources res);
         void releaseResources();
-        int login(TextInputEditText idView, TextInputEditText pwView);
-        void setLoginData(String userId, int userCode);
+        void login(String id, String pwd);
         void kakaoLogin();
         void setKakaoLoginData();
         void naverLogin();

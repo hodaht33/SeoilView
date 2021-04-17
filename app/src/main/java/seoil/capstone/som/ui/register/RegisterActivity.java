@@ -31,8 +31,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
     @Override
     protected void onDestroy() {
-        mPresenter.releaseResources();
-        mPresenter.releaseContext();
         mPresenter.releaseView();
         mPresenter = null;
 
@@ -48,7 +46,12 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     }
 
     @Override
-    public void showProgressBar() {
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 }
