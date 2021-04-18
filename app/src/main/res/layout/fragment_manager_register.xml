@@ -31,7 +31,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextTextMRegitId"
+                    android:id="@+id/editTextMRegitId"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="아이디"
@@ -126,7 +126,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitEmail">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextMRegitCorporateRegistrationNumber"
+                    android:id="@+id/editTextMRegitCorporateNumber"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:ems="10"

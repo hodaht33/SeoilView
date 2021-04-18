@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.register.select.SelectUserFragment;
@@ -23,14 +24,21 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
         mPresenter.setView(this);
 
+        SelectUserFragment selectUserFragment = new SelectUserFragment();
+        selectUserFragment.setArguments(getIntent().getBundleExtra("data"));
+
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(mFragmentLayoutId, new SelectUserFragment())
+                .add(mFragmentLayoutId, selectUserFragment)
                 .commit();
+
+        selectUserFragment = null;
+        Log.d("RegisterActivity", "releaseFragment");
     }
 
     @Override
     protected void onDestroy() {
+
         mPresenter.releaseView();
         mPresenter = null;
 
@@ -38,10 +46,14 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     }
 
     @Override
-    public void changeAnotherFragment(Fragment fragment) {
+    public void changeAnotherFragment(Fragment fragment, Bundle bundle) {
+
+        fragment.setArguments(bundle);
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(mFragmentLayoutId, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SOM">
-        <activity android:name=".ui.find.FindActivity" /> <!-- 카카오 리다이렉션 -->
+        <activity android:name=".ui.find.FindActivity" />
+        <!-- 카카오 리다이렉션 -->
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

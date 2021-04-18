@@ -6,13 +6,12 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import seoil.capstone.som.R;
-import seoil.capstone.som.data.model.User;
+import seoil.capstone.som.data.db.model.User;
 import seoil.capstone.som.ui.main.customer.home.CustomerHomeFragment;
 import seoil.capstone.som.ui.main.customer.point.CustomerPointFragment;
 import seoil.capstone.som.ui.main.customer.search.CustomerSearchFragment;
@@ -57,17 +56,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mNavView.setOnNavigationItemSelectedListener(this);
     }
 
-    @Override
-    public void onBackPressed() {
-        if(System.currentTimeMillis() - mLastTimeBackPressed < 1000) {
-            finish();
-
-            return;
-        }
-
-        mLastTimeBackPressed = System.currentTimeMillis();
-        Toast.makeText(this,"'뒤로' 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        if(System.currentTimeMillis() - mLastTimeBackPressed < 1000) {
+//            finish();
+//
+//            return;
+//        }
+//
+//        mLastTimeBackPressed = System.currentTimeMillis();
+//        Toast.makeText(this,"'뒤로' 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+//    }
 
     // 하단 네비게이션 메뉴 설정
     private void inflateBottomNavMenu() {

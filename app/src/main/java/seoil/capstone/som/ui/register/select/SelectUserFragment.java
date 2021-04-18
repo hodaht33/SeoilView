@@ -32,8 +32,10 @@ public class SelectUserFragment extends Fragment implements SelectUserContract.V
         super.onAttach(context);
 
         if (context instanceof RegisterCommunicator.Communicator) {
+
             mCommunicator = (RegisterCommunicator.Communicator) context;
         } else {
+
             throw new RuntimeException(context.toString() + " not implement Communicator");
         }
     }
@@ -49,6 +51,7 @@ public class SelectUserFragment extends Fragment implements SelectUserContract.V
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_select_user, container, false);
 
         mPresenter = new SelectUserPresenter();
@@ -58,14 +61,16 @@ public class SelectUserFragment extends Fragment implements SelectUserContract.V
         mBtnToCustomerReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCommunicator.changeAnotherFragment(new CustomerRegisterFragment());
+
+                mCommunicator.changeAnotherFragment(new CustomerRegisterFragment(), getArguments());
             }
         });
 
         mBtnToManagerReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCommunicator.changeAnotherFragment(new ManagerRegisterFragment());
+
+                mCommunicator.changeAnotherFragment(new ManagerRegisterFragment(), getArguments());
             }
         });
 
@@ -74,6 +79,7 @@ public class SelectUserFragment extends Fragment implements SelectUserContract.V
 
     @Override
     public void onDestroy() {
+
         mPresenter.releaseView();
         mPresenter = null;
 
@@ -82,6 +88,7 @@ public class SelectUserFragment extends Fragment implements SelectUserContract.V
 
     @Override
     public void onDetach() {
+
         mCommunicator = null;
 
         super.onDetach();

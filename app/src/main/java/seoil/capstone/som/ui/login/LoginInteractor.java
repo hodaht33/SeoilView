@@ -1,17 +1,31 @@
 package seoil.capstone.som.ui.login;
 
-import android.util.Log;
+import android.content.Context;
+import android.content.res.Resources;
 
-import seoil.capstone.som.data.model.User;
+import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.model.LoginRequest;
-import seoil.capstone.som.data.repository.OnFinishRepositoryListener;
-import seoil.capstone.som.data.repository.UserRepository;
+import seoil.capstone.som.data.network.OnFinishApiListener;
+import seoil.capstone.som.data.network.api.UserRestApi;
+import seoil.capstone.som.data.network.model.LoginResponse;
 
 public class LoginInteractor implements LoginContract.Interactor {
 
     @Override
-    public void login(String id, String pwd, OnFinishRepositoryListener onFinishRepositoryListener) {
-        Log.d("Interactor", "request");
-        UserRepository.getInstance().get(onFinishRepositoryListener, new LoginRequest(id, pwd));
+    public void serverLogin(String id, String pwd, OnFinishApiListener onFinishApiListener) {
+
+        AppApiHelper.getInstance().serverLogin(new LoginRequest(id, pwd), onFinishApiListener);//.get(onFinishApiListener, new LoginRequest(id, pwd));
+    }
+
+    @Override
+    public void kakaoLogin(Context context, OnFinishApiListener onFinishApiListener) {
+
+        AppApiHelper.getInstance().kakaoLogin(context, onFinishApiListener);
+    }
+
+    @Override
+    public void naverLogin(Context context, Resources res, OnFinishApiListener onFinishApiListener) {
+
+        AppApiHelper.getInstance().naverLogin(context, res, onFinishApiListener);
     }
 }

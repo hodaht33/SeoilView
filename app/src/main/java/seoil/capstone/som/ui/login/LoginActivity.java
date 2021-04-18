@@ -57,8 +57,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
         mPresenter.setView(this);
         mPresenter.createInteractor();
-        mPresenter.setContext(this);
-        mPresenter.setResources(getResources());
 
         mEditTextPw.setOnEditorActionListener(this);
         mBtnLogin.setOnClickListener(this);
@@ -69,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     protected void onPause() {
+
         InputMethodManager immhide = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         immhide.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
@@ -95,27 +94,31 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 renderKeyboard();
             } else {
 
-                mPresenter.login(
+                mPresenter.serverLogin(
                         mEditTextId.getText().toString(),
-                        mEditTextPw.getText().toString()
+                        mEditTextPw.getText().toString(),
+                        this,
+                        null
                 );
             }
         }
 
         if (v.getId() == R.id.btnLoginToRegit) {
 
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            Intent intent = new Intent(this, RegisterActivity.class);
+            intent.putExtra("platform", "");
+
             startActivity(intent);
         }
 
         if (v.getId() == R.id.btnLoginNaverLogin) {
 
-            mPresenter.naverLogin();
+            mPresenter.naverLogin(this, getResources());
         }
 
         if (v.getId() == R.id.btnLoginKakaoLogin) {
 
-            mPresenter.kakaoLogin();
+            mPresenter.kakaoLogin(this);
         }
     }
 
@@ -142,9 +145,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void toMain(Intent intent) {
 
-        startActivity(intent);
+        // finish대신 flag를 지정하여 메인 액티비티로 이동 시 스택 내 액티비티 인스턴스 모두 삭제
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        finish();
+        startActivity(intent);
     }
 
     @Override
@@ -156,8 +160,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     protected void onDestroy() {
 
-        mPresenter.releaseResources();;
-        mPresenter.releaseContext();
         mPresenter.releaseInteractor();
         mPresenter.releaseView();
 

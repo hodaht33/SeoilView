@@ -28,10 +28,11 @@
                 app:boxBackgroundColor="@color/white"
                 app:layout_constraintEnd_toStartOf="@+id/btnCRegitCheckIdDuplication"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextTextCRegitId"
+                    android:id="@+id/editTextCRegitId"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="아이디"
@@ -156,7 +157,8 @@
                 app:boxBackgroundColor="@color/white"
                 app:layout_constraintEnd_toStartOf="@+id/btnCRegitCheckAuthorizationCode"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitPhoneNumber">
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitPhoneNumber"
+                tools:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextCRegitAuthorizationCode"
@@ -177,7 +179,8 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutCRegitAuthorizationCode"
-                app:layout_constraintTop_toBottomOf="@+id/btnCRegitSendAuthorizationCode" />
+                app:layout_constraintTop_toBottomOf="@+id/btnCRegitSendAuthorizationCode"
+                tools:visibility="gone" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textLayoutCRegitBirthdate"

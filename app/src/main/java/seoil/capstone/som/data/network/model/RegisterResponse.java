@@ -5,15 +5,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class RegisterResponse {
 
-    @SerializedName("state")
+    @SerializedName("status")
     @Expose
-    private boolean state;
+    private String status;
 
-    public boolean getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(boolean state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

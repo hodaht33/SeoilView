@@ -1,10 +1,5 @@
 package seoil.capstone.som.base;
 
-import android.content.Context;
-import android.content.res.Resources;
-
-import seoil.capstone.som.data.repository.OnFinishRepositoryListener;
-
 public class BaseContract {
 
     // 공용 모델 중계 인터페이스

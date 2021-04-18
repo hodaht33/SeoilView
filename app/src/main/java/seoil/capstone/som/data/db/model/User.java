@@ -1,7 +1,8 @@
-package seoil.capstone.som.data.model;
+package seoil.capstone.som.data.db.model;
 
 import com.google.gson.annotations.SerializedName;
 
+// Local DB Model
 public class User {
 
     public static final int USER_CUSTOMER = 0;
