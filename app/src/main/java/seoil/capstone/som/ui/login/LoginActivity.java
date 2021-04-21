@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -20,8 +19,9 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 
 import seoil.capstone.som.R;
-import seoil.capstone.som.data.network.model.LoginResponse;
+import seoil.capstone.som.data.network.api.UserRestApi;
 import seoil.capstone.som.ui.register.RegisterActivity;
+import seoil.capstone.som.util.Utility;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View, View.OnClickListener, TextView.OnEditorActionListener {
 
@@ -78,6 +78,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void onClick(View v) {
 
+        // 로그인 버튼
         if (v.getId() == R.id.btnLoginLogin) {
 
             if (mEditTextId.getText().toString().equals("")) {
@@ -85,13 +86,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 mEditTextId.setError("아이디를 입력해주세요.");
                 mEditTextId.requestFocus();
 
-                renderKeyboard();
+                Utility.getInstance().renderKeyboard(this);
             } else if (mEditTextPw.getText().toString().equals("")) {
 
                 mEditTextPw.setError("비밀번호를 입력해주세요.");
                 mEditTextPw.requestFocus();
 
-                renderKeyboard();
+                Utility.getInstance().renderKeyboard(this);
             } else {
 
                 mPresenter.serverLogin(
@@ -103,19 +104,25 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             }
         }
 
+        // 회원가입 버튼
         if (v.getId() == R.id.btnLoginToRegit) {
 
+            Bundle bundle = new Bundle();
+            bundle.putString("platform", "");
+
             Intent intent = new Intent(this, RegisterActivity.class);
-            intent.putExtra("platform", "");
+            intent.putExtra("data", bundle);
 
             startActivity(intent);
         }
 
+        // 네이버 로그인 버튼
         if (v.getId() == R.id.btnLoginNaverLogin) {
 
             mPresenter.naverLogin(this, getResources());
         }
 
+        // 카카오 로그인 버튼
         if (v.getId() == R.id.btnLoginKakaoLogin) {
 
             mPresenter.kakaoLogin(this);
@@ -124,18 +131,18 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void loginFail(int errorCode) {
-        if (errorCode == LoginResponse.LOGIN_FAIL_ID) {
+        if (errorCode == UserRestApi.LOGIN_FAIL_ID) {
 
             mEditTextId.setError("아이디가 존재하지 않습니다.\n다시 확인해주세요.");
             mEditTextId.requestFocus();
 
-            renderKeyboard();
-        } else if (errorCode == LoginResponse.LOGIN_FAIL_PWD) {
+            Utility.getInstance().renderKeyboard(this);
+        } else if (errorCode == UserRestApi.LOGIN_FAIL_PWD) {
 
             mEditTextPw.setError("비밀번호가 다릅니다.\n다시 확인해주세요.");
             mEditTextPw.requestFocus();
 
-            renderKeyboard();
+            Utility.getInstance().renderKeyboard(this);
         } else {
 
             showToast("알 수 없는 문제가 발생했습니다.\n개발자에게 문의해 주세요.");
@@ -175,12 +182,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 .load(imgResId)
                 .circleCrop()
                 .into(targetView);
-    }
-
-    private void renderKeyboard() {
-
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
     @Override

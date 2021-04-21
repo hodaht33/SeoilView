@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.nhn.android.naverlogin.OAuthLogin;
 
+import seoil.capstone.som.data.network.api.UserRestApi;
 import seoil.capstone.som.data.network.model.LoginResponse;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.ui.main.MainActivity;
@@ -53,23 +54,26 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                     int statusCode = loginResponse.getStatus();
 
-                    // 초기엔 공용 데이터인 아이디와 구분 코드 담기 위한 intent로 생성
-                    Intent intent = new Intent();
-                    intent.putExtra("id", loginResponse.getId());
-                    intent.putExtra("code", loginResponse.getCode());
+                    // 초기엔 공용 데이터인 아이디와 구분 코드 담기 위한 Bundle 생성
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", loginResponse.getId());
+                    bundle.putInt("code", loginResponse.getCode());
 
-                    if (statusCode == LoginResponse.SUCCESS) {
+                    Intent intent = new Intent();
+
+                    if (statusCode == UserRestApi.SUCCESS) {
 
                         // 로그인 성공했으므로 MainActivity로 이동하도록 설정
                         intent.setComponent(new ComponentName(context, MainActivity.class));
+                        intent.putExtra("data", bundle);
 
                         mView.toMain(intent);
-                    } else if (statusCode == LoginResponse.NEW_USER
-                            && pwd.equals("kakao")) {
+                    } else if (statusCode == UserRestApi.NEW_USER) {
 
                         // 카카오의 새로운 사용자일 때 RegisterActivity로 이동하도록 설정
                         intent.setComponent(new ComponentName(context, RegisterActivity.class));
-                        intent.putExtra("platform", "kakao");
+                        bundle.putString("platform", "kakao");
+                        intent.putExtra("data", bundle);
 
                         mView.toRegit(intent);
                     } else {
@@ -132,31 +136,37 @@ public class LoginPresenter implements LoginContract.Presenter {
                 String naverId = naverLoginResponse.getId();
                 if (naverId != null) {
 
+                    Log.d(TAG, "naverSuccess");
                     serverLogin(naverId, "naver", context, new OnFinishApiListener<LoginResponse.SomRestLoginApi>() {
                         @Override
                         public void onSuccess(LoginResponse.SomRestLoginApi serverLoginResponse) {
 
+                            Log.d(TAG,"serverSuccess");
                             int statusCode = serverLoginResponse.getStatus();
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("id", serverLoginResponse.getId());
 
                             Intent intent = new Intent();
 
-                            intent.putExtra("id", serverLoginResponse.getId());
-                            intent.putExtra("code", serverLoginResponse.getCode());
 
-                            if (statusCode == LoginResponse.SUCCESS) {
+                            if (statusCode == UserRestApi.SUCCESS) {
 
                                 intent.setComponent(new ComponentName(context, MainActivity.class));
+                                bundle.putInt("code", serverLoginResponse.getCode());
+                                intent.putExtra("data", bundle);
 
                                 mView.toMain(intent);
-                            } else if (statusCode == LoginResponse.NEW_USER) {
+                            } else if (statusCode == UserRestApi.NEW_USER) {
 
                                 // 네이버에 담긴 정보를 같이 넘김
                                 intent.setComponent(new ComponentName(context, RegisterActivity.class));
-                                intent.putExtra("birthdate", naverLoginResponse.getBirthdate());
-                                intent.putExtra("gender", naverLoginResponse.getGender());
-                                intent.putExtra("email", naverLoginResponse.getEmail());
-                                intent.putExtra("phoneNumber", naverLoginResponse.getPhoneNumber());
-                                intent.putExtra("platform", "naver");
+                                bundle.putString("birthdate", naverLoginResponse.getBirthdate());
+                                bundle.putString("gender", naverLoginResponse.getGender());
+                                bundle.putString("email", naverLoginResponse.getEmail());
+                                bundle.putString("phoneNumber", naverLoginResponse.getPhoneNumber());
+                                bundle.putString("platform", "naver");
+                                intent.putExtra("data", bundle);
 
                                 mView.toRegit(intent);
                             } else {

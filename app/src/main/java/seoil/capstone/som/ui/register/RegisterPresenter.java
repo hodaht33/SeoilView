@@ -2,6 +2,11 @@ package seoil.capstone.som.ui.register;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Patterns;
+import android.widget.CheckBox;
+import android.widget.EditText;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 public class RegisterPresenter implements RegisterContract.Presenter {
 

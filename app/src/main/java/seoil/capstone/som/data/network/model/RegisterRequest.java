@@ -3,8 +3,6 @@ package seoil.capstone.som.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import retrofit2.http.Body;
-
 public class RegisterRequest {
 
     public static class Customer {
@@ -20,21 +18,25 @@ public class RegisterRequest {
         private String birthdate;
         @SerializedName("gender")
         @Expose
-        private int gender;
+        private String gender;
         @SerializedName("email")
         @Expose
         private String email;
         @SerializedName("phoneNumber")
         @Expose
         private String phoneNumber;
+        @SerializedName("marketingAgreement")
+        @Expose
+        private boolean marketingAgreement;
 
-        public Customer(String id, String pwd, String birthdate, int gender, String email, String phoneNumber) {
+        public Customer(String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement) {
             this.id = id;
             this.pwd = pwd;
             this.birthdate = birthdate;
             this.gender = gender;
             this.email = email;
             this.phoneNumber = phoneNumber;
+            this.marketingAgreement = marketingAgreement;
         }
 
         public String getId() {
@@ -61,11 +63,11 @@ public class RegisterRequest {
             this.birthdate = birthdate;
         }
 
-        public int getGender() {
+        public String getGender() {
             return gender;
         }
 
-        public void setGender(int gender) {
+        public void setGender(String gender) {
             this.gender = gender;
         }
 
@@ -84,6 +86,14 @@ public class RegisterRequest {
         public void setPhoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
         }
+
+        public boolean getMarketingAgreement() {
+            return marketingAgreement;
+        }
+
+        public void setMarketingAgreement(boolean marketingAgreement) {
+            this.marketingAgreement = marketingAgreement;
+        }
     }
 
     public static class Manager {
@@ -99,13 +109,16 @@ public class RegisterRequest {
         private String birthdate;
         @SerializedName("gender")
         @Expose
-        private int gender;
+        private String gender;
         @SerializedName("email")
         @Expose
         private String email;
         @SerializedName("phoneNumber")
         @Expose
         private String phoneNumber;
+        @SerializedName("marketingAgreement")
+        @Expose
+        private boolean marketingAgreement;
         @SerializedName("corporateNumber")
         @Expose
         private String corporateNumber;
@@ -119,13 +132,14 @@ public class RegisterRequest {
         @Expose
         private String storeCategory;
 
-        public Manager(String id, String pwd, String birthdate, int gender, String email, String phoneNumber, String corporateNumber, String storeName, String storeAddr, String storeCategory) {
+        public Manager(String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement, String corporateNumber, String storeName, String storeAddr, String storeCategory) {
             this.id = id;
             this.pwd = pwd;
             this.birthdate = birthdate;
             this.gender = gender;
             this.email = email;
             this.phoneNumber = phoneNumber;
+            this.marketingAgreement = marketingAgreement;
             this.corporateNumber = corporateNumber;
             this.storeName = storeName;
             this.storeAddr = storeAddr;
@@ -156,11 +170,11 @@ public class RegisterRequest {
             this.birthdate = birthdate;
         }
 
-        public int getGender() {
+        public String getGender() {
             return gender;
         }
 
-        public void setGender(int gender) {
+        public void setGender(String gender) {
             this.gender = gender;
         }
 
@@ -178,6 +192,14 @@ public class RegisterRequest {
 
         public void setPhoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
+        }
+
+        public boolean getMarketingAgreement() {
+            return marketingAgreement;
+        }
+
+        public void setMarketingAgreement(boolean marketingAgreement) {
+            this.marketingAgreement = marketingAgreement;
         }
 
         public String getCorporateNumber() {

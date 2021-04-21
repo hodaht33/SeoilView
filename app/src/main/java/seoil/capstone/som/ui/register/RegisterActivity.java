@@ -3,8 +3,15 @@ package seoil.capstone.som.ui.register;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
+import android.widget.CheckBox;
+import android.widget.EditText;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.register.select.SelectUserFragment;
@@ -33,7 +40,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
                 .commit();
 
         selectUserFragment = null;
-        Log.d("RegisterActivity", "releaseFragment");
     }
 
     @Override

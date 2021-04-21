@@ -16,7 +16,7 @@ import seoil.capstone.som.ui.register.RegisterCommunicator;
 import seoil.capstone.som.ui.register.customer.CustomerRegisterFragment;
 import seoil.capstone.som.ui.register.manager.ManagerRegisterFragment;
 
-public class SelectUserFragment extends Fragment implements SelectUserContract.View {
+public class SelectUserFragment extends Fragment implements SelectUserContract.View, View.OnClickListener {
 
     private RegisterCommunicator.Communicator mCommunicator;
     private SelectUserContract.Presenter mPresenter;
@@ -58,21 +58,8 @@ public class SelectUserFragment extends Fragment implements SelectUserContract.V
         mBtnToCustomerReg = view.findViewById(R.id.btnToCustomerRegister);
         mBtnToManagerReg = view.findViewById(R.id.btnToManagerRegister);
 
-        mBtnToCustomerReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mCommunicator.changeAnotherFragment(new CustomerRegisterFragment(), getArguments());
-            }
-        });
-
-        mBtnToManagerReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mCommunicator.changeAnotherFragment(new ManagerRegisterFragment(), getArguments());
-            }
-        });
+        mBtnToCustomerReg.setOnClickListener(this);
+        mBtnToManagerReg.setOnClickListener(this);
 
         return view;
     }
@@ -102,6 +89,18 @@ public class SelectUserFragment extends Fragment implements SelectUserContract.V
     @Override
     public void hideProgress() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if (v.getId() == R.id.btnToCustomerRegister) {
+
+            mCommunicator.changeAnotherFragment(new CustomerRegisterFragment(), getArguments());
+        } else if (v.getId() == R.id.btnToManagerRegister) {
+
+            mCommunicator.changeAnotherFragment(new ManagerRegisterFragment(), getArguments());
+        }
     }
 }
 

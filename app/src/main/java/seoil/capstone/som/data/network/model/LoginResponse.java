@@ -5,11 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
 
-    public static final int SUCCESS = 0;
-    public static final int ERROR = 1;
-    public static final int LOGIN_FAIL_ID = 2;
-    public static final int LOGIN_FAIL_PWD = 3;
-    public static final int NEW_USER = 4;   // 카카오나 네이버로 로그인 시 새로운 회원이면 이에 맞는 처리 수행
+
 
     public static class SomRestLoginApi {
 

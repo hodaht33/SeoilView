@@ -131,7 +131,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     @Override
     public void onDetach() {
 
-        mBackPressedCallback.remove();
+        //mBackPressedCallback.remove();
 
         super.onDetach();
     }

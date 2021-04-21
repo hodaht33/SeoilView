@@ -20,6 +20,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.api.UserRestApi;
+import seoil.capstone.som.data.network.model.IdDuplicateResponse;
 import seoil.capstone.som.data.network.model.LoginRequest;
 import seoil.capstone.som.data.network.model.LoginResponse;
 import seoil.capstone.som.data.network.model.RegisterRequest;
@@ -29,15 +30,18 @@ public class AppApiHelper {
 
     public static final String SOM_BASE_URL = "https://leebera.name/";
 
-    private Retrofit mRetrofit = null;
     private static AppApiHelper mAppApiHelper;
+    private UserRestApi mUserRestApi;
 
     public AppApiHelper() {
-        mRetrofit = new Retrofit
+
+        mUserRestApi = new UserRestApi(
+                new Retrofit
                 .Builder()
                 .baseUrl(SOM_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .build();
+                .build()
+        );
     }
 
     public static AppApiHelper getInstance() {
@@ -52,7 +56,7 @@ public class AppApiHelper {
 
     public void serverLogin(LoginRequest loginRequest, OnFinishApiListener<LoginResponse.SomRestLoginApi> onFinishApiListener) {
 
-        new UserRestApi(mRetrofit).get(loginRequest, onFinishApiListener);
+        mUserRestApi.login(loginRequest, onFinishApiListener);
     }
 
     public void kakaoLogin(Context context, OnFinishApiListener<LoginResponse.KakaoLoginApi> onFinishApiListener) {
@@ -131,15 +135,11 @@ public class AppApiHelper {
 
                                 JSONObject jsonResult = new JSONObject(naverLoginData).getJSONObject("response");
                                 String gender = jsonResult.getString("gender");
-                                if (gender.equals("M")) {
 
-                                    gender = "0";
-                                } else if (gender.equals("F")) {
+                                // 성별이 알 수 없음 일 때
+                                if (gender.equals("U")) {
 
-                                    gender = "1";
-                                } else {
-
-                                    gender = "2";
+                                    gender = "M";
                                 }
 
                                 onFinishApiListener.onSuccess(new LoginResponse.NaverLoginApi(
@@ -177,8 +177,13 @@ public class AppApiHelper {
         oAuthLogin.startOauthLoginActivity((Activity) context, oAuthLoginHandler);
     }
 
+    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicateResponse> onFinishApiListener) {
+
+        mUserRestApi.checkIdDuplicate(id, onFinishApiListener);
+    }
+
     public void customerRegister(RegisterRequest.Customer registerRequest, OnFinishApiListener<RegisterResponse> onFinishApiListener) {
 
-
+        mUserRestApi.insertCustomer(registerRequest, onFinishApiListener);
     }
 }
