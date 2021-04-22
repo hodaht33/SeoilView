@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.api.UserRestApi;
+import seoil.capstone.som.ui.find.FindActivity;
 import seoil.capstone.som.ui.register.RegisterActivity;
 import seoil.capstone.som.util.Utility;
 
@@ -36,6 +37,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     private Button mBtnToRegit;
     private ImageView mNaverLogin;
     private ImageView mKakaoLogin;
+    private Button mBtnGetId;
+    private Button mBtnGetPwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         mBtnToRegit = findViewById(R.id.btnLoginToRegit);
         mNaverLogin = findViewById(R.id.btnLoginNaverLogin);
         mKakaoLogin = findViewById(R.id.btnLoginKakaoLogin);
+        mBtnGetId = findViewById(R.id.btnFindId);
+        mBtnGetPwd = findViewById(R.id.btnFindPw);
 
         setImgWithGlide(R.drawable.image_naver_login, mNaverLogin);
         setImgWithGlide(R.drawable.image_kakao_login, mKakaoLogin);
@@ -63,6 +68,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         mBtnToRegit.setOnClickListener(this);
         mNaverLogin.setOnClickListener(this);
         mKakaoLogin.setOnClickListener(this);
+        mBtnGetId.setOnClickListener(this);
+        mBtnGetPwd.setOnClickListener(this);
     }
 
     @Override
@@ -126,6 +133,18 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         if (v.getId() == R.id.btnLoginKakaoLogin) {
 
             mPresenter.kakaoLogin(this);
+        }
+        if(v.getId() == R.id.btnFindId) {
+
+            Intent mIntentId = new Intent(this, FindActivity.class);
+            mIntentId.putExtra("ID", "1");
+            startActivity(mIntentId);
+        }
+        if(v.getId() == R.id.btnFindPw) {
+
+            Intent mIntentPwd = new Intent(this, FindActivity.class);
+            mIntentPwd.putExtra("ID", "2");
+            startActivity(mIntentPwd);
         }
     }
 

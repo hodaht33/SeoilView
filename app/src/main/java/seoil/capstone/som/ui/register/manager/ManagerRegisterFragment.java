@@ -1,10 +1,12 @@
 package seoil.capstone.som.ui.register.manager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.InputType;
@@ -13,11 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
 import seoil.capstone.som.R;
+import seoil.capstone.som.ui.address.SearchAddressActivity;
 import seoil.capstone.som.ui.register.RegisterCommunicator;
 
 public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener {
@@ -35,6 +39,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private CheckBox mChkBoxFemale;
     private CheckBox mChkBoxMale;
     private Button mBtnFinish;
+    private Button mBtnPostNumber;
     private boolean isCheckId;
     private boolean isCheckCoporateNumber;
     private boolean isCheckPhoneNumber;
@@ -94,6 +99,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mChkBoxFemale = view.findViewById(R.id.chBoxMRegitFemale);
         mChkBoxMale = view.findViewById(R.id.chBoxMRegitMale);
         mBtnFinish = view.findViewById(R.id.btnMRegitFinish);
+        mBtnPostNumber = view.findViewById(R.id.btnMRegitFindMarketLocation);
 
         Bundle bundle = getArguments();
         if (bundle.getString("platform").equals("naver")) {
@@ -117,7 +123,22 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             }
         });
 
+        mBtnPostNumber.setOnClickListener(this);
+
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1) {
+
+            if(resultCode == 2) {
+
+                EditText editText = getActivity().findViewById(R.id.editTextMRegitMarketLocation);
+                editText.setText(data.getStringExtra("1")+data.getStringExtra("2")+data.getStringExtra("3"));
+            }
+        }
     }
 
     @Override
@@ -149,5 +170,12 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     @Override
     public void onClick(View v) {
 
+        if(v.getId() == R.id.btnMRegitFindMarketLocation) {
+
+            Intent intent = new Intent(getActivity(), SearchAddressActivity.class);
+            this.startActivityForResult(intent,1);
+        }
     }
+
+
 }
