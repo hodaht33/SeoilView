@@ -1,5 +1,6 @@
 package seoil.capstone.som.ui.register.manager;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -99,7 +101,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mChkBoxFemale = view.findViewById(R.id.chBoxMRegitFemale);
         mChkBoxMale = view.findViewById(R.id.chBoxMRegitMale);
         mBtnFinish = view.findViewById(R.id.btnMRegitFinish);
-        mBtnPostNumber = view.findViewById(R.id.btnMRegitFindMarketLocation);
+        mBtnPostNumber = view.findViewById(R.id.btnMRegitFindAddress);
 
         Bundle bundle = getArguments();
         if (bundle.getString("platform").equals("naver")) {
@@ -128,6 +130,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -135,8 +138,12 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
             if(resultCode == 2) {
 
-                EditText editText = getActivity().findViewById(R.id.editTextMRegitMarketLocation);
-                editText.setText(data.getStringExtra("1")+data.getStringExtra("2")+data.getStringExtra("3"));
+                TextView textViewPostalCode = getActivity().findViewById(R.id.textViewMRegitPostalCode);
+                textViewPostalCode.setText(data.getStringExtra("PostalCode"));
+
+                TextView  textViewAddress = getActivity().findViewById(R.id.textViewMRegitAddress);
+                textViewAddress.setText(data.getStringExtra("Address") + " " +data.getStringExtra("BuildingName"));
+
             }
         }
     }
@@ -170,7 +177,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     @Override
     public void onClick(View v) {
 
-        if(v.getId() == R.id.btnMRegitFindMarketLocation) {
+        if(v.getId() == R.id.btnMRegitFindAddress) {
 
             Intent intent = new Intent(getActivity(), SearchAddressActivity.class);
             this.startActivityForResult(intent,1);

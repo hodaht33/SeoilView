@@ -33,7 +33,7 @@ public class SearchAddressActivity extends AppCompatActivity {
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         mWebView.addJavascriptInterface(new AndroidBridge(), "SOM");
         mWebView.setWebChromeClient(new WebChromeClient());
-        mWebView.loadUrl("http://192.168.0.13/daumpostcode/getAddress.html");
+        mWebView.loadUrl("leebera.name");//후에 getAddress.html URL로 변경
     }
 
     private class AndroidBridge{
@@ -43,12 +43,10 @@ public class SearchAddressActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    intent.putExtra("1", arg1);
-                    Log.d("putExtra",arg1);
-                    intent.putExtra("2", arg2);
-                    Log.d("putExtra",arg2);
-                    intent.putExtra("3", arg3);
-                    Log.d("putExtra",arg3);
+                    intent.putExtra("PostalCode", arg1);
+                    intent.putExtra("Address", arg2);
+                    intent.putExtra("BuildingName", arg3);
+
                     setResult(2,intent);
                     finish();
                 }
