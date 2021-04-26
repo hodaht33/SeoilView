@@ -13,7 +13,7 @@ import seoil.capstone.som.data.network.model.RegisterRequest;
 import seoil.capstone.som.data.network.model.RegisterResponse;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 
-// "https://leebera.name/user"에서 사용자의 정보를 모두 받아오는 api
+// "https://leebera.name/api/user"에서 사용자의 정보를 모두 받아오는 api
 public class UserRestApi {
 
     public static final int SUCCESS = 0;

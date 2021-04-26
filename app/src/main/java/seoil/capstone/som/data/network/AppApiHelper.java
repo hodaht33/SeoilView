@@ -28,7 +28,7 @@ import seoil.capstone.som.data.network.model.RegisterResponse;
 
 public class AppApiHelper {
 
-    public static final String SOM_BASE_URL = "https://leebera.name/";
+    public static final String SOM_BASE_URL = "https://leebera.name/api/";
 
     private static AppApiHelper mAppApiHelper;
     private UserRestApi mUserRestApi;
