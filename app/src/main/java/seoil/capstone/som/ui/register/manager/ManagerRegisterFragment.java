@@ -138,10 +138,10 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
             if(resultCode == 2) {
 
-                TextView textViewPostalCode = getActivity().findViewById(R.id.textViewMRegitPostalCode);
+                TextView textViewPostalCode = getActivity().findViewById(R.id.editTextMRegitPostalCode);
                 textViewPostalCode.setText(data.getStringExtra("PostalCode"));
 
-                TextView  textViewAddress = getActivity().findViewById(R.id.textViewMRegitAddress);
+                TextView  textViewAddress = getActivity().findViewById(R.id.editTextMRegitAddress);
                 textViewAddress.setText(data.getStringExtra("Address") + " " +data.getStringExtra("BuildingName"));
 
             }
