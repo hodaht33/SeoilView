@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
 
-
-
     public static class SomRestLoginApi {
 
         @SerializedName("status")

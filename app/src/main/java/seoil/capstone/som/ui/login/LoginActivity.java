@@ -37,8 +37,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     private Button mBtnToRegit;
     private ImageView mNaverLogin;
     private ImageView mKakaoLogin;
-    private Button mBtnGetId;
-    private Button mBtnGetPwd;
+    private Button mBtnFindIdPwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +53,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         mBtnToRegit = findViewById(R.id.btnLoginToRegit);
         mNaverLogin = findViewById(R.id.btnLoginNaverLogin);
         mKakaoLogin = findViewById(R.id.btnLoginKakaoLogin);
-        mBtnGetId = findViewById(R.id.btnFindId);
-        mBtnGetPwd = findViewById(R.id.btnFindPw);
+        mBtnFindIdPwd = findViewById(R.id.btnLoginFindIdPwd);
 
         setImgWithGlide(R.drawable.image_naver_login, mNaverLogin);
         setImgWithGlide(R.drawable.image_kakao_login, mKakaoLogin);
@@ -68,8 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         mBtnToRegit.setOnClickListener(this);
         mNaverLogin.setOnClickListener(this);
         mKakaoLogin.setOnClickListener(this);
-        mBtnGetId.setOnClickListener(this);
-        mBtnGetPwd.setOnClickListener(this);
+        mBtnFindIdPwd.setOnClickListener(this);
     }
 
     @Override
@@ -85,8 +82,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void onClick(View v) {
 
+        int viewId = v.getId();
+
         // 로그인 버튼
-        if (v.getId() == R.id.btnLoginLogin) {
+        if (viewId == R.id.btnLoginLogin) {
 
             if (mEditTextId.getText().toString().equals("")) {
 
@@ -109,10 +108,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                         null
                 );
             }
-        }
-
-        // 회원가입 버튼
-        if (v.getId() == R.id.btnLoginToRegit) {
+        } else if (viewId == R.id.btnLoginToRegit) {   // 회원가입 버튼
 
             Bundle bundle = new Bundle();
             bundle.putString("platform", "");
@@ -121,30 +117,17 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             intent.putExtra("data", bundle);
 
             startActivity(intent);
-        }
-
-        // 네이버 로그인 버튼
-        if (v.getId() == R.id.btnLoginNaverLogin) {
+        } else if (viewId == R.id.btnLoginNaverLogin) { // 네이버 로그인 버튼
 
             mPresenter.naverLogin(this, getResources());
-        }
-
-        // 카카오 로그인 버튼
-        if (v.getId() == R.id.btnLoginKakaoLogin) {
+        } else if (viewId == R.id.btnLoginKakaoLogin) { // 카카오 로그인 버튼
 
             mPresenter.kakaoLogin(this);
-        }
-        if(v.getId() == R.id.btnFindId) {
+        } else if (viewId == R.id.btnLoginFindIdPwd) {
 
-            Intent mIntentId = new Intent(this, FindActivity.class);
-            mIntentId.putExtra("ID", "1");
-            startActivity(mIntentId);
-        }
-        if(v.getId() == R.id.btnFindPw) {
-
-            Intent mIntentPwd = new Intent(this, FindActivity.class);
-            mIntentPwd.putExtra("ID", "2");
-            startActivity(mIntentPwd);
+            Intent intent = new Intent(this, FindActivity.class);
+            intent.putExtra("ID", "1");
+            startActivity(intent);
         }
     }
 

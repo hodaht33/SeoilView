@@ -129,7 +129,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/groupFindBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnLoginNaverLogin"
         app:layout_constraintTop_toBottomOf="@+id/labelLoginSimpleLogin" />
@@ -146,34 +145,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelLoginSimpleLogin" />
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/groupFindBtn"
+    <Button
+        android:id="@+id/btnLoginFindIdPwd"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="64dp"
+        android:backgroundTint="@color/black"
+        android:text="아이디 / 비밀번호 찾기"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLoginKakaoLogin">
-
-        <Button
-            android:id="@+id/btnFindId"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="아이디 찾기"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/black" />
-
-        <Button
-            android:id="@+id/btnFindPw"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="비밀번호 찾기"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/black" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+        app:layout_constraintTop_toBottomOf="@+id/btnLoginNaverLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
