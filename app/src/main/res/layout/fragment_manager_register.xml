@@ -268,7 +268,7 @@
                 android:layout_marginTop="24dp"
                 android:text="이용약관 동의"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitBirthdate" />
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitDetailedAddress" />
 
             <CheckBox
                 android:id="@+id/chBoxMRegitPersonalInfo"
@@ -292,11 +292,11 @@
                 android:id="@+id/imgViewToTermsOfUse"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="29dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
                 android:src="@drawable/image_right_arrow"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chBoxMRegitMale" />
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitDetailedAddress" />
 
             <ImageView
                 android:id="@+id/imgViewToPersonalInfo"
@@ -332,6 +332,108 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/chBoxMRegitMarketingInfo" />
+
+            <Button
+                android:id="@+id/btnMRegitFindAddress"
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:text="주소찾기"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitCategory" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textLayoutMRegitMarketName"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                app:boxBackgroundColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitBirthdate"
+                tools:ignore="MissingConstraints">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextMRegitMarketName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="매장명"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textViewMRegitPostalCode"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:textSize="16sp"
+                android:text="우편번호"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toStartOf="@+id/btnMRegitFindAddress"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitCategory"
+                tools:ignore="RtlCompat" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textLayoutMRegitCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                app:boxBackgroundColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitMarketName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextMRegitCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="업종" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textViewMRegitAddress"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:gravity="center_vertical"
+                android:text="주소"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewMRegitPostalCode"
+                tools:ignore="RtlCompat" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textLayoutMRegitDetailedAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                app:boxBackgroundColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewMRegitAddress">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextMRegitDetailedAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="상세주소 입력" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
