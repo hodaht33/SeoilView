@@ -25,7 +25,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toStartOf="@+id/btnMRegitCheckIdDuplication"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -34,6 +34,7 @@
                     android:id="@+id/editTextMRegitId"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="아이디"
                     android:inputType="textPersonName" />
 
@@ -47,7 +48,8 @@
                 android:layout_marginEnd="32dp"
                 android:text="중복 확인"
                 android:textSize="14sp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/btn_color"
+                android:textColor="@color/text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitId"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +61,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitCheckPw">
@@ -68,6 +70,7 @@
                     android:id="@+id/editTextMRegitEmail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="이메일"
                     android:inputType="textEmailAddress" />
 
@@ -80,7 +83,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitId">
@@ -89,6 +92,7 @@
                     android:id="@+id/editTextMRegitPw"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="비밀번호"
                     android:inputType="textPassword" />
 
@@ -101,7 +105,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitPw">
@@ -110,6 +114,7 @@
                     android:id="@+id/editTextMRegitCheckPw"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="비밀번호 확인"
                     android:inputType="textPassword" />
 
@@ -121,7 +126,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toStartOf="@+id/btnMRegitSendAuthorizationCode"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitEmail">
@@ -130,6 +135,7 @@
                     android:id="@+id/editTextMRegitPhoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="전화번호 ('-' 제외)"
                     android:inputType="textPersonName" />
 
@@ -143,7 +149,8 @@
                 android:layout_marginEnd="32dp"
                 android:text="인증번호 전송"
                 android:textSize="14sp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/btn_color"
+                android:textColor="@color/text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitPhoneNumber"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitEmail" />
@@ -154,7 +161,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toStartOf="@+id/btnMRegitCheckAuthorizationCode"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitPhoneNumber"
@@ -164,6 +171,7 @@
                     android:id="@+id/editTextMRegitAuthorizationCode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="인증번호"
                     android:inputType="textPersonName" />
 
@@ -177,7 +185,8 @@
                 android:layout_marginEnd="32dp"
                 android:text="확인"
                 android:textSize="14sp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/btn_color"
+                android:textColor="@color/text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitAuthorizationCode"
                 app:layout_constraintTop_toBottomOf="@+id/btnMRegitSendAuthorizationCode"
@@ -189,7 +198,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toStartOf="@+id/btnMRegitCheckCorporateRegistrationNumber"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitAuthorizationCode">
@@ -198,6 +207,7 @@
                     android:id="@+id/editTextMRegitCorporateNumber"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:ems="10"
                     android:hint="사업자 번호"
                     android:inputType="textPersonName" />
@@ -213,7 +223,8 @@
                 android:layout_marginEnd="32dp"
                 android:text="확인"
                 android:textSize="14sp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/btn_color"
+                android:textColor="@color/text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitCorporateRegistrationNumber"
                 app:layout_constraintTop_toBottomOf="@+id/btnMRegitCheckAuthorizationCode" />
@@ -226,7 +237,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitCorporateRegistrationNumber"
@@ -236,6 +247,7 @@
                     android:id="@+id/editTextMRegitMarketName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="매장명"
                     android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -247,7 +259,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitMarketName">
@@ -256,6 +268,7 @@
                     android:id="@+id/editTextMRegitCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
                     android:hint="업종" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -265,7 +278,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toStartOf="@+id/btnMRegitFindAddress"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitCategory">
@@ -274,6 +287,7 @@
                     android:id="@+id/editTextMRegitPostalCode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:enabled="false"
                     android:hint="우편번호"
                     android:inputType="textPostalAddress" />
@@ -287,7 +301,8 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
                 android:text="주소찾기"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/btn_color"
+                android:textColor="@color/text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitCategory" />
 
@@ -298,7 +313,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitPostalCode">
@@ -308,6 +323,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:enabled="false"
+                    android:textColor="@color/text_color"
                     android:hint="주소"
                     android:inputType="textPersonName" />
 
@@ -320,7 +336,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitAddress">
@@ -329,6 +345,7 @@
                     android:id="@+id/editTextMRegitDetailedAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
                     android:hint="상세주소 입력" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -338,7 +355,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toStartOf="@+id/chBoxMRegitFemale"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitDetailedAddress">
@@ -347,6 +364,7 @@
                     android:id="@+id/editTextMRegitBirthdate"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="생년월일 (8자리 입력)"
                     android:inputType="textPersonName" />
 
@@ -442,7 +460,8 @@
                 android:layout_marginBottom="16dp"
                 android:text="회원가입 완료"
                 android:textSize="16sp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/btn_color"
+                android:textColor="@color/text_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

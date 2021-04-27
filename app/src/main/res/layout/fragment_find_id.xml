@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="본인인증"
+        android:backgroundTint="@color/btn_color"
+        android:textColor="@color/text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"
-        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundColor="@color/input_layout_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -32,6 +34,7 @@
             android:id="@+id/editTextFindIdGetPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
             android:hint="전화번호 숫자만 입력"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
