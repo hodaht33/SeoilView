@@ -17,6 +17,7 @@ public interface CustomerRegisterContract {
     interface Interactor extends BaseContract.Interactor {
 
         void register(String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement, OnFinishApiListener<RegisterResponse> onFinishApiListener);
+
     }
 
     interface View extends BaseContract.View {

@@ -1,4 +1,4 @@
-package seoil.capstone.som.util;
+package seoil.capstone.som.ui.register;
 
 import android.app.Activity;
 import android.util.Log;
@@ -13,17 +13,16 @@ import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserRestApi;
 import seoil.capstone.som.data.network.model.IdDuplicateResponse;
+import seoil.capstone.som.util.Utility;
 
 public class ValidChecker {
 
     public static final String TAG = "ValidChecker";
     private Activity mActivity;
-    private boolean mIsIdDuplicate;
 
     public ValidChecker(Activity activity) {
 
         mActivity = activity;
-        mIsIdDuplicate = false;
     }
 
     public void releaseActivity() {
@@ -61,39 +60,15 @@ public class ValidChecker {
         return true;
     }
 
-    public boolean isIdDuplicated(TextInputEditText idEditText) {
-
-        Log.d(TAG, "idDup");
+    public void checkIdValid(TextInputEditText idEditText, OnFinishApiListener onFinishApiListener) {
 
         if (isIdValid(idEditText)) {
 
-            AppApiHelper.getInstance().checkIdDuplicate(idEditText.getText().toString(), new OnFinishApiListener<IdDuplicateResponse>() {
-                @Override
-                public void onSuccess(IdDuplicateResponse idDuplicateResponse) {
-
-                    if (idDuplicateResponse.getStatus() == UserRestApi.SUCCESS) {
-
-                        Log.d(TAG, "not duplicate");
-                        mIsIdDuplicate = true;
-                    } else if (idDuplicateResponse.getStatus() == UserRestApi.ID_DUPLICATE) {
-
-                        Log.d(TAG, "duplicate");
-                        mIsIdDuplicate = false;
-                    }
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-
-                    Log.d(TAG, "id duplicate Error : " + t);
-                }
-            });
+            AppApiHelper.getInstance().checkIdDuplicate(idEditText.getText().toString(), onFinishApiListener);
         }
 
-        // TODO: Api를 사용할 때 스레드로 사용되어 중복이 되지 않더라도 return후에 중복되지 않음을 표현하여 다시 눌러야 적용
         // TODO: Presenter와 Interactor로 나누면 해결될 문제 Presenter에서 onSuccess내에서 뷰를 바꿔주는 함수를 호출하면 되기 때문, 추후 리팩토링
-        // 메서드 이름 의미상 사실은 false로 반환하는게 맞지만 다른 유효성확인 메서드들과 맞추기위해 그냥 true로 반환
-        return mIsIdDuplicate;
+        // TODO: 하지만 중복을 피하면서 모두 분리하면 클래스가 늘어나는데 괜찮은가?
     }
 
     public boolean isPwdValid(TextInputEditText pwdEditText, TextInputEditText pwdCheckEditText) {

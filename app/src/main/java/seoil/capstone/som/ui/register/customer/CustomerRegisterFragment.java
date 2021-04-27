@@ -1,6 +1,7 @@
 package seoil.capstone.som.ui.register.customer;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,15 +15,19 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import seoil.capstone.som.R;
-import seoil.capstone.som.util.ValidChecker;
+import seoil.capstone.som.data.network.OnFinishApiListener;
+import seoil.capstone.som.data.network.api.UserRestApi;
+import seoil.capstone.som.data.network.model.IdDuplicateResponse;
+import seoil.capstone.som.ui.register.ValidChecker;
 
 // TODO: 제대로된 MVP으로 만들어져 있지 않음, 추후 리팩토링 필요(presenter내에서 valid검사, id중복확인 요청은 interactor를 통해 수행)
-public class CustomerRegisterFragment extends Fragment implements CustomerRegisterContract.View, View.OnClickListener {
+public class CustomerRegisterFragment extends Fragment implements CustomerRegisterContract.View, View.OnClickListener, OnFinishApiListener<IdDuplicateResponse> {
 
     private CustomerRegisterPresenter mPresenter;
     private ValidChecker mValidChecker;
@@ -148,12 +153,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
         if (viewId == R.id.btnCRegitCheckIdDuplication) {
 
-            mIsIdValid = mValidChecker.isIdDuplicated(mEditTextId);
-
-            if (mIsIdValid) {
-
-                mBtnCheckIdDuplication.setEnabled(false);
-            }
+            mValidChecker.checkIdValid(mEditTextId, this);
         } else if (viewId == R.id.btnCRegitSendAuthorizationCode) {
 
             mTextLayoutAuthCode.setVisibility(View.VISIBLE);
@@ -231,7 +231,10 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             public void afterTextChanged(Editable s) {
 
                 mIsIdValid = false;
+                mBtnCheckIdDuplication.setBackgroundColor(Color.BLACK);
+                mBtnCheckIdDuplication.setText("중복 확인");
                 mBtnCheckIdDuplication.setEnabled(true);
+                mTextLayoutId.setEndIconMode(TextInputLayout.END_ICON_NONE);
             }
         });
 
@@ -359,5 +362,27 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
     private String editTextToString(EditText editText) {
 
         return editText.getText().toString();
+    }
+
+    @Override
+    public void onSuccess(IdDuplicateResponse idDuplicateResponse) {
+
+        if (idDuplicateResponse.getStatus() == UserRestApi.SUCCESS) {
+
+            mIsIdValid = false;
+
+            mBtnCheckIdDuplication.setEnabled(false);
+            mBtnCheckIdDuplication.setText("확인 완료");
+            mBtnCheckIdDuplication.setBackgroundColor(getResources().getColor(R.color.light_green));
+        } else if (idDuplicateResponse.getStatus() == UserRestApi.ID_DUPLICATE) {
+
+            mEditTextId.setError("중복된 아이디가 존재합니다.");
+        }
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+
+        Toast.makeText(getActivity(), "에러 발생", Toast.LENGTH_LONG).show();
     }
 }
