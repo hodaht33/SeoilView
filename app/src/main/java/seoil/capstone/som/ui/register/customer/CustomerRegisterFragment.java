@@ -322,7 +322,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             return false;
         } else {
 
-            if (!mIsIdValid) {
+            if (mIsIdValid) {
 
                 mTextViewError.setVisibility(View.VISIBLE);
                 mTextViewError.setText("중복확인을 해주세요.");
