@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,14 +33,18 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     private LoginPresenter mPresenter;
 
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+
     // resource
     private TextInputEditText mEditTextId;
     private TextInputEditText mEditTextPw;
-    private Button mBtnLogin;
-    private Button mBtnToRegit;
     private ImageView mNaverLogin;
     private ImageView mKakaoLogin;
+    private Button mBtnLogin;
+    private Button mBtnToRegit;
     private Button mBtnFindIdPwd;
+    private CheckBox mChkBoxKeepLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +53,25 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         setContentView(R.layout.activity_login);
 
         mPresenter = new LoginPresenter();
+        mPresenter.setView(this);
+        mPresenter.createInteractor();
+
+        mSharedPreferences = getSharedPreferences("keepLogin", MODE_PRIVATE);
+        mEditor = mSharedPreferences.edit();
+
+        keepLogin();
 
         mEditTextId = findViewById(R.id.editTextLoginId);
         mEditTextPw = findViewById(R.id.editTextLoginPw);
-        mBtnLogin = findViewById(R.id.btnLoginLogin);
-        mBtnToRegit = findViewById(R.id.btnLoginToRegit);
         mNaverLogin = findViewById(R.id.btnLoginNaverLogin);
         mKakaoLogin = findViewById(R.id.btnLoginKakaoLogin);
+        mBtnLogin = findViewById(R.id.btnLoginLogin);
+        mBtnToRegit = findViewById(R.id.btnLoginToRegit);
         mBtnFindIdPwd = findViewById(R.id.btnLoginFindIdPwd);
+        mChkBoxKeepLogin = findViewById(R.id.chBoxLoginKeepLogin);
 
         setImgWithGlide(R.drawable.image_naver_login, mNaverLogin);
         setImgWithGlide(R.drawable.image_kakao_login, mKakaoLogin);
-
-        mPresenter.setView(this);
-        mPresenter.createInteractor();
 
         mEditTextPw.setOnEditorActionListener(this);
         mBtnLogin.setOnClickListener(this);
@@ -157,6 +169,18 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         // finish대신 flag를 지정하여 메인 액티비티로 이동 시 스택 내 액티비티 인스턴스 모두 삭제
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
+        boolean keepLoginIsChecked = mChkBoxKeepLogin.isChecked();
+
+        // 네이버나 카톡 로그인이 아닐 경우 platform의 값은 ""
+        if (intent.getBundleExtra("data").getString("platform").isEmpty()
+            && keepLoginIsChecked) {
+
+            mEditor.putBoolean("keepLoginState", keepLoginIsChecked);
+            mEditor.putString("id", mEditTextId.getText().toString());
+            mEditor.putString("pwd", mEditTextPw.getText().toString());
+            mEditor.commit();
+        }
+
         startActivity(intent);
     }
 
@@ -216,5 +240,23 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         }
 
         return false;
+    }
+
+    private void keepLogin() {
+
+        String id = mSharedPreferences.getString("id","");
+        String pwd = mSharedPreferences.getString("pwd", "");
+
+        if (mSharedPreferences.getBoolean("keepLoginState", false)
+            && !id.isEmpty()
+            && !pwd.isEmpty()) {
+
+            mPresenter.serverLogin(
+                    id,
+                    pwd,
+                    this,
+                    null
+            );
+        }
     }
 }

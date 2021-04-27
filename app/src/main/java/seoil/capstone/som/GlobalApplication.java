@@ -1,6 +1,7 @@
 package seoil.capstone.som;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 
 import com.kakao.sdk.common.KakaoSdk;
 

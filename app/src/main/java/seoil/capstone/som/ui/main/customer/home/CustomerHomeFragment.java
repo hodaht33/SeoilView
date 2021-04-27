@@ -2,6 +2,7 @@ package seoil.capstone.som.ui.main.customer.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -83,6 +84,9 @@ public class CustomerHomeFragment extends Fragment implements CustomerHomeContra
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
+
+        SharedPreferences.Editor e = getContext().getSharedPreferences("keepLogin", Context.MODE_PRIVATE).edit();
+        e.putBoolean("keepLoginState", false).commit();
 
         startActivity(intent);
 

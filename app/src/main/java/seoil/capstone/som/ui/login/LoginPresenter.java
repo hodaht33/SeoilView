@@ -59,6 +59,15 @@ public class LoginPresenter implements LoginContract.Presenter {
                     bundle.putString("id", loginResponse.getId());
                     bundle.putInt("code", loginResponse.getCode());
 
+                    if (pwd.equals("naver")
+                        || pwd.equals("kakao")) {
+
+                        bundle.putString("platform", pwd);
+                    } else {
+
+                        bundle.putString("platform", "");
+                    }
+
                     Intent intent = new Intent();
 
                     if (statusCode == UserRestApi.SUCCESS) {
