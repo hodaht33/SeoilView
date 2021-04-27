@@ -47,6 +47,7 @@
                 android:layout_marginEnd="32dp"
                 android:text="중복 확인"
                 android:textSize="14sp"
+                android:backgroundTint="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitId"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -142,6 +143,7 @@
                 android:layout_marginEnd="32dp"
                 android:text="인증번호 전송"
                 android:textSize="14sp"
+                android:backgroundTint="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitPhoneNumber"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitEmail" />
@@ -175,6 +177,7 @@
                 android:layout_marginEnd="32dp"
                 android:text="확인"
                 android:textSize="14sp"
+                android:backgroundTint="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitAuthorizationCode"
                 app:layout_constraintTop_toBottomOf="@+id/btnMRegitSendAuthorizationCode"
@@ -210,6 +213,7 @@
                 android:layout_marginEnd="32dp"
                 android:text="확인"
                 android:textSize="14sp"
+                android:backgroundTint="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitCorporateRegistrationNumber"
                 app:layout_constraintTop_toBottomOf="@+id/btnMRegitCheckAuthorizationCode" />
@@ -283,6 +287,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
                 android:text="주소찾기"
+                android:backgroundTint="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitCategory" />
 
@@ -437,6 +442,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="회원가입 완료"
                 android:textSize="16sp"
+                android:backgroundTint="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
