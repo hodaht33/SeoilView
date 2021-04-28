@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserRestApi;
+import seoil.capstone.som.data.network.model.RegisterRequest;
 import seoil.capstone.som.data.network.model.RegisterResponse;
 import seoil.capstone.som.ui.login.LoginActivity;
 import seoil.capstone.som.ui.main.MainActivity;
@@ -48,7 +49,7 @@ public class CustomerRegisterPresenter implements CustomerRegisterContract.Prese
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                     if (platform.equals("naver")
-                    && platform.equals("kakao")) {
+                        && platform.equals("kakao")) {
 
                         intent.setComponent(new ComponentName(context, MainActivity.class));
                         intent.putExtra("id", id);
@@ -70,14 +71,6 @@ public class CustomerRegisterPresenter implements CustomerRegisterContract.Prese
             }
         };
 
-//        Log.d("CusPresenter", id);
-//        Log.d("CusPresenter", pwd);
-//        Log.d("CusPresenter", birthdate);
-//        Log.d("CusPresenter", gender);
-//        Log.d("CusPresenter", email);
-//        Log.d("CusPresenter", phoneNumber);
-//        Log.d("CusPresenter", String.valueOf(marketingAgreement));
-
-        mInteractor.register(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement, onFinishApiListener);
+        mInteractor.register(new RegisterRequest.Customer(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement), onFinishApiListener);
     }
 }

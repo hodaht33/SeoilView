@@ -107,12 +107,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         if (bundle.getString("platform").equals("naver")) {
 
 
-            /*
-            intent.putExtra("birthdate", naverLoginResponse.getBirthdate());
-                                intent.putExtra("gender", naverLoginResponse.getGender());
-                                intent.putExtra("email", naverLoginResponse.getEmail());
-                                intent.putExtra("phoneNumber", naverLoginResponse.getPhoneNumber());
-             */
         }
 
         mBtnFinish.setOnClickListener(new View.OnClickListener() {

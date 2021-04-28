@@ -15,9 +15,9 @@ public class LoginResponse {
         private String id;
         @SerializedName("code")
         @Expose
-        private int code;
+        private String code;
 
-        public SomRestLoginApi(int status, String id, int code) {
+        public SomRestLoginApi(int status, String id, String code) {
             this.status = status;
             this.id = id;
             this.code = code;
@@ -39,11 +39,11 @@ public class LoginResponse {
             this.id = id;
         }
 
-        public int getCode() {
+        public String getCode() {
             return code;
         }
 
-        public void setCode(int code) {
+        public void setCode(String code) {
             this.code = code;
         }
     }

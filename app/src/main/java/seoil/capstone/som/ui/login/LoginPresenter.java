@@ -57,7 +57,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     // 초기엔 공용 데이터인 아이디와 구분 코드 담기 위한 Bundle 생성
                     Bundle bundle = new Bundle();
                     bundle.putString("id", loginResponse.getId());
-                    bundle.putInt("code", loginResponse.getCode());
+                    bundle.putString("code", loginResponse.getCode());
 
                     if (pwd.equals("naver")
                         || pwd.equals("kakao")) {
@@ -162,7 +162,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                             if (statusCode == UserRestApi.SUCCESS) {
 
                                 intent.setComponent(new ComponentName(context, MainActivity.class));
-                                bundle.putInt("code", serverLoginResponse.getCode());
+                                bundle.putString("code", serverLoginResponse.getCode());
                                 intent.putExtra("data", bundle);
 
                                 mView.toMain(intent);

@@ -1,5 +1,6 @@
 package seoil.capstone.som.data.network;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -119,7 +120,7 @@ public class AppApiHelper {
                 ,res.getString(R.string.naver_client_name)
         );
 
-        OAuthLoginHandler oAuthLoginHandler = new OAuthLoginHandler() {
+        @SuppressLint("HandlerLeak") OAuthLoginHandler oAuthLoginHandler = new OAuthLoginHandler() {
             @Override
             public void run(boolean success) {
                 if (success) {

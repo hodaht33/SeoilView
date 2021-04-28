@@ -119,20 +119,20 @@ public class RegisterRequest {
         @SerializedName("marketingAgreement")
         @Expose
         private boolean marketingAgreement;
-        @SerializedName("corporateNumber")
+        @SerializedName("shopCode")
         @Expose
-        private String corporateNumber;
-        @SerializedName("storeName")
+        private String shopCode;
+        @SerializedName("shopName")
         @Expose
-        private String storeName;
-        @SerializedName("storeAddr")
+        private String shopName;
+        @SerializedName("shopAddress")
         @Expose
-        private String storeAddr;
-        @SerializedName("storeCategory")
+        private String shopAddress;
+        @SerializedName("shopCategory")
         @Expose
-        private String storeCategory;
+        private String shopCategory;
 
-        public Manager(String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement, String corporateNumber, String storeName, String storeAddr, String storeCategory) {
+        public Manager(String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement, String shopCode, String shopName, String shopAddress, String shopCategory) {
             this.id = id;
             this.pwd = pwd;
             this.birthdate = birthdate;
@@ -140,10 +140,10 @@ public class RegisterRequest {
             this.email = email;
             this.phoneNumber = phoneNumber;
             this.marketingAgreement = marketingAgreement;
-            this.corporateNumber = corporateNumber;
-            this.storeName = storeName;
-            this.storeAddr = storeAddr;
-            this.storeCategory = storeCategory;
+            this.shopCode = shopCode;
+            this.shopName = shopName;
+            this.shopAddress = shopAddress;
+            this.shopCategory = shopCategory;
         }
 
         public String getId() {
@@ -202,36 +202,36 @@ public class RegisterRequest {
             this.marketingAgreement = marketingAgreement;
         }
 
-        public String getCorporateNumber() {
-            return corporateNumber;
+        public String getShopCode() {
+            return shopCode;
         }
 
-        public void setCorporateNumber(String corporateNumber) {
-            this.corporateNumber = corporateNumber;
+        public void setShopCode(String shopCode) {
+            this.shopCode = shopCode;
         }
 
-        public String getStoreName() {
-            return storeName;
+        public String getShopName() {
+            return shopName;
         }
 
-        public void setStoreName(String storeName) {
-            this.storeName = storeName;
+        public void setShopName(String shopName) {
+            this.shopName = shopName;
         }
 
-        public String getStoreAddr() {
-            return storeAddr;
+        public String getShopAddress() {
+            return shopAddress;
         }
 
-        public void setStoreAddr(String storeAddr) {
-            this.storeAddr = storeAddr;
+        public void setShopAddress(String shopAddress) {
+            this.shopAddress = shopAddress;
         }
 
-        public String getStoreCategory() {
-            return storeCategory;
+        public String getShopCategory() {
+            return shopCategory;
         }
 
-        public void setStoreCategory(String storeCategory) {
-            this.storeCategory = storeCategory;
+        public void setShopCategory(String shopCategory) {
+            this.shopCategory = shopCategory;
         }
     }
 }

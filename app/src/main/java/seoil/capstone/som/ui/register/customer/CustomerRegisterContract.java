@@ -10,13 +10,14 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
+import seoil.capstone.som.data.network.model.RegisterRequest;
 import seoil.capstone.som.data.network.model.RegisterResponse;
 
 public interface CustomerRegisterContract {
 
     interface Interactor extends BaseContract.Interactor {
 
-        void register(String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement, OnFinishApiListener<RegisterResponse> onFinishApiListener);
+        void register(RegisterRequest.Customer customer, OnFinishApiListener<RegisterResponse> onFinishApiListener);
 
     }
 

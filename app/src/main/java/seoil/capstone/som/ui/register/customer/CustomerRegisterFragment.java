@@ -290,6 +290,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             if (mValidChecker.isNeededCheck(mChkBoxTermsOfUse, mChkBoxPersonalInfo, mTextViewError)) {
 
                 mBundleData.putString("pwd", "naver");
+                mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
             }
@@ -300,21 +301,15 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             if (mValidChecker.isEmailValid(mEditTextEmail)
                     && mValidChecker.isPhoneNumberValid(mEditTextPhoneNumber)
                     && mValidChecker.isBirthdateValid(mEditTextBirthdate)
-                    && mValidChecker.isGenderValid(mChkBoxMale, mChkBoxFemale, mTextViewError)) {
+                    && mValidChecker.isGenderValid(mChkBoxMale, mChkBoxFemale, mTextViewError)
+                    && mValidChecker.isNeededCheck(mChkBoxTermsOfUse, mChkBoxPersonalInfo, mTextViewError)) {
 
                 mBundleData.putString("pwd", "kakao");
                 mBundleData.putString("birthdate", editTextToString(mEditTextBirthdate));
-
-                if (mChkBoxMale.isChecked()) {
-
-                    mBundleData.putString("gender", "M");
-                } else {
-
-                    mBundleData.putString("gender", "F");
-                }
-
+                mBundleData.putString("gender", discriminateGender());
                 mBundleData.putString("email", editTextToString(mEditTextEmail));
                 mBundleData.putString("phoneNumber", mValidChecker.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
+                mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
             }
@@ -340,17 +335,10 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                 mBundleData.putString("id", editTextToString(mEditTextId));
                 mBundleData.putString("pwd", editTextToString(mEditTextPwd));
                 mBundleData.putString("birthdate", editTextToString(mEditTextBirthdate));
-
-                if (mChkBoxMale.isChecked()) {
-
-                    mBundleData.putString("gender", "M");
-                } else if (mChkBoxFemale.isChecked()) {
-
-                    mBundleData.putString("gender", "F");
-                }
-
+                mBundleData.putString("gender", discriminateGender());
                 mBundleData.putString("email", editTextToString(mEditTextEmail));
                 mBundleData.putString("phoneNumber", mValidChecker.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
+                mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
             }
@@ -362,6 +350,17 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
     private String editTextToString(EditText editText) {
 
         return editText.getText().toString();
+    }
+
+    private String discriminateGender() {
+
+        if (mChkBoxMale.isChecked()) {
+
+            return "M";
+        } else {
+
+            return "F";
+        }
     }
 
     @Override
