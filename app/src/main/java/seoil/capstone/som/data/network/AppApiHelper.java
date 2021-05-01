@@ -185,4 +185,9 @@ public class AppApiHelper {
 
         mUserRestApi.insertCustomer(registerRequest, onFinishApiListener);
     }
+
+    public void managerRegister(Register.Manager managerRequest, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
+
+        mUserRestApi.insertManager(managerRequest, onFinishApiListener);
+    }
 }

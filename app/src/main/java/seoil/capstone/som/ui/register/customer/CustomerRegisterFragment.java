@@ -113,9 +113,6 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             mBtnCheckIdDuplication.setVisibility(View.GONE);
         }
 
-        // 인증번호 관련 뷰는 없애뒀다가 인증번호 전송 버튼 눌렀을 때 나오도록 설정
-        mTextLayoutAuthCode.setVisibility(View.GONE);
-        mBtnCheckAuthCode.setVisibility(View.GONE);
 
         // 에러 관련 텍스트 뷰는 에러 출력 시에만 VISIBLE로 사용
         mTextViewError.setVisibility(View.GONE);

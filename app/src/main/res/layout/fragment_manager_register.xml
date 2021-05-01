@@ -49,7 +49,7 @@
                 android:text="중복 확인"
                 android:textSize="14sp"
                 android:backgroundTint="@color/btn_color"
-                android:textColor="@color/text_color"
+                android:textColor="@color/btn_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitId"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -150,7 +150,7 @@
                 android:text="인증번호 전송"
                 android:textSize="14sp"
                 android:backgroundTint="@color/btn_color"
-                android:textColor="@color/text_color"
+                android:textColor="@color/btn_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitPhoneNumber"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitEmail" />
@@ -161,19 +161,19 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
+                android:visibility="gone"
                 app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toStartOf="@+id/btnMRegitCheckAuthorizationCode"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitPhoneNumber"
-                tools:visibility="gone">
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitPhoneNumber">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextMRegitAuthorizationCode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/text_color"
                     android:hint="인증번호"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textColor="@color/text_color" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -183,14 +183,14 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                android:text="확인"
-                android:textSize="14sp"
                 android:backgroundTint="@color/btn_color"
-                android:textColor="@color/text_color"
+                android:text="확인"
+                android:textColor="@color/btn_text"
+                android:textSize="14sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitAuthorizationCode"
-                app:layout_constraintTop_toBottomOf="@+id/btnMRegitSendAuthorizationCode"
-                tools:visibility="gone" />
+                app:layout_constraintTop_toBottomOf="@+id/btnMRegitSendAuthorizationCode" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textLayoutMRegitCorporateRegistrationNumber"
@@ -224,7 +224,7 @@
                 android:text="확인"
                 android:textSize="14sp"
                 android:backgroundTint="@color/btn_color"
-                android:textColor="@color/text_color"
+                android:textColor="@color/btn_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutMRegitCorporateRegistrationNumber"
                 app:layout_constraintTop_toBottomOf="@+id/btnMRegitCheckAuthorizationCode" />
@@ -302,7 +302,7 @@
                 android:layout_marginEnd="32dp"
                 android:text="주소찾기"
                 android:backgroundTint="@color/btn_color"
-                android:textColor="@color/text_color"
+                android:textColor="@color/btn_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitCategory" />
 
@@ -450,6 +450,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/imgViewToPersonalInfo"
                 android:src="@drawable/image_right_arrow"/>
 
+            <TextView
+                android:id="@+id/labelMRegitError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:text="ERROR TEXT"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chBoxMRegitMarketingInfo"
+                tools:visibility="visible" />
+
             <Button
                 android:id="@+id/btnMRegitFinish"
                 android:layout_width="0dp"
@@ -461,11 +476,11 @@
                 android:text="회원가입 완료"
                 android:textSize="16sp"
                 android:backgroundTint="@color/btn_color"
-                android:textColor="@color/text_color"
+                android:textColor="@color/btn_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chBoxMRegitMarketingInfo" />
+                app:layout_constraintTop_toBottomOf="@+id/labelMRegitError" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

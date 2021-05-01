@@ -50,7 +50,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:backgroundTint="@color/btn_color"
-                android:textColor="@color/text_color"
+                android:textColor="@color/btn_text"
                 android:text="중복 확인"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -154,7 +154,7 @@
                 android:text="인증번호 전송"
                 android:textSize="14sp"
                 android:backgroundTint="@color/btn_color"
-                android:textColor="@color/text_color"
+                android:textColor="@color/btn_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutCRegitPhoneNumber"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitEmail" />
@@ -165,19 +165,19 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
+                android:visibility="gone"
                 app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toStartOf="@+id/btnCRegitCheckAuthorizationCode"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitPhoneNumber"
-                tools:visibility="visible">
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitPhoneNumber">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextCRegitAuthorizationCode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/text_color"
                     android:hint="인증번호"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textColor="@color/text_color" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -187,14 +187,14 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                android:text="확인"
-                android:textSize="14sp"
                 android:backgroundTint="@color/btn_color"
-                android:textColor="@color/text_color"
+                android:text="확인"
+                android:textColor="@color/btn_text"
+                android:textSize="14sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutCRegitAuthorizationCode"
-                app:layout_constraintTop_toBottomOf="@+id/btnCRegitSendAuthorizationCode"
-                tools:visibility="visible" />
+                app:layout_constraintTop_toBottomOf="@+id/btnCRegitSendAuthorizationCode" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textLayoutCRegitBirthdate"
@@ -322,7 +322,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
                 android:text="회원가입 완료"
-                android:textColor="@color/text_color"
+                android:textColor="@color/btn_text"
                 android:textSize="16sp"
                 android:backgroundTint="@color/btn_color"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -3,7 +3,10 @@ package seoil.capstone.som.ui.register.manager;
 import android.content.Context;
 import android.content.res.Resources;
 
-public class ManagerRegisterPresenter implements ManagerRegisterContract.Presenter {
+import seoil.capstone.som.ui.register.ValidChecker;
+import seoil.capstone.som.ui.register.ValidCheckerV2;
+
+public class ManagerRegisterPresenter extends ValidCheckerV2 implements ManagerRegisterContract.Presenter {
 
     private ManagerRegisterContract.View mView;
     private ManagerRegisterInteractor mInteractor;
@@ -26,5 +29,10 @@ public class ManagerRegisterPresenter implements ManagerRegisterContract.Present
     @Override
     public void releaseInteractor() {
         mInteractor = null;
+    }
+
+    @Override
+    public void register(Context context, String platform, String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement) {
+
     }
 }
