@@ -3,11 +3,9 @@ package seoil.capstone.som.ui.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -22,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 
 import seoil.capstone.som.R;
-import seoil.capstone.som.data.network.api.UserRestApi;
+import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.ui.find.FindActivity;
 import seoil.capstone.som.ui.register.RegisterActivity;
 import seoil.capstone.som.util.Utility;
@@ -145,13 +143,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void loginFail(int errorCode) {
-        if (errorCode == UserRestApi.LOGIN_FAIL_ID) {
+        if (errorCode == UserApi.LOGIN_FAIL_ID) {
 
             mEditTextId.setError("아이디가 존재하지 않습니다.\n다시 확인해주세요.");
             mEditTextId.requestFocus();
 
             Utility.getInstance().renderKeyboard(this);
-        } else if (errorCode == UserRestApi.LOGIN_FAIL_PWD) {
+        } else if (errorCode == UserApi.LOGIN_FAIL_PWD) {
 
             mEditTextPw.setError("비밀번호가 다릅니다.\n다시 확인해주세요.");
             mEditTextPw.requestFocus();
