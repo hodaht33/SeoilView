@@ -8,6 +8,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
 import seoil.capstone.som.data.network.model.CurrentPoint;
+import seoil.capstone.som.data.network.model.UsingPoint;
 
 public interface Point {
 
@@ -21,7 +22,7 @@ public interface Point {
 
     // 유저 추가 시 유저의 포인트 튜플 생성
     @POST("point/current-point")
-    Call<CurrentPoint.StatusRes> createPointTuple(@Body CurrentPoint.PostReq req);
+    Call<CurrentPoint.StatusRes> insertPointTuple(@Body CurrentPoint.InsertReq req);
 
     // 비밀번호 변경
     @PUT("point/current-point")
@@ -35,9 +36,15 @@ public interface Point {
     // 사용 포인트 내역 //
     //////////////////
 
-    //@GET("point/using-point")
+    @GET("point/using-point")
+    Call<UsingPoint.GetRes> getUsingPoint(@Query("id") String id);
+
+    @POST("point/using-point")
+    Call<UsingPoint.StatusRes> insertUsingPointTuple(@Body UsingPoint.InsertReq req);
 
     //////////////////
     // 적립 포인트 내역 //
     //////////////////
+
+
 }
