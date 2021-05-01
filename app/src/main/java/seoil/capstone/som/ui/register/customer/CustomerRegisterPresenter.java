@@ -6,8 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserRestApi;
-import seoil.capstone.som.data.network.model.RegisterRequest;
-import seoil.capstone.som.data.network.model.RegisterResponse;
+import seoil.capstone.som.data.network.model.Register;
 import seoil.capstone.som.ui.login.LoginActivity;
 import seoil.capstone.som.ui.main.MainActivity;
 
@@ -39,9 +38,9 @@ public class CustomerRegisterPresenter implements CustomerRegisterContract.Prese
     @Override
     public void register(Context context, String platform, String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement) {
 
-        OnFinishApiListener<RegisterResponse> onFinishApiListener = new OnFinishApiListener<RegisterResponse>() {
+        OnFinishApiListener<Register.RegisterRes> onFinishApiListener = new OnFinishApiListener<Register.RegisterRes>() {
             @Override
-            public void onSuccess(RegisterResponse registerResponse) {
+            public void onSuccess(Register.RegisterRes registerResponse) {
 
                 if (registerResponse.getStatus() == UserRestApi.SUCCESS) {
 
@@ -71,6 +70,6 @@ public class CustomerRegisterPresenter implements CustomerRegisterContract.Prese
             }
         };
 
-        mInteractor.register(new RegisterRequest.Customer(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement), onFinishApiListener);
+        mInteractor.register(new Register.Customer(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement), onFinishApiListener);
     }
 }

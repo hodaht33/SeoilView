@@ -23,8 +23,7 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.api.UserRestApi;
 import seoil.capstone.som.data.network.model.IdDuplicate;
 import seoil.capstone.som.data.network.model.Login;
-import seoil.capstone.som.data.network.model.RegisterRequest;
-import seoil.capstone.som.data.network.model.RegisterResponse;
+import seoil.capstone.som.data.network.model.Register;
 
 public class AppApiHelper {
 
@@ -182,7 +181,7 @@ public class AppApiHelper {
         mUserRestApi.checkIdDuplicate(id, onFinishApiListener);
     }
 
-    public void customerRegister(RegisterRequest.Customer registerRequest, OnFinishApiListener<RegisterResponse> onFinishApiListener) {
+    public void customerRegister(Register.Customer registerRequest, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
 
         mUserRestApi.insertCustomer(registerRequest, onFinishApiListener);
     }

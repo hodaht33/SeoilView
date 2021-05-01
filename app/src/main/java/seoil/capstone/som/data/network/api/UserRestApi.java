@@ -6,9 +6,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.model.IdDuplicate;
 import seoil.capstone.som.data.network.model.Login;
+import seoil.capstone.som.data.network.model.Register;
 import seoil.capstone.som.data.network.model.retrofit.User;
-import seoil.capstone.som.data.network.model.RegisterRequest;
-import seoil.capstone.som.data.network.model.RegisterResponse;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 
 // "https://leebera.name/api/user"에서 사용자의 정보를 모두 받아오는 api
@@ -64,36 +63,36 @@ public class UserRestApi {
         });
     }
 
-    public void insertCustomer(RegisterRequest.Customer registerRequest, OnFinishApiListener<RegisterResponse> onFinishApiListener) {
+    public void insertCustomer(Register.Customer registerRequest, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
 
-        Call<RegisterResponse> call = mUserData.insertCustomer(registerRequest);
-        call.enqueue(new Callback<RegisterResponse>() {
+        Call<Register.RegisterRes> call = mUserData.insertCustomer(registerRequest);
+        call.enqueue(new Callback<Register.RegisterRes>() {
             @Override
-            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+            public void onResponse(Call<Register.RegisterRes> call, Response<Register.RegisterRes> response) {
 
                 onFinishApiListener.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<RegisterResponse> call, Throwable t) {
+            public void onFailure(Call<Register.RegisterRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
         });
     }
 
-    public void insertManager(RegisterRequest.Manager registerRequest, OnFinishApiListener onFinishApiListener) {
+    public void insertManager(Register.Manager registerRequest, OnFinishApiListener onFinishApiListener) {
 
-        Call<RegisterResponse> call = mUserData.insertManager(registerRequest);
-        call.enqueue(new Callback<RegisterResponse>() {
+        Call<Register.RegisterRes> call = mUserData.insertManager(registerRequest);
+        call.enqueue(new Callback<Register.RegisterRes>() {
             @Override
-            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+            public void onResponse(Call<Register.RegisterRes> call, Response<Register.RegisterRes> response) {
 
                 onFinishApiListener.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<RegisterResponse> call, Throwable t) {
+            public void onFailure(Call<Register.RegisterRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

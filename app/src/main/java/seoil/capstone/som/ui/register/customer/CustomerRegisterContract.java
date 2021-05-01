@@ -2,22 +2,16 @@ package seoil.capstone.som.ui.register.customer;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Patterns;
-import android.widget.CheckBox;
-import android.widget.EditText;
-
-import com.google.android.material.textfield.TextInputEditText;
 
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.RegisterRequest;
-import seoil.capstone.som.data.network.model.RegisterResponse;
+import seoil.capstone.som.data.network.model.Register;
 
 public interface CustomerRegisterContract {
 
     interface Interactor extends BaseContract.Interactor {
 
-        void register(RegisterRequest.Customer customer, OnFinishApiListener<RegisterResponse> onFinishApiListener);
+        void register(Register.Customer customer, OnFinishApiListener<Register.RegisterRes> onFinishApiListener);
 
     }
 

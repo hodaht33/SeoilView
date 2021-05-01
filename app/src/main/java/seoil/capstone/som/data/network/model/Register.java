@@ -3,7 +3,11 @@ package seoil.capstone.som.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RegisterRequest {
+public class Register {
+
+    /////////
+    // 요청 //
+    /////////
 
     public static class Customer {
 
@@ -232,6 +236,25 @@ public class RegisterRequest {
 
         public void setShopCategory(String shopCategory) {
             this.shopCategory = shopCategory;
+        }
+    }
+
+    /////////
+    // 응답 //
+    /////////
+
+    public static class RegisterRes {
+
+        @SerializedName("status")
+        @Expose
+        private int status;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
         }
     }
 }

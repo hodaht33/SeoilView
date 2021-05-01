@@ -10,8 +10,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import seoil.capstone.som.data.network.model.IdDuplicate;
 import seoil.capstone.som.data.network.model.Login;
-import seoil.capstone.som.data.network.model.RegisterRequest;
-import seoil.capstone.som.data.network.model.RegisterResponse;
+import seoil.capstone.som.data.network.model.Register;
 
 public interface User {
 
@@ -27,10 +26,10 @@ public interface User {
 
     // 유저 추가
     @POST("user/info/customer")
-    Call<RegisterResponse> insertCustomer(@Body RegisterRequest.Customer request);
+    Call<Register.RegisterRes> insertCustomer(@Body Register.Customer request);
 
     @POST("user/info/manager")
-    Call<RegisterResponse> insertManager(@Body RegisterRequest.Manager request);
+    Call<Register.RegisterRes> insertManager(@Body Register.Manager request);
 
     // 비밀번호 변경
     @PUT("user/info/{id}")
