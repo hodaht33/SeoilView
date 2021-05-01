@@ -5,9 +5,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.model.IdDuplicate;
+import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.retrofit.User;
-import seoil.capstone.som.data.network.model.LoginRequest;
-import seoil.capstone.som.data.network.model.LoginResponse;
 import seoil.capstone.som.data.network.model.RegisterRequest;
 import seoil.capstone.som.data.network.model.RegisterResponse;
 import seoil.capstone.som.data.network.OnFinishApiListener;
@@ -29,18 +28,18 @@ public class UserRestApi {
         mUserData = retrofit.create(User.class);
     }
 
-    public void login(LoginRequest loginRequest, OnFinishApiListener onFinishApiListener) {
+    public void login(Login.LoginReq loginRequest, OnFinishApiListener onFinishApiListener) {
 
-        Call<LoginResponse.SomRestLoginApi> call = mUserData.getLoginData(loginRequest.getId(), loginRequest.getPwd());
-        call.enqueue(new Callback<LoginResponse.SomRestLoginApi>() {
+        Call<Login.LoginRes> call = mUserData.getLoginData(loginRequest.getId(), loginRequest.getPwd());
+        call.enqueue(new Callback<Login.LoginRes>() {
             @Override
-            public void onResponse(Call<LoginResponse.SomRestLoginApi> call, Response<LoginResponse.SomRestLoginApi> response) {
+            public void onResponse(Call<Login.LoginRes> call, Response<Login.LoginRes> response) {
 
                 onFinishApiListener.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<LoginResponse.SomRestLoginApi> call, Throwable t) {
+            public void onFailure(Call<Login.LoginRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

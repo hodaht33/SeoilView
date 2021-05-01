@@ -4,19 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 
-import com.nhn.android.naverlogin.OAuthLogin;
-
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.LoginResponse;
+import seoil.capstone.som.data.network.model.Login;
 
 public interface LoginContract {
 
     interface Interactor {
 
-        void serverLogin(String id, String pwd, OnFinishApiListener<LoginResponse.SomRestLoginApi> onFinishApiListener);
-        void kakaoLogin(Context context, OnFinishApiListener<LoginResponse.KakaoLoginApi> onFinishApiListener);
-        void naverLogin(Context context, Resources resources, OnFinishApiListener<LoginResponse.NaverLoginApi> onFinishApiListener);
+        void serverLogin(String id, String pwd, OnFinishApiListener<Login.LoginRes> onFinishApiListener);
+        void kakaoLogin(Context context, OnFinishApiListener<Login.KakaoLoginRes> onFinishApiListener);
+        void naverLogin(Context context, Resources resources, OnFinishApiListener<Login.NaverLoginRes> onFinishApiListener);
     }
 
     interface View extends BaseContract.View {

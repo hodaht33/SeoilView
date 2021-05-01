@@ -3,9 +3,48 @@ package seoil.capstone.som.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LoginResponse {
+public class Login {
 
-    public static class SomRestLoginApi {
+    /////////
+    // 요청 //
+    /////////
+
+    public static class LoginReq {
+
+        @SerializedName("id")
+        @Expose
+        private String id;
+        @SerializedName("pwd")
+        @Expose
+        private String pwd;
+
+        public LoginReq(String id, String pwd) {
+            this.id = id;
+            this.pwd = pwd;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getPwd() {
+            return pwd;
+        }
+
+        public void setPwd(String pwd) {
+            this.pwd = pwd;
+        }
+    }
+
+    /////////
+    // 응답 //
+    /////////
+
+    public static class LoginRes {
 
         @SerializedName("status")
         @Expose
@@ -17,7 +56,7 @@ public class LoginResponse {
         @Expose
         private String code;
 
-        public SomRestLoginApi(int status, String id, String code) {
+        public LoginRes(int status, String id, String code) {
             this.status = status;
             this.id = id;
             this.code = code;
@@ -48,11 +87,11 @@ public class LoginResponse {
         }
     }
 
-    public static class KakaoLoginApi {
+    public static class KakaoLoginRes {
 
         private String id;
 
-        public KakaoLoginApi(String id) {
+        public KakaoLoginRes(String id) {
             this.id = id;
         }
 
@@ -65,7 +104,7 @@ public class LoginResponse {
         }
     }
 
-    public static class NaverLoginApi {
+    public static class NaverLoginRes {
 
         private String id;
         private String birthdate;
@@ -73,7 +112,7 @@ public class LoginResponse {
         private String email;
         private String phoneNumber;
 
-        public NaverLoginApi(String id, String birthdate, String gender, String email, String phoneNumber) {
+        public NaverLoginRes(String id, String birthdate, String gender, String email, String phoneNumber) {
             this.id = id;
             this.birthdate = birthdate;
             this.gender = gender;

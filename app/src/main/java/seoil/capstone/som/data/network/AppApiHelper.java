@@ -22,8 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.api.UserRestApi;
 import seoil.capstone.som.data.network.model.IdDuplicate;
-import seoil.capstone.som.data.network.model.LoginRequest;
-import seoil.capstone.som.data.network.model.LoginResponse;
+import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.RegisterRequest;
 import seoil.capstone.som.data.network.model.RegisterResponse;
 
@@ -55,12 +54,12 @@ public class AppApiHelper {
         return mAppApiHelper;
     }
 
-    public void serverLogin(LoginRequest loginRequest, OnFinishApiListener<LoginResponse.SomRestLoginApi> onFinishApiListener) {
+    public void serverLogin(Login.LoginReq loginReq, OnFinishApiListener<Login.LoginRes> onFinishApiListener) {
 
-        mUserRestApi.login(loginRequest, onFinishApiListener);
+        mUserRestApi.login(loginReq, onFinishApiListener);
     }
 
-    public void kakaoLogin(Context context, OnFinishApiListener<LoginResponse.KakaoLoginApi> onFinishApiListener) {
+    public void kakaoLogin(Context context, OnFinishApiListener<Login.KakaoLoginRes> onFinishApiListener) {
 
         // 카카오 로그인 콜백 함수 정의
         Function2<OAuthToken, Throwable, Unit> callback = new Function2<OAuthToken, Throwable, Unit>() {
@@ -80,7 +79,7 @@ public class AppApiHelper {
                             // 카카오 유저가 정상적으로 있을 경우
                             if (user != null) {
 
-                                onFinishApiListener.onSuccess(new LoginResponse.KakaoLoginApi(String.valueOf(user.getId())));
+                                onFinishApiListener.onSuccess(new Login.KakaoLoginRes(String.valueOf(user.getId())));
                             }
 
                             return null;
@@ -110,7 +109,7 @@ public class AppApiHelper {
         }
     }
 
-    public void naverLogin(Context context, Resources res, OnFinishApiListener<LoginResponse.NaverLoginApi> onFinishApiListener) {
+    public void naverLogin(Context context, Resources res, OnFinishApiListener<Login.NaverLoginRes> onFinishApiListener) {
 
         OAuthLogin oAuthLogin = OAuthLogin.getInstance();
         oAuthLogin.init(
@@ -143,7 +142,7 @@ public class AppApiHelper {
                                     gender = "M";
                                 }
 
-                                onFinishApiListener.onSuccess(new LoginResponse.NaverLoginApi(
+                                onFinishApiListener.onSuccess(new Login.NaverLoginRes(
                                         jsonResult.getString("id"),
                                         jsonResult.getString("birthyear") + jsonResult.getString("birthday").replace("-", ""),
                                         gender,

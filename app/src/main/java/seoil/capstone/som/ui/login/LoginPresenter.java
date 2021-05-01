@@ -7,11 +7,9 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.nhn.android.naverlogin.OAuthLogin;
-
 import seoil.capstone.som.data.network.api.UserRestApi;
-import seoil.capstone.som.data.network.model.LoginResponse;
 import seoil.capstone.som.data.network.OnFinishApiListener;
+import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.ui.main.MainActivity;
 import seoil.capstone.som.ui.register.RegisterActivity;
 
@@ -44,13 +42,13 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void serverLogin(String id, String pwd, Context context, OnFinishApiListener onFinishApiListener) {
 
-        OnFinishApiListener<LoginResponse.SomRestLoginApi> callback;
+        OnFinishApiListener<Login.LoginRes> callback;
 
         if (onFinishApiListener == null) {
 
-            callback = new OnFinishApiListener<LoginResponse.SomRestLoginApi>() {
+            callback = new OnFinishApiListener<Login.LoginRes>() {
                 @Override
-                public void onSuccess(LoginResponse.SomRestLoginApi loginResponse) {
+                public void onSuccess(Login.LoginRes loginResponse) {
 
                     int statusCode = loginResponse.getStatus();
 
@@ -111,9 +109,9 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void kakaoLogin(Context context) {
 
-        OnFinishApiListener<LoginResponse.KakaoLoginApi> callback = new OnFinishApiListener<LoginResponse.KakaoLoginApi>() {
+        OnFinishApiListener<Login.KakaoLoginRes> callback = new OnFinishApiListener<Login.KakaoLoginRes>() {
             @Override
-            public void onSuccess(LoginResponse.KakaoLoginApi loginResponse) {
+            public void onSuccess(Login.KakaoLoginRes loginResponse) {
 
                 // 카카오 아이디가 null이 아니면 성공한 것이므로 som rest api로 서버에 보내 사용자인지 검사
                 String kakaoId = loginResponse.getId();
@@ -137,18 +135,18 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void naverLogin(Context context, Resources resources) {
 
-        OnFinishApiListener<LoginResponse.NaverLoginApi> callback = new OnFinishApiListener<LoginResponse.NaverLoginApi>() {
+        OnFinishApiListener<Login.NaverLoginRes> callback = new OnFinishApiListener<Login.NaverLoginRes>() {
             @Override
-            public void onSuccess(LoginResponse.NaverLoginApi naverLoginResponse) {
+            public void onSuccess(Login.NaverLoginRes naverLoginResponse) {
 
                 // 네이버 아이디가 있으면 네이버 로그인 성공이므로 som rest api로 서버에 보내 사용자인지 검사
                 String naverId = naverLoginResponse.getId();
                 if (naverId != null) {
 
                     Log.d(TAG, "naverSuccess");
-                    serverLogin(naverId, "naver", context, new OnFinishApiListener<LoginResponse.SomRestLoginApi>() {
+                    serverLogin(naverId, "naver", context, new OnFinishApiListener<Login.LoginRes>() {
                         @Override
-                        public void onSuccess(LoginResponse.SomRestLoginApi serverLoginResponse) {
+                        public void onSuccess(Login.LoginRes serverLoginResponse) {
 
                             Log.d(TAG,"serverSuccess");
                             int statusCode = serverLoginResponse.getStatus();

@@ -4,17 +4,15 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import seoil.capstone.som.data.network.AppApiHelper;
-import seoil.capstone.som.data.network.model.LoginRequest;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.api.UserRestApi;
-import seoil.capstone.som.data.network.model.LoginResponse;
+import seoil.capstone.som.data.network.model.Login;
 
 public class LoginInteractor implements LoginContract.Interactor {
 
     @Override
     public void serverLogin(String id, String pwd, OnFinishApiListener onFinishApiListener) {
 
-        AppApiHelper.getInstance().serverLogin(new LoginRequest(id, pwd), onFinishApiListener);//.get(onFinishApiListener, new LoginRequest(id, pwd));
+        AppApiHelper.getInstance().serverLogin(new Login.LoginReq(id, pwd), onFinishApiListener);//.get(onFinishApiListener, new LoginRequest(id, pwd));
     }
 
     @Override

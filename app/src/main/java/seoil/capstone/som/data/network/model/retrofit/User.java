@@ -9,7 +9,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import seoil.capstone.som.data.network.model.IdDuplicate;
-import seoil.capstone.som.data.network.model.LoginResponse;
+import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.RegisterRequest;
 import seoil.capstone.som.data.network.model.RegisterResponse;
 
@@ -19,7 +19,7 @@ public interface User {
     // GET은 body가 없어 @Body사용 불가
     // 특정 유저의 정보 가져오기
     @GET("user/info")
-    Call<LoginResponse.SomRestLoginApi> getLoginData(@Query("id") String id, @Query("pwd") String pwd);
+    Call<Login.LoginRes> getLoginData(@Query("id") String id, @Query("pwd") String pwd);
 
     // 아이디 중복 확인
     @GET("user/info/id")
