@@ -45,18 +45,18 @@ public class UserRestApi {
         });
     }
 
-    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate> onFinishApiListener) {
+    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate.statusRes> onFinishApiListener) {
 
-        Call<IdDuplicate> call = mUserData.checkIdDuplicate(id);
-        call.enqueue(new Callback<IdDuplicate>() {
+        Call<IdDuplicate.statusRes> call = mUserData.checkIdDuplicate(id);
+        call.enqueue(new Callback<IdDuplicate.statusRes>() {
             @Override
-            public void onResponse(Call<IdDuplicate> call, Response<IdDuplicate> response) {
+            public void onResponse(Call<IdDuplicate.statusRes> call, Response<IdDuplicate.statusRes> response) {
 
                 onFinishApiListener.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<IdDuplicate> call, Throwable t) {
+            public void onFailure(Call<IdDuplicate.statusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

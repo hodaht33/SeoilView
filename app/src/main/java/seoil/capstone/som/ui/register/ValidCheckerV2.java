@@ -51,17 +51,11 @@ public class ValidCheckerV2 {
 
         if (id.isEmpty()) {
 
-            Utility.getInstance().renderKeyboard(mActivity);
-
             return ID_EMPTY;
         } else if (id.length() < 3) {
 
-            Utility.getInstance().renderKeyboard(mActivity);
-
             return ID_SHORT;
         } else if (id.length() > 20) {
-
-            Utility.getInstance().renderKeyboard(mActivity);
 
             return ID_LONG;
         }
@@ -82,20 +76,12 @@ public class ValidCheckerV2 {
 
         if (pwdText.isEmpty()) {
 
-            Utility.getInstance().renderKeyboard(mActivity);
-
             return PWD_EMPTY;
         } else if (pwdCheckText.isEmpty()) {
-
-
-            Utility.getInstance().renderKeyboard(mActivity);
 
             return PWD_CHECK_EMPTY;
         }
         if (!pwdText.equals(pwdCheckText)) {
-
-
-            Utility.getInstance().renderKeyboard(mActivity);
 
             return PWD_CHECK_NOT_EQUAL;
         }
@@ -107,12 +93,8 @@ public class ValidCheckerV2 {
 
         if (emailText.isEmpty()) {
 
-            Utility.getInstance().renderKeyboard(mActivity);
-
             return EMAIL_EMPTY;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
-
-            Utility.getInstance().renderKeyboard(mActivity);
 
             return EMAIL_NOT_VALID;
         }
@@ -131,17 +113,11 @@ public class ValidCheckerV2 {
 
         if (phoneNumberText.isEmpty()) {
 
-            Utility.getInstance().renderKeyboard(mActivity);
-
             return PHONE_EMPTY;
         } else if (phoneNumberText.length() != 11) {
 
-            Utility.getInstance().renderKeyboard(mActivity);
-
             return PHONE_LENGTH_ERROR;
         } else if (!phoneNumberText.matches("^\\d*$")) {    // 숫자가 아닌 문자가 하나라도 있으면
-
-            Utility.getInstance().renderKeyboard(mActivity);
 
             return PHONE_ERROR_OTHER_CHAR;
         }
@@ -154,17 +130,11 @@ public class ValidCheckerV2 {
 
         if (birthdateText.isEmpty()) {
 
-            Utility.getInstance().renderKeyboard(mActivity);
-
             return BIRTH_EMPTY;
         } else if (!birthdateText.matches("^\\d*$")) {  // 숫자 0~9가 아닌 문자가 없을 수도 무한정 많을 수도 있음
 
-            Utility.getInstance().renderKeyboard(mActivity);
-
             return BIRTH_ERROR_OTHER_CHAR;
         } else if (birthdateText.length() != 8) {
-
-            Utility.getInstance().renderKeyboard(mActivity);
 
             return BIRTH_ERROR_LENTGTH;
         }

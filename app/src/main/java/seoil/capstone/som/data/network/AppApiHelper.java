@@ -176,7 +176,7 @@ public class AppApiHelper {
         oAuthLogin.startOauthLoginActivity((Activity) context, oAuthLoginHandler);
     }
 
-    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate> onFinishApiListener) {
+    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate.statusRes> onFinishApiListener) {
 
         mUserRestApi.checkIdDuplicate(id, onFinishApiListener);
     }

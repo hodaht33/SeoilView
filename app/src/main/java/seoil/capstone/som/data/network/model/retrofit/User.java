@@ -22,7 +22,7 @@ public interface User {
 
     // 아이디 중복 확인
     @GET("user/info/id")
-    Call<IdDuplicate> checkIdDuplicate(@Query("id") String id);
+    Call<IdDuplicate.statusRes> checkIdDuplicate(@Query("id") String id);
 
     // 유저 추가
     @POST("user/info/customer")
