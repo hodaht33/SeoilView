@@ -27,7 +27,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toStartOf="@+id/btnCRegitCheckIdDuplication"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -38,6 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="아이디"
+                    android:textColor="@color/text_color"
                     android:inputType="textPersonName" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -48,7 +49,8 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/btn_color"
+                android:textColor="@color/text_color"
                 android:text="중복 확인"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +64,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitId">
@@ -71,6 +73,7 @@
                     android:id="@+id/editTextCRegitPw"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="비밀번호"
                     android:inputType="textPassword" />
 
@@ -83,7 +86,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitPw">
@@ -92,6 +95,7 @@
                     android:id="@+id/editTextCRegitCheckPw"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="비밀번호 확인"
                     android:inputType="textPassword" />
 
@@ -104,7 +108,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitCheckPw">
@@ -113,6 +117,7 @@
                     android:id="@+id/editTextCRegitEmail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="이메일"
                     android:inputType="textEmailAddress" />
 
@@ -124,7 +129,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toStartOf="@+id/btnCRegitSendAuthorizationCode"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitEmail">
@@ -133,6 +138,7 @@
                     android:id="@+id/editTextCRegitPhoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="전화번호 ('-' 제외)"
                     android:inputType="textPersonName" />
 
@@ -147,7 +153,8 @@
                 android:layout_marginEnd="32dp"
                 android:text="인증번호 전송"
                 android:textSize="14sp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/btn_color"
+                android:textColor="@color/text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutCRegitPhoneNumber"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitEmail" />
@@ -158,7 +165,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toStartOf="@+id/btnCRegitCheckAuthorizationCode"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitPhoneNumber"
@@ -168,6 +175,7 @@
                     android:id="@+id/editTextCRegitAuthorizationCode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="인증번호"
                     android:inputType="textPersonName" />
 
@@ -181,7 +189,8 @@
                 android:layout_marginEnd="32dp"
                 android:text="확인"
                 android:textSize="14sp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/btn_color"
+                android:textColor="@color/text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textLayoutCRegitAuthorizationCode"
                 app:layout_constraintTop_toBottomOf="@+id/btnCRegitSendAuthorizationCode"
@@ -193,7 +202,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
-                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toStartOf="@+id/chBoxCRegitFemale"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textLayoutCRegitAuthorizationCode">
@@ -202,6 +211,7 @@
                     android:id="@+id/editTextCRegitBirthdate"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColor="@color/text_color"
                     android:hint="생년월일 (8자리 입력)"
                     android:inputType="textPersonName" />
 
@@ -312,8 +322,9 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
                 android:text="회원가입 완료"
+                android:textColor="@color/text_color"
                 android:textSize="16sp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/btn_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
