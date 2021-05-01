@@ -6,8 +6,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.CurrentPoint;
-import seoil.capstone.som.data.network.model.CurrentPointRequest;
-import seoil.capstone.som.data.network.model.CurrentPointResponse;
 import seoil.capstone.som.data.network.model.retrofit.Point;
 
 public class PointRestApi {

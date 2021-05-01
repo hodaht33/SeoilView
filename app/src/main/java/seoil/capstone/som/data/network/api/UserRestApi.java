@@ -4,7 +4,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import seoil.capstone.som.data.network.model.IdDuplicateResponse;
+import seoil.capstone.som.data.network.model.IdDuplicate;
 import seoil.capstone.som.data.network.model.retrofit.User;
 import seoil.capstone.som.data.network.model.LoginRequest;
 import seoil.capstone.som.data.network.model.LoginResponse;
@@ -47,18 +47,18 @@ public class UserRestApi {
         });
     }
 
-    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicateResponse> onFinishApiListener) {
+    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate> onFinishApiListener) {
 
-        Call<IdDuplicateResponse> call = mUserData.checkIdDuplicate(id);
-        call.enqueue(new Callback<IdDuplicateResponse>() {
+        Call<IdDuplicate> call = mUserData.checkIdDuplicate(id);
+        call.enqueue(new Callback<IdDuplicate>() {
             @Override
-            public void onResponse(Call<IdDuplicateResponse> call, Response<IdDuplicateResponse> response) {
+            public void onResponse(Call<IdDuplicate> call, Response<IdDuplicate> response) {
 
                 onFinishApiListener.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<IdDuplicateResponse> call, Throwable t) {
+            public void onFailure(Call<IdDuplicate> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

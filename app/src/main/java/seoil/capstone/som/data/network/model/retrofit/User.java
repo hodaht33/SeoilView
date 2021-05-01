@@ -3,14 +3,12 @@ package seoil.capstone.som.data.network.model.retrofit;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import seoil.capstone.som.data.network.model.IdDuplicateResponse;
+import seoil.capstone.som.data.network.model.IdDuplicate;
 import seoil.capstone.som.data.network.model.LoginResponse;
 import seoil.capstone.som.data.network.model.RegisterRequest;
 import seoil.capstone.som.data.network.model.RegisterResponse;
@@ -25,7 +23,7 @@ public interface User {
 
     // 아이디 중복 확인
     @GET("user/info/id")
-    Call<IdDuplicateResponse> checkIdDuplicate(@Query("id") String id);
+    Call<IdDuplicate> checkIdDuplicate(@Query("id") String id);
 
     // 유저 추가
     @POST("user/info/customer")

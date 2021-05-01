@@ -11,8 +11,6 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.api.UserRestApi;
-import seoil.capstone.som.data.network.model.IdDuplicateResponse;
 import seoil.capstone.som.util.Utility;
 
 public class ValidChecker {

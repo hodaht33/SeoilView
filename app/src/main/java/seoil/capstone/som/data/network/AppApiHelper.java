@@ -21,7 +21,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.api.UserRestApi;
-import seoil.capstone.som.data.network.model.IdDuplicateResponse;
+import seoil.capstone.som.data.network.model.IdDuplicate;
 import seoil.capstone.som.data.network.model.LoginRequest;
 import seoil.capstone.som.data.network.model.LoginResponse;
 import seoil.capstone.som.data.network.model.RegisterRequest;
@@ -178,7 +178,7 @@ public class AppApiHelper {
         oAuthLogin.startOauthLoginActivity((Activity) context, oAuthLoginHandler);
     }
 
-    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicateResponse> onFinishApiListener) {
+    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate> onFinishApiListener) {
 
         mUserRestApi.checkIdDuplicate(id, onFinishApiListener);
     }

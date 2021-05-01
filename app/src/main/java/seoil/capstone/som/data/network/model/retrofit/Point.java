@@ -8,8 +8,6 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
 import seoil.capstone.som.data.network.model.CurrentPoint;
-import seoil.capstone.som.data.network.model.CurrentPointRequest;
-import seoil.capstone.som.data.network.model.CurrentPointResponse;
 
 public interface Point {
 
