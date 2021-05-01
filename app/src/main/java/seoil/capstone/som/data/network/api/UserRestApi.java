@@ -4,9 +4,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import seoil.capstone.som.data.db.model.User;
 import seoil.capstone.som.data.network.model.IdDuplicateResponse;
-import seoil.capstone.som.data.network.uri.UserUri;
+import seoil.capstone.som.data.network.model.retrofit.User;
 import seoil.capstone.som.data.network.model.LoginRequest;
 import seoil.capstone.som.data.network.model.LoginResponse;
 import seoil.capstone.som.data.network.model.RegisterRequest;
@@ -23,11 +22,11 @@ public class UserRestApi {
     public static final int NEW_USER = 4;   // 카카오나 네이버로 로그인 시 새로운 회원이면 이에 맞는 처리 수행
     public static final int ID_DUPLICATE = 5;
 
-    private UserUri mUserData;
+    private User mUserData;
 
     public UserRestApi(Retrofit retrofit) {
 
-        mUserData = retrofit.create(UserUri.class);
+        mUserData = retrofit.create(User.class);
     }
 
     public void login(LoginRequest loginRequest, OnFinishApiListener onFinishApiListener) {
@@ -111,12 +110,10 @@ public class UserRestApi {
         // TODO: call.enqueue(new Callback<ChangePwdResponse>() {});
     }
 
-    public void delete(Object key) {
+    public void delete() {
 
-        if (key instanceof User) {
+        // TODO: Call<DeleteResponse> call = mUserData.deleteUser(deleteRequest.getId());
+        // TODO: call.enqueue(new Callback<DeleteResponse>() {});
 
-            // TODO: Call<DeleteResponse> call = mUserData.deleteUser(deleteRequest.getId());
-            // TODO: call.enqueue(new Callback<DeleteResponse>() {});
-        }
     }
 }

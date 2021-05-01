@@ -5,11 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class CurrentPointResponse {
 
-    public static final int SUCCESS = 0;
-    public static final int ERROR = 1;
-    public static final int ERROR_UNDEFINED_DATA = 2;
-    public static final int ERROR_NOT_ENOUGH = 3;
-
     public static class GetRes {
 
         @SerializedName("status")
