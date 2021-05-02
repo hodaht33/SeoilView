@@ -24,7 +24,6 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserRestApi;
 import seoil.capstone.som.data.network.model.IdDuplicate;
-import seoil.capstone.som.ui.register.ValidChecker;
 import seoil.capstone.som.util.Utility;
 
 // TODO: 제대로된 MVP으로 만들어져 있지 않음, 추후 리팩토링 필요(presenter내에서 valid검사, id중복확인 요청은 interactor를 통해 수행)
