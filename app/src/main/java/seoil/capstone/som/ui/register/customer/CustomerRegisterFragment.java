@@ -25,12 +25,12 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserRestApi;
 import seoil.capstone.som.data.network.model.IdDuplicate;
 import seoil.capstone.som.ui.register.ValidChecker;
+import seoil.capstone.som.util.Utility;
 
 // TODO: 제대로된 MVP으로 만들어져 있지 않음, 추후 리팩토링 필요(presenter내에서 valid검사, id중복확인 요청은 interactor를 통해 수행)
 public class CustomerRegisterFragment extends Fragment implements CustomerRegisterContract.View, View.OnClickListener, OnFinishApiListener<IdDuplicate.statusRes> {
 
     private CustomerRegisterPresenter mPresenter;
-    private ValidChecker mValidChecker;
     private TextInputEditText mEditTextId;
     private TextInputEditText mEditTextPwd;
     private TextInputEditText mEditTextCheckPwd;
@@ -70,8 +70,6 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         mPresenter = new CustomerRegisterPresenter();
         mPresenter.setView(this);
         mPresenter.createInteractor();
-
-        mValidChecker = new ValidChecker(getActivity());
     }
 
     @Override
@@ -124,8 +122,6 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
     public void onDestroy() {
 
         mBundleData = null;
-        mValidChecker.releaseActivity();
-        mValidChecker = null;
         mPresenter.releaseInteractor();
         mPresenter.releaseView();
         mPresenter = null;
@@ -150,7 +146,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
         if (viewId == R.id.btnCRegitCheckIdDuplication) {
 
-            mValidChecker.checkIdValid(mEditTextId, this);
+            mIsIdValid = mPresenter.checkIdValid(mEditTextId.getText().toString(), this);
         } else if (viewId == R.id.btnCRegitSendAuthorizationCode) {
 
             mTextLayoutAuthCode.setVisibility(View.VISIBLE);
@@ -282,30 +278,102 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
     private boolean checkValidAndPutData(String platform) {
 
+        int emailCode, phoneNumberCode, birthDateCode, neededCheckCode, idCode, pwCode, genderCode;
+
+        neededCheckCode = mPresenter.neededCheck(mChkBoxTermsOfUse.isChecked(), mChkBoxPersonalInfo.isChecked());
+
         if (platform.equals("naver")) {
 
-            if (mValidChecker.isNeededCheck(mChkBoxTermsOfUse, mChkBoxPersonalInfo, mTextViewError)) {
+            if (neededCheckCode != mPresenter.NEEDED_VALID) {
 
                 mBundleData.putString("pwd", "naver");
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
+            } else if (neededCheckCode == mPresenter.TERMS_OF_USE_NEEDED) {
+
+                mTextViewError.setVisibility(View.VISIBLE);
+                mTextViewError.setText("이용약관 동의가 필요합니다.");
+            } else if (neededCheckCode == mPresenter.PERSONAL_INFO_NEEDED) {
+
+                mTextViewError.setVisibility(View.VISIBLE);
+                mTextViewError.setText("개인정보 취급방침 동의가 필요합니다.");
             }
 
             return false;
         } else if (platform.equals("kakao")) {
 
-            if (mValidChecker.isEmailValid(mEditTextEmail)
-                    && mValidChecker.isPhoneNumberValid(mEditTextPhoneNumber)
-                    && mValidChecker.isBirthdateValid(mEditTextBirthdate)
-                    && mValidChecker.isGenderValid(mChkBoxMale, mChkBoxFemale, mTextViewError)
-                    && mValidChecker.isNeededCheck(mChkBoxTermsOfUse, mChkBoxPersonalInfo, mTextViewError)) {
+            emailCode = mPresenter.emailValid(mEditTextEmail.getText().toString());
+            phoneNumberCode = mPresenter.phoneNumberValid(mEditTextPhoneNumber.getText().toString());
+            birthDateCode = mPresenter.birthdateValid(mEditTextBirthdate.getText().toString());
+
+            if(emailCode != mPresenter.EMAIL_VALID) {
+
+                if (emailCode == mPresenter.EMAIL_EMPTY) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextEmail.setError("이메일을 입력해주세요.");
+                    mEditTextEmail.requestFocus();
+                } else if (emailCode == mPresenter.EMAIL_NOT_VALID) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextEmail.setError("올바른 이메일을 입력해주세요.");
+                    mEditTextEmail.requestFocus();
+                }
+            } else if (phoneNumberCode != mPresenter.PHONE_VALID) {
+
+                if (phoneNumberCode == mPresenter.PHONE_EMPTY) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPhoneNumber.setError("핸드폰 번호를 입력해주세요.");
+                    mEditTextPhoneNumber.requestFocus();
+                } else if (phoneNumberCode == mPresenter.PHONE_ERROR_OTHER_CHAR) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPhoneNumber.setError("숫자만 입력해주세요. (ex : 19500101)");
+                    mEditTextPhoneNumber.requestFocus();
+                } else if (phoneNumberCode == mPresenter.PHONE_LENGTH_ERROR) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPhoneNumber.setError("핸드폰 번호가 맞는지 확인해주세요.(010xxxxxxxx)");
+                    mEditTextPhoneNumber.requestFocus();
+                }
+            } else if (birthDateCode != mPresenter.BIRTH_VALID) {
+
+                if (birthDateCode == mPresenter.BIRTH_EMPTY) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextBirthdate.setError("생년월일을 입력해주세요.");
+                    mEditTextBirthdate.requestFocus();
+                } else if (birthDateCode == mPresenter.BIRTH_ERROR_LENTGTH) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextBirthdate.setError("8자리를 입력해주세요. (ex : 19500101)");
+                    mEditTextBirthdate.requestFocus();
+                } else if (birthDateCode == mPresenter.BIRTH_ERROR_OTHER_CHAR) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextBirthdate.setError("숫자만 입력해주세요. (ex : 19500101)");
+                    mEditTextBirthdate.requestFocus();
+                }
+            } else if (neededCheckCode != mPresenter.NEEDED_VALID) {
+
+                if (neededCheckCode == mPresenter.TERMS_OF_USE_NEEDED) {
+
+                    mTextViewError.setVisibility(View.VISIBLE);
+                    mTextViewError.setText("이용약관 동의가 필요합니다.");
+                } else if (neededCheckCode == mPresenter.PERSONAL_INFO_NEEDED) {
+
+                    mTextViewError.setVisibility(View.VISIBLE);
+                    mTextViewError.setText("개인정보 취급방침 동의가 필요합니다.");
+                }
+            } else {
 
                 mBundleData.putString("pwd", "kakao");
                 mBundleData.putString("birthdate", editTextToString(mEditTextBirthdate));
                 mBundleData.putString("gender", discriminateGender());
                 mBundleData.putString("email", editTextToString(mEditTextEmail));
-                mBundleData.putString("phoneNumber", mValidChecker.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
+                mBundleData.putString("phoneNumber", mPresenter.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
@@ -314,6 +382,13 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             return false;
         } else {
 
+            idCode = mPresenter.idValid(mEditTextId.getText().toString());
+            pwCode = mPresenter.pwdValid(mEditTextPwd.getText().toString(), mEditTextCheckPwd.getText().toString());
+            emailCode = mPresenter.emailValid(mEditTextEmail.getText().toString());
+            phoneNumberCode = mPresenter.phoneNumberValid(mEditTextPhoneNumber.getText().toString());
+            genderCode = mPresenter.genderValid(mChkBoxMale.isChecked(), mChkBoxFemale.isChecked());
+            birthDateCode = mPresenter.birthdateValid(mEditTextBirthdate.getText().toString());
+
             if (mIsIdValid) {
 
                 mTextViewError.setVisibility(View.VISIBLE);
@@ -321,24 +396,124 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
                 return false;
             }
+            if (idCode != mPresenter.ID_VALID) {
 
-            if ( mValidChecker.isPwdValid(mEditTextPwd, mEditTextCheckPwd)
-                    && mValidChecker.isEmailValid(mEditTextEmail)
-                    && mValidChecker.isPhoneNumberValid(mEditTextPhoneNumber)
-                    && mValidChecker.isBirthdateValid(mEditTextBirthdate)
-                    && mValidChecker.isGenderValid(mChkBoxMale, mChkBoxFemale, mTextViewError)
-                    && mValidChecker.isNeededCheck(mChkBoxTermsOfUse, mChkBoxPersonalInfo, mTextViewError)) {
+                if(idCode == mPresenter.ID_EMPTY) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextId.setError("아이디를 입력해주세요.");
+                    mEditTextId.requestFocus();
+                } else if (idCode == mPresenter.ID_SHORT) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextId.setError("아이디가 너무 짧습니다. 3자 이상 입력해주세요.");
+                    mEditTextId.requestFocus();
+                } else if (idCode == mPresenter.ID_LONG) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextId.setError("아이디가 너무 깁니다. 20자 이하로 입력해주세요.");
+                    mEditTextId.requestFocus();
+                }
+            } else if (pwCode != mPresenter.PWD_VALID) {
+
+                if (pwCode == mPresenter.PWD_EMPTY) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPwd.setError("비밀번호를 입력해주세요.");
+                    mEditTextPwd.requestFocus();
+                } else if (pwCode == mPresenter.PWD_CHECK_EMPTY) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextCheckPwd.setError("비밀번호를 입력해주세요.");
+                    mEditTextCheckPwd.requestFocus();
+                } else if (pwCode == mPresenter.PWD_CHECK_NOT_EQUAL) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextCheckPwd.setError("비밀번호가 서로 다릅니다.");
+                    mEditTextCheckPwd.requestFocus();
+                }
+            }else if(emailCode != mPresenter.EMAIL_VALID) {
+
+                if (emailCode == mPresenter.EMAIL_EMPTY) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextEmail.setError("이메일을 입력해주세요.");
+                    mEditTextEmail.requestFocus();
+                } else if (emailCode == mPresenter.EMAIL_NOT_VALID) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextEmail.setError("올바른 이메일을 입력해주세요.");
+                    mEditTextEmail.requestFocus();
+                }
+            } else if (phoneNumberCode != mPresenter.PHONE_VALID) {
+
+                if (phoneNumberCode == mPresenter.PHONE_EMPTY) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPhoneNumber.setError("핸드폰 번호를 입력해주세요.");
+                    mEditTextPhoneNumber.requestFocus();
+                } else if (phoneNumberCode == mPresenter.PHONE_ERROR_OTHER_CHAR) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPhoneNumber.setError("숫자만 입력해주세요. (ex : 19500101)");
+                    mEditTextPhoneNumber.requestFocus();
+                } else if (phoneNumberCode == mPresenter.PHONE_LENGTH_ERROR) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPhoneNumber.setError("핸드폰 번호가 맞는지 확인해주세요.(010xxxxxxxx)");
+                    mEditTextPhoneNumber.requestFocus();
+                }
+            } else if (birthDateCode != mPresenter.BIRTH_VALID) {
+
+                if (birthDateCode == mPresenter.BIRTH_EMPTY) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextBirthdate.setError("생년월일을 입력해주세요.");
+                    mEditTextBirthdate.requestFocus();
+                } else if (birthDateCode == mPresenter.BIRTH_ERROR_LENTGTH) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextBirthdate.setError("8자리를 입력해주세요. (ex : 19500101)");
+                    mEditTextBirthdate.requestFocus();
+                } else if (birthDateCode == mPresenter.BIRTH_ERROR_OTHER_CHAR) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextBirthdate.setError("숫자만 입력해주세요. (ex : 19500101)");
+                    mEditTextBirthdate.requestFocus();
+                }
+            } else if (genderCode != mPresenter.GENDER_VALID) {
+
+                mTextViewError.setVisibility(View.VISIBLE);
+                mTextViewError.setText("성별을 선택해주세요.");
+            } else if (neededCheckCode != mPresenter.NEEDED_VALID) {
+
+                if (neededCheckCode == mPresenter.TERMS_OF_USE_NEEDED) {
+
+                    mTextViewError.setVisibility(View.VISIBLE);
+                    mTextViewError.setText("이용약관 동의가 필요합니다.");
+                } else if (neededCheckCode == mPresenter.PERSONAL_INFO_NEEDED) {
+
+                    mTextViewError.setVisibility(View.VISIBLE);
+                    mTextViewError.setText("개인정보 취급방침 동의가 필요합니다.");
+                }
+            }
+
+            if (mIsIdValid && idCode == mPresenter.ID_VALID && pwCode == mPresenter.PWD_VALID &&
+                    emailCode == mPresenter.EMAIL_VALID && genderCode == mPresenter.GENDER_VALID &&
+                    phoneNumberCode == mPresenter.PHONE_VALID && neededCheckCode == mPresenter.NEEDED_VALID &&
+                    birthDateCode == mPresenter.BIRTH_VALID) {
 
                 mBundleData.putString("id", editTextToString(mEditTextId));
                 mBundleData.putString("pwd", editTextToString(mEditTextPwd));
                 mBundleData.putString("birthdate", editTextToString(mEditTextBirthdate));
                 mBundleData.putString("gender", discriminateGender());
                 mBundleData.putString("email", editTextToString(mEditTextEmail));
-                mBundleData.putString("phoneNumber", mValidChecker.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
+                mBundleData.putString("phoneNumber", mPresenter.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
             }
+
 
             return false;
         }
