@@ -182,7 +182,7 @@ public class AppApiHelper {
         oAuthLogin.startOauthLoginActivity((Activity) context, oAuthLoginHandler);
     }
 
-    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate> onFinishApiListener) {
+    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate.statusRes> onFinishApiListener) {
 
         mUserApi.checkIdDuplicate(id, onFinishApiListener);
     }
@@ -225,5 +225,10 @@ public class AppApiHelper {
     public void insertSavePoint(SavePoint.InsertReq req, OnFinishApiListener<SavePoint.StatusRes> onFinishApiListener) {
 
         mPointApi.insertSavePoint(req, onFinishApiListener);
+    }
+
+    public void managerRegister(Register.Manager managerRequest, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
+
+        mUserRestApi.insertManager(managerRequest, onFinishApiListener);
     }
 }
