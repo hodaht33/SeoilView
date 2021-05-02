@@ -50,6 +50,6 @@ public interface Point {
     @GET("point/save-point")
     Call<SavePoint.GetRes> getSavePoint(@Query("id") String id);
 
-    @POST("point/save_point")
+    @POST("point/save-point")
     Call<SavePoint.StatusRes> insertSavePointTuple(@Body SavePoint.InsertReq req);
 }

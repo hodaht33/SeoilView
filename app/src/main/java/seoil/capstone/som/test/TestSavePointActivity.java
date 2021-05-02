@@ -17,11 +17,11 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.PointApi;
+import seoil.capstone.som.data.network.model.SavePoint;
 import seoil.capstone.som.data.network.model.UsingPoint;
 
-public class TestUsingPointActivity extends AppCompatActivity implements View.OnClickListener {
+public class TestSavePointActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private RecyclerView recyclerView;
     private EditText userId;
     private EditText shopCode;
     private EditText shopName;
@@ -32,18 +32,14 @@ public class TestUsingPointActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_using_point);
+        setContentView(R.layout.activity_test_save_point);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        userId = findViewById(R.id.editUserId);
-        shopCode = findViewById(R.id.editShopCode);
-        shopName = findViewById(R.id.editShopName);
-        usingAmount = findViewById(R.id.editUsingAmount);
-        btnSend = findViewById(R.id.btnSendUsing);
-        btnGet = findViewById(R.id.btnGetUsing);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RecyclerViewAdapter());
+        userId = findViewById(R.id.editSaveUserId);
+        shopCode = findViewById(R.id.editSaveShopCode);
+        shopName = findViewById(R.id.editSaveShopName);
+        usingAmount = findViewById(R.id.editSaveAmount);
+        btnSend = findViewById(R.id.btnSendSave);
+        btnGet = findViewById(R.id.btnGetSave);
 
         btnSend.setOnClickListener(this);
         btnGet.setOnClickListener(this);
@@ -52,7 +48,7 @@ public class TestUsingPointActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.btnSendUsing) {
+        if (v.getId() == R.id.btnSendSave) {
 
             String id = userId.getText().toString();
             String code = shopCode.getText().toString();
@@ -61,9 +57,9 @@ public class TestUsingPointActivity extends AppCompatActivity implements View.On
 
             if (!id.isEmpty() && !code.isEmpty() && !name.isEmpty() && !strAmount.isEmpty()) {
 
-                OnFinishApiListener<UsingPoint.StatusRes> onFinishApiListener = new OnFinishApiListener<UsingPoint.StatusRes>() {
+                OnFinishApiListener<SavePoint.StatusRes> onFinishApiListener = new OnFinishApiListener<SavePoint.StatusRes>() {
                     @Override
-                    public void onSuccess(UsingPoint.StatusRes statusRes) {
+                    public void onSuccess(SavePoint.StatusRes statusRes) {
 
                         if (statusRes.getStatus() == PointApi.SUCCESS) {
 
@@ -80,25 +76,25 @@ public class TestUsingPointActivity extends AppCompatActivity implements View.On
 
                 int amount = Integer.parseInt(strAmount);
 
-                AppApiHelper.getInstance().insertUsingPoint(new UsingPoint.InsertReq(id, code, name, amount), onFinishApiListener);
+                AppApiHelper.getInstance().insertSavePoint(new SavePoint.InsertReq(id, code, name, amount), onFinishApiListener);
             }
 
-        } else if (v.getId() == R.id.btnGetUsing) {
+        } else if (v.getId() == R.id.btnGetSave) {
 
-            OnFinishApiListener<UsingPoint.GetRes> onFinishApiListener = new OnFinishApiListener<UsingPoint.GetRes>() {
+            OnFinishApiListener<SavePoint.GetRes> onFinishApiListener = new OnFinishApiListener<SavePoint.GetRes>() {
                 @Override
-                public void onSuccess(UsingPoint.GetRes getRes) {
+                public void onSuccess(SavePoint.GetRes getRes) {
 
                     if (getRes.getStatus() == PointApi.SUCCESS) {
 
-                        List<UsingPoint.GetRes.Result> list = getRes.getResults();
+                        List<SavePoint.GetRes.Result> list = getRes.getResults();
                         Log.d("test", list.toString());
                         Log.d("test", String.valueOf(list.size()));
-                        for (UsingPoint.GetRes.Result result : list) {
-                            Log.d("test", result.getUsingPointDate());
+                        for (SavePoint.GetRes.Result result : list) {
+                            Log.d("test", result.getSavePointDate());
                             Log.d("test", result.getShopCode());
                             Log.d("test", result.getShopName());
-                            Log.d("test", String.valueOf(result.getUsingPointAmount()));
+                            Log.d("test", String.valueOf(result.getSavePointAmount()));
                         }
                     }
                 }
@@ -110,7 +106,7 @@ public class TestUsingPointActivity extends AppCompatActivity implements View.On
                 }
             };
 
-            AppApiHelper.getInstance().getUsingPoint(userId.getText().toString(), onFinishApiListener);
+            AppApiHelper.getInstance().getSavePoint(userId.getText().toString(), onFinishApiListener);
         }
     }
 
