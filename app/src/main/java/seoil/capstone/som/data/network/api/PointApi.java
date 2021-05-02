@@ -1,5 +1,7 @@
 package seoil.capstone.som.data.network.api;
 
+import android.util.Log;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,6 +18,7 @@ public class PointApi {
     public static final int ERROR = 1;
     public static final int ERROR_UNDEFINED_DATA = 2;
     public static final int ERROR_NONE_DATA = 3;
+    public static final int ERROR_NOT_ENOUGH_POINT = 4;
 
     private Point mPointData;
 
@@ -60,7 +63,7 @@ public class PointApi {
         });
     }
 
-    public void updatePoint(CurrentPoint.PutReq req, OnFinishApiListener onFinishApiListener) {
+    public void updatePoint(CurrentPoint.UpdateReq req, OnFinishApiListener onFinishApiListener) {
 
         Call<CurrentPoint.StatusRes> call = mPointData.updatePoint(req);
         call.enqueue(new Callback<CurrentPoint.StatusRes>() {

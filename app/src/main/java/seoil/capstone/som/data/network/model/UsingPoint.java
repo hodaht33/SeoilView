@@ -3,6 +3,8 @@ package seoil.capstone.som.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class UsingPoint {
 
     // 요청 //
@@ -36,6 +38,13 @@ public class UsingPoint {
         @SerializedName("usingPointAmount")
         @Expose
         private int usingPointAmount;
+
+        public InsertReq(String id, String shopCode, String shopName, int usingPointAmount) {
+            this.id = id;
+            this.shopCode = shopCode;
+            this.shopName = shopName;
+            this.usingPointAmount = usingPointAmount;
+        }
 
         public String getId() {
             return id;
@@ -74,21 +83,59 @@ public class UsingPoint {
 
     public static class GetRes {
 
+        public class Result {
+            @SerializedName("usingPointDate")
+            @Expose
+            private String usingPointDate;
+            @SerializedName("shopCode")
+            @Expose
+            private String shopCode;
+            @SerializedName("shopName")
+            @Expose
+            private String shopName;
+            @SerializedName("usingPointAmount")
+            @Expose
+            private int usingPointAmount;
+
+            public String getUsingPointDate() {
+                return usingPointDate;
+            }
+
+            public void setUsingPointDate(String usingPointDate) {
+                this.usingPointDate = usingPointDate;
+            }
+
+            public String getShopCode() {
+                return shopCode;
+            }
+
+            public void setShopCode(String shopCode) {
+                this.shopCode = shopCode;
+            }
+
+            public String getShopName() {
+                return shopName;
+            }
+
+            public void setShopName(String shopName) {
+                this.shopName = shopName;
+            }
+
+            public int getUsingPointAmount() {
+                return usingPointAmount;
+            }
+
+            public void setUsingPointAmount(int usingPointAmount) {
+                this.usingPointAmount = usingPointAmount;
+            }
+        }
+
         @SerializedName("status")
         @Expose
         private int status;
-        @SerializedName("usingPointDate")
+        @SerializedName("results")
         @Expose
-        private String usingPointDate;
-        @SerializedName("shopCode")
-        @Expose
-        private String shopCode;
-        @SerializedName("shopName")
-        @Expose
-        private String shopName;
-        @SerializedName("usingPointAmount")
-        @Expose
-        private int usingPointAmount;
+        private List<Result> list;
 
         public int getStatus() {
             return status;
@@ -98,36 +145,12 @@ public class UsingPoint {
             this.status = status;
         }
 
-        public String getUsingPointDate() {
-            return usingPointDate;
+        public List<Result> getList() {
+            return list;
         }
 
-        public void setUsingPointDate(String usingPointDate) {
-            this.usingPointDate = usingPointDate;
-        }
-
-        public String getShopCode() {
-            return shopCode;
-        }
-
-        public void setShopCode(String shopCode) {
-            this.shopCode = shopCode;
-        }
-
-        public String getShopName() {
-            return shopName;
-        }
-
-        public void setShopName(String shopName) {
-            this.shopName = shopName;
-        }
-
-        public int getUsingPointAmount() {
-            return usingPointAmount;
-        }
-
-        public void setUsingPointAmount(int usingPointAmount) {
-            this.usingPointAmount = usingPointAmount;
+        public void setList(List<Result> list) {
+            this.list = list;
         }
     }
 

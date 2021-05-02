@@ -202,6 +202,11 @@ public class AppApiHelper {
         mPointApi.insertPointTuple(req, onFinishApiListener);
     }
 
+    public void updateCurrentPoint(CurrentPoint.UpdateReq req, OnFinishApiListener<CurrentPoint.StatusRes> onFinishApiListener) {
+
+        mPointApi.updatePoint(req, onFinishApiListener);
+    }
+
     public void getUsingPoint(String id, OnFinishApiListener<UsingPoint.GetRes> onFinishApiListener) {
 
         mPointApi.getUsingPoint(id, onFinishApiListener);

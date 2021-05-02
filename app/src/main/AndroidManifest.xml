@@ -12,9 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SOM">
+        <activity android:name=".test.TestUsingPointActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".test.TestPointActivity">
+
+        </activity>
         <activity android:name=".ui.address.SearchAddressActivity" />
-        <activity android:name=".ui.find.FindActivity" />
-        <!-- 카카오 리다이렉션 -->
+        <activity android:name=".ui.find.FindActivity" /> <!-- 카카오 리다이렉션 -->
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -29,13 +38,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.register.RegisterActivity" />
-        <activity android:name=".ui.login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.login.LoginActivity"></activity>
         <activity android:name=".ui.main.MainActivity" />
     </application>
 

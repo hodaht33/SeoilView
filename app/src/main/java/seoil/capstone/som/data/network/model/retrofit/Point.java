@@ -27,7 +27,7 @@ public interface Point {
 
     // 잔여 포인트 변경
     @PUT("point/current-point")
-    Call<CurrentPoint.StatusRes> updatePoint(@Body CurrentPoint.PutReq req);
+    Call<CurrentPoint.StatusRes> updatePoint(@Body CurrentPoint.UpdateReq req);
 
     // 회원 탈퇴
     @DELETE("point/current-point")
