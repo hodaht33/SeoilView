@@ -43,7 +43,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private TextInputEditText mEditTextPwd;
     private TextInputEditText mEditTextCheckPwd;
     private TextInputEditText mEditTextEmail;
-    private TextInputEditText mEditTextCoporateNumber;
+    private TextInputEditText mEditTextCorporateNumber;
     private TextInputEditText mEditTextPhoneNumber;
     private TextInputEditText mEditTextBirthdate;
     private TextInputLayout mTextLayoutId;
@@ -53,11 +53,13 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private TextInputLayout mTextLayoutPhoneNumber;
     private TextInputLayout mTextLayoutAuthCode;
     private TextInputLayout mTextLayoutBirthdate;
+    private TextInputLayout mTextLayoutCorporateNumber;
     private CheckBox mChkBoxFemale;
     private CheckBox mChkBoxMale;
     private CheckBox mChkBoxTermsOfUse;
     private CheckBox mChkBoxPersonalInfo;
     private CheckBox mChkBoxMarketingInfo;
+    private Button mBtnCheckCorporateNumber;
     private Button mBtnFinish;
     private Button mBtnPostNumber;
     private Button mBtnSendAuthCode;
@@ -69,7 +71,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private Bundle mBundleData;
     private boolean mIsIdValid;
     private boolean mIsValidPhoneNumber;
-    private boolean mIsValidCoporateNumber;
+    private int mIsValidCorporateNumber;
 
     public ManagerRegisterFragment() {
 
@@ -129,6 +131,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 // TODO: 두개 다 테스트용으로 true로 선언, 제대로 된 기능 구현 후 false로 만들고 테스트
         mIsIdValid = false;
         mIsValidPhoneNumber = true;
+        mIsValidCorporateNumber = mPresenter.CORPORATE_NUMBER_NOT_VALID;
 
         // TODO: bundle을 Presenter로 넘겨 naver와 kakao 또는 그 외를 판단하여 뷰를 바꾸는 메서드 호출하는 구조로 변경
         mBundleData = getArguments();
@@ -229,6 +232,33 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
             mIsIdValid = mPresenter.checkIdValid(mEditTextId.getText().toString(), this);
         }
+
+        if (v.getId() == R.id.btnMRegitCheckCorporateRegistrationNumber) {
+
+            mIsValidCorporateNumber = mPresenter.checkCorporateNumber(mEditTextCorporateNumber.getText().toString());
+
+            if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_VALID) {
+
+                mBtnCheckCorporateNumber.setEnabled(false);
+                mBtnCheckCorporateNumber.setText("확인 완료");
+                mBtnCheckCorporateNumber.setBackgroundColor(getResources().getColor(R.color.light_green));
+            } else if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_NOT_NUM) {
+
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextCorporateNumber.setError("숫자만 입력해주세요 (ex : 123456789)");
+                mEditTextCorporateNumber.requestFocus();
+            } else if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_LENGTH_ERROR) {
+
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextCorporateNumber.setError("10자리를 입력해주세요 (ex : 123456789)");
+                mEditTextCorporateNumber.requestFocus();
+            } else if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_NOT_VALID) {
+
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextCorporateNumber.setError("유효하지 않은 번호 입니다.");
+                mEditTextCorporateNumber.requestFocus();
+            }
+        }
     }
 
     private void initView(View view) {
@@ -240,12 +270,13 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mTextLayoutPhoneNumber = view.findViewById(R.id.textLayoutMRegitPhoneNumber);
         mTextLayoutAuthCode = view.findViewById(R.id.textLayoutMRegitAuthorizationCode);
         mTextLayoutBirthdate = view.findViewById(R.id.textLayoutMRegitBirthdate);
+        mTextLayoutCorporateNumber = view.findViewById(R.id.textLayoutMRegitCorporateRegistrationNumber);
 
         mEditTextId = view.findViewById(R.id.editTextMRegitId);
         mEditTextPwd = view.findViewById(R.id.editTextMRegitPw);
         mEditTextCheckPwd = view.findViewById(R.id.editTextMRegitCheckPw);
         mEditTextEmail = view.findViewById(R.id.editTextMRegitEmail);
-        mEditTextCoporateNumber = view.findViewById(R.id.editTextMRegitCorporateNumber);
+        mEditTextCorporateNumber = view.findViewById(R.id.editTextMRegitCorporateNumber);
         mEditTextPhoneNumber = view.findViewById(R.id.editTextMRegitPhoneNumber);
         mEditTextBirthdate = view.findViewById(R.id.editTextMRegitBirthdate);
 
@@ -260,6 +291,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mBtnSendAuthCode = view.findViewById(R.id.btnMRegitSendAuthorizationCode);
         mBtnCheckAuthCode = view.findViewById(R.id.btnMRegitCheckAuthorizationCode);
         mBtnCheckIdDuplication = view.findViewById(R.id.btnMRegitCheckIdDuplication);
+        mBtnCheckCorporateNumber = view.findViewById(R.id.btnMRegitCheckCorporateRegistrationNumber);
 
         mTextViewError = view.findViewById(R.id.labelMRegitError);
         mTextViewPostalCode = view.findViewById(R.id.editTextMRegitPostalCode);
@@ -308,9 +340,32 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             }
         });
 
+        mEditTextCorporateNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                mIsValidCorporateNumber = mPresenter.CORPORATE_NUMBER_NOT_VALID;
+                mBtnCheckCorporateNumber.setBackgroundColor(Color.BLACK);
+                mBtnCheckCorporateNumber.setText("확인");
+                mBtnCheckCorporateNumber.setEnabled(true);
+                mTextLayoutCorporateNumber.setEndIconMode(TextInputLayout.END_ICON_NONE);
+            }
+        });
+
         mBtnPostNumber.setOnClickListener(this);
         mBtnFinish.setOnClickListener(this);
         mBtnCheckIdDuplication.setOnClickListener(this);
+        mBtnCheckCorporateNumber.setOnClickListener(this);
     }
 
     private boolean checkValidAndPutData(String platform) {
@@ -501,6 +556,11 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                     mEditTextPhoneNumber.setError("핸드폰 번호가 맞는지 확인해주세요.(010xxxxxxxx)");
                     mEditTextPhoneNumber.requestFocus();
                 }
+            } else if (mIsValidCorporateNumber != mPresenter.CORPORATE_NUMBER_VALID) {
+
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextCorporateNumber.setError("사업자 번호 확인해주세요");
+                mEditTextCorporateNumber.requestFocus();
             } else if (birthDateCode != mPresenter.BIRTH_VALID) {
 
                 if (birthDateCode == mPresenter.BIRTH_EMPTY) {
