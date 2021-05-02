@@ -370,7 +370,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
     private boolean checkValidAndPutData(String platform) {
 
-        int emailCode, phoneNumberCode, birthDateCode, neededCheckCode, idCode, pwCode, genderCode, corporateCode;
+        int emailCode, phoneNumberCode, birthDateCode, neededCheckCode, idCode, pwCode, genderCode;
 
         neededCheckCode = mPresenter.neededCheck(mChkBoxTermsOfUse.isChecked(), mChkBoxPersonalInfo.isChecked());
 
@@ -558,23 +558,9 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 }
             } else if (mIsValidCorporateNumber != mPresenter.CORPORATE_NUMBER_VALID) {
 
-                if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_NOT_NUM) {
-
-                    Utility.getInstance().renderKeyboard(getActivity());
-                    mEditTextCorporateNumber.setError("숫자만 입력해주세요 (ex : 123456789)");
-                    mEditTextCorporateNumber.requestFocus();
-                } else if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_LENGTH_ERROR) {
-
-                    Utility.getInstance().renderKeyboard(getActivity());
-                    mEditTextCorporateNumber.setError("10자리를 입력해주세요 (ex : 123456789)");
-                    mEditTextCorporateNumber.requestFocus();
-                } else if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_NOT_VALID) {
-
-                    Utility.getInstance().renderKeyboard(getActivity());
-                    mEditTextCorporateNumber.setError("유효하지 않은 번호 입니다.");
-                    mEditTextCorporateNumber.requestFocus();
-                }
-
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextCorporateNumber.setError("사업자 번호 확인해주세요");
+                mEditTextCorporateNumber.requestFocus();
             } else if (birthDateCode != mPresenter.BIRTH_VALID) {
 
                 if (birthDateCode == mPresenter.BIRTH_EMPTY) {
