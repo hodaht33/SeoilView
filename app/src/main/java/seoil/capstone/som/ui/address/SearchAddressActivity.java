@@ -33,7 +33,7 @@ public class SearchAddressActivity extends AppCompatActivity {
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         mWebView.addJavascriptInterface(new AndroidBridge(), "SOM");
         mWebView.setWebChromeClient(new WebChromeClient());
-        mWebView.loadUrl("leebera.name");//후에 getAddress.html URL로 변경
+        mWebView.loadUrl("https://leebera.name/api/daum-address");
     }
 
     private class AndroidBridge{
