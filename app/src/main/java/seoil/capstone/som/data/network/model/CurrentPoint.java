@@ -15,6 +15,10 @@ public class CurrentPoint {
         @Expose
         private String id;
 
+        public InsertReq(String id) {
+            this.id = id;
+        }
+
         public String getId() {
             return id;
         }
@@ -24,7 +28,7 @@ public class CurrentPoint {
         }
     }
 
-    public static class PutReq {
+    public static class UpdateReq {
 
         @SerializedName("id")
         @Expose
@@ -32,6 +36,11 @@ public class CurrentPoint {
         @SerializedName("amount")
         @Expose
         private int amount;
+
+        public UpdateReq(String id, int amount) {
+            this.id = id;
+            this.amount = amount;
+        }
 
         public String getId() {
             return id;
