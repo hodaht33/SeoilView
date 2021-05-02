@@ -9,21 +9,6 @@ public class UsingPoint {
 
     // 요청 //
 
-    public static class GetReq {
-
-        @SerializedName("id")
-        @Expose
-        private String id;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-    }
-
     public static class InsertReq {
 
         @SerializedName("id")
@@ -135,7 +120,7 @@ public class UsingPoint {
         private int status;
         @SerializedName("results")
         @Expose
-        private List<Result> list;
+        private List<Result> results;
 
         public int getStatus() {
             return status;
@@ -145,12 +130,12 @@ public class UsingPoint {
             this.status = status;
         }
 
-        public List<Result> getList() {
-            return list;
+        public List<Result> getResults() {
+            return results;
         }
 
-        public void setList(List<Result> list) {
-            this.list = list;
+        public void setResults(List<Result> results) {
+            this.results = results;
         }
     }
 
