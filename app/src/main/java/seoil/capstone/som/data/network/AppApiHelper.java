@@ -229,6 +229,6 @@ public class AppApiHelper {
 
     public void managerRegister(Register.Manager managerRequest, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
 
-        mUserRestApi.insertManager(managerRequest, onFinishApiListener);
+        mUserApi.insertManager(managerRequest, onFinishApiListener);
     }
 }
