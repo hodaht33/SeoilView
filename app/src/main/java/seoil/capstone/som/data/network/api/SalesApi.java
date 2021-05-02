@@ -1,5 +1,7 @@
 package seoil.capstone.som.data.network.api;
 
+import android.util.Log;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -7,7 +9,6 @@ import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.SalesInfo;
 import seoil.capstone.som.data.network.model.retrofit.Sales;
-import seoil.capstone.som.data.network.model.retrofit.Shop;
 
 public class SalesApi {
 
@@ -29,7 +30,7 @@ public class SalesApi {
         call.enqueue(new Callback<SalesInfo.GetRes>() {
             @Override
             public void onResponse(Call<SalesInfo.GetRes> call, Response<SalesInfo.GetRes> response) {
-
+                Log.d("test", response.toString());
                 onFinishApiListener.onSuccess(response.body());
             }
 

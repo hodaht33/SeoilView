@@ -21,12 +21,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.api.PointApi;
+import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.api.ShopApi;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.CurrentPoint;
 import seoil.capstone.som.data.network.model.IdDuplicate;
 import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.Register;
+import seoil.capstone.som.data.network.model.SalesInfo;
 import seoil.capstone.som.data.network.model.SavePoint;
 import seoil.capstone.som.data.network.model.ShopInfo;
 import seoil.capstone.som.data.network.model.UsingPoint;
@@ -39,6 +41,7 @@ public class AppApiHelper {
     private UserApi mUserApi;
     private PointApi mPointApi;
     private ShopApi mShopApi;
+    private SalesApi mSalesApi;
 
     public AppApiHelper() {
 
@@ -51,6 +54,7 @@ public class AppApiHelper {
         mUserApi = new UserApi(retrofit);
         mPointApi = new PointApi(retrofit);
         mShopApi = new ShopApi(retrofit);
+        mSalesApi = new SalesApi(retrofit);
     }
 
     public static AppApiHelper getInstance() {
@@ -244,5 +248,15 @@ public class AppApiHelper {
     public void insertShopInfo(ShopInfo.InsertReq req, OnFinishApiListener<ShopInfo.StatusRes> onFinishApiListener) {
 
         mShopApi.insertShopInfo(req, onFinishApiListener);
+    }
+
+    public void getSalesInfo(String id, OnFinishApiListener<SalesInfo.GetRes> onFinishApiListener) {
+
+        mSalesApi.getSalesInfo(id ,onFinishApiListener);
+    }
+
+    public void insertSalesInfo(SalesInfo.InsertReq req, OnFinishApiListener<SalesInfo.StatusRes> onFinishApiListener) {
+
+        mSalesApi.insertSalesInfo(req, onFinishApiListener);
     }
 }

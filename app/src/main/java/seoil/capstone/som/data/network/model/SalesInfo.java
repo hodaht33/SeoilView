@@ -12,7 +12,7 @@ public class SalesInfo {
         @SerializedName("shopCode")
         @Expose
         private String shopCode;
-        @SerializedName("shpoId")
+        @SerializedName("shopId")
         @Expose
         private String shopId;
         @SerializedName("salesAmount")
