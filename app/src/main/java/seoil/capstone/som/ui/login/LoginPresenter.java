@@ -161,6 +161,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                                 intent.setComponent(new ComponentName(context, MainActivity.class));
                                 bundle.putString("code", serverLoginResponse.getCode());
+                                bundle.putString("platform", "naver");
                                 intent.putExtra("data", bundle);
 
                                 mView.toMain(intent);
