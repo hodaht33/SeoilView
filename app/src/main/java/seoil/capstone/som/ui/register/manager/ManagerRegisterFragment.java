@@ -28,7 +28,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.api.UserRestApi;
+import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.IdDuplicate;
 import seoil.capstone.som.ui.address.SearchAddressActivity;
 import seoil.capstone.som.ui.register.RegisterCommunicator;
@@ -608,14 +608,14 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     public void onSuccess(IdDuplicate.statusRes res) {
 
         int status = res.getStatus();
-        if (status == UserRestApi.SUCCESS) {
+        if (status == UserApi.SUCCESS) {
 
             mIsIdValid = false;
 
             mBtnCheckIdDuplication.setEnabled(false);
             mBtnCheckIdDuplication.setText("확인 완료");
             mBtnCheckIdDuplication.setBackgroundColor(getResources().getColor(R.color.light_green));
-        } else if (status == UserRestApi.ID_DUPLICATE) {
+        } else if (status == UserApi.ID_DUPLICATE) {
 
             mEditTextId.setError("중복된 아이디가 존재합니다.");
         }

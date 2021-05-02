@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ShopInfo {
 
-    public class InsertReq {
+    public static class InsertReq {
 
         @SerializedName("shopCode")
         @Expose
@@ -74,7 +74,7 @@ public class ShopInfo {
         }
     }
 
-    public class GetRes {
+    public static class GetRes {
 
         public class Result {
 
@@ -148,7 +148,7 @@ public class ShopInfo {
         }
     }
 
-    public class StatusRes {
+    public static class StatusRes {
 
         @SerializedName("status")
         @Expose
