@@ -20,27 +20,33 @@ import kotlin.jvm.functions.Function2;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import seoil.capstone.som.R;
-import seoil.capstone.som.data.network.api.UserRestApi;
+import seoil.capstone.som.data.network.api.PointApi;
+import seoil.capstone.som.data.network.api.UserApi;
+import seoil.capstone.som.data.network.model.CurrentPoint;
 import seoil.capstone.som.data.network.model.IdDuplicate;
 import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.Register;
+import seoil.capstone.som.data.network.model.SavePoint;
+import seoil.capstone.som.data.network.model.UsingPoint;
 
 public class AppApiHelper {
 
-    public static final String SOM_BASE_URL = "https://leebera.name/api/";
+    public static final String BASE_URL = "https://leebera.name/api/";
 
     private static AppApiHelper mAppApiHelper;
-    private UserRestApi mUserRestApi;
+    private UserApi mUserApi;
+    private PointApi mPointApi;
 
     public AppApiHelper() {
 
-        mUserRestApi = new UserRestApi(
-                new Retrofit
+        Retrofit retrofit = new Retrofit
                 .Builder()
-                .baseUrl(SOM_BASE_URL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        );
+                .build();
+
+        mUserApi = new UserApi(retrofit);
+        mPointApi = new PointApi(retrofit);
     }
 
     public static AppApiHelper getInstance() {
@@ -55,7 +61,7 @@ public class AppApiHelper {
 
     public void serverLogin(Login.LoginReq loginReq, OnFinishApiListener<Login.LoginRes> onFinishApiListener) {
 
-        mUserRestApi.login(loginReq, onFinishApiListener);
+        mUserApi.login(loginReq, onFinishApiListener);
     }
 
     public void kakaoLogin(Context context, OnFinishApiListener<Login.KakaoLoginRes> onFinishApiListener) {
@@ -178,11 +184,41 @@ public class AppApiHelper {
 
     public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate> onFinishApiListener) {
 
-        mUserRestApi.checkIdDuplicate(id, onFinishApiListener);
+        mUserApi.checkIdDuplicate(id, onFinishApiListener);
     }
 
     public void customerRegister(Register.Customer registerRequest, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
 
-        mUserRestApi.insertCustomer(registerRequest, onFinishApiListener);
+        mUserApi.insertCustomer(registerRequest, onFinishApiListener);
+    }
+
+    public void getCurrentPoint(String id, OnFinishApiListener<CurrentPoint.GetRes> onFinishApiListener) {
+
+        mPointApi.getPoint(id, onFinishApiListener);
+    }
+
+    public void insertCurrentPoint(CurrentPoint.InsertReq req, OnFinishApiListener<CurrentPoint.StatusRes> onFinishApiListener) {
+
+        mPointApi.insertPointTuple(req, onFinishApiListener);
+    }
+
+    public void getUsingPoint(String id, OnFinishApiListener<UsingPoint.GetRes> onFinishApiListener) {
+
+        mPointApi.getUsingPoint(id, onFinishApiListener);
+    }
+
+    public void insertUsingPoint(UsingPoint.InsertReq req, OnFinishApiListener<UsingPoint.StatusRes> onFinishApiListener) {
+
+        mPointApi.insertUsingPoint(req, onFinishApiListener);
+    }
+
+    public void getSavePoint(String id, OnFinishApiListener<SavePoint.GetRes> onFinishApiListener) {
+
+        mPointApi.getSavePoint(id, onFinishApiListener);
+    }
+
+    public void insertSavePoint(SavePoint.InsertReq req, OnFinishApiListener<SavePoint.StatusRes> onFinishApiListener) {
+
+        mPointApi.insertSavePoint(req, onFinishApiListener);
     }
 }

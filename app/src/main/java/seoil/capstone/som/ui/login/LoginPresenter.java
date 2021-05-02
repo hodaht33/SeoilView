@@ -7,7 +7,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 
-import seoil.capstone.som.data.network.api.UserRestApi;
+import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.ui.main.MainActivity;
@@ -68,14 +68,14 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                     Intent intent = new Intent();
 
-                    if (statusCode == UserRestApi.SUCCESS) {
+                    if (statusCode == UserApi.SUCCESS) {
 
                         // 로그인 성공했으므로 MainActivity로 이동하도록 설정
                         intent.setComponent(new ComponentName(context, MainActivity.class));
                         intent.putExtra("data", bundle);
 
                         mView.toMain(intent);
-                    } else if (statusCode == UserRestApi.NEW_USER) {
+                    } else if (statusCode == UserApi.NEW_USER) {
 
                         // 카카오의 새로운 사용자일 때 RegisterActivity로 이동하도록 설정
                         intent.setComponent(new ComponentName(context, RegisterActivity.class));
@@ -157,14 +157,15 @@ public class LoginPresenter implements LoginContract.Presenter {
                             Intent intent = new Intent();
 
 
-                            if (statusCode == UserRestApi.SUCCESS) {
+                            if (statusCode == UserApi.SUCCESS) {
 
                                 intent.setComponent(new ComponentName(context, MainActivity.class));
                                 bundle.putString("code", serverLoginResponse.getCode());
+                                bundle.putString("platform", "naver");
                                 intent.putExtra("data", bundle);
 
                                 mView.toMain(intent);
-                            } else if (statusCode == UserRestApi.NEW_USER) {
+                            } else if (statusCode == UserApi.NEW_USER) {
 
                                 // 네이버에 담긴 정보를 같이 넘김
                                 intent.setComponent(new ComponentName(context, RegisterActivity.class));

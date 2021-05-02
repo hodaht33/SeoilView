@@ -11,7 +11,7 @@ import seoil.capstone.som.data.network.model.retrofit.User;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 
 // "https://leebera.name/api/user"에서 사용자의 정보를 모두 받아오는 api
-public class UserRestApi {
+public class UserApi {
 
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
@@ -22,7 +22,7 @@ public class UserRestApi {
 
     private User mUserData;
 
-    public UserRestApi(Retrofit retrofit) {
+    public UserApi(Retrofit retrofit) {
 
         mUserData = retrofit.create(User.class);
     }

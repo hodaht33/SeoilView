@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.api.UserRestApi;
+import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.Register;
 import seoil.capstone.som.ui.login.LoginActivity;
 import seoil.capstone.som.ui.main.MainActivity;
@@ -42,7 +42,7 @@ public class CustomerRegisterPresenter implements CustomerRegisterContract.Prese
             @Override
             public void onSuccess(Register.RegisterRes registerResponse) {
 
-                if (registerResponse.getStatus() == UserRestApi.SUCCESS) {
+                if (registerResponse.getStatus() == UserApi.SUCCESS) {
 
                     Intent intent = new Intent();
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

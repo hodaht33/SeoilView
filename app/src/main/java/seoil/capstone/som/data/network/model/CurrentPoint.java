@@ -9,7 +9,7 @@ public class CurrentPoint {
     // 요청 //
     /////////
 
-    public static class PostReq {
+    public static class InsertReq {
 
         @SerializedName("id")
         @Expose
