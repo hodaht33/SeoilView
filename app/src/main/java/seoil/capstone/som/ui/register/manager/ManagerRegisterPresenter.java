@@ -1,6 +1,7 @@
 package seoil.capstone.som.ui.register.manager;
 
 import android.content.Context;
+import android.util.Log;
 
 import seoil.capstone.som.ui.register.ValidChecker;
 
@@ -13,6 +14,16 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
     public final int CORPORATE_NUMBER_LENGTH_ERROR = 2;
     public final int CORPORATE_NUMBER_NOT_VALID = 3;
     public final int CORPORATE_NUMBER_VALID = 0;
+    public final int MARKET_NAME_NOT_VALID = 1;
+    public final int MARKET_NAME_VALID = 0;
+    public final int MARKET_CATEGORY_NOT_VALID = 1;
+    public final int MARKET_CATEGORY_VALID = 0;
+    public final int MARKET_ADDRESS_NOT_VALID = 1;
+    public final int MARKET_ADDRESS_VALID = 0;
+    public final int POSTAL_CODE_NOT_VALID = 1;
+    public final int POSTAL_CODE_VALID = 0;
+    public final int DETAILED_ADDRESS_NOT_VALID = 1;
+    public final int DETAILED_ADDRESS_VALID = 0;
 
     @Override
     public void setView(ManagerRegisterContract.View view) {
@@ -41,7 +52,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
 
     public int checkCorporateNumber(String businessNumber) {
 
-        final int[] LOGIC_NUM = {1, 3, 7, 1, 3, 7, 1, 3, 5, 1};
+        final int[] LOGIC_NUM = {1, 3, 7, 1, 3, 7, 1, 3, 5};
 
         if (!isNumeric(businessNumber)) {
 
@@ -52,14 +63,20 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         }
 
         int sum = 0;
+        int checkSum = 0;
 
-        for(int i = 0; i < 9; i ++) {
+        for(int i = 0; i < LOGIC_NUM.length; i++) {
 
-            sum += (LOGIC_NUM[i] * Character.getNumericValue(businessNumber.charAt(i)));
+            if(businessNumber.charAt(i) == '0') {
+
+                continue;
+            }
+            sum = sum + (LOGIC_NUM[i] * Integer.parseInt(String.valueOf(businessNumber.charAt(i))));
         }
+        sum = sum + ((LOGIC_NUM[8] * Integer.parseInt(String.valueOf(businessNumber.charAt(8)))) / 10);
+        checkSum = 10 - (sum % 10);
 
-        if (10 - ((sum + Math.floor(LOGIC_NUM[8] * Character.getNumericValue(businessNumber.charAt(8))) / 10 )) % 10
-                == Character.getNumericValue(businessNumber.charAt(9))) {
+        if (checkSum == Integer.parseInt(String.valueOf(businessNumber.charAt(9)))) {
 
             return CORPORATE_NUMBER_VALID;
         }
@@ -80,5 +97,55 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         }
 
         return true;
+    }
+
+    public int marketNameValid(String name) {
+
+        if (name.isEmpty()) {
+
+            return MARKET_NAME_NOT_VALID;
+        }
+
+        return MARKET_NAME_VALID;
+    }
+
+    public int marketCategoryValid(String category) {
+
+        if(category.isEmpty()) {
+
+            return MARKET_CATEGORY_NOT_VALID;
+        }
+
+        return MARKET_CATEGORY_VALID;
+    }
+
+    public int addressValid(String address) {
+
+        if(address.isEmpty()) {
+
+            return MARKET_ADDRESS_NOT_VALID;
+        }
+
+        return MARKET_ADDRESS_VALID;
+    }
+
+    public int postalCodeValid(String postalCode) {
+
+        if(postalCode.isEmpty()) {
+
+            return POSTAL_CODE_NOT_VALID;
+        }
+
+        return POSTAL_CODE_VALID;
+    }
+
+    public int detailedAddressValid(String detailedAddress) {
+
+        if(detailedAddress.isEmpty()) {
+
+            return DETAILED_ADDRESS_NOT_VALID;
+        }
+
+        return DETAILED_ADDRESS_VALID;
     }
 }
