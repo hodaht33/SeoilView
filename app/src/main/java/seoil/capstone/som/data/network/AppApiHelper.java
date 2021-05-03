@@ -67,9 +67,9 @@ public class AppApiHelper {
         return mAppApiHelper;
     }
 
-    public void serverLogin(Login.LoginReq loginReq, OnFinishApiListener<Login.LoginRes> onFinishApiListener) {
+    public void serverLogin(Login.LoginReq req, OnFinishApiListener<Login.LoginRes> onFinishApiListener) {
 
-        mUserApi.login(loginReq, onFinishApiListener);
+        mUserApi.login(req, onFinishApiListener);
     }
 
     public void kakaoLogin(Context context, OnFinishApiListener<Login.KakaoLoginRes> onFinishApiListener) {
@@ -190,7 +190,7 @@ public class AppApiHelper {
         oAuthLogin.startOauthLoginActivity((Activity) context, oAuthLoginHandler);
     }
 
-    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate.statusRes> onFinishApiListener) {
+    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate.StatusRes> onFinishApiListener) {
 
         mUserApi.checkIdDuplicate(id, onFinishApiListener);
     }

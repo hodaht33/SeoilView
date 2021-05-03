@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -34,7 +32,7 @@ import seoil.capstone.som.ui.address.SearchAddressActivity;
 import seoil.capstone.som.ui.register.RegisterCommunicator;
 import seoil.capstone.som.util.Utility;
 
-public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener, OnFinishApiListener<IdDuplicate.statusRes> {
+public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener, OnFinishApiListener<IdDuplicate.StatusRes> {
 
     private ManagerRegisterPresenter mPresenter;
     private RegisterCommunicator.Communicator mCommunicator;
@@ -665,7 +663,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     }
 
     @Override
-    public void onSuccess(IdDuplicate.statusRes res) {
+    public void onSuccess(IdDuplicate.StatusRes res) {
 
         int status = res.getStatus();
         if (status == UserApi.SUCCESS) {

@@ -56,12 +56,6 @@ public class Login {
         @Expose
         private String code;
 
-        public LoginRes(int status, String id, String code) {
-            this.status = status;
-            this.id = id;
-            this.code = code;
-        }
-
         public int getStatus() {
             return status;
         }

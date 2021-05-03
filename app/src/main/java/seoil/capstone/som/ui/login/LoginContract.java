@@ -12,7 +12,7 @@ public interface LoginContract {
 
     interface Interactor {
 
-        void serverLogin(String id, String pwd, OnFinishApiListener<Login.LoginRes> onFinishApiListener);
+        void serverLogin(Login.LoginReq req, OnFinishApiListener<Login.LoginRes> onFinishApiListener);
         void kakaoLogin(Context context, OnFinishApiListener<Login.KakaoLoginRes> onFinishApiListener);
         void naverLogin(Context context, Resources resources, OnFinishApiListener<Login.NaverLoginRes> onFinishApiListener);
     }
