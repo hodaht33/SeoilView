@@ -28,9 +28,9 @@ public class UserApi {
         mUserData = retrofit.create(User.class);
     }
 
-    public void login(Login.LoginReq loginRequest, OnFinishApiListener onFinishApiListener) {
+    public void login(Login.LoginReq req, OnFinishApiListener onFinishApiListener) {
 
-        Call<Login.LoginRes> call = mUserData.getLoginData(loginRequest.getId(), loginRequest.getPwd());
+        Call<Login.LoginRes> call = mUserData.getLoginData(req);
         call.enqueue(new Callback<Login.LoginRes>() {
             @Override
             public void onResponse(Call<Login.LoginRes> call, Response<Login.LoginRes> response) {
@@ -46,18 +46,18 @@ public class UserApi {
         });
     }
 
-    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate.statusRes> onFinishApiListener) {
+    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate.StatusRes> onFinishApiListener) {
 
-        Call<IdDuplicate.statusRes> call = mUserData.checkIdDuplicate(id);
-        call.enqueue(new Callback<IdDuplicate.statusRes>() {
+        Call<IdDuplicate.StatusRes> call = mUserData.checkIdDuplicate(id);
+        call.enqueue(new Callback<IdDuplicate.StatusRes>() {
             @Override
-            public void onResponse(Call<IdDuplicate.statusRes> call, Response<IdDuplicate.statusRes> response) {
+            public void onResponse(Call<IdDuplicate.StatusRes> call, Response<IdDuplicate.StatusRes> response) {
 
                 onFinishApiListener.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<IdDuplicate.statusRes> call, Throwable t) {
+            public void onFailure(Call<IdDuplicate.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -100,9 +100,6 @@ public class UserApi {
         });
     }
 
-    // customer와 manager의 request를 따로 두어 코드 중복 회피
-    // Object가 아닌 String으로 변경(String타입인 id가 키)
-    // TODO: add parameter with UpdateRequest
     public void update() {
 
         // TODO: Call<ChangePwdResponse> call = mUserData.updateUser(changePwdRequest.getId(), getPrevPwd(), getPwd());

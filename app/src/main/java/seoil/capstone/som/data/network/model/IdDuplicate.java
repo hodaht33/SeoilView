@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class IdDuplicate {
 
-    public static class statusRes {
+    public static class StatusRes {
 
         @SerializedName("status")
         @Expose

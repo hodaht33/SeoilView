@@ -103,7 +103,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             callback = onFinishApiListener;
         }
 
-        mInteractor.serverLogin(id, pwd, callback);
+        mInteractor.serverLogin(new Login.LoginReq(id, pwd), callback);
     }
 
     @Override

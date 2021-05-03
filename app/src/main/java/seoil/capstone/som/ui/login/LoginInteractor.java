@@ -10,9 +10,9 @@ import seoil.capstone.som.data.network.model.Login;
 public class LoginInteractor implements LoginContract.Interactor {
 
     @Override
-    public void serverLogin(String id, String pwd, OnFinishApiListener onFinishApiListener) {
+    public void serverLogin(Login.LoginReq req, OnFinishApiListener onFinishApiListener) {
 
-        AppApiHelper.getInstance().serverLogin(new Login.LoginReq(id, pwd), onFinishApiListener);//.get(onFinishApiListener, new LoginRequest(id, pwd));
+        AppApiHelper.getInstance().serverLogin(req, onFinishApiListener);
     }
 
     @Override
