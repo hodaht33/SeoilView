@@ -22,7 +22,7 @@ public interface User {
     Call<Check.StatusRes> checkIdDuplicate(@Path("id") String id);
 
     @GET("check-corpor/{number}")
-    Call<Check.StatusRes> checkCorporNum(@Path("number") String number);
+    Call<Check.StatusRes> checkRegistrationNumber(@Path("number") String number);
 
     // 유저 추가
     @POST("user/customer")
