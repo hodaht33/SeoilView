@@ -25,7 +25,7 @@ import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.api.ShopApi;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.CurrentPoint;
-import seoil.capstone.som.data.network.model.IdDuplicate;
+import seoil.capstone.som.data.network.model.Check;
 import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.Register;
 import seoil.capstone.som.data.network.model.SalesInfo;
@@ -190,7 +190,7 @@ public class AppApiHelper {
         oAuthLogin.startOauthLoginActivity((Activity) context, oAuthLoginHandler);
     }
 
-    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate.StatusRes> onFinishApiListener) {
+    public void checkIdDuplicate(String id, OnFinishApiListener<Check.StatusRes> onFinishApiListener) {
 
         mUserApi.checkIdDuplicate(id, onFinishApiListener);
     }

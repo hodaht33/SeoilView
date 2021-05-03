@@ -27,12 +27,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
-import seoil.capstone.som.data.network.model.IdDuplicate;
+import seoil.capstone.som.data.network.model.Check;
 import seoil.capstone.som.ui.address.SearchAddressActivity;
 import seoil.capstone.som.ui.register.RegisterCommunicator;
 import seoil.capstone.som.util.Utility;
 
-public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener, OnFinishApiListener<IdDuplicate.StatusRes> {
+public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener, OnFinishApiListener<Check.StatusRes> {
 
     private ManagerRegisterPresenter mPresenter;
     private RegisterCommunicator.Communicator mCommunicator;
@@ -663,7 +663,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     }
 
     @Override
-    public void onSuccess(IdDuplicate.StatusRes res) {
+    public void onSuccess(Check.StatusRes res) {
 
         int status = res.getStatus();
         if (status == UserApi.SUCCESS) {

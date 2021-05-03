@@ -23,11 +23,11 @@ import com.google.android.material.textfield.TextInputLayout;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
-import seoil.capstone.som.data.network.model.IdDuplicate;
+import seoil.capstone.som.data.network.model.Check;
 import seoil.capstone.som.util.Utility;
 
 // TODO: 제대로된 MVP으로 만들어져 있지 않음, 추후 리팩토링 필요(presenter내에서 valid검사, id중복확인 요청은 interactor를 통해 수행)
-public class CustomerRegisterFragment extends Fragment implements CustomerRegisterContract.View, View.OnClickListener, OnFinishApiListener<IdDuplicate.StatusRes> {
+public class CustomerRegisterFragment extends Fragment implements CustomerRegisterContract.View, View.OnClickListener, OnFinishApiListener<Check.StatusRes> {
 
     private CustomerRegisterPresenter mPresenter;
     private TextInputEditText mEditTextId;
@@ -535,7 +535,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
     }
 
     @Override
-    public void onSuccess(IdDuplicate.StatusRes res) {
+    public void onSuccess(Check.StatusRes res) {
 
         int status = res.getStatus();
         if (status == UserApi.SUCCESS) {

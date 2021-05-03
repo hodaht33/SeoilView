@@ -4,7 +4,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import seoil.capstone.som.data.network.model.IdDuplicate;
+import seoil.capstone.som.data.network.model.Check;
 import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.Register;
 import seoil.capstone.som.data.network.model.retrofit.User;
@@ -19,7 +19,7 @@ public class UserApi {
     public static final int LOGIN_FAIL_ID = 3;
     public static final int LOGIN_FAIL_PWD = 4;
     public static final int NEW_USER = 5;   // 카카오나 네이버로 로그인 시 새로운 회원이면 이에 맞는 처리 수행
-    public static final int ID_DUPLICATE = 6;
+    public static final int ID_DUPLICATE = 3;
 
     private User mUserData;
 
@@ -46,18 +46,18 @@ public class UserApi {
         });
     }
 
-    public void checkIdDuplicate(String id, OnFinishApiListener<IdDuplicate.StatusRes> onFinishApiListener) {
+    public void checkIdDuplicate(String id, OnFinishApiListener<Check.StatusRes> onFinishApiListener) {
 
-        Call<IdDuplicate.StatusRes> call = mUserData.checkIdDuplicate(id);
-        call.enqueue(new Callback<IdDuplicate.StatusRes>() {
+        Call<Check.StatusRes> call = mUserData.checkIdDuplicate(id);
+        call.enqueue(new Callback<Check.StatusRes>() {
             @Override
-            public void onResponse(Call<IdDuplicate.StatusRes> call, Response<IdDuplicate.StatusRes> response) {
+            public void onResponse(Call<Check.StatusRes> call, Response<Check.StatusRes> response) {
 
                 onFinishApiListener.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<IdDuplicate.StatusRes> call, Throwable t) {
+            public void onFailure(Call<Check.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
