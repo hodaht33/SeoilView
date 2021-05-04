@@ -195,6 +195,11 @@ public class AppApiHelper {
         mUserApi.checkIdDuplicate(id, onFinishApiListener);
     }
 
+    public void checkRegistrationNumber(String number, OnFinishApiListener<Check.StatusRes> onFinishApiListener) {
+
+        mUserApi.checkRegistrationNumber(number, onFinishApiListener);
+    }
+
     public void customerRegister(Register.Customer registerRequest, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
 
         mUserApi.insertCustomer(registerRequest, onFinishApiListener);
