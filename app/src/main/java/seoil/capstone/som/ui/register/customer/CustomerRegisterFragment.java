@@ -57,6 +57,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
     private Bundle mBundleData;
     private boolean mIsIdValid;
     private boolean mIsValidPhoneNumber;
+    private int mIdValidCode;
 
     public CustomerRegisterFragment() {
 
@@ -82,6 +83,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         // TODO: 두개 다 테스트용으로 true로 선언, 제대로 된 기능 구현 후 false로 만들고 테스트
         mIsIdValid = false;
         mIsValidPhoneNumber = true;
+        mIdValidCode = mPresenter.ID_EMPTY;
 
         // TODO: bundle을 Presenter로 넘겨 naver와 kakao 또는 그 외를 판단하여 뷰를 바꾸는 메서드 호출하는 구조로 변경
         mBundleData = getArguments();
@@ -145,7 +147,26 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
         if (viewId == R.id.btnCRegitCheckIdDuplication) {
 
-            mIsIdValid = mPresenter.checkIdValid(mEditTextId.getText().toString(), this);
+            mIdValidCode = mPresenter.idValid(mEditTextId.getText().toString());
+            if(mIdValidCode == mPresenter.ID_VALID) {
+
+                mIsIdValid = mPresenter.checkIdValid(mEditTextId.getText().toString(), this);
+            } else if(mIdValidCode == mPresenter.ID_EMPTY) {
+
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextId.setError("아이디를 입력해주세요.");
+                mEditTextId.requestFocus();
+            } else if (mIdValidCode == mPresenter.ID_SHORT) {
+
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextId.setError("아이디가 너무 짧습니다. 3자 이상 입력해주세요.");
+                mEditTextId.requestFocus();
+            } else if (mIdValidCode == mPresenter.ID_LONG) {
+
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextId.setError("아이디가 너무 깁니다. 20자 이하로 입력해주세요.");
+                mEditTextId.requestFocus();
+            }
         } else if (viewId == R.id.btnCRegitSendAuthorizationCode) {
 
             mTextLayoutAuthCode.setVisibility(View.VISIBLE);

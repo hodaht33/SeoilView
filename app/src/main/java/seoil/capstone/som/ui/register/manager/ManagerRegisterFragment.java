@@ -44,6 +44,9 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private TextInputEditText mEditTextCorporateNumber;
     private TextInputEditText mEditTextPhoneNumber;
     private TextInputEditText mEditTextBirthdate;
+    private TextInputEditText mEditTextMarketName;
+    private TextInputEditText mEditTextMarketCategory;
+    private TextInputEditText mEditTextDetailedAddress;
     private TextInputLayout mTextLayoutId;
     private TextInputLayout mTextLayoutPwd;
     private TextInputLayout mTextLayoutCheckPwd;
@@ -52,6 +55,9 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private TextInputLayout mTextLayoutAuthCode;
     private TextInputLayout mTextLayoutBirthdate;
     private TextInputLayout mTextLayoutCorporateNumber;
+    private TextInputLayout mTextLayoutMarketName;
+    private TextInputLayout mTextLayoutMarketCategory;
+    private TextInputLayout mTextLayoutDetailedAddress;
     private CheckBox mChkBoxFemale;
     private CheckBox mChkBoxMale;
     private CheckBox mChkBoxTermsOfUse;
@@ -70,6 +76,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private boolean mIsIdValid;
     private boolean mIsValidPhoneNumber;
     private int mIsValidCorporateNumber;
+    private int mIdValidCode;
 
     public ManagerRegisterFragment() {
 
@@ -130,6 +137,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mIsIdValid = false;
         mIsValidPhoneNumber = true;
         mIsValidCorporateNumber = mPresenter.CORPORATE_NUMBER_NOT_VALID;
+        mIdValidCode = mPresenter.ID_EMPTY;
 
         // TODO: bundle을 Presenter로 넘겨 naver와 kakao 또는 그 외를 판단하여 뷰를 바꾸는 메서드 호출하는 구조로 변경
         mBundleData = getArguments();
@@ -213,25 +221,48 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.btnMRegitFindAddress) {
+        int viewId = v.getId();
 
+        if (viewId == R.id.btnMRegitFindAddress) {
+
+            mBtnPostNumber.setError(null);
             Intent intent = new Intent(getActivity(), SearchAddressActivity.class);
             this.startActivityForResult(intent, 1);
         }
 
-        if (v.getId() == R.id.btnMRegitFinish) {
+        if (viewId == R.id.btnMRegitFinish) {
 
             mTextViewError.setVisibility(View.GONE);
 
             doRegister(mBundleData.getString("platform"));
         }
 
-        if (v.getId() == R.id.btnMRegitCheckIdDuplication) {
+        if (viewId == R.id.btnMRegitCheckIdDuplication) {
 
-            mIsIdValid = mPresenter.checkIdValid(mEditTextId.getText().toString(), this);
+            mIdValidCode = mPresenter.idValid(mEditTextId.getText().toString());
+            if(mIdValidCode == mPresenter.ID_VALID) {
+
+                mIsIdValid = mPresenter.checkIdValid(mEditTextId.getText().toString(), this);
+            } else if(mIdValidCode == mPresenter.ID_EMPTY) {
+
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextId.setError("아이디를 입력해주세요.");
+                mEditTextId.requestFocus();
+            } else if (mIdValidCode == mPresenter.ID_SHORT) {
+
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextId.setError("아이디가 너무 짧습니다. 3자 이상 입력해주세요.");
+                mEditTextId.requestFocus();
+            } else if (mIdValidCode == mPresenter.ID_LONG) {
+
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextId.setError("아이디가 너무 깁니다. 20자 이하로 입력해주세요.");
+                mEditTextId.requestFocus();
+            }
         }
 
-        if (v.getId() == R.id.btnMRegitCheckCorporateRegistrationNumber) {
+
+        if (viewId == R.id.btnMRegitCheckCorporateRegistrationNumber) {
 
             mIsValidCorporateNumber = mPresenter.checkCorporateNumber(mEditTextCorporateNumber.getText().toString());
 
@@ -257,6 +288,12 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mEditTextCorporateNumber.requestFocus();
             }
         }
+
+        if (viewId == R.id.btnMRegitSendAuthorizationCode) {
+
+            mBtnCheckAuthCode.setVisibility(View.VISIBLE);
+            mTextLayoutAuthCode.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initView(View view) {
@@ -269,6 +306,9 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mTextLayoutAuthCode = view.findViewById(R.id.textLayoutMRegitAuthorizationCode);
         mTextLayoutBirthdate = view.findViewById(R.id.textLayoutMRegitBirthdate);
         mTextLayoutCorporateNumber = view.findViewById(R.id.textLayoutMRegitCorporateRegistrationNumber);
+        mTextLayoutMarketName = view.findViewById(R.id.textLayoutMRegitMarketName);
+        mTextLayoutMarketCategory = view.findViewById(R.id.textLayoutMRegitCategory);
+        mTextLayoutDetailedAddress = view.findViewById(R.id.textLayoutMRegitDetailedAddress);
 
         mEditTextId = view.findViewById(R.id.editTextMRegitId);
         mEditTextPwd = view.findViewById(R.id.editTextMRegitPw);
@@ -277,6 +317,9 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mEditTextCorporateNumber = view.findViewById(R.id.editTextMRegitCorporateNumber);
         mEditTextPhoneNumber = view.findViewById(R.id.editTextMRegitPhoneNumber);
         mEditTextBirthdate = view.findViewById(R.id.editTextMRegitBirthdate);
+        mEditTextMarketName = view.findViewById(R.id.editTextMRegitMarketName);
+        mEditTextMarketCategory = view.findViewById(R.id.editTextMRegitCategory);
+        mEditTextDetailedAddress = view.findViewById(R.id.editTextMRegitDetailedAddress);
 
         mChkBoxFemale = view.findViewById(R.id.chBoxMRegitFemale);
         mChkBoxMale = view.findViewById(R.id.chBoxMRegitMale);
@@ -364,11 +407,13 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mBtnFinish.setOnClickListener(this);
         mBtnCheckIdDuplication.setOnClickListener(this);
         mBtnCheckCorporateNumber.setOnClickListener(this);
+        mBtnSendAuthCode.setOnClickListener(this);
     }
 
     private boolean checkValidAndPutData(String platform) {
 
-        int emailCode, phoneNumberCode, birthDateCode, neededCheckCode, idCode, pwCode, genderCode;
+        int emailCode, phoneNumberCode, birthDateCode, neededCheckCode, pwCode, genderCode, marketNameCode, marketCategoryCode;
+        int addressCode, postalCode, detailedAddressCode;
 
         neededCheckCode = mPresenter.neededCheck(mChkBoxTermsOfUse.isChecked(), mChkBoxPersonalInfo.isChecked());
 
@@ -473,12 +518,16 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             return false;
         } else {
 
-            idCode = mPresenter.idValid(mEditTextId.getText().toString());
             pwCode = mPresenter.pwdValid(mEditTextPwd.getText().toString(), mEditTextCheckPwd.getText().toString());
             emailCode = mPresenter.emailValid(mEditTextEmail.getText().toString());
             phoneNumberCode = mPresenter.phoneNumberValid(mEditTextPhoneNumber.getText().toString());
             genderCode = mPresenter.genderValid(mChkBoxMale.isChecked(), mChkBoxFemale.isChecked());
             birthDateCode = mPresenter.birthdateValid(mEditTextBirthdate.getText().toString());
+            marketNameCode = mPresenter.marketNameValid(mEditTextMarketName.getText().toString());
+            marketCategoryCode = mPresenter.marketCategoryValid(mEditTextMarketCategory.getText().toString());
+            addressCode = mPresenter.addressValid(mTextViewAddress.getText().toString());
+            postalCode = mPresenter.postalCodeValid(mTextViewPostalCode.getText().toString());
+            detailedAddressCode = mPresenter.detailedAddressValid(mEditTextDetailedAddress.getText().toString());
 
             if (mIsIdValid) {
 
@@ -487,24 +536,10 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
                 return false;
             }
-            if (idCode != mPresenter.ID_VALID) {
+            if (mIdValidCode != mPresenter.ID_VALID) {
 
-                if(idCode == mPresenter.ID_EMPTY) {
-
-                    Utility.getInstance().renderKeyboard(getActivity());
-                    mEditTextId.setError("아이디를 입력해주세요.");
-                    mEditTextId.requestFocus();
-                } else if (idCode == mPresenter.ID_SHORT) {
-
-                    Utility.getInstance().renderKeyboard(getActivity());
-                    mEditTextId.setError("아이디가 너무 짧습니다. 3자 이상 입력해주세요.");
-                    mEditTextId.requestFocus();
-                } else if (idCode == mPresenter.ID_LONG) {
-
-                    Utility.getInstance().renderKeyboard(getActivity());
-                    mEditTextId.setError("아이디가 너무 깁니다. 20자 이하로 입력해주세요.");
-                    mEditTextId.requestFocus();
-                }
+                mEditTextId.setError("중복 확인 해주세요");
+                mEditTextId.requestFocus();
             } else if (pwCode != mPresenter.PWD_VALID) {
 
                 if (pwCode == mPresenter.PWD_EMPTY) {
@@ -559,6 +594,29 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 Utility.getInstance().renderKeyboard(getActivity());
                 mEditTextCorporateNumber.setError("사업자 번호 확인해주세요");
                 mEditTextCorporateNumber.requestFocus();
+            } else if (marketNameCode != mPresenter.MARKET_NAME_VALID) {
+
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextMarketName.setError("매장명 입력해주세요");
+                mEditTextMarketName.requestFocus();
+            } else if (marketCategoryCode != mPresenter.MARKET_CATEGORY_VALID) {
+
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextMarketCategory.setError("업종을 입력해주세요");
+                mEditTextMarketCategory.requestFocus();
+            } else if (postalCode != mPresenter.POSTAL_CODE_VALID) {
+
+                mBtnPostNumber.setError("주소찾기 버튼으로 주소를 입력해주세요");
+                mBtnPostNumber.requestFocus();
+            } else if (addressCode != mPresenter.MARKET_ADDRESS_VALID) {
+
+                mBtnPostNumber.setError("주소찾기 버튼으로 주소를 입력해주세요");
+                mBtnPostNumber.requestFocus();
+            } else if (detailedAddressCode != mPresenter.DETAILED_ADDRESS_VALID) {
+
+                Utility.getInstance().renderKeyboard(getActivity());
+                mEditTextDetailedAddress.setError("상세 주소를 입력해주세요 (ex : 동/호/층)");
+                mEditTextDetailedAddress.requestFocus();
             } else if (birthDateCode != mPresenter.BIRTH_VALID) {
 
                 if (birthDateCode == mPresenter.BIRTH_EMPTY) {
@@ -594,7 +652,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 }
             }
 
-            if (mIsIdValid && idCode == mPresenter.ID_VALID && pwCode == mPresenter.PWD_VALID &&
+            if (mIsIdValid && mIdValidCode == mPresenter.ID_VALID && pwCode == mPresenter.PWD_VALID &&
                 emailCode == mPresenter.EMAIL_VALID && genderCode == mPresenter.GENDER_VALID &&
                 phoneNumberCode == mPresenter.PHONE_VALID && neededCheckCode == mPresenter.NEEDED_VALID &&
                 birthDateCode == mPresenter.BIRTH_VALID) {
