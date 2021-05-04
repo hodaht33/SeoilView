@@ -145,7 +145,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
         int viewId = v.getId();
 
-        if (v.getId() == R.id.btnCRegitCheckIdDuplication) {
+        if (viewId == R.id.btnCRegitCheckIdDuplication) {
 
             mIdValidCode = mPresenter.idValid(mEditTextId.getText().toString());
             if(mIdValidCode == mPresenter.ID_VALID) {

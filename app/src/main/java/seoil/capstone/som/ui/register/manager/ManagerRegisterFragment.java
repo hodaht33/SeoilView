@@ -221,21 +221,23 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.btnMRegitFindAddress) {
+        int viewId = v.getId();
+
+        if (viewId == R.id.btnMRegitFindAddress) {
 
             mBtnPostNumber.setError(null);
             Intent intent = new Intent(getActivity(), SearchAddressActivity.class);
             this.startActivityForResult(intent, 1);
         }
 
-        if (v.getId() == R.id.btnMRegitFinish) {
+        if (viewId == R.id.btnMRegitFinish) {
 
             mTextViewError.setVisibility(View.GONE);
 
             doRegister(mBundleData.getString("platform"));
         }
 
-        if (v.getId() == R.id.btnMRegitCheckIdDuplication) {
+        if (viewId == R.id.btnMRegitCheckIdDuplication) {
 
             mIdValidCode = mPresenter.idValid(mEditTextId.getText().toString());
             if(mIdValidCode == mPresenter.ID_VALID) {
@@ -260,7 +262,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         }
 
 
-        if (v.getId() == R.id.btnMRegitCheckCorporateRegistrationNumber) {
+        if (viewId == R.id.btnMRegitCheckCorporateRegistrationNumber) {
 
             mIsValidCorporateNumber = mPresenter.checkCorporateNumber(mEditTextCorporateNumber.getText().toString());
 
@@ -287,7 +289,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             }
         }
 
-        if (v.getId() == R.id.btnMRegitSendAuthorizationCode) {
+        if (viewId == R.id.btnMRegitSendAuthorizationCode) {
 
             mBtnCheckAuthCode.setVisibility(View.VISIBLE);
             mTextLayoutAuthCode.setVisibility(View.VISIBLE);
