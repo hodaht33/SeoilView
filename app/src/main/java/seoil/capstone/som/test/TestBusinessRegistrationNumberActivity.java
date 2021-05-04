@@ -38,7 +38,7 @@ public class TestBusinessRegistrationNumberActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Check.StatusRes statusRes) {
 
-                        if (statusRes.getStatus() == UserApi.CLOSED_BUSINESS) {
+                        if (statusRes.getStatus() == UserApi.SUCCESS) {
 
                             textResult.setText("성공");
                         } else {
