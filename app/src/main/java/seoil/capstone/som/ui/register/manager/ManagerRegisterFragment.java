@@ -21,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -30,6 +31,7 @@ import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.Check;
 import seoil.capstone.som.ui.address.SearchAddressActivity;
 import seoil.capstone.som.ui.register.RegisterCommunicator;
+import seoil.capstone.som.ui.register.select.ProgressProcess;
 import seoil.capstone.som.util.Utility;
 
 public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener, OnFinishApiListener<Check.StatusRes> {
@@ -77,6 +79,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private boolean mIsValidPhoneNumber;
     private int mIsValidCorporateNumber;
     private int mIdValidCode;
+    private LottieAnimationView mAnimationView;
+    private ProgressProcess mProgressProcess;
 
     public ManagerRegisterFragment() {
 
@@ -211,11 +215,15 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     @Override
     public void showProgress() {
 
+        mProgressProcess = new ProgressProcess(4, mAnimationView);
+        mProgressProcess.execute();
+
+        hideProgress();
     }
 
     @Override
     public void hideProgress() {
-
+        mProgressProcess = null;
     }
 
     @Override
@@ -268,6 +276,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
             if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_VALID) {
 
+                showProgress();
+
                 mBtnCheckCorporateNumber.setEnabled(false);
                 mBtnCheckCorporateNumber.setText("확인 완료");
                 mBtnCheckCorporateNumber.setBackgroundColor(getResources().getColor(R.color.light_green));
@@ -287,6 +297,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mEditTextCorporateNumber.setError("유효하지 않은 번호 입니다.");
                 mEditTextCorporateNumber.requestFocus();
             }
+
         }
 
         if (viewId == R.id.btnMRegitSendAuthorizationCode) {
@@ -337,6 +348,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mTextViewError = view.findViewById(R.id.labelMRegitError);
         mTextViewPostalCode = view.findViewById(R.id.editTextMRegitPostalCode);
         mTextViewAddress = view.findViewById(R.id.editTextMRegitAddress);
+
+        mAnimationView = view.findViewById(R.id.animationViewMRegitProgress);
     }
 
     private void initListener() {

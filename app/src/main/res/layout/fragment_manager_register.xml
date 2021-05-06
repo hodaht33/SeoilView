@@ -483,9 +483,23 @@
                 app:layout_constraintTop_toBottomOf="@+id/labelMRegitError" />
 
 
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationViewMRegitProgress"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/progress_animaiton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
