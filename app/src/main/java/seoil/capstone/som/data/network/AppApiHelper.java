@@ -20,10 +20,12 @@ import kotlin.jvm.functions.Function2;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import seoil.capstone.som.R;
+import seoil.capstone.som.data.network.api.BookmarkApi;
 import seoil.capstone.som.data.network.api.PointApi;
 import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.api.ShopApi;
 import seoil.capstone.som.data.network.api.UserApi;
+import seoil.capstone.som.data.network.model.BookmarkInfo;
 import seoil.capstone.som.data.network.model.CurrentPoint;
 import seoil.capstone.som.data.network.model.Check;
 import seoil.capstone.som.data.network.model.Login;
@@ -42,6 +44,7 @@ public class AppApiHelper {
     private PointApi mPointApi;
     private ShopApi mShopApi;
     private SalesApi mSalesApi;
+    private BookmarkApi mBookmarkApi;
 
     public AppApiHelper() {
 
@@ -55,6 +58,7 @@ public class AppApiHelper {
         mPointApi = new PointApi(retrofit);
         mShopApi = new ShopApi(retrofit);
         mSalesApi = new SalesApi(retrofit);
+        mBookmarkApi = new BookmarkApi(retrofit);
     }
 
     public static AppApiHelper getInstance() {
@@ -195,6 +199,11 @@ public class AppApiHelper {
         mUserApi.checkIdDuplicate(id, onFinishApiListener);
     }
 
+    public void checkRegistrationNumber(String number, OnFinishApiListener<Check.StatusRes> onFinishApiListener) {
+
+        mUserApi.checkRegistrationNumber(number, onFinishApiListener);
+    }
+
     public void customerRegister(Register.Customer registerRequest, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
 
         mUserApi.insertCustomer(registerRequest, onFinishApiListener);
@@ -258,5 +267,25 @@ public class AppApiHelper {
     public void insertSalesInfo(SalesInfo.InsertReq req, OnFinishApiListener<SalesInfo.StatusRes> onFinishApiListener) {
 
         mSalesApi.insertSalesInfo(req, onFinishApiListener);
+    }
+
+    public void getBookmarkShopInfo(String userId, OnFinishApiListener<BookmarkInfo.ShopInfoRes> onFinishApiListener) {
+
+        mBookmarkApi.getShopInfo(userId, onFinishApiListener);
+    }
+
+    public void getBookmarkUserInfo(String shopId, OnFinishApiListener<BookmarkInfo.UserInfoRes> onFinishApiListener) {
+
+        mBookmarkApi.getUserInfo(shopId, onFinishApiListener);
+    }
+
+    public void addBookmark(BookmarkInfo.InsertReq createReq, OnFinishApiListener<BookmarkInfo.StatusRes> onFinishApiListener) {
+
+        mBookmarkApi.addBookmark(createReq, onFinishApiListener);
+    }
+
+    public void deleteBookmark(String userId, String shopCode, String shopId, OnFinishApiListener<BookmarkInfo.StatusRes> onFinishApiListener) {
+
+        mBookmarkApi.deleteBookmark(userId, shopCode, shopId, onFinishApiListener);
     }
 }

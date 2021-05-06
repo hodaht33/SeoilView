@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SOM">
-        <activity android:name=".test.TestSalesActivity"/>
+        <activity android:name=".test.TestBookmarkActivity"></activity>
+        <activity android:name=".test.TestBusinessRegistrationNumberActivity" />
+        <activity android:name=".test.TestSalesActivity" />
         <activity android:name=".test.TestShopInfoActivity" />
         <activity android:name=".test.TestSavePointActivity" />
         <activity android:name=".test.TestUsingPointActivity" />

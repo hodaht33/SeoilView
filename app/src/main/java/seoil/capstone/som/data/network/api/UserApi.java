@@ -16,10 +16,15 @@ public class UserApi {
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
     public static final int ERROR_UNDEFINED_VALUE = 2;
+
     public static final int LOGIN_FAIL_ID = 3;
     public static final int LOGIN_FAIL_PWD = 4;
     public static final int NEW_USER = 5;   // 카카오나 네이버로 로그인 시 새로운 회원이면 이에 맞는 처리 수행
+
     public static final int ID_DUPLICATE = 3;
+
+    public static final int CLOSED_BUSINESS = 3;
+    public static final int ERROR_CRAWLING = 4;
 
     private User mUserData;
 
@@ -94,6 +99,24 @@ public class UserApi {
 
             @Override
             public void onFailure(Call<Register.RegisterRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void checkRegistrationNumber(String number, OnFinishApiListener onFinishApiListener) {
+
+        Call<Check.StatusRes> call = mUserData.checkRegistrationNumber(number);
+        call.enqueue(new Callback<Check.StatusRes>() {
+            @Override
+            public void onResponse(Call<Check.StatusRes> call, Response<Check.StatusRes> response) {
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Check.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
