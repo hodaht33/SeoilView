@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import seoil.capstone.som.R;
+import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.Check;
@@ -215,14 +217,20 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     @Override
     public void showProgress() {
 
-        mProgressProcess = new ProgressProcess(4, mAnimationView);
+        mProgressProcess = new ProgressProcess(mAnimationView);
         mProgressProcess.execute();
-
-        hideProgress();
     }
 
     @Override
     public void hideProgress() {
+
+        if(mPresenter.getIsValid()) {
+
+            mBtnCheckCorporateNumber.setEnabled(false);
+            mBtnCheckCorporateNumber.setText("확인 완료");
+            mBtnCheckCorporateNumber.setBackgroundColor(getResources().getColor(R.color.light_green));
+        }
+        mProgressProcess.endProgress();
         mProgressProcess = null;
     }
 
@@ -269,7 +277,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             }
         }
 
-
         if (viewId == R.id.btnMRegitCheckCorporateRegistrationNumber) {
 
             mIsValidCorporateNumber = mPresenter.checkCorporateNumber(mEditTextCorporateNumber.getText().toString());
@@ -277,10 +284,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_VALID) {
 
                 showProgress();
+                mPresenter.checkCorporateNumberValid(mEditTextCorporateNumber.getText().toString());
 
-                mBtnCheckCorporateNumber.setEnabled(false);
-                mBtnCheckCorporateNumber.setText("확인 완료");
-                mBtnCheckCorporateNumber.setBackgroundColor(getResources().getColor(R.color.light_green));
             } else if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_NOT_NUM) {
 
                 Utility.getInstance().renderKeyboard(getActivity());
@@ -297,7 +302,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mEditTextCorporateNumber.setError("유효하지 않은 번호 입니다.");
                 mEditTextCorporateNumber.requestFocus();
             }
-
         }
 
         if (viewId == R.id.btnMRegitSendAuthorizationCode) {
@@ -749,4 +753,5 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             mEditTextId.setError("중복된 아이디가 존재합니다.");
         }
     }
+
 }

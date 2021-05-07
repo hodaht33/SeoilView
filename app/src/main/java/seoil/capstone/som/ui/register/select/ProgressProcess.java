@@ -25,11 +25,10 @@ import seoil.capstone.som.R;
 
 public class ProgressProcess extends AsyncTask<Void, Void, Void> {
 
-    private int mTime;
     private LottieAnimationView mAinimationView;;
+    private boolean mIsRunning = false;
 
-    public ProgressProcess(int time, LottieAnimationView animationView) {
-        mTime = time;
+    public ProgressProcess(LottieAnimationView animationView) {
         mAinimationView = animationView;
     }
 
@@ -39,6 +38,7 @@ public class ProgressProcess extends AsyncTask<Void, Void, Void> {
 
         mAinimationView.setVisibility(View.VISIBLE);
         mAinimationView.playAnimation();
+        mIsRunning = true;
 
         super.onPreExecute();
     }
@@ -55,7 +55,7 @@ public class ProgressProcess extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... voids) {
 
         try {
-            for (int i = 0; i < mTime; i++) {
+            while(mIsRunning) {
 
                 Thread.sleep(1000);
             }
@@ -65,4 +65,12 @@ public class ProgressProcess extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
+    public void endProgress() {
+        mIsRunning = false;
+    }
+
+    public boolean getRunning() {
+        
+        return mIsRunning;
+    }
 }
