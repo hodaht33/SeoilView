@@ -137,12 +137,10 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
 
                     mIsValid = true;
                     mView.hideProgress();
-                    Log.d("test","true");
                 } else {
 
                     mIsValid = false;
                     mView.hideProgress();
-                    Log.d("test", "false");
                 }
             }
 
@@ -151,7 +149,6 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
 
                 mIsValid = false;
                 mView.hideProgress();
-                Log.d("test", t.toString());
             }
         };
 

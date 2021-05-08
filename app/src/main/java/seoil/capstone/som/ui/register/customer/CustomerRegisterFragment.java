@@ -393,7 +393,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                 mBundleData.putString("birthdate", editTextToString(mEditTextBirthdate));
                 mBundleData.putString("gender", discriminateGender());
                 mBundleData.putString("email", editTextToString(mEditTextEmail));
-                mBundleData.putString("phoneNumber", mPresenter.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
+                mBundleData.putString("phoneNumber", editTextToString(mEditTextPhoneNumber));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
@@ -528,7 +528,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                 mBundleData.putString("birthdate", editTextToString(mEditTextBirthdate));
                 mBundleData.putString("gender", discriminateGender());
                 mBundleData.putString("email", editTextToString(mEditTextEmail));
-                mBundleData.putString("phoneNumber", mPresenter.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
+                mBundleData.putString("phoneNumber", editTextToString(mEditTextPhoneNumber));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;

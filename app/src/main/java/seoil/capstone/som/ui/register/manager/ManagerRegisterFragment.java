@@ -533,7 +533,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mBundleData.putString("birthdate", editTextToString(mEditTextBirthdate));
                 mBundleData.putString("gender", discriminateGender());
                 mBundleData.putString("email", editTextToString(mEditTextEmail));
-                mBundleData.putString("phoneNumber", mPresenter.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
+                mBundleData.putString("phoneNumber", editTextToString(mEditTextPhoneNumber));
                 mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
                 mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
                 mBundleData.putString("shopCategory", editTextToString(mEditTextMarketCategory));
@@ -690,7 +690,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mBundleData.putString("birthdate", editTextToString(mEditTextBirthdate));
                 mBundleData.putString("gender", discriminateGender());
                 mBundleData.putString("email", editTextToString(mEditTextEmail));
-                mBundleData.putString("phoneNumber", mPresenter.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
+                mBundleData.putString("phoneNumber", editTextToString(mEditTextPhoneNumber));
                 mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
                 mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
                 mBundleData.putString("shopCategory", editTextToString(mEditTextMarketCategory));
@@ -752,8 +752,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                     mBundleData.getString("shopCode"),
                     mBundleData.getString("shopName"),
                     mBundleData.getString("shopPostCode"),
-                    mBundleData.getString("shopCategory"),
                     mBundleData.getString("shopAddress"),
+                    mBundleData.getString("shopCategory"),
                     mChkBoxMarketingInfo.isChecked()
 
             );

@@ -102,12 +102,12 @@ public class ValidChecker {
         return EMAIL_VALID;
     }
 
-    public String phoneNumberToInternationalNumber(String phoneNumber) {
-
-        // 유효성검사를 이미 했다고 치고 변환
-        // TODO: SMS API에 따라 다른지 확인 후 변경
-        return phoneNumber.replaceFirst("0", "+82");
-    }
+//    public String phoneNumberToInternationalNumber(String phoneNumber) {
+//
+//        // 유효성검사를 이미 했다고 치고 변환
+//        // TODO: SMS API에 따라 다른지 확인 후 변경
+//        return phoneNumber.replaceFirst("0", "+82");
+//    }
 
     public int phoneNumberValid(String phoneNumberText) {
 
