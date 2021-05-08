@@ -129,6 +129,9 @@ public class Register {
         @SerializedName("shopName")
         @Expose
         private String shopName;
+        @SerializedName("shopPostCode")
+        @Expose
+        private String shopPostCode;
         @SerializedName("shopAddress")
         @Expose
         private String shopAddress;
@@ -136,7 +139,7 @@ public class Register {
         @Expose
         private String shopCategory;
 
-        public Manager(String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement, String shopCode, String shopName, String shopAddress, String shopCategory) {
+        public Manager(String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement, String shopCode, String shopName, String shopPostCode, String shopAddress, String shopCategory) {
             this.id = id;
             this.pwd = pwd;
             this.birthdate = birthdate;
@@ -146,6 +149,7 @@ public class Register {
             this.marketingAgreement = marketingAgreement;
             this.shopCode = shopCode;
             this.shopName = shopName;
+            this.shopPostCode = shopPostCode;
             this.shopAddress = shopAddress;
             this.shopCategory = shopCategory;
         }
@@ -198,7 +202,7 @@ public class Register {
             this.phoneNumber = phoneNumber;
         }
 
-        public boolean getMarketingAgreement() {
+        public boolean isMarketingAgreement() {
             return marketingAgreement;
         }
 
@@ -220,6 +224,14 @@ public class Register {
 
         public void setShopName(String shopName) {
             this.shopName = shopName;
+        }
+
+        public String getShopPostCode() {
+            return shopPostCode;
+        }
+
+        public void setShopPostCode(String shopPostCode) {
+            this.shopPostCode = shopPostCode;
         }
 
         public String getShopAddress() {
