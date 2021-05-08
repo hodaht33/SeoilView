@@ -57,7 +57,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
 
     @Override
     public void register(Context context, String platform, String id, String pwd, String birthdate, String gender, String email, String phoneNumber,
-                         String shopCode, String shopName, String shopAddress, String shopCategory, boolean marketingAgreement) {
+                         String shopCode, String shopName, String shopPostCode, String shopAddress, String shopCategory, boolean marketingAgreement) {
 
         OnFinishApiListener<Register.RegisterRes> onFinishApiListener = new OnFinishApiListener<Register.RegisterRes>() {
             @Override
@@ -69,7 +69,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                     if (platform.equals("naver")
-                            && platform.equals("kakao")) {
+                            || platform.equals("kakao")) {
 
                         intent.setComponent(new ComponentName(context, MainActivity.class));
                         intent.putExtra("id", id);
@@ -91,7 +91,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
             }
         };
 
-        mInteractor.register(new Register.Manager(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement, shopCode, shopName, shopAddress, shopCategory), onFinishApiListener);
+        mInteractor.register(new Register.Manager(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement, shopCode, shopName, shopPostCode, shopAddress, shopCategory), onFinishApiListener);
     }
 
     public int checkCorporateNumber(String corporateNumber) {

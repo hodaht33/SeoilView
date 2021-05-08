@@ -557,7 +557,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             postalCode = mPresenter.postalCodeValid(mTextViewPostalCode.getText().toString());
             detailedAddressCode = mPresenter.detailedAddressValid(mEditTextDetailedAddress.getText().toString());
 
-            if (mIsIdValid) {
+            if (!mIsIdValid) {
 
                 mTextViewError.setVisibility(View.VISIBLE);
                 mTextViewError.setText("중복확인을 해주세요.");
@@ -680,7 +680,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 }
             }
 
-            if (mIsIdValid && mIdValidCode == mPresenter.ID_VALID && pwCode == mPresenter.PWD_VALID &&
+            if (mIsIdValid &&  pwCode == mPresenter.PWD_VALID &&
                 emailCode == mPresenter.EMAIL_VALID && genderCode == mPresenter.GENDER_VALID &&
                 phoneNumberCode == mPresenter.PHONE_VALID && neededCheckCode == mPresenter.NEEDED_VALID &&
                 birthDateCode == mPresenter.BIRTH_VALID) {
@@ -694,7 +694,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
                 mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
                 mBundleData.putString("shopCategory", editTextToString(mEditTextMarketCategory));
-                mBundleData.putString("shopAddress", mTextViewPostalCode.getText().toString() + " " + mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
+                mBundleData.putString("shopPostCode", mTextViewPostalCode.getText().toString());
+                mBundleData.putString("shopAddress", mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
@@ -750,10 +751,13 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                     mBundleData.getString("phoneNumber"),
                     mBundleData.getString("shopCode"),
                     mBundleData.getString("shopName"),
+                    mBundleData.getString("shopPostCode"),
                     mBundleData.getString("shopCategory"),
                     mBundleData.getString("shopAddress"),
                     mChkBoxMarketingInfo.isChecked()
+
             );
+            Log.d("MRegit","1");
         }
     }
 
@@ -763,7 +767,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         int status = res.getStatus();
         if (status == UserApi.SUCCESS) {
 
-            mIsIdValid = false;
+            mIsIdValid = true;
 
             mBtnCheckIdDuplication.setEnabled(false);
             mBtnCheckIdDuplication.setText("확인 완료");
