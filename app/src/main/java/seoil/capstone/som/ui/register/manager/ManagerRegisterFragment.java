@@ -17,9 +17,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -49,7 +52,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private TextInputEditText mEditTextPhoneNumber;
     private TextInputEditText mEditTextBirthdate;
     private TextInputEditText mEditTextMarketName;
-    private TextInputEditText mEditTextMarketCategory;
     private TextInputEditText mEditTextDetailedAddress;
     private TextInputLayout mTextLayoutId;
     private TextInputLayout mTextLayoutPwd;
@@ -60,7 +62,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private TextInputLayout mTextLayoutBirthdate;
     private TextInputLayout mTextLayoutCorporateNumber;
     private TextInputLayout mTextLayoutMarketName;
-    private TextInputLayout mTextLayoutMarketCategory;
     private TextInputLayout mTextLayoutDetailedAddress;
     private CheckBox mChkBoxFemale;
     private CheckBox mChkBoxMale;
@@ -79,10 +80,12 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private Bundle mBundleData;
     private boolean mIsIdValid;
     private boolean mIsValidPhoneNumber;
+    private boolean mIsCategorySelected;
     private int mIsValidCorporateNumber;
     private int mIdValidCode;
     private LottieAnimationView mAnimationView;
     private ProgressProcess mProgressProcess;
+    private Spinner mSpinnerCategory;
 
     public ManagerRegisterFragment() {
 
@@ -322,7 +325,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mTextLayoutBirthdate = view.findViewById(R.id.textLayoutMRegitBirthdate);
         mTextLayoutCorporateNumber = view.findViewById(R.id.textLayoutMRegitCorporateRegistrationNumber);
         mTextLayoutMarketName = view.findViewById(R.id.textLayoutMRegitMarketName);
-        mTextLayoutMarketCategory = view.findViewById(R.id.textLayoutMRegitCategory);
         mTextLayoutDetailedAddress = view.findViewById(R.id.textLayoutMRegitDetailedAddress);
 
         mEditTextId = view.findViewById(R.id.editTextMRegitId);
@@ -333,7 +335,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mEditTextPhoneNumber = view.findViewById(R.id.editTextMRegitPhoneNumber);
         mEditTextBirthdate = view.findViewById(R.id.editTextMRegitBirthdate);
         mEditTextMarketName = view.findViewById(R.id.editTextMRegitMarketName);
-        mEditTextMarketCategory = view.findViewById(R.id.editTextMRegitCategory);
         mEditTextDetailedAddress = view.findViewById(R.id.editTextMRegitDetailedAddress);
 
         mChkBoxFemale = view.findViewById(R.id.chBoxMRegitFemale);
@@ -354,6 +355,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mTextViewAddress = view.findViewById(R.id.editTextMRegitAddress);
 
         mAnimationView = view.findViewById(R.id.animationViewMRegitProgress);
+        mSpinnerCategory = view.findViewById(R.id.spinnerMRegitCategory);
     }
 
     private void initListener() {
@@ -420,6 +422,33 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             }
         });
 
+        //Spinner 입력
+        @SuppressLint("ResourceType")
+        ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.spinnerArray, R.layout.spinner_item);
+        mSpinnerCategory.setAdapter(spinnerAdapter);
+        mSpinnerCategory.setFocusable(true);
+        mSpinnerCategory.setFocusableInTouchMode(true);
+        mSpinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (mSpinnerCategory.getSelectedItemPosition() > 0) {
+
+                    mIsCategorySelected = true;
+                } else {
+
+                    mIsCategorySelected = false;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                mIsCategorySelected = false;
+            }
+        });
+
         mBtnPostNumber.setOnClickListener(this);
         mBtnFinish.setOnClickListener(this);
         mBtnCheckIdDuplication.setOnClickListener(this);
@@ -455,7 +484,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
                 mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
                 mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
-                mBundleData.putString("shopCategory", editTextToString(mEditTextMarketCategory));
+                mBundleData.putString("shopCategory", mSpinnerCategory.getSelectedItem().toString());
                 mBundleData.putString("shopAddress", mTextViewPostalCode.getText().toString() + " " + mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
             }
@@ -536,7 +565,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mBundleData.putString("phoneNumber", editTextToString(mEditTextPhoneNumber));
                 mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
                 mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
-                mBundleData.putString("shopCategory", editTextToString(mEditTextMarketCategory));
+                mBundleData.putString("shopCategory", mSpinnerCategory.getSelectedItem().toString());
                 mBundleData.putString("shopAddress", mTextViewPostalCode.getText().toString() + " " + mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
@@ -552,7 +581,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             genderCode = mPresenter.genderValid(mChkBoxMale.isChecked(), mChkBoxFemale.isChecked());
             birthDateCode = mPresenter.birthdateValid(mEditTextBirthdate.getText().toString());
             marketNameCode = mPresenter.marketNameValid(mEditTextMarketName.getText().toString());
-            marketCategoryCode = mPresenter.marketCategoryValid(mEditTextMarketCategory.getText().toString());
             addressCode = mPresenter.addressValid(mTextViewAddress.getText().toString());
             postalCode = mPresenter.postalCodeValid(mTextViewPostalCode.getText().toString());
             detailedAddressCode = mPresenter.detailedAddressValid(mEditTextDetailedAddress.getText().toString());
@@ -627,11 +655,11 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 Utility.getInstance().renderKeyboard(getActivity());
                 mEditTextMarketName.setError("매장명 입력해주세요");
                 mEditTextMarketName.requestFocus();
-            } else if (marketCategoryCode != mPresenter.MARKET_CATEGORY_VALID) {
+            } else if (!mIsCategorySelected) {
 
-                Utility.getInstance().renderKeyboard(getActivity());
-                mEditTextMarketCategory.setError("업종을 입력해주세요");
-                mEditTextMarketCategory.requestFocus();
+                mTextViewError.setVisibility(View.VISIBLE);
+                mTextViewError.setText("카테고리를 선택해주세요");
+                mSpinnerCategory.requestFocus();
             } else if (postalCode != mPresenter.POSTAL_CODE_VALID) {
 
                 mBtnPostNumber.setError("주소찾기 버튼으로 주소를 입력해주세요");
@@ -683,7 +711,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             if (mIsIdValid &&  pwCode == mPresenter.PWD_VALID &&
                 emailCode == mPresenter.EMAIL_VALID && genderCode == mPresenter.GENDER_VALID &&
                 phoneNumberCode == mPresenter.PHONE_VALID && neededCheckCode == mPresenter.NEEDED_VALID &&
-                birthDateCode == mPresenter.BIRTH_VALID) {
+                birthDateCode == mPresenter.BIRTH_VALID && mIsCategorySelected) {
 
                 mBundleData.putString("id", editTextToString(mEditTextId));
                 mBundleData.putString("pwd", editTextToString(mEditTextPwd));
@@ -693,7 +721,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mBundleData.putString("phoneNumber", editTextToString(mEditTextPhoneNumber));
                 mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
                 mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
-                mBundleData.putString("shopCategory", editTextToString(mEditTextMarketCategory));
+                mBundleData.putString("shopCategory", mSpinnerCategory.getSelectedItem().toString());
                 mBundleData.putString("shopPostCode", mTextViewPostalCode.getText().toString());
                 mBundleData.putString("shopAddress", mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());

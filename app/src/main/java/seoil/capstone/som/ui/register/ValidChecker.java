@@ -15,7 +15,6 @@ import seoil.capstone.som.util.Utility;
 
 public class ValidChecker {
 
-    private Activity mActivity;
     public final int ID_EMPTY = 1;
     public final int ID_SHORT = 2;
     public final int ID_LONG = 3;
@@ -41,11 +40,6 @@ public class ValidChecker {
     public final int PERSONAL_INFO_NEEDED = 2;
     public final int NEEDED_VALID = 0;
 
-
-    public void releaseActivity() {
-
-        mActivity = null;
-    }
 
     public int idValid(String id) {
 

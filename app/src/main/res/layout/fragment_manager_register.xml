@@ -252,25 +252,19 @@
                     android:inputType="textPersonName" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textLayoutMRegitCategory"
+            <Spinner
+                android:id="@+id/spinnerMRegitCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
+                android:spinnerMode="dropdown"
                 app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitMarketName">
+                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitMarketName" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextMRegitCategory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:hint="업종" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textLayoutMRegitPostalCode"
@@ -281,7 +275,7 @@
                 app:boxBackgroundColor="@color/input_layout_color"
                 app:layout_constraintEnd_toStartOf="@+id/btnMRegitFindAddress"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitCategory">
+                app:layout_constraintTop_toBottomOf="@+id/spinnerMRegitCategory">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextMRegitPostalCode"
@@ -304,7 +298,7 @@
                 android:backgroundTint="@color/btn_color"
                 android:textColor="@color/btn_text"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textLayoutMRegitCategory" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerMRegitCategory" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textLayoutMRegitAddress"

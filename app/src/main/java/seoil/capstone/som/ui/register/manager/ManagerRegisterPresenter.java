@@ -25,8 +25,6 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
     public final int CORPORATE_NUMBER_VALID = 0;
     public final int MARKET_NAME_NOT_VALID = 1;
     public final int MARKET_NAME_VALID = 0;
-    public final int MARKET_CATEGORY_NOT_VALID = 1;
-    public final int MARKET_CATEGORY_VALID = 0;
     public final int MARKET_ADDRESS_NOT_VALID = 1;
     public final int MARKET_ADDRESS_VALID = 0;
     public final int POSTAL_CODE_NOT_VALID = 1;
@@ -179,16 +177,6 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         }
 
         return MARKET_NAME_VALID;
-    }
-
-    public int marketCategoryValid(String category) {
-
-        if(category.isEmpty()) {
-
-            return MARKET_CATEGORY_NOT_VALID;
-        }
-
-        return MARKET_CATEGORY_VALID;
     }
 
     public int addressValid(String address) {
