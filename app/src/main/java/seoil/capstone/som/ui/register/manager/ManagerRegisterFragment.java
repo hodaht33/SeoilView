@@ -451,6 +451,13 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
                 mTextViewError.setVisibility(View.VISIBLE);
                 mTextViewError.setText("개인정보 취급방침 동의가 필요합니다.");
+            } else {
+
+                mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
+                mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
+                mBundleData.putString("shopCategory", editTextToString(mEditTextMarketCategory));
+                mBundleData.putString("shopAddress", mTextViewPostalCode.getText().toString() + " " + mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
+                mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
             }
 
             return false;
@@ -527,6 +534,10 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mBundleData.putString("gender", discriminateGender());
                 mBundleData.putString("email", editTextToString(mEditTextEmail));
                 mBundleData.putString("phoneNumber", mPresenter.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
+                mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
+                mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
+                mBundleData.putString("shopCategory", editTextToString(mEditTextMarketCategory));
+                mBundleData.putString("shopAddress", mTextViewPostalCode.getText().toString() + " " + mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
@@ -680,6 +691,10 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mBundleData.putString("gender", discriminateGender());
                 mBundleData.putString("email", editTextToString(mEditTextEmail));
                 mBundleData.putString("phoneNumber", mPresenter.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
+                mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
+                mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
+                mBundleData.putString("shopCategory", editTextToString(mEditTextMarketCategory));
+                mBundleData.putString("shopAddress", mTextViewPostalCode.getText().toString() + " " + mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
@@ -724,6 +739,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         if (checkValidAndPutData(platform)) {
 
             mPresenter.register(
+
                     getContext(),
                     platform,
                     mBundleData.getString("id"),
@@ -732,6 +748,10 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                     mBundleData.getString("gender"),
                     mBundleData.getString("email"),
                     mBundleData.getString("phoneNumber"),
+                    mBundleData.getString("shopCode"),
+                    mBundleData.getString("shopName"),
+                    mBundleData.getString("shopCategory"),
+                    mBundleData.getString("shopAddress"),
                     mChkBoxMarketingInfo.isChecked()
             );
         }

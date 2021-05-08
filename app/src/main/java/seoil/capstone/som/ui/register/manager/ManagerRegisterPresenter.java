@@ -1,12 +1,17 @@
 package seoil.capstone.som.ui.register.manager;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.Check;
+import seoil.capstone.som.data.network.model.Register;
+import seoil.capstone.som.ui.login.LoginActivity;
+import seoil.capstone.som.ui.main.MainActivity;
 import seoil.capstone.som.ui.register.ValidChecker;
 
 public class ManagerRegisterPresenter extends ValidChecker implements ManagerRegisterContract.Presenter {
@@ -51,8 +56,42 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
     }
 
     @Override
-    public void register(Context context, String platform, String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement) {
+    public void register(Context context, String platform, String id, String pwd, String birthdate, String gender, String email, String phoneNumber,
+                         String shopCode, String shopName, String shopAddress, String shopCategory, boolean marketingAgreement) {
 
+        OnFinishApiListener<Register.RegisterRes> onFinishApiListener = new OnFinishApiListener<Register.RegisterRes>() {
+            @Override
+            public void onSuccess(Register.RegisterRes registerResponse) {
+
+                if (registerResponse.getStatus() == UserApi.SUCCESS) {
+
+                    Intent intent = new Intent();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    if (platform.equals("naver")
+                            && platform.equals("kakao")) {
+
+                        intent.setComponent(new ComponentName(context, MainActivity.class));
+                        intent.putExtra("id", id);
+
+                        mView.finishRegister(intent);
+                    } else {
+
+                        intent.setComponent(new ComponentName(context, LoginActivity.class));
+
+                        mView.finishRegister(intent);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+                Log.d("MRegitPresenter", "Error : " + t);
+            }
+        };
+
+        mInteractor.register(new Register.Manager(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement, shopCode, shopName, shopAddress, shopCategory), onFinishApiListener);
     }
 
     public int checkCorporateNumber(String corporateNumber) {
