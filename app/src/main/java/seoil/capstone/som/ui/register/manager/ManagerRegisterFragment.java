@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,15 +22,18 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import seoil.capstone.som.R;
+import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.Check;
 import seoil.capstone.som.ui.address.SearchAddressActivity;
 import seoil.capstone.som.ui.register.RegisterCommunicator;
+import seoil.capstone.som.ui.register.select.ProgressProcess;
 import seoil.capstone.som.util.Utility;
 
 public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener, OnFinishApiListener<Check.StatusRes> {
@@ -77,6 +81,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private boolean mIsValidPhoneNumber;
     private int mIsValidCorporateNumber;
     private int mIdValidCode;
+    private LottieAnimationView mAnimationView;
+    private ProgressProcess mProgressProcess;
 
     public ManagerRegisterFragment() {
 
@@ -211,11 +217,21 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     @Override
     public void showProgress() {
 
+        mProgressProcess = new ProgressProcess(mAnimationView);
+        mProgressProcess.execute();
     }
 
     @Override
     public void hideProgress() {
 
+        if(mPresenter.getIsValid()) {
+
+            mBtnCheckCorporateNumber.setEnabled(false);
+            mBtnCheckCorporateNumber.setText("확인 완료");
+            mBtnCheckCorporateNumber.setBackgroundColor(getResources().getColor(R.color.light_green));
+        }
+        mProgressProcess.endProgress();
+        mProgressProcess = null;
     }
 
     @Override
@@ -261,16 +277,15 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             }
         }
 
-
         if (viewId == R.id.btnMRegitCheckCorporateRegistrationNumber) {
 
             mIsValidCorporateNumber = mPresenter.checkCorporateNumber(mEditTextCorporateNumber.getText().toString());
 
             if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_VALID) {
 
-                mBtnCheckCorporateNumber.setEnabled(false);
-                mBtnCheckCorporateNumber.setText("확인 완료");
-                mBtnCheckCorporateNumber.setBackgroundColor(getResources().getColor(R.color.light_green));
+                showProgress();
+                mPresenter.checkCorporateNumberValid(mEditTextCorporateNumber.getText().toString());
+
             } else if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_NOT_NUM) {
 
                 Utility.getInstance().renderKeyboard(getActivity());
@@ -337,6 +352,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mTextViewError = view.findViewById(R.id.labelMRegitError);
         mTextViewPostalCode = view.findViewById(R.id.editTextMRegitPostalCode);
         mTextViewAddress = view.findViewById(R.id.editTextMRegitAddress);
+
+        mAnimationView = view.findViewById(R.id.animationViewMRegitProgress);
     }
 
     private void initListener() {
@@ -434,6 +451,13 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
                 mTextViewError.setVisibility(View.VISIBLE);
                 mTextViewError.setText("개인정보 취급방침 동의가 필요합니다.");
+            } else {
+
+                mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
+                mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
+                mBundleData.putString("shopCategory", editTextToString(mEditTextMarketCategory));
+                mBundleData.putString("shopAddress", mTextViewPostalCode.getText().toString() + " " + mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
+                mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
             }
 
             return false;
@@ -510,6 +534,10 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mBundleData.putString("gender", discriminateGender());
                 mBundleData.putString("email", editTextToString(mEditTextEmail));
                 mBundleData.putString("phoneNumber", mPresenter.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
+                mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
+                mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
+                mBundleData.putString("shopCategory", editTextToString(mEditTextMarketCategory));
+                mBundleData.putString("shopAddress", mTextViewPostalCode.getText().toString() + " " + mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
@@ -663,6 +691,10 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mBundleData.putString("gender", discriminateGender());
                 mBundleData.putString("email", editTextToString(mEditTextEmail));
                 mBundleData.putString("phoneNumber", mPresenter.phoneNumberToInternationalNumber(editTextToString(mEditTextPhoneNumber)));
+                mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
+                mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
+                mBundleData.putString("shopCategory", editTextToString(mEditTextMarketCategory));
+                mBundleData.putString("shopAddress", mTextViewPostalCode.getText().toString() + " " + mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
@@ -707,6 +739,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         if (checkValidAndPutData(platform)) {
 
             mPresenter.register(
+
                     getContext(),
                     platform,
                     mBundleData.getString("id"),
@@ -715,6 +748,10 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                     mBundleData.getString("gender"),
                     mBundleData.getString("email"),
                     mBundleData.getString("phoneNumber"),
+                    mBundleData.getString("shopCode"),
+                    mBundleData.getString("shopName"),
+                    mBundleData.getString("shopCategory"),
+                    mBundleData.getString("shopAddress"),
                     mChkBoxMarketingInfo.isChecked()
             );
         }
@@ -736,4 +773,5 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             mEditTextId.setError("중복된 아이디가 존재합니다.");
         }
     }
+
 }

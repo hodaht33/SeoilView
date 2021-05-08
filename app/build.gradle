@@ -62,4 +62,7 @@ dependencies {
     // okHttp3
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
+    //lottie 라이브러리
+    implementation "com.airbnb.android:lottie:3.7.0"
 }

@@ -21,6 +21,7 @@ public interface ManagerRegisterContract {
 
     interface Presenter extends BaseContract.Presenter<ManagerRegisterContract.View> {
 
-        void register(Context context, String platform, String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement);
+        void register(Context context, String platform, String id, String pwd, String birthdate, String gender, String email, String phoneNumber,
+                      String shopCode, String shopName, String shopAddress, String shopCategory, boolean marketingAgreement);
     }
 }

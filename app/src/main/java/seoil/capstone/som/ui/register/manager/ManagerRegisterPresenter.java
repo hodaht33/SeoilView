@@ -1,8 +1,17 @@
 package seoil.capstone.som.ui.register.manager;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
+import seoil.capstone.som.data.network.AppApiHelper;
+import seoil.capstone.som.data.network.OnFinishApiListener;
+import seoil.capstone.som.data.network.api.UserApi;
+import seoil.capstone.som.data.network.model.Check;
+import seoil.capstone.som.data.network.model.Register;
+import seoil.capstone.som.ui.login.LoginActivity;
+import seoil.capstone.som.ui.main.MainActivity;
 import seoil.capstone.som.ui.register.ValidChecker;
 
 public class ManagerRegisterPresenter extends ValidChecker implements ManagerRegisterContract.Presenter {
@@ -24,6 +33,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
     public final int POSTAL_CODE_VALID = 0;
     public final int DETAILED_ADDRESS_NOT_VALID = 1;
     public final int DETAILED_ADDRESS_VALID = 0;
+    private boolean mIsValid;
 
     @Override
     public void setView(ManagerRegisterContract.View view) {
@@ -46,18 +56,52 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
     }
 
     @Override
-    public void register(Context context, String platform, String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement) {
+    public void register(Context context, String platform, String id, String pwd, String birthdate, String gender, String email, String phoneNumber,
+                         String shopCode, String shopName, String shopAddress, String shopCategory, boolean marketingAgreement) {
 
+        OnFinishApiListener<Register.RegisterRes> onFinishApiListener = new OnFinishApiListener<Register.RegisterRes>() {
+            @Override
+            public void onSuccess(Register.RegisterRes registerResponse) {
+
+                if (registerResponse.getStatus() == UserApi.SUCCESS) {
+
+                    Intent intent = new Intent();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    if (platform.equals("naver")
+                            && platform.equals("kakao")) {
+
+                        intent.setComponent(new ComponentName(context, MainActivity.class));
+                        intent.putExtra("id", id);
+
+                        mView.finishRegister(intent);
+                    } else {
+
+                        intent.setComponent(new ComponentName(context, LoginActivity.class));
+
+                        mView.finishRegister(intent);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+                Log.d("MRegitPresenter", "Error : " + t);
+            }
+        };
+
+        mInteractor.register(new Register.Manager(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement, shopCode, shopName, shopAddress, shopCategory), onFinishApiListener);
     }
 
-    public int checkCorporateNumber(String businessNumber) {
+    public int checkCorporateNumber(String corporateNumber) {
 
         final int[] LOGIC_NUM = {1, 3, 7, 1, 3, 7, 1, 3, 5};
 
-        if (!isNumeric(businessNumber)) {
+        if (!isNumeric(corporateNumber)) {
 
             return CORPORATE_NUMBER_NOT_NUM;
-        } else if (businessNumber.length() != 10) {
+        } else if (corporateNumber.length() != 10) {
 
             return CORPORATE_NUMBER_LENGTH_ERROR;
         }
@@ -67,20 +111,51 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
 
         for(int i = 0; i < LOGIC_NUM.length; i++) {
 
-            if(businessNumber.charAt(i) == '0') {
+            if(corporateNumber.charAt(i) == '0') {
 
                 continue;
             }
-            sum = sum + (LOGIC_NUM[i] * Integer.parseInt(String.valueOf(businessNumber.charAt(i))));
+            sum = sum + (LOGIC_NUM[i] * Integer.parseInt(String.valueOf(corporateNumber.charAt(i))));
         }
-        sum = sum + ((LOGIC_NUM[8] * Integer.parseInt(String.valueOf(businessNumber.charAt(8)))) / 10);
+        sum = sum + ((LOGIC_NUM[8] * Integer.parseInt(String.valueOf(corporateNumber.charAt(8)))) / 10);
         checkSum = 10 - (sum % 10);
 
-        if (checkSum == Integer.parseInt(String.valueOf(businessNumber.charAt(9)))) {
+        if (checkSum == Integer.parseInt(String.valueOf(corporateNumber.charAt(9)))) {
 
             return CORPORATE_NUMBER_VALID;
         }
         return CORPORATE_NUMBER_NOT_VALID;
+    }
+
+    public void checkCorporateNumberValid(String corporateNumber) {
+
+        OnFinishApiListener<Check.StatusRes> onFinishApiListener = new OnFinishApiListener<Check.StatusRes>() {
+            @Override
+            public void onSuccess(Check.StatusRes statusRes) {
+
+                if (statusRes.getStatus() == UserApi.SUCCESS) {
+
+                    mIsValid = true;
+                    mView.hideProgress();
+                    Log.d("test","true");
+                } else {
+
+                    mIsValid = false;
+                    mView.hideProgress();
+                    Log.d("test", "false");
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+                mIsValid = false;
+                mView.hideProgress();
+                Log.d("test", t.toString());
+            }
+        };
+
+        AppApiHelper.getInstance().checkRegistrationNumber(corporateNumber, onFinishApiListener);
     }
 
     public boolean isNumeric(String str) {
@@ -147,5 +222,10 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         }
 
         return DETAILED_ADDRESS_VALID;
+    }
+
+    public boolean getIsValid() {
+
+        return mIsValid;
     }
 }
