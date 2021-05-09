@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.SalesInfo;
 import seoil.capstone.som.data.network.model.retrofit.Sales;
@@ -30,7 +31,12 @@ public class SalesApi {
         call.enqueue(new Callback<SalesInfo.GetRes>() {
             @Override
             public void onResponse(Call<SalesInfo.GetRes> call, Response<SalesInfo.GetRes> response) {
-                Log.d("test", response.toString());
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
                 onFinishApiListener.onSuccess(response.body());
             }
 
@@ -48,6 +54,11 @@ public class SalesApi {
         call.enqueue(new Callback<SalesInfo.StatusRes>() {
             @Override
             public void onResponse(Call<SalesInfo.StatusRes> call, Response<SalesInfo.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
 
                 onFinishApiListener.onSuccess(response.body());
             }

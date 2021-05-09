@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.CurrentPoint;
 import seoil.capstone.som.data.network.model.SavePoint;
@@ -34,6 +35,11 @@ public class PointApi {
             @Override
             public void onResponse(Call<CurrentPoint.GetRes> call, Response<CurrentPoint.GetRes> response) {
 
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
                 onFinishApiListener.onSuccess(response.body());
             }
 
@@ -51,6 +57,11 @@ public class PointApi {
         call.enqueue(new Callback<CurrentPoint.StatusRes>() {
             @Override
             public void onResponse(Call<CurrentPoint.StatusRes> call, Response<CurrentPoint.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
 
                 onFinishApiListener.onSuccess(response.body());
             }
@@ -70,6 +81,11 @@ public class PointApi {
             @Override
             public void onResponse(Call<CurrentPoint.StatusRes> call, Response<CurrentPoint.StatusRes> response) {
 
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
                 onFinishApiListener.onSuccess(response.body());
             }
 
@@ -87,6 +103,11 @@ public class PointApi {
         call.enqueue(new Callback<CurrentPoint.StatusRes>() {
             @Override
             public void onResponse(Call<CurrentPoint.StatusRes> call, Response<CurrentPoint.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
 
                 onFinishApiListener.onSuccess(response.body());
             }
@@ -106,6 +127,11 @@ public class PointApi {
             @Override
             public void onResponse(Call<UsingPoint.GetRes> call, Response<UsingPoint.GetRes> response) {
 
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
                 onFinishApiListener.onSuccess(response.body());
             }
 
@@ -123,6 +149,11 @@ public class PointApi {
         call.enqueue(new Callback<UsingPoint.StatusRes>() {
             @Override
             public void onResponse(Call<UsingPoint.StatusRes> call, Response<UsingPoint.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
 
                 onFinishApiListener.onSuccess(response.body());
             }
@@ -142,6 +173,11 @@ public class PointApi {
             @Override
             public void onResponse(Call<SavePoint.GetRes> call, Response<SavePoint.GetRes> response) {
 
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
                 onFinishApiListener.onSuccess(response.body());
             }
 
@@ -159,6 +195,11 @@ public class PointApi {
         call.enqueue(new Callback<SavePoint.StatusRes>() {
             @Override
             public void onResponse(Call<SavePoint.StatusRes> call, Response<SavePoint.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
 
                 onFinishApiListener.onSuccess(response.body());
             }

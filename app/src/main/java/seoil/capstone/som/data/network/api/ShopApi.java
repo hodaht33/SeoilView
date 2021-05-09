@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.ShopInfo;
 import seoil.capstone.som.data.network.model.retrofit.Shop;
@@ -28,6 +29,11 @@ public class ShopApi {
             @Override
             public void onResponse(Call<ShopInfo.GetRes> call, Response<ShopInfo.GetRes> response) {
 
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
                 onFinishApiListener.onSuccess(response.body());
             }
 
@@ -45,6 +51,11 @@ public class ShopApi {
         call.enqueue(new Callback<ShopInfo.StatusRes>() {
             @Override
             public void onResponse(Call<ShopInfo.StatusRes> call, Response<ShopInfo.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
 
                 onFinishApiListener.onSuccess(response.body());
             }
