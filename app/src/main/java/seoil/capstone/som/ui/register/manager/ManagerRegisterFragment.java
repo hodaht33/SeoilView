@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -220,6 +221,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     @Override
     public void showProgress() {
 
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         mProgressProcess = new ProgressProcess(mAnimationView);
         mProgressProcess.execute();
     }
@@ -235,6 +237,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         }
         mProgressProcess.endProgress();
         mProgressProcess = null;
+
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     @Override
