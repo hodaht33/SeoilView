@@ -3,15 +3,25 @@
 
     <item
         android:id="@+id/item_manager_home_fragment"
+        android:enabled="true"
         android:icon="@drawable/ic_launcher_background"
         android:title="홈" />
+
+    <item
+        android:id="@+id/item_manager_ledger_fragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="가계부" />
+
     <item
         android:id="@+id/item_manager_statistics_fragment"
+        android:enabled="true"
         android:icon="@drawable/ic_launcher_background"
         android:title="통계" />
 
     <item
         android:id="@+id/item_manager_event_fragment"
+        android:enabled="true"
         android:icon="@drawable/ic_launcher_background"
         android:title="이벤트 관리" />
 

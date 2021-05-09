@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import seoil.capstone.som.R;
@@ -69,6 +70,18 @@ public class AppApiHelper {
         }
 
         return mAppApiHelper;
+    }
+
+    public boolean check404Error(Response response, OnFinishApiListener onFinishApiListener) {
+
+        if (response.code() == 404) {
+
+            onFinishApiListener.onFailure(new Throwable("404 Error(server offline or not exist page)"));
+
+            return true;
+        }
+
+        return false;
     }
 
     public void serverLogin(Login.LoginReq req, OnFinishApiListener<Login.LoginRes> onFinishApiListener) {

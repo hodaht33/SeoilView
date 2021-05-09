@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.model.Check;
 import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.Register;
@@ -40,6 +41,11 @@ public class UserApi {
             @Override
             public void onResponse(Call<Login.LoginRes> call, Response<Login.LoginRes> response) {
 
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
                 onFinishApiListener.onSuccess(response.body());
             }
 
@@ -57,6 +63,11 @@ public class UserApi {
         call.enqueue(new Callback<Check.StatusRes>() {
             @Override
             public void onResponse(Call<Check.StatusRes> call, Response<Check.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
 
                 onFinishApiListener.onSuccess(response.body());
             }
@@ -76,6 +87,11 @@ public class UserApi {
             @Override
             public void onResponse(Call<Register.RegisterRes> call, Response<Register.RegisterRes> response) {
 
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
                 onFinishApiListener.onSuccess(response.body());
             }
 
@@ -94,6 +110,11 @@ public class UserApi {
             @Override
             public void onResponse(Call<Register.RegisterRes> call, Response<Register.RegisterRes> response) {
 
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
                 onFinishApiListener.onSuccess(response.body());
             }
 
@@ -111,6 +132,11 @@ public class UserApi {
         call.enqueue(new Callback<Check.StatusRes>() {
             @Override
             public void onResponse(Call<Check.StatusRes> call, Response<Check.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
 
                 onFinishApiListener.onSuccess(response.body());
             }

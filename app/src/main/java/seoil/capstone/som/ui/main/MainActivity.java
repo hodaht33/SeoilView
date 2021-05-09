@@ -18,6 +18,7 @@ import seoil.capstone.som.ui.main.customer.point.CustomerPointFragment;
 import seoil.capstone.som.ui.main.customer.search.CustomerSearchFragment;
 import seoil.capstone.som.ui.main.manager.event.ManagerEventFragment;
 import seoil.capstone.som.ui.main.manager.home.ManagerHomeFragment;
+import seoil.capstone.som.ui.main.manager.ledger.ManagerLedgerFragment;
 import seoil.capstone.som.ui.main.manager.statistics.ManagerStatisticsFragment;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View, MainCommunicator.Communicator, BottomNavigationView.OnNavigationItemSelectedListener {
@@ -123,6 +124,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 case R.id.item_manager_home_fragment:
 
                     selectedFragment = new ManagerHomeFragment();
+                    break;
+                case R.id.item_manager_ledger_fragment:
+
+                    selectedFragment = new ManagerLedgerFragment();
                     break;
                 case R.id.item_manager_event_fragment:
 
