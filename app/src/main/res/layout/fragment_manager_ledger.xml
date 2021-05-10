@@ -20,41 +20,6 @@
         app:mcv_selectionColor="#a9dbf0cb"
         app:mcv_showOtherDates="defaults" />
 
-    <TextView
-        android:id="@+id/textViewMLedgerDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text=""
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewMLedgerNoWorks"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarViewMLedger" />
 
-    <TextView
-        android:id="@+id/textViewMLedgerNoWorks"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="매출"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewMLedgerDate" />
-
-    <TextView
-        android:id="@+id/textViewMLedgerDetailedSale"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="날짜를 선택해 주세요"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMLedgerNoWorks" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,8 @@
 package seoil.capstone.som.ui.main.manager.ledger;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -11,10 +13,16 @@ import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -37,12 +45,17 @@ import seoil.capstone.som.data.network.model.SalesInfo;
 public class ManagerLedgerFragment extends Fragment {
 
     private MaterialCalendarView mCalendarView;
-    private TextView mTextViewDate;
-    private TextView mTextViewDetailedSale;
+
     private int mYear;
     private int mMonth;
     private int mDay;
     private String mShopCode;
+    private int mWidthPixels, mHeightPixels;
+    private PopupWindow mPopupWindow;
+    private Button mBtnClosePopup;
+    private TextView mTextViewDetailedSalePopup;
+    private TextView mTextViewStockPopup;
+    private TextView mTextViewDate;
 
     /*TODO:// getMonth() 사용시 값이 1 작게 리턴됨*/
     public ManagerLedgerFragment() {
@@ -103,8 +116,7 @@ public class ManagerLedgerFragment extends Fragment {
     private void initView(View view) {
 
         mCalendarView = view.findViewById(R.id.calendarViewMLedger);
-        mTextViewDate = view.findViewById(R.id.textViewMLedgerDate);
-        mTextViewDetailedSale = view.findViewById(R.id.textViewMLedgerDetailedSale);
+
     }
 
     private void initListener(String shopId) {
@@ -131,6 +143,24 @@ public class ManagerLedgerFragment extends Fragment {
                     return;
                 }
 
+                WindowManager windowManager = getActivity().getWindowManager();
+                Display display = windowManager.getDefaultDisplay();
+                DisplayMetrics metrics = new DisplayMetrics();
+                display.getMetrics(metrics);
+                mWidthPixels = metrics.widthPixels;
+                mHeightPixels = metrics.heightPixels;
+
+                try {
+                    Point realSize = new Point();
+                    Display.class.getMethod("getRealSize", Point.class).invoke(display, realSize);
+                    mWidthPixels = realSize.x;
+                    mHeightPixels = realSize.y;
+                } catch (Exception e) {
+
+                }
+
+                initPopupWindow();
+
                 setTextViewDate();
 
                 OnFinishApiListener<SalesInfo.GetRes> onFinishApiListener = new OnFinishApiListener<SalesInfo.GetRes>() {
@@ -149,7 +179,7 @@ public class ManagerLedgerFragment extends Fragment {
                             setTextViewDetailedSale(sum);
                         } else {
 
-                            mTextViewDetailedSale.setText("값이 없습니다.");
+                            mTextViewDetailedSalePopup.setText("값이 없습니다.");
                         }
                     }
 
@@ -311,6 +341,34 @@ public class ManagerLedgerFragment extends Fragment {
         }
         temp.append("원");
 
-        mTextViewDetailedSale.setText(temp);
+        mTextViewDetailedSalePopup.setText(temp);
+    }
+
+    private void initPopupWindow() {
+
+        try {
+            //Layout 객체화
+            LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            View layout = inflater.inflate(R.layout.popup_manager_ledger_show, (ViewGroup)getActivity().findViewById(R.id.popupMLedgerLayout));
+
+            mPopupWindow = new PopupWindow(layout, mWidthPixels - 100, mHeightPixels - 500, true);
+            mPopupWindow.showAtLocation(layout, Gravity.CENTER, 0 , 0);
+            mBtnClosePopup = layout.findViewById(R.id.btnMLedgerFinish);
+            mBtnClosePopup.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    mPopupWindow.dismiss();
+                }
+            });
+
+            mTextViewDetailedSalePopup = layout.findViewById(R.id.textViewMLedgerShowSalesAmount);
+            mTextViewStockPopup = layout.findViewById(R.id.textViewMLedgerStockAmount);
+            mTextViewDate = layout.findViewById(R.id.textViewMLedgerDate);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
     }
 }
