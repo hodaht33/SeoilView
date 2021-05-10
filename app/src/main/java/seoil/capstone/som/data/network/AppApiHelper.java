@@ -272,9 +272,9 @@ public class AppApiHelper {
         mShopApi.insertShopInfo(req, onFinishApiListener);
     }
 
-    public void getSalesInfo(String id, OnFinishApiListener<SalesInfo.GetRes> onFinishApiListener) {
+    public void getSalesInfo(String id, String date, OnFinishApiListener<SalesInfo.GetRes> onFinishApiListener) {
 
-        mSalesApi.getSalesInfo(id ,onFinishApiListener);
+        mSalesApi.getSalesInfo(id, date, onFinishApiListener);
     }
 
     public void insertSalesInfo(SalesInfo.InsertReq req, OnFinishApiListener<SalesInfo.StatusRes> onFinishApiListener) {

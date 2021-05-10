@@ -25,9 +25,9 @@ public class SalesApi {
         mSalesInfo = retrofit.create(Sales.class);
     }
 
-    public void getSalesInfo(String id, OnFinishApiListener<SalesInfo.GetRes> onFinishApiListener) {
+    public void getSalesInfo(String id, String date, OnFinishApiListener<SalesInfo.GetRes> onFinishApiListener) {
 
-        Call<SalesInfo.GetRes> call = mSalesInfo.getSalesInfo(id);
+        Call<SalesInfo.GetRes> call = mSalesInfo.getSalesInfo(id, date);
         call.enqueue(new Callback<SalesInfo.GetRes>() {
             @Override
             public void onResponse(Call<SalesInfo.GetRes> call, Response<SalesInfo.GetRes> response) {
