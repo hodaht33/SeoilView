@@ -54,7 +54,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                     // 초기엔 공용 데이터인 아이디와 구분 코드 담기 위한 Bundle 생성
                     Bundle bundle = new Bundle();
-                    bundle.putString("id", loginResponse.getId());
+                    bundle.putString("id", id);
                     bundle.putString("code", loginResponse.getCode());
 
                     if (pwd.equals("naver")

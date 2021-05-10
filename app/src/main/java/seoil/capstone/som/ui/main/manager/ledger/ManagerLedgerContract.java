@@ -12,7 +12,7 @@ public interface ManagerLedgerContract {
 
     }
 
-    interface Presenter extends BaseContract.Presenter {
+    interface Presenter extends BaseContract.Presenter<ManagerLedgerContract.View> {
         
     }
 }

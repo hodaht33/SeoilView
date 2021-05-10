@@ -26,8 +26,13 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import seoil.capstone.som.R;
+import seoil.capstone.som.data.network.AppApiHelper;
+import seoil.capstone.som.data.network.OnFinishApiListener;
+import seoil.capstone.som.data.network.api.SalesApi;
+import seoil.capstone.som.data.network.model.SalesInfo;
 
 public class ManagerLedgerFragment extends Fragment {
 
@@ -37,6 +42,7 @@ public class ManagerLedgerFragment extends Fragment {
     private int mYear;
     private int mMonth;
     private int mDay;
+    private String mShopCode;
 
     /*TODO:// getMonth() 사용시 값이 1 작게 리턴됨*/
     public ManagerLedgerFragment() {
@@ -57,15 +63,39 @@ public class ManagerLedgerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_manager_ledger, container, false);
 
         initView(view);
-        initListener();
 
-        CalendarDay cd = mCalendarView.getSelectedDate();
-        mYear = cd.getYear();
-        mMonth = cd.getMonth() + 1;
-        mDay = cd.getDay();
-        String dateSelected = getDate(cd.getDate().toString().substring(0,3));
-        String text = "" + mYear + "년 " + mMonth + "월 " + mDay + "일 (" + dateSelected + ")";
-        mTextViewDate.setText(text);
+        Bundle bundle = getActivity().getIntent().getBundleExtra("data");
+        String shopId = bundle.getString("id");
+
+        Log.d("shopId", shopId);
+//        사업자 번호 불러오기
+//        OnFinishApiListener<ShopInfo.GetRes> onFinishApiListener = new OnFinishApiListener<ShopInfo.GetRes>() {
+//            @Override
+//            public void onSuccess(ShopInfo.GetRes getRes) {
+//
+//                List<ShopInfo.GetRes.Result> list = getRes.getResults();
+//
+//                for (ShopInfo.GetRes.Result result : list) {
+//
+//                    mShopCode = result.getShopCode();
+//                }
+//                Log.d("shopcode",mShopCode);
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//
+//                Log.d("test", t.toString());
+//            }
+//        };
+//
+//        AppApiHelper.getInstance().getShopInfo(shopId, onFinishApiListener);
+
+
+
+        initListener(shopId);
+        mCalendarView.setSelectionColor(R.color.black);
+
 
         return view;
     }
@@ -73,11 +103,11 @@ public class ManagerLedgerFragment extends Fragment {
     private void initView(View view) {
 
         mCalendarView = view.findViewById(R.id.calendarViewMLedger);
-        mTextViewDate = view.findViewById(R.id.textViewMLedgeDate);
-        mTextViewDetailedSale = view.findViewById(R.id.textViewMLedgeDetailedSale);
+        mTextViewDate = view.findViewById(R.id.textViewMLedgerDate);
+        mTextViewDetailedSale = view.findViewById(R.id.textViewMLedgerDetailedSale);
     }
 
-    private void initListener() {
+    private void initListener(String shopId) {
 
         mCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.SUNDAY)
@@ -92,25 +122,72 @@ public class ManagerLedgerFragment extends Fragment {
                 new TodayDecorator()
         );
 
-        mCalendarView.setSelectedDate(CalendarDay.today());
-
         mCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 
+                if (mYear == date.getYear() && mMonth == (date.getMonth() + 1) && mDay == date.getDay()) {
 
-                CalendarDay cd = mCalendarView.getSelectedDate();
-                mYear = cd.getYear();
-                mMonth = cd.getMonth() + 1;
-                mDay = cd.getDay();
-                String dateSelected = getDate(cd.getDate().toString().substring(0,3));
-                String text = "" + mYear + "년 " + mMonth + "월 " + mDay + "일 (" + dateSelected + ")";
-                mTextViewDate.setText(text);
+                    return;
+                }
 
+                setTextViewDate();
 
-                //여기에 매출 조회 입력
+                OnFinishApiListener<SalesInfo.GetRes> onFinishApiListener = new OnFinishApiListener<SalesInfo.GetRes>() {
+                    @Override
+                    public void onSuccess(SalesInfo.GetRes getRes) {
+
+                        if (getRes.getStatus() == SalesApi.SUCCESS) {
+
+                            List<SalesInfo.GetRes.Result> list = getRes.getResults();
+
+                            int sum = 0;
+                            for (SalesInfo.GetRes.Result result : list) {
+
+                                sum += result.getSalesAmount();
+                            }
+                            setTextViewDetailedSale(sum);
+                        } else {
+
+                            mTextViewDetailedSale.setText("값이 없습니다.");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+
+                        Log.d("test", t.toString());
+                    }
+                };
+
+                String dateQeury;
+                if (mDay < 10) {
+
+                    if (mMonth < 10) {
+
+                        dateQeury = "" + mYear + "-0" + mMonth + "-0" + mDay;
+                    } else {
+
+                        dateQeury = "" + mYear + "-" + mMonth + "-0" + mDay;
+                    }
+
+                } else {
+
+                    if (mMonth < 10) {
+
+                        dateQeury = "" + mYear + "-0" + mMonth + "-" + mDay;
+                    } else {
+
+                        dateQeury = "" + mYear + "-" + mMonth + "-" + mDay;
+                    }
+                }
+                // date는 null을 가질 수 있음(단, null일 경우 shopId의 모든 날짜에 발생한 매출 데이터를 받아오는 것)
+                // date형식은 YYYY-MM-DD로 할 것 (ex: 2021-05-03)
+                AppApiHelper.getInstance().getSalesInfo(shopId, dateQeury, onFinishApiListener);
             }
+
         });
+
     }
 
     class SundayDecorator implements DayViewDecorator {
@@ -172,10 +249,10 @@ public class ManagerLedgerFragment extends Fragment {
 
         @Override
         public void decorate(DayViewFacade view) {
+
             view.addSpan(new StyleSpan(Typeface.BOLD));
             view.addSpan(new RelativeSizeSpan(1.4f));
             view.addSpan(new ForegroundColorSpan(Color.GREEN));
-            view.addSpan(new BackgroundColorSpan(Color.WHITE));
         }
 
         public void setDate(Date date) {
@@ -211,5 +288,29 @@ public class ManagerLedgerFragment extends Fragment {
 
             return "Error";
         }
+    }
+
+    private void setTextViewDate() {
+
+        CalendarDay cd = mCalendarView.getSelectedDate();
+        mYear = cd.getYear();
+        mMonth = cd.getMonth() + 1;
+        mDay = cd.getDay();
+        String dateSelected = getDate(cd.getDate().toString().substring(0,3));
+        String text = "" + mYear + "년 " + mMonth + "월 " + mDay + "일 (" + dateSelected + ")";
+        mTextViewDate.setText(text);
+    }
+
+    private void setTextViewDetailedSale (int value) {
+
+        StringBuffer temp = new StringBuffer(String.valueOf(value));
+
+        for(int i = temp.length() - 3; i > 0; i -= 3) {
+
+            temp.insert(i,",");
+        }
+        temp.append("원");
+
+        mTextViewDetailedSale.setText(temp);
     }
 }

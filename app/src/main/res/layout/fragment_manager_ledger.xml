@@ -21,38 +21,40 @@
         app:mcv_showOtherDates="defaults" />
 
     <TextView
-        android:id="@+id/textViewMLedgeDate"
+        android:id="@+id/textViewMLedgerDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text=""
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewMLedgeNoWorks"
+        app:layout_constraintBottom_toTopOf="@+id/textViewMLedgerNoWorks"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarViewMLedger" />
 
     <TextView
-        android:id="@+id/textViewMLedgeNoWorks"
+        android:id="@+id/textViewMLedgerNoWorks"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="상세 매출"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="매출"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewMLedgeDate"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="510dp" />
+        app:layout_constraintTop_toBottomOf="@id/textViewMLedgerDate" />
 
     <TextView
-        android:id="@+id/textViewMLedgeDetailedSale"
+        android:id="@+id/textViewMLedgerDetailedSale"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="1"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="날짜를 선택해 주세요"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMLedgeNoWorks" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewMLedgerNoWorks" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
