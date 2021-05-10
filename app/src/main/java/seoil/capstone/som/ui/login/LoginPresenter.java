@@ -152,7 +152,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                             int statusCode = serverLoginResponse.getStatus();
 
                             Bundle bundle = new Bundle();
-                            bundle.putString("id", serverLoginResponse.getId());
+                            bundle.putString("id", naverId);
 
                             Intent intent = new Intent();
 

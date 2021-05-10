@@ -49,9 +49,6 @@ public class Login {
         @SerializedName("status")
         @Expose
         private int status;
-        @SerializedName("id")
-        @Expose
-        private String id;
         @SerializedName("code")
         @Expose
         private String code;
@@ -62,14 +59,6 @@ public class Login {
 
         public void setStatus(int status) {
             this.status = status;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
         }
 
         public String getCode() {
