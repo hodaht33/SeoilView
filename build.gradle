@@ -21,6 +21,7 @@ allprojects {
         jcenter()
         maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
         mavenCentral()
+        maven { url 'https://jitpack.io' } //calendar 라이브러리
     }
 }
 

@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -220,6 +222,13 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     @Override
     public void showProgress() {
 
+        //키보드 내리기
+        InputMethodManager methodManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        methodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        
+        //터치 불가 설정
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        
         mProgressProcess = new ProgressProcess(mAnimationView);
         mProgressProcess.execute();
     }
@@ -235,6 +244,9 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         }
         mProgressProcess.endProgress();
         mProgressProcess = null;
+
+        //터치 가능 설정
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     @Override

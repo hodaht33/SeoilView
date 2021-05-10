@@ -8,9 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import seoil.capstone.som.R;
 
 public class ManagerStatisticsFragment extends Fragment implements ManagerStatisticsContract.View {
+
+
 
     public ManagerStatisticsFragment() {
 
@@ -28,7 +31,6 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         View view = inflater.inflate(R.layout.fragment_manager_statistics, container, false);
 
 
-
         return view;
     }
 
@@ -41,4 +43,8 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
     public void hideProgress() {
 
     }
+
+
+
+
 }

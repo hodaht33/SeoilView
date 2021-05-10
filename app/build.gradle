@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "seoil.capstone.som"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -65,4 +65,7 @@ dependencies {
 
     //lottie 라이브러리
     implementation "com.airbnb.android:lottie:3.7.0"
+
+    //calendar 라이브러리
+    implementation 'com.github.prolificinteractive:material-calendarview:1.6.0'
 }
