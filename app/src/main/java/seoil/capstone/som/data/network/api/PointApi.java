@@ -207,4 +207,27 @@ public class PointApi {
             }
         });
     }
+
+    public void getUsingAndSavePointData(String userId, OnFinishApiListener onFinishApiListener) {
+
+        Call<PointData.GetUsingAndSaveRes> call = mPointData.getUsingAndSavePoint(userId);
+        call.enqueue(new Callback<PointData.GetUsingAndSaveRes>() {
+            @Override
+            public void onResponse(Call<PointData.GetUsingAndSaveRes> call, Response<PointData.GetUsingAndSaveRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<PointData.GetUsingAndSaveRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
 }

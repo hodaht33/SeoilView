@@ -255,6 +255,11 @@ public class AppApiHelper {
         mPointApi.insertSavePointData(req, onFinishApiListener);
     }
 
+    public void getUsingAndSavePoint(String userId, OnFinishApiListener<PointData.GetUsingAndSaveRes> onFinishApiListener) {
+
+        mPointApi.getUsingAndSavePointData(userId, onFinishApiListener);
+    }
+
     public void managerRegister(Register.Manager managerRequest, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
 
         mUserApi.insertManager(managerRequest, onFinishApiListener);

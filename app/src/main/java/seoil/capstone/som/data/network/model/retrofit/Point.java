@@ -6,6 +6,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import seoil.capstone.som.data.network.model.PointData;
 
@@ -49,4 +50,12 @@ public interface Point {
     Call<PointData.GetSaveRes> getSavePoint(@Query("id") String id);
     @POST("point/save-point")
     Call<PointData.StatusRes> insertSavePointTuple(@Body PointData.InsertSaveReq req);
+
+    ///////////////////////
+    // 사용 내역 + 적립 내역 //
+    ///////////////////////
+
+    @GET("point/{userId}/using-and-save-point")
+    Call<PointData.GetUsingAndSaveRes> getUsingAndSavePoint(@Path("userId") String userId);
+
 }
