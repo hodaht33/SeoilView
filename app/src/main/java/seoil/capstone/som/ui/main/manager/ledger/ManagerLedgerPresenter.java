@@ -56,28 +56,28 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
     public String getDateQuery(int year, int month, int day) {
 
-        String dateQeury;
+        String dateQuery;
         if (day < 10) {
 
             if (month < 10) {
 
-                dateQeury = "" + year + "-0" + month + "-0" + day;
+                dateQuery = "" + year + "-0" + month + "-0" + day;
             } else {
 
-                dateQeury = "" + year + "-" + month + "-0" + day;
+                dateQuery = "" + year + "-" + month + "-0" + day;
             }
 
         } else {
 
             if (month < 10) {
 
-                dateQeury = "" + year + "-0" + month + "-" + day;
+                dateQuery = "" + year + "-0" + month + "-" + day;
             } else {
 
-                dateQeury = "" + year + "-" + month + "-" + day;
+                dateQuery = "" + year + "-" + month + "-" + day;
             }
         }
 
-        return dateQeury;
+        return dateQuery;
     }
 }

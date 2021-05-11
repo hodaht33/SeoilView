@@ -167,12 +167,12 @@ public class ManagerLedgerFragment extends Fragment {
                     }
                 };
 
-                String dateQeury;
-                dateQeury = mPresenter.getDateQuery(mYear, mMonth, mDay);
+                String dateQuery;
+                dateQuery = mPresenter.getDateQuery(mYear, mMonth, mDay);
 
                 // date는 null을 가질 수 있음(단, null일 경우 shopId의 모든 날짜에 발생한 매출 데이터를 받아오는 것)
                 // date형식은 YYYY-MM-DD로 할 것 (ex: 2021-05-03)
-                AppApiHelper.getInstance().getSalesInfo(shopId, dateQeury, onFinishApiListener);
+                AppApiHelper.getInstance().getSalesInfo(shopId, dateQuery, onFinishApiListener);
             }
 
         });
