@@ -56,6 +56,7 @@ public class ManagerLedgerFragment extends Fragment {
     private TextView mTextViewDetailedSalePopup;
     private TextView mTextViewStockPopup;
     private TextView mTextViewDate;
+    private ManagerLedgerPresenter mPresenter;
 
     /*TODO:// getMonth() 사용시 값이 1 작게 리턴됨*/
     public ManagerLedgerFragment() {
@@ -66,7 +67,7 @@ public class ManagerLedgerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        mPresenter = new ManagerLedgerPresenter();
     }
 
     @Override
@@ -79,30 +80,6 @@ public class ManagerLedgerFragment extends Fragment {
 
         Bundle bundle = getActivity().getIntent().getBundleExtra("data");
         String shopId = bundle.getString("id");
-
-        Log.d("shopId", shopId);
-//        사업자 번호 불러오기
-//        OnFinishApiListener<ShopInfo.GetRes> onFinishApiListener = new OnFinishApiListener<ShopInfo.GetRes>() {
-//            @Override
-//            public void onSuccess(ShopInfo.GetRes getRes) {
-//
-//                List<ShopInfo.GetRes.Result> list = getRes.getResults();
-//
-//                for (ShopInfo.GetRes.Result result : list) {
-//
-//                    mShopCode = result.getShopCode();
-//                }
-//                Log.d("shopcode",mShopCode);
-//            }
-//
-//            @Override
-//            public void onFailure(Throwable t) {
-//
-//                Log.d("test", t.toString());
-//            }
-//        };
-//
-//        AppApiHelper.getInstance().getShopInfo(shopId, onFinishApiListener);
 
 
 
@@ -191,26 +168,8 @@ public class ManagerLedgerFragment extends Fragment {
                 };
 
                 String dateQeury;
-                if (mDay < 10) {
+                dateQeury = mPresenter.getDateQuery(mYear, mMonth, mDay);
 
-                    if (mMonth < 10) {
-
-                        dateQeury = "" + mYear + "-0" + mMonth + "-0" + mDay;
-                    } else {
-
-                        dateQeury = "" + mYear + "-" + mMonth + "-0" + mDay;
-                    }
-
-                } else {
-
-                    if (mMonth < 10) {
-
-                        dateQeury = "" + mYear + "-0" + mMonth + "-" + mDay;
-                    } else {
-
-                        dateQeury = "" + mYear + "-" + mMonth + "-" + mDay;
-                    }
-                }
                 // date는 null을 가질 수 있음(단, null일 경우 shopId의 모든 날짜에 발생한 매출 데이터를 받아오는 것)
                 // date형식은 YYYY-MM-DD로 할 것 (ex: 2021-05-03)
                 AppApiHelper.getInstance().getSalesInfo(shopId, dateQeury, onFinishApiListener);
@@ -291,34 +250,7 @@ public class ManagerLedgerFragment extends Fragment {
         }
     }
 
-    private String getDate(String date) {
 
-        if (date.equals("Sun")) {
-
-            return "일";
-        } else if (date.equals("Mon")) {
-
-            return "월";
-        } else if (date.equals("Tue")) {
-
-            return "화";
-        } else if (date.equals("Wed")) {
-
-            return "수";
-        } else if (date.equals("Thu")) {
-
-            return "목";
-        } else if (date.equals("Fri")) {
-
-            return "금";
-        } else if (date.equals("Sat")) {
-
-            return "토";
-        } else {
-
-            return "Error";
-        }
-    }
 
     private void setTextViewDate() {
 
@@ -326,7 +258,7 @@ public class ManagerLedgerFragment extends Fragment {
         mYear = cd.getYear();
         mMonth = cd.getMonth() + 1;
         mDay = cd.getDay();
-        String dateSelected = getDate(cd.getDate().toString().substring(0,3));
+        String dateSelected = mPresenter.getDate(cd.getDate().toString().substring(0,3));
         String text = "" + mYear + "년 " + mMonth + "월 " + mDay + "일 (" + dateSelected + ")";
         mTextViewDate.setText(text);
     }
