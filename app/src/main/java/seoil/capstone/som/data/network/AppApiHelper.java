@@ -27,14 +27,12 @@ import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.api.ShopApi;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.BookmarkInfo;
-import seoil.capstone.som.data.network.model.CurrentPoint;
 import seoil.capstone.som.data.network.model.Check;
 import seoil.capstone.som.data.network.model.Login;
+import seoil.capstone.som.data.network.model.PointData;
 import seoil.capstone.som.data.network.model.Register;
 import seoil.capstone.som.data.network.model.SalesInfo;
-import seoil.capstone.som.data.network.model.SavePoint;
 import seoil.capstone.som.data.network.model.ShopInfo;
-import seoil.capstone.som.data.network.model.UsingPoint;
 
 public class AppApiHelper {
 
@@ -222,39 +220,39 @@ public class AppApiHelper {
         mUserApi.insertCustomer(registerRequest, onFinishApiListener);
     }
 
-    public void getCurrentPoint(String id, OnFinishApiListener<CurrentPoint.GetRes> onFinishApiListener) {
+    public void getCurrentPoint(String id, OnFinishApiListener<PointData.GetCurrentRes> onFinishApiListener) {
 
-        mPointApi.getPoint(id, onFinishApiListener);
+        mPointApi.getCurrentPoint(id, onFinishApiListener);
     }
 
-    public void insertCurrentPoint(CurrentPoint.InsertReq req, OnFinishApiListener<CurrentPoint.StatusRes> onFinishApiListener) {
+    public void insertCurrentPoint(PointData.InsertCurrentReq req, OnFinishApiListener<PointData.StatusRes> onFinishApiListener) {
 
-        mPointApi.insertPointTuple(req, onFinishApiListener);
+        mPointApi.insertCurrentPointTuple(req, onFinishApiListener);
     }
 
-    public void updateCurrentPoint(CurrentPoint.UpdateReq req, OnFinishApiListener<CurrentPoint.StatusRes> onFinishApiListener) {
+    public void updateCurrentPoint(PointData.UpdateCurrentReq req, OnFinishApiListener<PointData.StatusRes> onFinishApiListener) {
 
-        mPointApi.updatePoint(req, onFinishApiListener);
+        mPointApi.updateCurrentPoint(req, onFinishApiListener);
     }
 
-    public void getUsingPoint(String id, OnFinishApiListener<UsingPoint.GetRes> onFinishApiListener) {
+    public void getUsingPoint(String id, OnFinishApiListener<PointData.GetUsingRes> onFinishApiListener) {
 
-        mPointApi.getUsingPoint(id, onFinishApiListener);
+        mPointApi.getUsingPointData(id, onFinishApiListener);
     }
 
-    public void insertUsingPoint(UsingPoint.InsertReq req, OnFinishApiListener<UsingPoint.StatusRes> onFinishApiListener) {
+    public void insertUsingPoint(PointData.InsertUsingReq req, OnFinishApiListener<PointData.StatusRes> onFinishApiListener) {
 
-        mPointApi.insertUsingPoint(req, onFinishApiListener);
+        mPointApi.insertUsingPointData(req, onFinishApiListener);
     }
 
-    public void getSavePoint(String id, OnFinishApiListener<SavePoint.GetRes> onFinishApiListener) {
+    public void getSavePoint(String id, OnFinishApiListener<PointData.GetSaveRes> onFinishApiListener) {
 
-        mPointApi.getSavePoint(id, onFinishApiListener);
+        mPointApi.getSavePointData(id, onFinishApiListener);
     }
 
-    public void insertSavePoint(SavePoint.InsertReq req, OnFinishApiListener<SavePoint.StatusRes> onFinishApiListener) {
+    public void insertSavePoint(PointData.InsertSaveReq req, OnFinishApiListener<PointData.StatusRes> onFinishApiListener) {
 
-        mPointApi.insertSavePoint(req, onFinishApiListener);
+        mPointApi.insertSavePointData(req, onFinishApiListener);
     }
 
     public void managerRegister(Register.Manager managerRequest, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {

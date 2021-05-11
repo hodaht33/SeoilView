@@ -13,11 +13,8 @@ import java.util.List;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.api.PointApi;
 import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.model.SalesInfo;
-import seoil.capstone.som.data.network.model.SavePoint;
-import seoil.capstone.som.data.network.model.ShopInfo;
 
 public class TestSalesActivity extends AppCompatActivity implements View.OnClickListener {
 

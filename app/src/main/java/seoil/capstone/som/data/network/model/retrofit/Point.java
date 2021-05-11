@@ -7,9 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
-import seoil.capstone.som.data.network.model.CurrentPoint;
-import seoil.capstone.som.data.network.model.SavePoint;
-import seoil.capstone.som.data.network.model.UsingPoint;
+import seoil.capstone.som.data.network.model.PointData;
 
 public interface Point {
 
@@ -19,37 +17,36 @@ public interface Point {
 
     // 현재 잔여 포인트 조회
     @GET("point/current-point")
-    Call<CurrentPoint.GetRes> getCurrentPoint(@Query("id") String id);
+    Call<PointData.GetCurrentRes> getCurrentPoint(@Query("id") String id);
 
     // 유저 추가 시 유저의 포인트 튜플 생성
     @POST("point/current-point")
-    Call<CurrentPoint.StatusRes> insertPointTuple(@Body CurrentPoint.InsertReq req);
+    Call<PointData.StatusRes> insertPointTuple(@Body PointData.InsertCurrentReq req);
 
     // 잔여 포인트 변경
     @PUT("point/current-point")
-    Call<CurrentPoint.StatusRes> updatePoint(@Body CurrentPoint.UpdateReq req);
+    Call<PointData.StatusRes> updatePoint(@Body PointData.UpdateCurrentReq req);
 
     // 회원 탈퇴
     @DELETE("point/current-point")
-    Call<CurrentPoint.StatusRes> deletePointTuple(@Query("id") String id);
+    Call<PointData.StatusRes> deletePointTuple(@Query("id") String id);
 
     //////////////////
     // 사용 포인트 내역 //
     //////////////////
 
     @GET("point/using-point")
-    Call<UsingPoint.GetRes> getUsingPoint(@Query("id") String id);
+    Call<PointData.GetUsingRes> getUsingPoint(@Query("id") String id);
 
     @POST("point/using-point")
-    Call<UsingPoint.StatusRes> insertUsingPointTuple(@Body UsingPoint.InsertReq req);
+    Call<PointData.StatusRes> insertUsingPointTuple(@Body PointData.InsertUsingReq req);
 
     //////////////////
     // 적립 포인트 내역 //
     //////////////////
 
     @GET("point/save-point")
-    Call<SavePoint.GetRes> getSavePoint(@Query("id") String id);
-
+    Call<PointData.GetSaveRes> getSavePoint(@Query("id") String id);
     @POST("point/save-point")
-    Call<SavePoint.StatusRes> insertSavePointTuple(@Body SavePoint.InsertReq req);
+    Call<PointData.StatusRes> insertSavePointTuple(@Body PointData.InsertSaveReq req);
 }

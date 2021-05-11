@@ -1,8 +1,6 @@
 package seoil.capstone.som.test;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,10 +15,9 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.PointApi;
-import seoil.capstone.som.data.network.model.SavePoint;
-import seoil.capstone.som.data.network.model.UsingPoint;
+import seoil.capstone.som.data.network.model.PointData;
 
-public class TestSavePointActivity extends AppCompatActivity implements View.OnClickListener {
+public class TestPointDataActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText userId;
     private EditText shopCode;
@@ -57,9 +54,9 @@ public class TestSavePointActivity extends AppCompatActivity implements View.OnC
 
             if (!id.isEmpty() && !code.isEmpty() && !name.isEmpty() && !strAmount.isEmpty()) {
 
-                OnFinishApiListener<SavePoint.StatusRes> onFinishApiListener = new OnFinishApiListener<SavePoint.StatusRes>() {
+                OnFinishApiListener<PointData.StatusRes> onFinishApiListener = new OnFinishApiListener<PointData.StatusRes>() {
                     @Override
-                    public void onSuccess(SavePoint.StatusRes statusRes) {
+                    public void onSuccess(PointData.StatusRes statusRes) {
 
                         if (statusRes.getStatus() == PointApi.SUCCESS) {
 
@@ -76,21 +73,21 @@ public class TestSavePointActivity extends AppCompatActivity implements View.OnC
 
                 int amount = Integer.parseInt(strAmount);
 
-                AppApiHelper.getInstance().insertSavePoint(new SavePoint.InsertReq(id, code, name, amount), onFinishApiListener);
+                AppApiHelper.getInstance().insertSavePoint(new PointData.InsertSaveReq(id, code, name, amount), onFinishApiListener);
             }
 
         } else if (v.getId() == R.id.btnGetSave) {
 
-            OnFinishApiListener<SavePoint.GetRes> onFinishApiListener = new OnFinishApiListener<SavePoint.GetRes>() {
+            OnFinishApiListener<PointData.GetSaveRes> onFinishApiListener = new OnFinishApiListener<PointData.GetSaveRes>() {
                 @Override
-                public void onSuccess(SavePoint.GetRes getRes) {
+                public void onSuccess(PointData.GetSaveRes getRes) {
 
                     if (getRes.getStatus() == PointApi.SUCCESS) {
 
-                        List<SavePoint.GetRes.Result> list = getRes.getResults();
+                        List<PointData.GetSaveRes.Result> list = getRes.getResults();
                         Log.d("test", list.toString());
                         Log.d("test", String.valueOf(list.size()));
-                        for (SavePoint.GetRes.Result result : list) {
+                        for (PointData.GetSaveRes.Result result : list) {
                             Log.d("test", result.getSavePointDate());
                             Log.d("test", result.getShopCode());
                             Log.d("test", result.getShopName());
