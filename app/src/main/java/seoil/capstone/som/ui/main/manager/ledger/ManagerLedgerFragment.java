@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.style.BackgroundColorSpan;
@@ -108,6 +109,7 @@ public class ManagerLedgerFragment extends Fragment {
         mCalendarView.addDecorators(
                 new SundayDecorator(),
                 new SaturdayDecorator(),
+                new WeekDecorator(),
                 new TodayDecorator()
         );
 
@@ -197,7 +199,7 @@ public class ManagerLedgerFragment extends Fragment {
         @Override
         public void decorate(DayViewFacade view) {
 
-            view.addSpan(new ForegroundColorSpan(Color.RED));
+            view.addSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.red)));
         }
     }
 
@@ -219,7 +221,31 @@ public class ManagerLedgerFragment extends Fragment {
         @Override
         public void decorate(DayViewFacade view) {
 
-            view.addSpan(new ForegroundColorSpan(Color.BLUE));
+            view.addSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.blue)));
+        }
+    }
+
+
+    class WeekDecorator implements DayViewDecorator {
+
+        private final Calendar calendar = Calendar.getInstance();
+
+        public WeekDecorator() {
+        }
+
+        @Override
+        public boolean shouldDecorate(CalendarDay day) {
+
+            day.copyTo(calendar);
+            int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
+            return (weekDay == Calendar.MONDAY) || (weekDay == Calendar.TUESDAY) || (weekDay == Calendar.WEDNESDAY)
+                    || (weekDay == Calendar.THURSDAY) || (weekDay == Calendar.FRIDAY);
+        }
+
+        @Override
+        public void decorate(DayViewFacade view) {
+
+            view.addSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.black)));
         }
     }
 
@@ -279,6 +305,7 @@ public class ManagerLedgerFragment extends Fragment {
 
                 @Override
                 public void onClick(View v) {
+
                     mPopupWindow.dismiss();
                 }
             });

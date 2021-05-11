@@ -13,4 +13,6 @@
     <color name="input_layout_color">#FFFFFFFF</color>
     <color name="text_color">#FF000000</color>
     <color name="btn_text">#FFFFFFFF</color>
+    <color name="blue">#FF0000FF</color>
+    <color name="red">#FFFF0000</color>
 </resources>
