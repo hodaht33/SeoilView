@@ -153,7 +153,7 @@ public class ManagerLedgerFragment extends Fragment {
 
                                 sum += result.getSalesAmount();
                             }
-                            setTextViewDetailedSale(sum);
+                            mTextViewDetailedSalePopup.setText(mPresenter.getDetailedSale(sum));
                         } else {
 
                             mTextViewDetailedSalePopup.setText("값이 없습니다.");
@@ -263,18 +263,6 @@ public class ManagerLedgerFragment extends Fragment {
         mTextViewDate.setText(text);
     }
 
-    private void setTextViewDetailedSale (int value) {
-
-        StringBuffer temp = new StringBuffer(String.valueOf(value));
-
-        for(int i = temp.length() - 3; i > 0; i -= 3) {
-
-            temp.insert(i,",");
-        }
-        temp.append("원");
-
-        mTextViewDetailedSalePopup.setText(temp);
-    }
 
     private void initPopupWindow() {
 
@@ -284,7 +272,7 @@ public class ManagerLedgerFragment extends Fragment {
 
             View layout = inflater.inflate(R.layout.popup_manager_ledger_show, (ViewGroup)getActivity().findViewById(R.id.popupMLedgerLayout));
 
-            mPopupWindow = new PopupWindow(layout, mWidthPixels - 100, mHeightPixels - 500, true);
+            mPopupWindow = new PopupWindow(layout, mWidthPixels, mHeightPixels - 500, true);
             mPopupWindow.showAtLocation(layout, Gravity.CENTER, 0 , 0);
             mBtnClosePopup = layout.findViewById(R.id.btnMLedgerFinish);
             mBtnClosePopup.setOnClickListener(new View.OnClickListener() {

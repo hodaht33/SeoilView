@@ -25,32 +25,36 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
     }
 
     public String getDate(String date) {
+        
+        String result;
 
         if (date.equals("Sun")) {
 
-            return "일";
+            result = "일";
         } else if (date.equals("Mon")) {
 
-            return "월";
+            result = "월";
         } else if (date.equals("Tue")) {
-
-            return "화";
+            
+            result = "화";
         } else if (date.equals("Wed")) {
 
-            return "수";
+            result = "수";
         } else if (date.equals("Thu")) {
 
-            return "목";
+            result = "목";
         } else if (date.equals("Fri")) {
 
-            return "금";
+            result = "금";
         } else if (date.equals("Sat")) {
 
-            return "토";
+            result = "토";
         } else {
 
-            return "Error";
+            result = "Error";
         }
+
+        return result;
     }
 
 
@@ -79,5 +83,23 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         }
 
         return dateQuery;
+    }
+
+    public String getDetailedSale (int value){
+
+        if (value == 0) {
+
+            return "0원";
+        }
+
+        StringBuffer temp = new StringBuffer(String.valueOf(value));
+
+        for(int i = temp.length() - 3; i > 0; i -= 3) {
+
+            temp.insert(i,",");
+        }
+        temp.append("원");
+
+        return temp.toString();
     }
 }
