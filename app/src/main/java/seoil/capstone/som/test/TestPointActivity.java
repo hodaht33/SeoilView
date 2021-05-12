@@ -13,7 +13,7 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.PointApi;
-import seoil.capstone.som.data.network.model.CurrentPoint;
+import seoil.capstone.som.data.network.model.PointData;
 
 public class TestPointActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,9 +48,9 @@ public class TestPointActivity extends AppCompatActivity implements View.OnClick
 
             if (!id.isEmpty()) {
 
-                OnFinishApiListener<CurrentPoint.StatusRes> onFinishApiListener = new OnFinishApiListener<CurrentPoint.StatusRes>() {
+                OnFinishApiListener<PointData.StatusRes> onFinishApiListener = new OnFinishApiListener<PointData.StatusRes>() {
                     @Override
-                    public void onSuccess(CurrentPoint.StatusRes statusRes) {
+                    public void onSuccess(PointData.StatusRes statusRes) {
 
                         if (statusRes.getStatus() == PointApi.SUCCESS) {
 
@@ -65,7 +65,7 @@ public class TestPointActivity extends AppCompatActivity implements View.OnClick
                     }
                 };
 
-                AppApiHelper.getInstance().insertCurrentPoint(new CurrentPoint.InsertReq(id), onFinishApiListener);
+                AppApiHelper.getInstance().insertCurrentPoint(new PointData.InsertCurrentReq(id), onFinishApiListener);
             }
         } else if (v.getId() == R.id.btnGetCur) {
 
@@ -73,9 +73,9 @@ public class TestPointActivity extends AppCompatActivity implements View.OnClick
 
             if (!id.isEmpty()) {
 
-                OnFinishApiListener<CurrentPoint.GetRes> onFinishApiListener = new OnFinishApiListener<CurrentPoint.GetRes>() {
+                OnFinishApiListener<PointData.GetCurrentRes> onFinishApiListener = new OnFinishApiListener<PointData.GetCurrentRes>() {
                     @Override
-                    public void onSuccess(CurrentPoint.GetRes getRes) {
+                    public void onSuccess(PointData.GetCurrentRes getRes) {
 
                         if (getRes.getStatus() == PointApi.SUCCESS) {
 
@@ -102,9 +102,9 @@ public class TestPointActivity extends AppCompatActivity implements View.OnClick
 
                 int point = Integer.parseInt(strPoint);
 
-                OnFinishApiListener<CurrentPoint.StatusRes> onFinishApiListener = new OnFinishApiListener<CurrentPoint.StatusRes>() {
+                OnFinishApiListener<PointData.StatusRes> onFinishApiListener = new OnFinishApiListener<PointData.StatusRes>() {
                     @Override
-                    public void onSuccess(CurrentPoint.StatusRes statusRes) {
+                    public void onSuccess(PointData.StatusRes statusRes) {
 
                         if (statusRes.getStatus() == PointApi.SUCCESS) {
 
@@ -122,7 +122,7 @@ public class TestPointActivity extends AppCompatActivity implements View.OnClick
                     }
                 };
 
-                AppApiHelper.getInstance().updateCurrentPoint(new CurrentPoint.UpdateReq(id, point), onFinishApiListener);
+                AppApiHelper.getInstance().updateCurrentPoint(new PointData.UpdateCurrentReq(id, point), onFinishApiListener);
             }
         }
     }

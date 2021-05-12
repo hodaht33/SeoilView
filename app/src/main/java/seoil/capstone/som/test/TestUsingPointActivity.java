@@ -17,9 +17,9 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.PointApi;
-import seoil.capstone.som.data.network.model.UsingPoint;
+import seoil.capstone.som.data.network.model.PointData;
 
-public class TestUsingPointActivity extends AppCompatActivity implements View.OnClickListener {
+public class TestPointDataActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private EditText userId;
@@ -61,9 +61,9 @@ public class TestUsingPointActivity extends AppCompatActivity implements View.On
 
             if (!id.isEmpty() && !code.isEmpty() && !name.isEmpty() && !strAmount.isEmpty()) {
 
-                OnFinishApiListener<UsingPoint.StatusRes> onFinishApiListener = new OnFinishApiListener<UsingPoint.StatusRes>() {
+                OnFinishApiListener<PointData.StatusRes> onFinishApiListener = new OnFinishApiListener<PointData.StatusRes>() {
                     @Override
-                    public void onSuccess(UsingPoint.StatusRes statusRes) {
+                    public void onSuccess(PointData.StatusRes statusRes) {
 
                         if (statusRes.getStatus() == PointApi.SUCCESS) {
 
@@ -80,21 +80,21 @@ public class TestUsingPointActivity extends AppCompatActivity implements View.On
 
                 int amount = Integer.parseInt(strAmount);
 
-                AppApiHelper.getInstance().insertUsingPoint(new UsingPoint.InsertReq(id, code, name, amount), onFinishApiListener);
+                AppApiHelper.getInstance().insertUsingPoint(new PointData.InsertUsingReq(id, code, name, amount), onFinishApiListener);
             }
 
         } else if (v.getId() == R.id.btnGetUsing) {
 
-            OnFinishApiListener<UsingPoint.GetRes> onFinishApiListener = new OnFinishApiListener<UsingPoint.GetRes>() {
+            OnFinishApiListener<PointData.GetUsingRes> onFinishApiListener = new OnFinishApiListener<PointData.GetUsingRes>() {
                 @Override
-                public void onSuccess(UsingPoint.GetRes getRes) {
+                public void onSuccess(PointData.GetUsingRes getRes) {
 
                     if (getRes.getStatus() == PointApi.SUCCESS) {
 
-                        List<UsingPoint.GetRes.Result> list = getRes.getResults();
+                        List<PointData.GetUsingRes.Result> list = getRes.getResults();
                         Log.d("test", list.toString());
                         Log.d("test", String.valueOf(list.size()));
-                        for (UsingPoint.GetRes.Result result : list) {
+                        for (PointData.GetUsingRes.Result result : list) {
                             Log.d("test", result.getUsingPointDate());
                             Log.d("test", result.getShopCode());
                             Log.d("test", result.getShopName());
