@@ -309,7 +309,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
             View layout = inflater.inflate(R.layout.popup_manager_ledger_show, (ViewGroup)getActivity().findViewById(R.id.popupMLedgerLayout));
 
-            mPopupWindow = new PopupWindow(layout, mWidthPixels, mHeightPixels - 500, true);
+            mPopupWindow = new PopupWindow(layout, mWidthPixels, mHeightPixels, true);
             mPopupWindow.showAtLocation(layout, Gravity.CENTER, 0 , 0);
             mBtnClosePopup = layout.findViewById(R.id.btnMLedgerFinish);
             mBtnClosePopup.setOnClickListener(new View.OnClickListener() {
