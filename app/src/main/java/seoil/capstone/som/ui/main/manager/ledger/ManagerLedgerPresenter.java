@@ -127,7 +127,6 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
                     List<StockData.GetRes.Result> list = getRes.getResults();
 
-                    HashMap<String, Integer> hashMap = null;
                     view.setStockClear();
                     for (StockData.GetRes.Result result : list) {
 
