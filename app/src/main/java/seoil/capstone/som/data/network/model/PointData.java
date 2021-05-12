@@ -348,6 +348,69 @@ public class PointData {
         }
     }
 
+    public static class GetUsingAndSaveRes {
+
+        public class Result {
+
+            @SerializedName("date")
+            @Expose
+            private String date;
+            @SerializedName("amount")
+            @Expose
+            private int amount;
+            @SerializedName("code")
+            @Expose
+            private String code;    // 'using' or 'save'
+
+            public String getDate() {
+                return date;
+            }
+
+            public void setDate(String date) {
+                this.date = date;
+            }
+
+            public int getAmount() {
+                return amount;
+            }
+
+            public void setAmount(int amount) {
+                this.amount = amount;
+            }
+
+            public String getCode() {
+                return code;
+            }
+
+            public void setCode(String code) {
+                this.code = code;
+            }
+        }
+
+        @SerializedName("status")
+        @Expose
+        private int status;
+        @SerializedName("results")
+        @Expose
+        private List<Result> results;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public List<Result> getResults() {
+            return results;
+        }
+
+        public void setResults(List<Result> results) {
+            this.results = results;
+        }
+    }
+
     public static class StatusRes {
 
         @SerializedName("status")
