@@ -12,7 +12,7 @@ import seoil.capstone.som.data.network.model.StockData;
 
 public interface Stock {
 
-    @GET("stock/{shopId")
+    @GET("stock/{shopId}")
     Call<StockData.GetRes> getStock(@Path("shopId") String shopId);
 
     @POST("stock")

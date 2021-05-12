@@ -43,14 +43,13 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.model.SalesInfo;
 
-public class ManagerLedgerFragment extends Fragment {
+public class ManagerLedgerFragment extends Fragment implements ManagerLedgerContract.View{
 
     private MaterialCalendarView mCalendarView;
 
     private int mYear;
     private int mMonth;
     private int mDay;
-    private String mShopCode;
     private int mWidthPixels, mHeightPixels;
     private PopupWindow mPopupWindow;
     private Button mBtnClosePopup;
@@ -69,6 +68,8 @@ public class ManagerLedgerFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mPresenter = new ManagerLedgerPresenter();
+        mPresenter.createInteractor();
+        mPresenter.setView(this);
     }
 
     @Override
@@ -142,42 +143,52 @@ public class ManagerLedgerFragment extends Fragment {
 
                 setTextViewDate();
 
-                OnFinishApiListener<SalesInfo.GetRes> onFinishApiListener = new OnFinishApiListener<SalesInfo.GetRes>() {
-                    @Override
-                    public void onSuccess(SalesInfo.GetRes getRes) {
-
-                        if (getRes.getStatus() == SalesApi.SUCCESS) {
-
-                            List<SalesInfo.GetRes.Result> list = getRes.getResults();
-
-                            int sum = 0;
-                            for (SalesInfo.GetRes.Result result : list) {
-
-                                sum += result.getSalesAmount();
-                            }
-                            mTextViewDetailedSalePopup.setText(mPresenter.getDetailedSale(sum));
-                        } else {
-
-                            mTextViewDetailedSalePopup.setText("값이 없습니다.");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Throwable t) {
-
-                        Log.d("test", t.toString());
-                    }
-                };
-
                 String dateQuery;
                 dateQuery = mPresenter.getDateQuery(mYear, mMonth, mDay);
 
-                // date는 null을 가질 수 있음(단, null일 경우 shopId의 모든 날짜에 발생한 매출 데이터를 받아오는 것)
-                // date형식은 YYYY-MM-DD로 할 것 (ex: 2021-05-03)
-                AppApiHelper.getInstance().getSalesInfo(shopId, dateQuery, onFinishApiListener);
+                mPresenter.getSales(shopId, dateQuery);
+                mPresenter.getStock(shopId);
             }
-
         });
+    }
+
+    @Override
+    public void setSales(int value) {
+
+        mTextViewDetailedSalePopup.setText(mPresenter.getDetailedSale(value));
+    }
+
+    @Override
+    public void setSaleError(String s) {
+
+        mTextViewDetailedSalePopup.setText(s);
+    }
+
+    @Override
+    public void setStock(String name, int value) {
+
+        mTextViewStockPopup.append(name + ":" + value + "\n");
+    }
+
+    @Override
+    public void setStockClear() {
+
+        mTextViewStockPopup.setText("");
+    }
+
+    @Override
+    public void setStockError(String s) {
+
+        mTextViewStockPopup.setText(s);
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 
@@ -318,4 +329,5 @@ public class ManagerLedgerFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
 }

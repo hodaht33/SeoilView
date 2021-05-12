@@ -1,8 +1,20 @@
 package seoil.capstone.som.ui.main.manager.ledger;
 
+import android.util.Log;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
+import seoil.capstone.som.data.network.OnFinishApiListener;
+import seoil.capstone.som.data.network.api.SalesApi;
+import seoil.capstone.som.data.network.model.SalesInfo;
+import seoil.capstone.som.data.network.model.StockData;
+
 public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
     private ManagerLedgerContract.View view;
+    private ManagerLedgerContract.Interactor mInteractor;
 
     @Override
     public void setView(ManagerLedgerContract.View view) {
@@ -17,11 +29,13 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
     @Override
     public void createInteractor() {
 
+        mInteractor = new ManagerLedgerInteractor();
     }
 
     @Override
     public void releaseInteractor() {
 
+        mInteractor = null;
     }
 
     public String getDate(String date) {
@@ -101,5 +115,69 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         temp.append("원");
 
         return temp.toString();
+    }
+
+    public void getStock(String shopId) {
+
+        OnFinishApiListener<StockData.GetRes> onFinishApiListener = new OnFinishApiListener<StockData.GetRes>() {
+            @Override
+            public void onSuccess(StockData.GetRes getRes) {
+
+                if (getRes.getStatus() == SalesApi.SUCCESS) {
+
+                    List<StockData.GetRes.Result> list = getRes.getResults();
+
+                    HashMap<String, Integer> hashMap = null;
+                    view.setStockClear();
+                    for (StockData.GetRes.Result result : list) {
+
+                        view.setStock(result.getStockName(), result.getStockAmount());
+                    }
+
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+                view.setStockError("값이 없습니다.");
+            }
+        };
+
+        mInteractor.getStock(shopId, onFinishApiListener);
+    }
+
+    public void getSales(String shopId, String dateQuery) {
+
+        OnFinishApiListener<SalesInfo.GetRes> onFinishApiListener = new OnFinishApiListener<SalesInfo.GetRes>() {
+            @Override
+            public void onSuccess(SalesInfo.GetRes getRes) {
+
+                if (getRes.getStatus() == SalesApi.SUCCESS) {
+
+                    List<SalesInfo.GetRes.Result> list = getRes.getResults();
+
+                    int sum = 0;
+                    for (SalesInfo.GetRes.Result result : list) {
+
+                        sum += result.getSalesAmount();
+                    }
+                    view.setSales(sum);
+                } else {
+
+                    view.setSaleError("값이 없습니다.");
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+                Log.d("test", t.toString());
+            }
+        };
+
+        mInteractor.getSales(shopId, dateQuery, onFinishApiListener);
     }
 }

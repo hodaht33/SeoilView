@@ -17,7 +17,7 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.PointApi;
 import seoil.capstone.som.data.network.model.PointData;
 
-public class TestPointDataActivity extends AppCompatActivity implements View.OnClickListener {
+public class TestSavePointActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText userId;
     private EditText shopCode;
