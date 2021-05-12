@@ -25,6 +25,7 @@ import seoil.capstone.som.data.network.api.BookmarkApi;
 import seoil.capstone.som.data.network.api.PointApi;
 import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.api.ShopApi;
+import seoil.capstone.som.data.network.api.StockApi;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.BookmarkInfo;
 import seoil.capstone.som.data.network.model.Check;
@@ -33,6 +34,7 @@ import seoil.capstone.som.data.network.model.PointData;
 import seoil.capstone.som.data.network.model.Register;
 import seoil.capstone.som.data.network.model.SalesInfo;
 import seoil.capstone.som.data.network.model.ShopInfo;
+import seoil.capstone.som.data.network.model.StockData;
 
 public class AppApiHelper {
 
@@ -44,6 +46,7 @@ public class AppApiHelper {
     private ShopApi mShopApi;
     private SalesApi mSalesApi;
     private BookmarkApi mBookmarkApi;
+    private StockApi mStockApi;
 
     public AppApiHelper() {
 
@@ -58,6 +61,7 @@ public class AppApiHelper {
         mShopApi = new ShopApi(retrofit);
         mSalesApi = new SalesApi(retrofit);
         mBookmarkApi = new BookmarkApi(retrofit);
+        mStockApi = new StockApi(retrofit);
     }
 
     public static AppApiHelper getInstance() {
@@ -298,5 +302,25 @@ public class AppApiHelper {
     public void deleteBookmark(String userId, String shopCode, String shopId, OnFinishApiListener<BookmarkInfo.StatusRes> onFinishApiListener) {
 
         mBookmarkApi.deleteBookmark(userId, shopCode, shopId, onFinishApiListener);
+    }
+
+    public void getStock(String shopId, OnFinishApiListener<StockData.GetRes> onFinishApiListener) {
+
+        mStockApi.getStock(shopId, onFinishApiListener);
+    }
+
+    public void insertStock(StockData.Req req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+
+        mStockApi.insertStock(req, onFinishApiListener);
+    }
+
+    public void updateStock(StockData.Req req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+
+        mStockApi.updateStock(req, onFinishApiListener);
+    }
+
+    public void deleteStock(String shopId, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+
+        mStockApi.deleteStock(shopId, onFinishApiListener);
     }
 }
