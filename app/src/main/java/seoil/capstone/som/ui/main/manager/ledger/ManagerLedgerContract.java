@@ -1,5 +1,11 @@
 package seoil.capstone.som.ui.main.manager.ledger;
 
+import android.app.Activity;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.SalesInfo;
@@ -19,9 +25,8 @@ public interface ManagerLedgerContract {
         void setSales(int value);
         void setSaleError(String s);
 
-        void setStock(String name, int value);
-        void setStockError(String s);
-        void setStockClear();
+        void setLayoutAdpater(ArrayList<String> listName, ArrayList<Integer> listAmount);
+
     }
 
     interface Presenter extends BaseContract.Presenter<ManagerLedgerContract.View> {

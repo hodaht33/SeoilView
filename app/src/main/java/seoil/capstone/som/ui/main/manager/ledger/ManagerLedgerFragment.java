@@ -1,5 +1,6 @@
 package seoil.capstone.som.ui.main.manager.ledger;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
@@ -33,6 +36,7 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +51,8 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
     private MaterialCalendarView mCalendarView;
 
+    private ArrayList<String> mDataName;
+    private ArrayList<Integer> mDataAmount;
     private int mYear;
     private int mMonth;
     private int mDay;
@@ -54,9 +60,10 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
     private PopupWindow mPopupWindow;
     private Button mBtnClosePopup;
     private TextView mTextViewDetailedSalePopup;
-    private TextView mTextViewStockPopup;
     private TextView mTextViewDate;
     private ManagerLedgerPresenter mPresenter;
+    private RecyclerView mRecyclerView;
+    private ManagerLedgerTextAdapter mAdapter;
 
     /*TODO:// getMonth() 사용시 값이 1 작게 리턴됨*/
     public ManagerLedgerFragment() {
@@ -89,13 +96,17 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         mCalendarView.setSelectionColor(R.color.black);
 
 
+        mDataName = new ArrayList<>();
+        mDataAmount = new ArrayList<>();
+        mDataName.add("값이 없습니다.");
+        mDataAmount.add(-1);
+
         return view;
     }
 
     private void initView(View view) {
 
         mCalendarView = view.findViewById(R.id.calendarViewMLedger);
-
     }
 
     private void initListener(String shopId) {
@@ -164,23 +175,13 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         mTextViewDetailedSalePopup.setText(s);
     }
 
-    @Override
-    public void setStock(String name, int value) {
-
-        mTextViewStockPopup.append(name + ":" + value + "\n");
-    }
 
     @Override
-    public void setStockClear() {
+    public void setLayoutAdpater(ArrayList<String> listName, ArrayList<Integer> listAmount) {
 
-        mTextViewStockPopup.setText("");
+        mAdapter.setData(listName, listAmount);
     }
 
-    @Override
-    public void setStockError(String s) {
-
-        mTextViewStockPopup.setText(s);
-    }
 
     @Override
     public void showProgress() {
@@ -289,6 +290,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
 
 
+
     private void setTextViewDate() {
 
         CalendarDay cd = mCalendarView.getSelectedDate();
@@ -309,6 +311,12 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
             View layout = inflater.inflate(R.layout.popup_manager_ledger_show, (ViewGroup)getActivity().findViewById(R.id.popupMLedgerLayout));
 
+
+            mRecyclerView = layout.findViewById(R.id.recyclerViewMLedgerStockAmount);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mAdapter = new ManagerLedgerTextAdapter(mDataName, mDataAmount);
+            mRecyclerView.setAdapter(mAdapter);
+
             mPopupWindow = new PopupWindow(layout, mWidthPixels, mHeightPixels, true);
             mPopupWindow.showAtLocation(layout, Gravity.CENTER, 0 , 0);
             mBtnClosePopup = layout.findViewById(R.id.btnMLedgerFinish);
@@ -322,7 +330,6 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
             });
 
             mTextViewDetailedSalePopup = layout.findViewById(R.id.textViewMLedgerShowSalesAmount);
-            mTextViewStockPopup = layout.findViewById(R.id.textViewMLedgerStockAmount);
             mTextViewDate = layout.findViewById(R.id.textViewMLedgerDate);
         } catch (Exception e) {
 

@@ -62,15 +62,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMLedgerShowSalesAmount" />
 
-    <TextView
-        android:id="@+id/textViewMLedgerStockAmount"
-        android:layout_width="match_parent"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMLedgerStockAmount"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:background="@color/white"
-        android:text=""
-        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMLedgerStock" />
@@ -79,11 +77,10 @@
         android:id="@+id/btnMLedgerFinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:background="@color/btn_color"
-        android:textColor="@color/btn_text"
         android:text="finish"
+        android:textColor="@color/btn_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMLedgerStockAmount" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewMLedgerStockAmount" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,10 @@ package seoil.capstone.som.ui.main.manager.ledger;
 
 import android.util.Log;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -127,11 +131,14 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
                     List<StockData.GetRes.Result> list = getRes.getResults();
 
-                    view.setStockClear();
+                    ArrayList<String> dataName = new ArrayList<>();
+                    ArrayList<Integer> dataAmount = new ArrayList<>();
                     for (StockData.GetRes.Result result : list) {
 
-                        view.setStock(result.getStockName(), result.getStockAmount());
+                        dataName.add(result.getStockName());
+                        dataAmount.add(result.getStockAmount());
                     }
+                    view.setLayoutAdpater(dataName, dataAmount);
 
                 } else {
 
@@ -141,7 +148,6 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
             @Override
             public void onFailure(Throwable t) {
 
-                view.setStockError("값이 없습니다.");
             }
         };
 
