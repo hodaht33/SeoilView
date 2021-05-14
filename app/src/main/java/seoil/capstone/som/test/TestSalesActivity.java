@@ -69,7 +69,7 @@ public class TestSalesActivity extends AppCompatActivity implements View.OnClick
                     }
                 };
 
-                AppApiHelper.getInstance().insertSalesInfo(new SalesInfo.InsertReq(shopCode, shopId, amount), onFinishApiListener);
+                AppApiHelper.getInstance().insertSalesInfo(new SalesInfo.InsertReq(shopId, amount), onFinishApiListener);
             }
 
         } else if (v.getId() == R.id.btnSalesGet) {

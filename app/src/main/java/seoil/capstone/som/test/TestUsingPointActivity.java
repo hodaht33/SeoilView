@@ -80,7 +80,7 @@ public class TestUsingPointActivity extends AppCompatActivity implements View.On
 
                 int amount = Integer.parseInt(strAmount);
 
-                AppApiHelper.getInstance().insertUsingPoint(new PointData.InsertUsingReq(id, code, name, amount), onFinishApiListener);
+                AppApiHelper.getInstance().insertUsingPoint(new PointData.InsertUsingReq(id, name, amount), onFinishApiListener);
             }
 
         } else if (v.getId() == R.id.btnGetUsing) {
@@ -96,7 +96,6 @@ public class TestUsingPointActivity extends AppCompatActivity implements View.On
                         Log.d("test", String.valueOf(list.size()));
                         for (PointData.GetUsingRes.Result result : list) {
                             Log.d("test", result.getUsingPointDate());
-                            Log.d("test", result.getShopCode());
                             Log.d("test", result.getShopName());
                             Log.d("test", String.valueOf(result.getUsingPointAmount()));
                         }

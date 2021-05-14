@@ -66,9 +66,6 @@ public class PointData {
         @SerializedName("id")
         @Expose
         private String id;
-        @SerializedName("shopCode")
-        @Expose
-        private String shopCode;
         @SerializedName("shopName")
         @Expose
         private String shopName;
@@ -76,9 +73,8 @@ public class PointData {
         @Expose
         private int savePointAmount;
 
-        public InsertSaveReq(String id, String shopCode, String shopName, int savePointAmount) {
+        public InsertSaveReq(String id, String shopName, int savePointAmount) {
             this.id = id;
-            this.shopCode = shopCode;
             this.shopName = shopName;
             this.savePointAmount = savePointAmount;
         }
@@ -89,14 +85,6 @@ public class PointData {
 
         public void setId(String id) {
             this.id = id;
-        }
-
-        public String getShopCode() {
-            return shopCode;
-        }
-
-        public void setShopCode(String shopCode) {
-            this.shopCode = shopCode;
         }
 
         public String getShopName() {
@@ -121,9 +109,6 @@ public class PointData {
         @SerializedName("id")
         @Expose
         private String id;
-        @SerializedName("shopCode")
-        @Expose
-        private String shopCode;
         @SerializedName("shopName")
         @Expose
         private String shopName;
@@ -131,9 +116,8 @@ public class PointData {
         @Expose
         private int usingPointAmount;
 
-        public InsertUsingReq(String id, String shopCode, String shopName, int usingPointAmount) {
+        public InsertUsingReq(String id, String shopName, int usingPointAmount) {
             this.id = id;
-            this.shopCode = shopCode;
             this.shopName = shopName;
             this.usingPointAmount = usingPointAmount;
         }
@@ -144,14 +128,6 @@ public class PointData {
 
         public void setId(String id) {
             this.id = id;
-        }
-
-        public String getShopCode() {
-            return shopCode;
-        }
-
-        public void setShopCode(String shopCode) {
-            this.shopCode = shopCode;
         }
 
         public String getShopName() {
@@ -208,9 +184,6 @@ public class PointData {
             @SerializedName("savePointDate")
             @Expose
             private String savePointDate;
-            @SerializedName("shopCode")
-            @Expose
-            private String shopCode;
             @SerializedName("shopName")
             @Expose
             private String shopName;
@@ -224,14 +197,6 @@ public class PointData {
 
             public void setSavePointDate(String savePointDate) {
                 this.savePointDate = savePointDate;
-            }
-
-            public String getShopCode() {
-                return shopCode;
-            }
-
-            public void setShopCode(String shopCode) {
-                this.shopCode = shopCode;
             }
 
             public String getShopName() {
@@ -281,9 +246,6 @@ public class PointData {
             @SerializedName("usingPointDate")
             @Expose
             private String usingPointDate;
-            @SerializedName("shopCode")
-            @Expose
-            private String shopCode;
             @SerializedName("shopName")
             @Expose
             private String shopName;
@@ -297,14 +259,6 @@ public class PointData {
 
             public void setUsingPointDate(String usingPointDate) {
                 this.usingPointDate = usingPointDate;
-            }
-
-            public String getShopCode() {
-                return shopCode;
-            }
-
-            public void setShopCode(String shopCode) {
-                this.shopCode = shopCode;
             }
 
             public String getShopName() {

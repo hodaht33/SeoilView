@@ -9,9 +9,6 @@ public class ShopInfo {
 
     public static class InsertReq {
 
-        @SerializedName("shopCode")
-        @Expose
-        private String shopCode;
         @SerializedName("id")
         @Expose
         private String id;
@@ -25,20 +22,11 @@ public class ShopInfo {
         @Expose
         private String shopCategory;
 
-        public InsertReq(String shopCode, String id, String shopName, String shopAddress, String shopCategory) {
-            this.shopCode = shopCode;
+        public InsertReq(String id, String shopName, String shopAddress, String shopCategory) {
             this.id = id;
             this.shopName = shopName;
             this.shopAddress = shopAddress;
             this.shopCategory = shopCategory;
-        }
-
-        public String getShopCode() {
-            return shopCode;
-        }
-
-        public void setShopCode(String shopCode) {
-            this.shopCode = shopCode;
         }
 
         public String getId() {
@@ -78,9 +66,6 @@ public class ShopInfo {
 
         public class Result {
 
-            @SerializedName("shopCode")
-            @Expose
-            private String shopCode;
             @SerializedName("shopName")
             @Expose
             private String shopName;
@@ -90,14 +75,6 @@ public class ShopInfo {
             @SerializedName("shopCategory")
             @Expose
             private String shopCategory;
-
-            public String getShopCode() {
-                return shopCode;
-            }
-
-            public void setShopCode(String shopCode) {
-                this.shopCode = shopCode;
-            }
 
             public String getShopName() {
                 return shopName;
