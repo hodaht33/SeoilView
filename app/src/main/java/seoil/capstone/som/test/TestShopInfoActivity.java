@@ -76,7 +76,7 @@ public class TestShopInfoActivity extends AppCompatActivity implements View.OnCl
                     }
                 };
 
-                AppApiHelper.getInstance().insertShopInfo(new ShopInfo.InsertReq(code, id, shName, shAdr, category), onFinishApiListener);
+                AppApiHelper.getInstance().insertShopInfo(new ShopInfo.InsertReq(id, shName, shAdr, category), onFinishApiListener);
             }
 
         } else if (v.getId() == R.id.btnShopInfoGet) {
@@ -93,7 +93,6 @@ public class TestShopInfoActivity extends AppCompatActivity implements View.OnCl
                         Log.d("test", list.toString());
                         Log.d("test", String.valueOf(list.size()));
                         for (ShopInfo.GetRes.Result result : list) {
-                            Log.d("test", result.getShopCode());
                             Log.d("test", result.getShopName());
                             Log.d("test", result.getShopAddress());
                             Log.d("test", result.getShopCategory());
