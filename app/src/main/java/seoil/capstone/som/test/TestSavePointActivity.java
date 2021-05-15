@@ -73,7 +73,7 @@ public class TestSavePointActivity extends AppCompatActivity implements View.OnC
 
                 int amount = Integer.parseInt(strAmount);
 
-                AppApiHelper.getInstance().insertSavePoint(new PointData.InsertSaveReq(id, code, name, amount), onFinishApiListener);
+                AppApiHelper.getInstance().insertSavePoint(new PointData.InsertSaveReq(id, name, amount), onFinishApiListener);
             }
 
         } else if (v.getId() == R.id.btnGetSave) {
@@ -89,7 +89,6 @@ public class TestSavePointActivity extends AppCompatActivity implements View.OnC
                         Log.d("test", String.valueOf(list.size()));
                         for (PointData.GetSaveRes.Result result : list) {
                             Log.d("test", result.getSavePointDate());
-                            Log.d("test", result.getShopCode());
                             Log.d("test", result.getShopName());
                             Log.d("test", String.valueOf(result.getSavePointAmount()));
                         }

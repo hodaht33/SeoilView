@@ -75,7 +75,7 @@ public class TestBookmarkActivity extends AppCompatActivity implements View.OnCl
                     }
                 };
 
-                AppApiHelper.getInstance().addBookmark(new BookmarkInfo.InsertReq(userId, shopCode, shopId), onFinishApiListener);
+                AppApiHelper.getInstance().addBookmark(new BookmarkInfo.InsertReq(userId, shopId), onFinishApiListener);
             }
         } else if (viewId == R.id.btnBookmarkGetShop) {
 
@@ -92,7 +92,6 @@ public class TestBookmarkActivity extends AppCompatActivity implements View.OnCl
                             List<BookmarkInfo.ShopInfoRes.Result> list = statusRes.getResults();
                             for (BookmarkInfo.ShopInfoRes.Result res : list) {
 
-                                Log.d("test", res.getShopCode());
                                 Log.d("test", res.getShopId());
                             }
                         }

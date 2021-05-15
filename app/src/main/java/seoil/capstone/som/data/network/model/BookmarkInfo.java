@@ -14,16 +14,12 @@ public class BookmarkInfo {
         @SerializedName("id")
         @Expose
         private String id;
-        @SerializedName("shopCode")
-        @Expose
-        private String shopCode;
         @SerializedName("shopId")
         @Expose
         private String shopId;
 
-        public InsertReq(String id, String shopCode, String shopId) {
+        public InsertReq(String id, String shopId) {
             this.id = id;
-            this.shopCode = shopCode;
             this.shopId = shopId;
         }
 
@@ -33,14 +29,6 @@ public class BookmarkInfo {
 
         public void setId(String id) {
             this.id = id;
-        }
-
-        public String getShopCode() {
-            return shopCode;
-        }
-
-        public void setShopCode(String shopCode) {
-            this.shopCode = shopCode;
         }
 
         public String getShopId() {
@@ -99,20 +87,9 @@ public class BookmarkInfo {
 
         public class Result {
 
-            @SerializedName("shopCode")
-            @Expose
-            private String shopCode;
             @SerializedName("shopId")
             @Expose
             private String shopId;
-
-            public String getShopCode() {
-                return shopCode;
-            }
-
-            public void setShopCode(String shopCode) {
-                this.shopCode = shopCode;
-            }
 
             public String getShopId() {
                 return shopId;
