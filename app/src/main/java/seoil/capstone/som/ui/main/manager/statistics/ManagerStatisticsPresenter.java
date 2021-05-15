@@ -26,4 +26,31 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
     public void releaseInteractor() {
 
     }
+
+    public String getDateQuery(int year, int month, int day) {
+
+        String dateQuery;
+        if (day < 10) {
+
+            if (month < 10) {
+
+                dateQuery = "" + year + "-0" + month + "-0" + day;
+            } else {
+
+                dateQuery = "" + year + "-" + month + "-0" + day;
+            }
+
+        } else {
+
+            if (month < 10) {
+
+                dateQuery = "" + year + "-0" + month + "-" + day;
+            } else {
+
+                dateQuery = "" + year + "-" + month + "-" + day;
+            }
+        }
+
+        return dateQuery;
+    }
 }
