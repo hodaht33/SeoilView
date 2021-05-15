@@ -17,6 +17,6 @@ public interface ManagerStatisticsContract {
 
     interface Interactor extends BaseContract.Interactor {
 
-
+        void getSalesDate(String startDate, String EndDate, OnFinishApiListener onFinishApiListener);
     }
 }

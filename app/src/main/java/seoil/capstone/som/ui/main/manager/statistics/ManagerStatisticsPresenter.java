@@ -3,28 +3,33 @@ package seoil.capstone.som.ui.main.manager.statistics;
 import android.content.Context;
 import android.content.res.Resources;
 
+import seoil.capstone.som.data.network.OnFinishApiListener;
+
 public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Presenter{
 
-    private ManagerStatisticsContract.View view;
+    private ManagerStatisticsContract.View mView;
+    private ManagerStatisticsInteractor mInteractor;
 
     @Override
     public void setView(ManagerStatisticsContract.View view) {
-        this.view = view;
+        mView = view;
     }
 
     @Override
     public void releaseView() {
-        this.view = null;
+        mView = null;
     }
 
     @Override
     public void createInteractor() {
 
+        mInteractor = new ManagerStatisticsInteractor();
     }
 
     @Override
     public void releaseInteractor() {
 
+        mInteractor = null;
     }
 
     public String getDateQuery(int year, int month, int day) {
@@ -52,5 +57,22 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
         }
 
         return dateQuery;
+    }
+
+    public void getSalesDate(String startDate, String endDate) {
+
+        OnFinishApiListener onFinishApiListener = new OnFinishApiListener() {
+            @Override
+            public void onSuccess(Object o) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        };
+
+        mInteractor.getSalesDate(startDate, endDate, onFinishApiListener);
     }
 }
