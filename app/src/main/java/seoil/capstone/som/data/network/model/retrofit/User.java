@@ -7,10 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-<<<<<<< HEAD
-=======
 import retrofit2.http.Query;
->>>>>>> 62de3b3bd87eadbf462b6202c181da1c2a05f3e7
 import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.Register;
