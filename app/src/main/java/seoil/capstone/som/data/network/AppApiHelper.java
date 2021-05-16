@@ -28,11 +28,11 @@ import seoil.capstone.som.data.network.api.ShopApi;
 import seoil.capstone.som.data.network.api.StockApi;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.BookmarkInfo;
-import seoil.capstone.som.data.network.model.Check;
+import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.PointData;
 import seoil.capstone.som.data.network.model.Register;
-import seoil.capstone.som.data.network.model.SalesInfo;
+import seoil.capstone.som.data.network.model.SalesData;
 import seoil.capstone.som.data.network.model.ShopInfo;
 import seoil.capstone.som.data.network.model.StockData;
 
@@ -209,12 +209,12 @@ public class AppApiHelper {
         oAuthLogin.startOauthLoginActivity((Activity) context, oAuthLoginHandler);
     }
 
-    public void checkIdDuplicate(String id, OnFinishApiListener<Check.StatusRes> onFinishApiListener) {
+    public void checkIdDuplicate(String id, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         mUserApi.checkIdDuplicate(id, onFinishApiListener);
     }
 
-    public void checkRegistrationNumber(String number, OnFinishApiListener<Check.StatusRes> onFinishApiListener) {
+    public void checkRegistrationNumber(String number, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         mUserApi.checkRegistrationNumber(number, onFinishApiListener);
     }
@@ -279,14 +279,19 @@ public class AppApiHelper {
         mShopApi.insertShopInfo(req, onFinishApiListener);
     }
 
-    public void getSalesInfo(String id, String date, OnFinishApiListener<SalesInfo.GetRes> onFinishApiListener) {
+    public void getSalesData(String id, String date, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        mSalesApi.getSalesInfo(id, date, onFinishApiListener);
+        mSalesApi.getSalesData(id, date, onFinishApiListener);
     }
 
-    public void insertSalesInfo(SalesInfo.InsertReq req, OnFinishApiListener<SalesInfo.StatusRes> onFinishApiListener) {
+    public void getSalesStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        mSalesApi.insertSalesInfo(req, onFinishApiListener);
+        mSalesApi.getSalesStatistics(shopId, startDate, endDate, onFinishApiListener);
+    }
+
+    public void insertSalesData(SalesData.InsertReq req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+
+        mSalesApi.insertSalesData(req, onFinishApiListener);
     }
 
     public void getBookmarkShopInfo(String userId, OnFinishApiListener<BookmarkInfo.ShopInfoRes> onFinishApiListener) {

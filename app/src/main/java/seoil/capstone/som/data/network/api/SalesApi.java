@@ -1,14 +1,12 @@
 package seoil.capstone.som.data.network.api;
 
-import android.util.Log;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.SalesInfo;
+import seoil.capstone.som.data.network.model.SalesData;
 import seoil.capstone.som.data.network.model.retrofit.Sales;
 
 public class SalesApi {
@@ -25,12 +23,12 @@ public class SalesApi {
         mSalesInfo = retrofit.create(Sales.class);
     }
 
-    public void getSalesInfo(String id, String date, OnFinishApiListener<SalesInfo.GetRes> onFinishApiListener) {
+    public void getSalesData(String id, String date, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        Call<SalesInfo.GetRes> call = mSalesInfo.getSalesInfo(id, date);
-        call.enqueue(new Callback<SalesInfo.GetRes>() {
+        Call<SalesData.GetRes> call = mSalesInfo.getSalesData(id, date);
+        call.enqueue(new Callback<SalesData.GetRes>() {
             @Override
-            public void onResponse(Call<SalesInfo.GetRes> call, Response<SalesInfo.GetRes> response) {
+            public void onResponse(Call<SalesData.GetRes> call, Response<SalesData.GetRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -41,19 +39,19 @@ public class SalesApi {
             }
 
             @Override
-            public void onFailure(Call<SalesInfo.GetRes> call, Throwable t) {
+            public void onFailure(Call<SalesData.GetRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
         });
     }
 
-    public void insertSalesInfo(SalesInfo.InsertReq req, OnFinishApiListener<SalesInfo.StatusRes> onFinishApiListener) {
+    public void getSalesStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        Call<SalesInfo.StatusRes> call = mSalesInfo.insertSalesInfo(req);
-        call.enqueue(new Callback<SalesInfo.StatusRes>() {
+        Call<SalesData.GetRes> call = mSalesInfo.getSalesStatistics(shopId, startDate, endDate);
+        call.enqueue(new Callback<SalesData.GetRes>() {
             @Override
-            public void onResponse(Call<SalesInfo.StatusRes> call, Response<SalesInfo.StatusRes> response) {
+            public void onResponse(Call<SalesData.GetRes> call, Response<SalesData.GetRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -64,7 +62,30 @@ public class SalesApi {
             }
 
             @Override
-            public void onFailure(Call<SalesInfo.StatusRes> call, Throwable t) {
+            public void onFailure(Call<SalesData.GetRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void insertSalesData(SalesData.InsertReq req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+
+        Call<SalesData.StatusRes> call = mSalesInfo.insertSalesData(req);
+        call.enqueue(new Callback<SalesData.StatusRes>() {
+            @Override
+            public void onResponse(Call<SalesData.StatusRes> call, Response<SalesData.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<SalesData.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
