@@ -5,7 +5,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.AppApiHelper;
-import seoil.capstone.som.data.network.model.Check;
+import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.Register;
 import seoil.capstone.som.data.network.model.retrofit.User;
@@ -57,12 +57,12 @@ public class UserApi {
         });
     }
 
-    public void checkIdDuplicate(String id, OnFinishApiListener<Check.StatusRes> onFinishApiListener) {
+    public void sendSms(Auth.SmsReq req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
-        Call<Check.StatusRes> call = mUserData.checkIdDuplicate(id);
-        call.enqueue(new Callback<Check.StatusRes>() {
+        Call<Auth.StatusRes> call = mUserData.sendSms(req);
+        call.enqueue(new Callback<Auth.StatusRes>() {
             @Override
-            public void onResponse(Call<Check.StatusRes> call, Response<Check.StatusRes> response) {
+            public void onResponse(Call<Auth.StatusRes> call, Response<Auth.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -73,7 +73,53 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<Check.StatusRes> call, Throwable t) {
+            public void onFailure(Call<Auth.StatusRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void sendAuthCode(String authCode, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
+
+        Call<Auth.StatusRes> call = mUserData.sendAuthCode(authCode);
+        call.enqueue(new Callback<Auth.StatusRes>() {
+            @Override
+            public void onResponse(Call<Auth.StatusRes> call, Response<Auth.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Auth.StatusRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void checkIdDuplicate(String id, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
+
+        Call<Auth.StatusRes> call = mUserData.checkIdDuplicate(id);
+        call.enqueue(new Callback<Auth.StatusRes>() {
+            @Override
+            public void onResponse(Call<Auth.StatusRes> call, Response<Auth.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Auth.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -128,10 +174,10 @@ public class UserApi {
 
     public void checkRegistrationNumber(String number, OnFinishApiListener onFinishApiListener) {
 
-        Call<Check.StatusRes> call = mUserData.checkRegistrationNumber(number);
-        call.enqueue(new Callback<Check.StatusRes>() {
+        Call<Auth.StatusRes> call = mUserData.checkRegistrationNumber(number);
+        call.enqueue(new Callback<Auth.StatusRes>() {
             @Override
-            public void onResponse(Call<Check.StatusRes> call, Response<Check.StatusRes> response) {
+            public void onResponse(Call<Auth.StatusRes> call, Response<Auth.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -142,7 +188,7 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<Check.StatusRes> call, Throwable t) {
+            public void onFailure(Call<Auth.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
