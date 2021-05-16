@@ -25,6 +25,7 @@ import seoil.capstone.som.data.network.api.BookmarkApi;
 import seoil.capstone.som.data.network.api.PointApi;
 import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.api.ShopApi;
+import seoil.capstone.som.data.network.api.StatisticsApi;
 import seoil.capstone.som.data.network.api.StockApi;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.BookmarkInfo;
@@ -34,6 +35,7 @@ import seoil.capstone.som.data.network.model.PointData;
 import seoil.capstone.som.data.network.model.Register;
 import seoil.capstone.som.data.network.model.SalesData;
 import seoil.capstone.som.data.network.model.ShopInfo;
+import seoil.capstone.som.data.network.model.StatisticsData;
 import seoil.capstone.som.data.network.model.StockData;
 
 public class AppApiHelper {
@@ -47,6 +49,7 @@ public class AppApiHelper {
     private SalesApi mSalesApi;
     private BookmarkApi mBookmarkApi;
     private StockApi mStockApi;
+    private StatisticsApi mStatisticsApi;
 
     public AppApiHelper() {
 
@@ -62,6 +65,7 @@ public class AppApiHelper {
         mSalesApi = new SalesApi(retrofit);
         mBookmarkApi = new BookmarkApi(retrofit);
         mStockApi = new StockApi(retrofit);
+        mStatisticsApi = new StatisticsApi(retrofit);
     }
 
     public static AppApiHelper getInstance() {
@@ -332,5 +336,20 @@ public class AppApiHelper {
     public void deleteStock(String shopId, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
         mStockApi.deleteStock(shopId, onFinishApiListener);
+    }
+
+    public void getAgeGroupStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsData.GetRes> onFinishApiListener) {
+
+        mStatisticsApi.getAgeGroupStatistics(shopId, startDate, endDate, onFinishApiListener);
+    }
+
+    public void getGenderStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsData.GetRes> onFinishApiListener) {
+
+        mStatisticsApi.getGenderStatistics(shopId, startDate, endDate, onFinishApiListener);
+    }
+
+    public void insertStatisticsData(StatisticsData.InsertReq req, OnFinishApiListener<StatisticsData.StatusRes> onFinishApiListener) {
+
+        mStatisticsApi.insertStatisticsData(req, onFinishApiListener);
     }
 }
