@@ -26,6 +26,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,6 +43,7 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
     private Button mBtnSales;
     private Button mBtnCInfo;
     private String mStartDateQuery, mEndDateQuery;
+    private String mShopId;
     private ManagerStatisticsPresenter mPresenter;
     private List<BarEntry> mSalesData;
     private Boolean mState;
@@ -90,32 +92,19 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         mBtnCInfo.setBackgroundColor(white);
         mBtnCInfo.setTextColor(gray);
 
+        Bundle bundle = getActivity().getIntent().getBundleExtra("data");
+        mShopId = bundle.getString("id");
 
 
-        for (int i = 0; i < 20; i++) {
 
-            mSalesData.add(new BarEntry(i, i * 10));
-        }
-
-        BarDataSet barDataSet = new BarDataSet(mSalesData, "datas");
-
-        BarData barData = new BarData(barDataSet);
-
-        mBarChartSales.setData(barData);
         mBarChartSales.animateY(1000);
         mBarChartSales.setClickable(false);
         mBarChartSales.setDragEnabled(true);
         mBarChartSales.invalidate();
         mBarChartSales.setScaleEnabled(false);
         mBarChartSales.setVisibleXRangeMaximum(5);
-//        mBarChartSales.getXAxis().setValueFormatter(new IndexAxisValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value) {
-//                return;
-//            }
-//        });
 
-        mBarChartAgeChart.setData(barData);
+
         mBarChartAgeChart.animateY(1000);
         mBarChartAgeChart.setClickable(false);
         mBarChartAgeChart.setDragEnabled(true);
@@ -265,6 +254,7 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
 
                 mStartDateQuery = mPresenter.getDateQuery(mFirstYear, mFirstMonth, mFirstDay);
                 mEndDateQuery = mPresenter.getDateQuery(mLateYear, mLateMonth, mLateDay);
+                mPresenter.getSalesDate(mShopId, mStartDateQuery, mEndDateQuery);
             }
         }
     }
@@ -298,5 +288,27 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         black = activity.getColor(R.color.black);
         white = activity.getColor(R.color.white);
         gray = activity.getColor(R.color.gray);
+    }
+
+    @Override
+    public void sendSalesData(ArrayList<String> listDates, ArrayList<Integer> listAmounts) {
+
+        mBarChartSales.getXAxis().setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return listDates.get((int) value);
+            }
+        });
+
+        for (int i = 0; i < listDates.size(); i++) {
+
+            mSalesData.add(new BarEntry(i, listAmounts.get(i)));
+        }
+
+        BarDataSet barDataSet = new BarDataSet(mSalesData, "sales by date");
+
+        BarData barData = new BarData(barDataSet);
+
+        mBarChartSales.setData(barData);
     }
 }

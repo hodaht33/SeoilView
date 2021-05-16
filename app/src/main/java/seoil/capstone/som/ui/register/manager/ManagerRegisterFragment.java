@@ -35,13 +35,13 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
-import seoil.capstone.som.data.network.model.Check;
+import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.ui.address.SearchAddressActivity;
 import seoil.capstone.som.ui.register.RegisterCommunicator;
 import seoil.capstone.som.ui.register.select.ProgressProcess;
 import seoil.capstone.som.util.Utility;
 
-public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener, OnFinishApiListener<Check.StatusRes> {
+public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener, OnFinishApiListener<Auth.StatusRes> {
 
     private ManagerRegisterPresenter mPresenter;
     private RegisterCommunicator.Communicator mCommunicator;
@@ -802,7 +802,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     }
 
     @Override
-    public void onSuccess(Check.StatusRes res) {
+    public void onSuccess(Auth.StatusRes res) {
 
         int status = res.getStatus();
         if (status == UserApi.SUCCESS) {

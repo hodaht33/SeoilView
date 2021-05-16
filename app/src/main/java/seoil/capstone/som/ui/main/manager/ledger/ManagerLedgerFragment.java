@@ -45,7 +45,6 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.SalesApi;
-import seoil.capstone.som.data.network.model.SalesInfo;
 
 public class ManagerLedgerFragment extends Fragment implements ManagerLedgerContract.View{
 

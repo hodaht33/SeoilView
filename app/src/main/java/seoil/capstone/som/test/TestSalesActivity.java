@@ -14,7 +14,8 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.SalesApi;
-import seoil.capstone.som.data.network.model.SalesInfo;
+import seoil.capstone.som.data.network.model.SalesData;
+import seoil.capstone.som.data.network.model.retrofit.Sales;
 
 public class TestSalesActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,9 +53,9 @@ public class TestSalesActivity extends AppCompatActivity implements View.OnClick
 
                 int amount = Integer.parseInt(salesAmount);
 
-                OnFinishApiListener<SalesInfo.StatusRes> onFinishApiListener = new OnFinishApiListener<SalesInfo.StatusRes>() {
+                OnFinishApiListener<SalesData.StatusRes> onFinishApiListener = new OnFinishApiListener<SalesData.StatusRes>() {
                     @Override
-                    public void onSuccess(SalesInfo.StatusRes statusRes) {
+                    public void onSuccess(SalesData.StatusRes statusRes) {
 
                         if (statusRes.getStatus() == SalesApi.SUCCESS) {
 
@@ -69,7 +70,7 @@ public class TestSalesActivity extends AppCompatActivity implements View.OnClick
                     }
                 };
 
-                AppApiHelper.getInstance().insertSalesInfo(new SalesInfo.InsertReq(shopId, amount), onFinishApiListener);
+                AppApiHelper.getInstance().insertSalesData(new SalesData.InsertReq(shopId, amount), onFinishApiListener);
             }
 
         } else if (v.getId() == R.id.btnSalesGet) {
@@ -78,16 +79,16 @@ public class TestSalesActivity extends AppCompatActivity implements View.OnClick
 
             if (!shopId.isEmpty()) {
 
-                OnFinishApiListener<SalesInfo.GetRes> onFinishApiListener = new OnFinishApiListener<SalesInfo.GetRes>() {
+                OnFinishApiListener<SalesData.GetRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetRes>() {
                     @Override
-                    public void onSuccess(SalesInfo.GetRes getRes) {
+                    public void onSuccess(SalesData.GetRes getRes) {
 
                         if (getRes.getStatus() == SalesApi.SUCCESS) {
 
-                            List<SalesInfo.GetRes.Result> list = getRes.getResults();
+                            List<SalesData.GetRes.Result> list = getRes.getResults();
                             Log.d("test", list.toString());
                             Log.d("test", String.valueOf(list.size()));
-                            for (SalesInfo.GetRes.Result result : list) {
+                            for (SalesData.GetRes.Result result : list) {
                                 Log.d("test", result.getSalesDate());
                                 Log.d("test", String.valueOf(result.getSalesAmount()));
                             }
@@ -103,7 +104,7 @@ public class TestSalesActivity extends AppCompatActivity implements View.OnClick
 
                 // date는 null을 가질 수 있음(단, null일 경우 shopId의 모든 날짜에 발생한 매출 데이터를 받아오는 것)
                 // date형식은 YYYY-MM-DD로 할 것 (ex: 2021-05-03)
-                AppApiHelper.getInstance().getSalesInfo(shopId, null, onFinishApiListener);
+                AppApiHelper.getInstance().getSalesData(shopId, null, onFinishApiListener);
             }
         }
     }
