@@ -7,6 +7,10 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+<<<<<<< HEAD
+=======
+import retrofit2.http.Query;
+>>>>>>> 62de3b3bd87eadbf462b6202c181da1c2a05f3e7
 import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.Register;
@@ -16,6 +20,12 @@ public interface User {
     // 특정 유저의 정보 가져오기
     @POST("login")
     Call<Login.LoginRes> getLoginData(@Body Login.LoginReq req);
+
+    @POST("send-sms")
+    Call<Auth.StatusRes> sendSms(@Body Auth.SmsReq req);
+
+    @GET("auth-sms")
+    Call<Auth.StatusRes> sendAuthCode(@Query("authCode") String authCode);
 
     // 아이디 중복 확인
     @GET("duplicate/{id}")
