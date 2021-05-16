@@ -7,7 +7,8 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import seoil.capstone.som.data.network.model.Check;
+import retrofit2.http.Query;
+import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.Register;
 
@@ -17,12 +18,18 @@ public interface User {
     @POST("login")
     Call<Login.LoginRes> getLoginData(@Body Login.LoginReq req);
 
+    @POST("send-sms")
+    Call<Auth.StatusRes> sendSms(@Body Auth.SmsReq req);
+
+    @GET("auth-sms")
+    Call<Auth.StatusRes> sendAuthCode(@Query("authCode") String authCode);
+
     // 아이디 중복 확인
     @GET("duplicate/{id}")
-    Call<Check.StatusRes> checkIdDuplicate(@Path("id") String id);
+    Call<Auth.StatusRes> checkIdDuplicate(@Path("id") String id);
 
     @GET("check-corpor/{number}")
-    Call<Check.StatusRes> checkRegistrationNumber(@Path("number") String number);
+    Call<Auth.StatusRes> checkRegistrationNumber(@Path("number") String number);
 
     // 유저 추가
     @POST("user/customer")
