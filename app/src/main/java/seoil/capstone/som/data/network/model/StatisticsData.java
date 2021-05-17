@@ -50,27 +50,16 @@ public class StatisticsData {
         }
     }
 
-    public static class GetRes {
+    public static class GetAgeGroupRes {
 
         public class Result {
 
-            @SerializedName("statisticsDate")
-            @Expose
-            private String statisticsDate;
             @SerializedName("ageGroup")
             @Expose
             private int ageGroup;
             @SerializedName("count")
             @Expose
             private int count;
-
-            public String getStatisticsDate() {
-                return statisticsDate;
-            }
-
-            public void setStatisticsDate(String statisticsDate) {
-                this.statisticsDate = statisticsDate;
-            }
 
             public int getAgeGroup() {
                 return ageGroup;
@@ -109,6 +98,58 @@ public class StatisticsData {
         }
 
         public void setResults(List<Result> results) {
+            this.results = results;
+        }
+    }
+
+    public static class GetGenderRes {
+
+        public class Result {
+
+            @SerializedName("gender")
+            @Expose
+            private String gender;
+            @SerializedName("count")
+            @Expose
+            private int count;
+
+            public String getGender() {
+                return gender;
+            }
+
+            public void setGender(String gender) {
+                this.gender = gender;
+            }
+
+            public int getCount() {
+                return count;
+            }
+
+            public void setCount(int count) {
+                this.count = count;
+            }
+        }
+
+        @SerializedName("status")
+        @Expose
+        private int status;
+        @SerializedName("results")
+        @Expose
+        private List<GetAgeGroupRes.Result> results;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public List<GetAgeGroupRes.Result> getResults() {
+            return results;
+        }
+
+        public void setResults(List<GetAgeGroupRes.Result> results) {
             this.results = results;
         }
     }
