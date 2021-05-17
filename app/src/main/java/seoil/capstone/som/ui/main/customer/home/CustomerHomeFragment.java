@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.login.LoginActivity;
@@ -22,6 +23,7 @@ public class CustomerHomeFragment extends Fragment implements CustomerHomeContra
     private CustomerHomePresenter mPresenter;
     private MainCommunicator.Communicator mCommunicator;
     private Button mBtnLogout;
+    private TextView mCustomHomePoint;
 
     public CustomerHomeFragment() {
 
