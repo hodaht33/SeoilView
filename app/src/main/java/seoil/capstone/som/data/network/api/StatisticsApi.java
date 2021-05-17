@@ -25,10 +25,10 @@ public class StatisticsApi {
 
     public void getAgeGroupStatistics(String shopId, String startDate, String endDate, OnFinishApiListener onFinishApiListener) {
 
-        Call<StatisticsData.GetRes> call = mStatisticsData.getAgeGroupStatistics(shopId, startDate, endDate);
-        call.enqueue(new Callback<StatisticsData.GetRes>() {
+        Call<StatisticsData.GetAgeGroupRes> call = mStatisticsData.getAgeGroupStatistics(shopId, startDate, endDate);
+        call.enqueue(new Callback<StatisticsData.GetAgeGroupRes>() {
             @Override
-            public void onResponse(Call<StatisticsData.GetRes> call, Response<StatisticsData.GetRes> response) {
+            public void onResponse(Call<StatisticsData.GetAgeGroupRes> call, Response<StatisticsData.GetAgeGroupRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -39,7 +39,7 @@ public class StatisticsApi {
             }
 
             @Override
-            public void onFailure(Call<StatisticsData.GetRes> call, Throwable t) {
+            public void onFailure(Call<StatisticsData.GetAgeGroupRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -48,10 +48,10 @@ public class StatisticsApi {
 
     public void getGenderStatistics(String shopId, String startDate, String endDate, OnFinishApiListener onFinishApiListener) {
 
-        Call<StatisticsData.GetRes> call = mStatisticsData.getGenderStatistics(shopId, startDate, endDate);
-        call.enqueue(new Callback<StatisticsData.GetRes>() {
+        Call<StatisticsData.GetGenderRes> call = mStatisticsData.getGenderStatistics(shopId, startDate, endDate);
+        call.enqueue(new Callback<StatisticsData.GetGenderRes>() {
             @Override
-            public void onResponse(Call<StatisticsData.GetRes> call, Response<StatisticsData.GetRes> response) {
+            public void onResponse(Call<StatisticsData.GetGenderRes> call, Response<StatisticsData.GetGenderRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -62,7 +62,7 @@ public class StatisticsApi {
             }
 
             @Override
-            public void onFailure(Call<StatisticsData.GetRes> call, Throwable t) {
+            public void onFailure(Call<StatisticsData.GetGenderRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

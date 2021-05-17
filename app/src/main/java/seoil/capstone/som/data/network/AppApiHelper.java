@@ -338,12 +338,12 @@ public class AppApiHelper {
         mStockApi.deleteStock(shopId, onFinishApiListener);
     }
 
-    public void getAgeGroupStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsData.GetRes> onFinishApiListener) {
+    public void getAgeGroupStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsData.GetAgeGroupRes> onFinishApiListener) {
 
         mStatisticsApi.getAgeGroupStatistics(shopId, startDate, endDate, onFinishApiListener);
     }
 
-    public void getGenderStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsData.GetRes> onFinishApiListener) {
+    public void getGenderStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsData.GetGenderRes> onFinishApiListener) {
 
         mStatisticsApi.getGenderStatistics(shopId, startDate, endDate, onFinishApiListener);
     }

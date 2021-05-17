@@ -12,10 +12,10 @@ import seoil.capstone.som.data.network.model.StatisticsData;
 public interface Statistics {
 
     @GET("statistics/{shopId}/ageGroup")
-    Call<StatisticsData.GetRes> getAgeGroupStatistics(@Path("shopId") String shopId, @Query("startDate") String startDate, @Query("endDate") String endDate);
+    Call<StatisticsData.GetAgeGroupRes> getAgeGroupStatistics(@Path("shopId") String shopId, @Query("startDate") String startDate, @Query("endDate") String endDate);
 
     @GET("statistics/{shopId}/gender")
-    Call<StatisticsData.GetRes> getGenderStatistics(@Path("shopId") String shopId, @Query("startDate") String startDate, @Query("endDate") String endDate);
+    Call<StatisticsData.GetGenderRes> getGenderStatistics(@Path("shopId") String shopId, @Query("startDate") String startDate, @Query("endDate") String endDate);
 
     @POST("statistics")
     Call<StatisticsData.StatusRes> insertStatisticsData(@Body StatisticsData.InsertReq req);
