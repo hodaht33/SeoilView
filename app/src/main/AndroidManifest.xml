@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SOM">
         <activity android:name=".ui.event.AddEventActivity"></activity>
+        <activity android:name=".test.TestPhoneAuthActivity" />
         <activity android:name=".test.TestBookmarkActivity" />
         <activity android:name=".test.TestBusinessRegistrationNumberActivity" />
         <activity android:name=".test.TestSalesActivity" />
