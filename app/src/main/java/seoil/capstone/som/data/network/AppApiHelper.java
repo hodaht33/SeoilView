@@ -22,6 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.api.BookmarkApi;
+import seoil.capstone.som.data.network.api.EventApi;
 import seoil.capstone.som.data.network.api.PointApi;
 import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.api.ShopApi;
@@ -30,6 +31,7 @@ import seoil.capstone.som.data.network.api.StockApi;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.BookmarkInfo;
 import seoil.capstone.som.data.network.model.Auth;
+import seoil.capstone.som.data.network.model.EventData;
 import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.PointData;
 import seoil.capstone.som.data.network.model.Register;
@@ -50,6 +52,7 @@ public class AppApiHelper {
     private BookmarkApi mBookmarkApi;
     private StockApi mStockApi;
     private StatisticsApi mStatisticsApi;
+    private EventApi mEventApi;
 
     public AppApiHelper() {
 
@@ -66,6 +69,7 @@ public class AppApiHelper {
         mBookmarkApi = new BookmarkApi(retrofit);
         mStockApi = new StockApi(retrofit);
         mStatisticsApi = new StatisticsApi(retrofit);
+        mEventApi = new EventApi(retrofit);
     }
 
     public static AppApiHelper getInstance() {
@@ -366,5 +370,25 @@ public class AppApiHelper {
     public void insertStatisticsData(StatisticsData.InsertReq req, OnFinishApiListener<StatisticsData.StatusRes> onFinishApiListener) {
 
         mStatisticsApi.insertStatisticsData(req, onFinishApiListener);
+    }
+
+    public void getEvent(String shopId, OnFinishApiListener<EventData.GetRes> onFinishApiListener) {
+
+        mEventApi.getEvent(shopId, onFinishApiListener);
+    }
+
+    public void insertEvent(EventData.InsertReq req, OnFinishApiListener onFinishApiListener) {
+
+        mEventApi.insertEvent(req, onFinishApiListener);
+    }
+
+    public void updateEvent(EventData.UpdateReq req, OnFinishApiListener onFinishApiListener) {
+
+        mEventApi.updateEvent(req, onFinishApiListener);
+    }
+
+    public void deleteEvent(int eventCode, OnFinishApiListener onFinishApiListener) {
+
+        mEventApi.deleteEvent(eventCode, onFinishApiListener);
     }
 }
