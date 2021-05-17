@@ -13,7 +13,7 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.ShopApi;
-import seoil.capstone.som.data.network.model.ShopInfo;
+import seoil.capstone.som.data.network.model.ShopData;
 
 public class TestShopInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -59,9 +59,9 @@ public class TestShopInfoActivity extends AppCompatActivity implements View.OnCl
                 && !shAdr.isEmpty()
                 && !category.isEmpty()) {
 
-                OnFinishApiListener<ShopInfo.StatusRes> onFinishApiListener = new OnFinishApiListener<ShopInfo.StatusRes>() {
+                OnFinishApiListener<ShopData.StatusRes> onFinishApiListener = new OnFinishApiListener<ShopData.StatusRes>() {
                     @Override
-                    public void onSuccess(ShopInfo.StatusRes statusRes) {
+                    public void onSuccess(ShopData.StatusRes statusRes) {
 
                         if (statusRes.getStatus() == ShopApi.SUCCESS) {
 
@@ -76,7 +76,7 @@ public class TestShopInfoActivity extends AppCompatActivity implements View.OnCl
                     }
                 };
 
-                AppApiHelper.getInstance().insertShopInfo(new ShopInfo.InsertReq(id, shName, shAdr, category), onFinishApiListener);
+                AppApiHelper.getInstance().insertShopInfo(new ShopData.InsertReq(id, shName, shAdr, category), onFinishApiListener);
             }
 
         } else if (v.getId() == R.id.btnShopInfoGet) {
@@ -85,14 +85,14 @@ public class TestShopInfoActivity extends AppCompatActivity implements View.OnCl
 
             if (!id.isEmpty()) {
 
-                OnFinishApiListener<ShopInfo.GetRes> onFinishApiListener = new OnFinishApiListener<ShopInfo.GetRes>() {
+                OnFinishApiListener<ShopData.GetRes> onFinishApiListener = new OnFinishApiListener<ShopData.GetRes>() {
                     @Override
-                    public void onSuccess(ShopInfo.GetRes getRes) {
+                    public void onSuccess(ShopData.GetRes getRes) {
 
-                        List<ShopInfo.GetRes.Result> list = getRes.getResults();
+                        List<ShopData.GetRes.Result> list = getRes.getResults();
                         Log.d("test", list.toString());
                         Log.d("test", String.valueOf(list.size()));
-                        for (ShopInfo.GetRes.Result result : list) {
+                        for (ShopData.GetRes.Result result : list) {
                             Log.d("test", result.getShopName());
                             Log.d("test", result.getShopAddress());
                             Log.d("test", result.getShopCategory());
@@ -106,7 +106,7 @@ public class TestShopInfoActivity extends AppCompatActivity implements View.OnCl
                     }
                 };
 
-                AppApiHelper.getInstance().getShopInfo(id, onFinishApiListener);
+                AppApiHelper.getInstance().getShopInfoWithKeyword(id, onFinishApiListener);
             }
 
         }

@@ -2,16 +2,28 @@ package seoil.capstone.som.data.network.model.retrofit;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
-import seoil.capstone.som.data.network.model.ShopInfo;
+import seoil.capstone.som.data.network.model.ShopData;
 
 public interface Shop {
 
-    @GET("shop")
-    Call<ShopInfo.GetRes> getShopInfo(@Query("id") String id);
+    @GET("shop/name")
+    Call<ShopData.GetRes> getShopInfoWithKeyword(@Query("keyword") String keyword, @Query("page") int page);
+
+    @GET("shop/category")
+    Call<ShopData.GetRes> getShopInfoWithCategory(@Query("category") String category, @Query("page") int page);
 
     @POST("shop")
-    Call<ShopInfo.StatusRes> insertShopInfo(@Body ShopInfo.InsertReq req);
+    Call<ShopData.StatusRes> insertShopInfo(@Body ShopData.InsertReq req);
+
+    @PUT("shop")
+    Call<ShopData.StatusRes> updateShopInfo(@Body ShopData.UpdateReq req);
+
+    @DELETE("shop/{shopId}")
+    Call<ShopData.StatusRes> deleteShopInfo(@Path("shopId") String shopId, @Query("shopCode") String shopCode);
 }

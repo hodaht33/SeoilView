@@ -6,7 +6,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.ShopInfo;
+import seoil.capstone.som.data.network.model.ShopData;
 import seoil.capstone.som.data.network.model.retrofit.Shop;
 
 public class ShopApi {
@@ -23,12 +23,12 @@ public class ShopApi {
         mShopInfo = retrofit.create(Shop.class);
     }
 
-    public void getShopInfo(String id, OnFinishApiListener<ShopInfo.GetRes> onFinishApiListener) {
+    public void getShopInfoWithKeyword(String keyword, int page, OnFinishApiListener onFinishApiListener) {
 
-        Call<ShopInfo.GetRes> call = mShopInfo.getShopInfo(id);
-        call.enqueue(new Callback<ShopInfo.GetRes>() {
+        Call<ShopData.GetRes> call = mShopInfo.getShopInfoWithKeyword(keyword, page);
+        call.enqueue(new Callback<ShopData.GetRes>() {
             @Override
-            public void onResponse(Call<ShopInfo.GetRes> call, Response<ShopInfo.GetRes> response) {
+            public void onResponse(Call<ShopData.GetRes> call, Response<ShopData.GetRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -39,19 +39,19 @@ public class ShopApi {
             }
 
             @Override
-            public void onFailure(Call<ShopInfo.GetRes> call, Throwable t) {
+            public void onFailure(Call<ShopData.GetRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
         });
     }
 
-    public void insertShopInfo(ShopInfo.InsertReq req, OnFinishApiListener<ShopInfo.StatusRes> onFinishApiListener) {
+    public void getShopInfoWithCategory(String category, int page, OnFinishApiListener onFinishApiListener) {
 
-        Call<ShopInfo.StatusRes> call = mShopInfo.insertShopInfo(req);
-        call.enqueue(new Callback<ShopInfo.StatusRes>() {
+        Call<ShopData.GetRes> call = mShopInfo.getShopInfoWithCategory(category, page);
+        call.enqueue(new Callback<ShopData.GetRes>() {
             @Override
-            public void onResponse(Call<ShopInfo.StatusRes> call, Response<ShopInfo.StatusRes> response) {
+            public void onResponse(Call<ShopData.GetRes> call, Response<ShopData.GetRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -62,7 +62,76 @@ public class ShopApi {
             }
 
             @Override
-            public void onFailure(Call<ShopInfo.StatusRes> call, Throwable t) {
+            public void onFailure(Call<ShopData.GetRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void insertShopInfo(ShopData.InsertReq req, OnFinishApiListener onFinishApiListener) {
+
+        Call<ShopData.StatusRes> call = mShopInfo.insertShopInfo(req);
+        call.enqueue(new Callback<ShopData.StatusRes>() {
+            @Override
+            public void onResponse(Call<ShopData.StatusRes> call, Response<ShopData.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ShopData.StatusRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void updateShopInfo(ShopData.UpdateReq req, OnFinishApiListener onFinishApiListener) {
+
+        Call<ShopData.StatusRes> call = mShopInfo.updateShopInfo(req);
+        call.enqueue(new Callback<ShopData.StatusRes>() {
+            @Override
+            public void onResponse(Call<ShopData.StatusRes> call, Response<ShopData.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ShopData.StatusRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void deleteShopInfo(String shopId, String shopCode, OnFinishApiListener onFinishApiListener) {
+
+        Call<ShopData.StatusRes> call = mShopInfo.deleteShopInfo(shopId, shopCode);
+        call.enqueue(new Callback<ShopData.StatusRes>() {
+            @Override
+            public void onResponse(Call<ShopData.StatusRes> call, Response<ShopData.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ShopData.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

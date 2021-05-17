@@ -36,7 +36,7 @@ import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.PointData;
 import seoil.capstone.som.data.network.model.Register;
 import seoil.capstone.som.data.network.model.SalesData;
-import seoil.capstone.som.data.network.model.ShopInfo;
+import seoil.capstone.som.data.network.model.ShopData;
 import seoil.capstone.som.data.network.model.StatisticsData;
 import seoil.capstone.som.data.network.model.StockData;
 
@@ -277,14 +277,29 @@ public class AppApiHelper {
         mUserApi.insertManager(managerRequest, onFinishApiListener);
     }
 
-    public void getShopInfo(String id, OnFinishApiListener<ShopInfo.GetRes> onFinishApiListener) {
+    public void getShopInfoWithKeyword(String keyword, int page, OnFinishApiListener<ShopData.GetRes> onFinishApiListener) {
 
-        mShopApi.getShopInfo(id, onFinishApiListener);
+        mShopApi.getShopInfoWithKeyword(keyword, page, onFinishApiListener);
     }
 
-    public void insertShopInfo(ShopInfo.InsertReq req, OnFinishApiListener<ShopInfo.StatusRes> onFinishApiListener) {
+    public void getShopInfoWithCategory(String category, int page, OnFinishApiListener<ShopData.GetRes> onFinishApiListener) {
+
+        mShopApi.getShopInfoWithCategory(category, page, onFinishApiListener);
+    }
+
+    public void insertShopInfo(ShopData.InsertReq req, OnFinishApiListener<ShopData.StatusRes> onFinishApiListener) {
 
         mShopApi.insertShopInfo(req, onFinishApiListener);
+    }
+
+    public void updateShopInfo(ShopData.UpdateReq req, OnFinishApiListener<ShopData.StatusRes> onFinishApiListener) {
+
+        mShopApi.updateShopInfo(req, onFinishApiListener);
+    }
+
+    public void deleteShopInfo(String shopId, String shopCode, OnFinishApiListener<ShopData.StatusRes> onFinishApiListener) {
+
+        mShopApi.deleteShopInfo(shopId, shopCode, onFinishApiListener);
     }
 
     public void getIncomeSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {

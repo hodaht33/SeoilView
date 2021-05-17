@@ -8,21 +8,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import seoil.capstone.som.R;
-import seoil.capstone.som.data.network.model.ShopInfo;
-import seoil.capstone.som.data.network.model.retrofit.Shop;
+import seoil.capstone.som.data.network.model.ShopData;
 
 
 public class CustomerSearchAdapter extends  RecyclerView.Adapter<CustomerSearchAdapter.SearchViewHolder>{
 
-    private List<ShopInfo> mitemList = new ArrayList<>();
+    private List<ShopData> mitemList = new ArrayList<>();
     private  SearchRecyclerInterface mInterface;
 
 
     public interface  SearchRecyclerInterface {
         void onSearchItemClicked(String query);  //저장된 객체(내부에 저장)
 
-        void onSearchDeleteClicked(ShopInfo shopInfo); //저장된 객체 삭제
+        void onSearchDeleteClicked(ShopData shopData); //저장된 객체 삭제
     }
     @NonNull
     @Override
