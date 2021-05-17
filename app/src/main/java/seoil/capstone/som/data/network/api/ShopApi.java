@@ -14,6 +14,7 @@ public class ShopApi {
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
     public static final int ERROR_UNDEFINED_VALUE = 2;
+    public static final int ERROR_NONE_DATE = 3;
 
     private Shop mShopInfo;
 
