@@ -23,9 +23,9 @@ public class SalesApi {
         mSalesInfo = retrofit.create(Sales.class);
     }
 
-    public void getSalesData(String id, String date, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+    public void getIncomeSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        Call<SalesData.GetRes> call = mSalesInfo.getSalesData(id, date);
+        Call<SalesData.GetRes> call = mSalesInfo.getIncomeSales(shopId, salesDate);
         call.enqueue(new Callback<SalesData.GetRes>() {
             @Override
             public void onResponse(Call<SalesData.GetRes> call, Response<SalesData.GetRes> response) {
@@ -46,9 +46,9 @@ public class SalesApi {
         });
     }
 
-    public void getSalesStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+    public void getSpendingSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        Call<SalesData.GetRes> call = mSalesInfo.getSalesStatistics(shopId, startDate, endDate);
+        Call<SalesData.GetRes> call = mSalesInfo.getSpendingSales(shopId, salesDate);
         call.enqueue(new Callback<SalesData.GetRes>() {
             @Override
             public void onResponse(Call<SalesData.GetRes> call, Response<SalesData.GetRes> response) {
@@ -69,9 +69,78 @@ public class SalesApi {
         });
     }
 
-    public void insertSalesData(SalesData.InsertReq req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+    public void getSalesStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetStatisticsRes> onFinishApiListener) {
 
-        Call<SalesData.StatusRes> call = mSalesInfo.insertSalesData(req);
+        Call<SalesData.GetStatisticsRes> call = mSalesInfo.getStatisticsSales(shopId, startDate, endDate);
+        call.enqueue(new Callback<SalesData.GetStatisticsRes>() {
+            @Override
+            public void onResponse(Call<SalesData.GetStatisticsRes> call, Response<SalesData.GetStatisticsRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<SalesData.GetStatisticsRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void insertSales(SalesData.InsertReq req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+
+        Call<SalesData.StatusRes> call = mSalesInfo.insertSales(req);
+        call.enqueue(new Callback<SalesData.StatusRes>() {
+            @Override
+            public void onResponse(Call<SalesData.StatusRes> call, Response<SalesData.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<SalesData.StatusRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void updateSpendingSales(SalesData.UpdateReq req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+
+        Call<SalesData.StatusRes> call = mSalesInfo.updateSpendingSales(req);
+        call.enqueue(new Callback<SalesData.StatusRes>() {
+            @Override
+            public void onResponse(Call<SalesData.StatusRes> call, Response<SalesData.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<SalesData.StatusRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void deleteSpendingSales(String shopId, String salesDate, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+
+        Call<SalesData.StatusRes> call = mSalesInfo.deleteSpendingSales(shopId, salesDate);
         call.enqueue(new Callback<SalesData.StatusRes>() {
             @Override
             public void onResponse(Call<SalesData.StatusRes> call, Response<SalesData.StatusRes> response) {

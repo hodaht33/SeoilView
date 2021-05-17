@@ -12,12 +12,16 @@ public class SalesData {
         @SerializedName("shopId")
         @Expose
         private String shopId;
+        @SerializedName("salesName")
+        @Expose
+        private String salesName;
         @SerializedName("salesAmount")
         @Expose
         private int salesAmount;
 
-        public InsertReq(String shopId, int salesAmount) {
+        public InsertReq(String shopId, String salesName, int salesAmount) {
             this.shopId = shopId;
+            this.salesName = salesName;
             this.salesAmount = salesAmount;
         }
 
@@ -27,6 +31,69 @@ public class SalesData {
 
         public void setShopId(String shopId) {
             this.shopId = shopId;
+        }
+
+        public String getSalesName() {
+            return salesName;
+        }
+
+        public void setSalesName(String salesName) {
+            this.salesName = salesName;
+        }
+
+        public int getSalesAmount() {
+            return salesAmount;
+        }
+
+        public void setSalesAmount(int salesAmount) {
+            this.salesAmount = salesAmount;
+        }
+    }
+
+    public static class UpdateReq {
+
+        @SerializedName("salesDate")
+        @Expose
+        private String salesDate;
+        @SerializedName("shopId")
+        @Expose
+        private String shopId;
+        @SerializedName("salesName")
+        @Expose
+        private String salesName;
+        @SerializedName("salesAmount")
+        @Expose
+        private int salesAmount;
+
+        public UpdateReq(String salesDate, String shopId, String salesName, int salesAmount) {
+            this.salesDate = salesDate;
+            this.shopId = shopId;
+            this.salesName = salesName;
+            this.salesAmount = salesAmount;
+        }
+
+        public String getSalesDate() {
+            return salesDate;
+        }
+
+        public void setSalesDate(String salesDate) {
+            this.salesDate = salesDate;
+        }
+
+        public String getShopId() {
+            return shopId;
+        }
+
+        public void setShopId(String shopId) {
+            this.shopId = shopId;
+        }
+
+        public String getSalesName() {
+            return salesName;
+        }
+
+        public void setSalesName(String salesName) {
+            this.salesName = salesName;
         }
 
         public int getSalesAmount() {
@@ -39,6 +106,69 @@ public class SalesData {
     }
 
     public static class GetRes {
+
+        public class Result {
+
+            @SerializedName("salesDate")
+            @Expose
+            private String salesDate;
+            @SerializedName("salesName")
+            @Expose
+            private String salesName;
+            @SerializedName("salesAmount")
+            @Expose
+            private int salesAmount;
+
+            public String getSalesDate() {
+                return salesDate;
+            }
+
+            public void setSalesDate(String salesDate) {
+                this.salesDate = salesDate;
+            }
+
+            public String getSalesName() {
+                return salesName;
+            }
+
+            public void setSalesName(String salesName) {
+                this.salesName = salesName;
+            }
+
+            public int getSalesAmount() {
+                return salesAmount;
+            }
+
+            public void setSalesAmount(int salesAmount) {
+                this.salesAmount = salesAmount;
+            }
+        }
+
+        @SerializedName("status")
+        @Expose
+        private int status;
+        @SerializedName("results")
+        @Expose
+        private List<Result> results;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public List<Result> getResults() {
+            return results;
+        }
+
+        public void setResults(List<Result> results) {
+            this.results = results;
+        }
+    }
+
+    public static class GetStatisticsRes {
 
         public class Result {
 
@@ -71,7 +201,7 @@ public class SalesData {
         private int status;
         @SerializedName("results")
         @Expose
-        private List<Result> results;
+        private List<GetRes.Result> results;
 
         public int getStatus() {
             return status;
@@ -81,11 +211,11 @@ public class SalesData {
             this.status = status;
         }
 
-        public List<Result> getResults() {
+        public List<GetRes.Result> getResults() {
             return results;
         }
 
-        public void setResults(List<Result> results) {
+        public void setResults(List<GetRes.Result> results) {
             this.results = results;
         }
     }

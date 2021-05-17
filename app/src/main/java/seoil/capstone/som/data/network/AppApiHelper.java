@@ -283,19 +283,34 @@ public class AppApiHelper {
         mShopApi.insertShopInfo(req, onFinishApiListener);
     }
 
-    public void getSalesData(String id, String date, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+    public void getIncomeSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        mSalesApi.getSalesData(id, date, onFinishApiListener);
+        mSalesApi.getIncomeSales(shopId, salesDate, onFinishApiListener);
     }
 
-    public void getSalesStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+    public void getSpendingSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+
+        mSalesApi.getSpendingSales(shopId, salesDate, onFinishApiListener);
+    }
+
+    public void getStatisticsSales(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetStatisticsRes> onFinishApiListener) {
 
         mSalesApi.getSalesStatistics(shopId, startDate, endDate, onFinishApiListener);
     }
 
+    public void updateSpendingSales(SalesData.UpdateReq req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+
+        mSalesApi.updateSpendingSales(req, onFinishApiListener);
+    }
+
+    public void deleteSpendingSales(String shopId, String salesDate, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+
+        mSalesApi.deleteSpendingSales(shopId, salesDate, onFinishApiListener);
+    }
+
     public void insertSalesData(SalesData.InsertReq req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
-        mSalesApi.insertSalesData(req, onFinishApiListener);
+        mSalesApi.insertSales(req, onFinishApiListener);
     }
 
     public void getBookmarkShopInfo(String userId, OnFinishApiListener<BookmarkInfo.ShopInfoRes> onFinishApiListener) {
