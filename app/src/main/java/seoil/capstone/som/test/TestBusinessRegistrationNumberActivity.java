@@ -13,7 +13,7 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
-import seoil.capstone.som.data.network.model.Check;
+import seoil.capstone.som.data.network.model.Auth;
 
 public class TestBusinessRegistrationNumberActivity extends AppCompatActivity {
 
@@ -34,9 +34,9 @@ public class TestBusinessRegistrationNumberActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                OnFinishApiListener<Check.StatusRes> onFinishApiListener = new OnFinishApiListener<Check.StatusRes>() {
+                OnFinishApiListener<Auth.StatusRes> onFinishApiListener = new OnFinishApiListener<Auth.StatusRes>() {
                     @Override
-                    public void onSuccess(Check.StatusRes statusRes) {
+                    public void onSuccess(Auth.StatusRes statusRes) {
 
                         if (statusRes.getStatus() == UserApi.SUCCESS) {
 

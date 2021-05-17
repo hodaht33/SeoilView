@@ -2,17 +2,12 @@ package seoil.capstone.som.ui.main.manager.ledger;
 
 import android.util.Log;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.SalesApi;
-import seoil.capstone.som.data.network.model.SalesInfo;
+import seoil.capstone.som.data.network.model.SalesData;
 import seoil.capstone.som.data.network.model.StockData;
 
 public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
@@ -156,16 +151,16 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
     public void getSales(String shopId, String dateQuery) {
 
-        OnFinishApiListener<SalesInfo.GetRes> onFinishApiListener = new OnFinishApiListener<SalesInfo.GetRes>() {
+        OnFinishApiListener<SalesData.GetRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetRes>() {
             @Override
-            public void onSuccess(SalesInfo.GetRes getRes) {
+            public void onSuccess(SalesData.GetRes getRes) {
 
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
 
-                    List<SalesInfo.GetRes.Result> list = getRes.getResults();
+                    List<SalesData.GetRes.Result> list = getRes.getResults();
 
                     int sum = 0;
-                    for (SalesInfo.GetRes.Result result : list) {
+                    for (SalesData.GetRes.Result result : list) {
 
                         sum += result.getSalesAmount();
                     }

@@ -8,7 +8,7 @@ import android.util.Log;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
-import seoil.capstone.som.data.network.model.Check;
+import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.Register;
 import seoil.capstone.som.ui.login.LoginActivity;
 import seoil.capstone.som.ui.main.MainActivity;
@@ -127,9 +127,9 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
 
     public void checkCorporateNumberValid(String corporateNumber) {
 
-        OnFinishApiListener<Check.StatusRes> onFinishApiListener = new OnFinishApiListener<Check.StatusRes>() {
+        OnFinishApiListener<Auth.StatusRes> onFinishApiListener = new OnFinishApiListener<Auth.StatusRes>() {
             @Override
-            public void onSuccess(Check.StatusRes statusRes) {
+            public void onSuccess(Auth.StatusRes statusRes) {
 
                 if (statusRes.getStatus() == UserApi.SUCCESS) {
 

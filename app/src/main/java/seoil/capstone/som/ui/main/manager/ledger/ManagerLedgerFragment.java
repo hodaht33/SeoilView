@@ -1,6 +1,5 @@
 package seoil.capstone.som.ui.main.manager.ledger;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -13,12 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -39,13 +36,8 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import seoil.capstone.som.R;
-import seoil.capstone.som.data.network.AppApiHelper;
-import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.api.SalesApi;
-import seoil.capstone.som.data.network.model.SalesInfo;
 
 public class ManagerLedgerFragment extends Fragment implements ManagerLedgerContract.View{
 
