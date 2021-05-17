@@ -1,13 +1,12 @@
-package seoil.capstone.som.ui.main.manager.statistics;
+ package seoil.capstone.som.ui.main.manager.statistics;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +16,18 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import seoil.capstone.som.R;
@@ -45,18 +43,25 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
     private String mStartDateQuery, mEndDateQuery;
     private String mShopId;
     private ManagerStatisticsPresenter mPresenter;
-    private List<BarEntry> mSalesData;
+    private List<PieEntry> mGenderData;
+    private List<PieEntry> mAgeData;
     private Boolean mState;
     private Boolean isBtnSet;
     private Boolean isBtnSetLate;
     private Boolean isBtnCInfo;
-    private BarChart mBarChartAgeChart;
+    private PieChart mPieChartAgeChart;
     private PieChart mPieChartGenderChart;
-    private BarChart mBarChartSales;
     private int black;
     private int white;
     private int gray;
+    private int red;
+    private int blue;
+    private int lightGreen;
+    private int purple;
+    private int pink;
     private ImageView mImageViewSendQuery;
+    private int[] mColorArrayGender;
+    private int[] mColorArrayAge;
 
     public ManagerStatisticsFragment() {
 
@@ -71,7 +76,8 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         mPresenter.setView(this);
 
 
-        mSalesData = new ArrayList<BarEntry>();
+        mAgeData = new ArrayList<>();
+        mGenderData = new ArrayList<>();
         mState = true;
         isBtnSet = false;
         isBtnSetLate = false;
@@ -87,6 +93,12 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         initListener();
         initColor();
 
+        mColorArrayGender = new int[]{red, blue};
+        mColorArrayAge = new int[]{red, black, gray, purple, lightGreen, pink};
+
+        initGenderChart();
+        initAgeChart();
+
         mBtnSales.setBackgroundColor(black);
         mBtnSales.setTextColor(white);
         mBtnCInfo.setBackgroundColor(white);
@@ -94,22 +106,6 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
 
         Bundle bundle = getActivity().getIntent().getBundleExtra("data");
         mShopId = bundle.getString("id");
-
-
-
-        mBarChartSales.animateY(1000);
-        mBarChartSales.setClickable(false);
-        mBarChartSales.setDragEnabled(true);
-        mBarChartSales.invalidate();
-        mBarChartSales.setScaleEnabled(false);
-        mBarChartSales.setVisibleXRangeMaximum(5);
-
-
-        mBarChartAgeChart.animateY(1000);
-        mBarChartAgeChart.setClickable(false);
-        mBarChartAgeChart.setDragEnabled(true);
-        mBarChartAgeChart.setScaleEnabled(false);
-        mBarChartAgeChart.setVisibleXRangeMaximum(5);
 
         return view;
     }
@@ -129,6 +125,14 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         Calendar date = Calendar.getInstance();
         if (flag) {
 
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String getTime = simpleDateFormat.format(new Date(System.currentTimeMillis()));
+            int year, month, day;
+            year = Integer.parseInt(getTime.substring(0,4));
+            month = Integer.parseInt(getTime.substring(5,7));
+            day = Integer.parseInt(getTime.substring(8));
+
             datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
 
                 @Override
@@ -137,11 +141,12 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
                     mFirstMonth = month + 1;
                     mFirstYear = year;
 
-                    mBtnStartDate.setText(mPresenter.getDateQuery(mFirstYear, mFirstMonth, mFirstDay).substring(2));
+                    mStartDateQuery = mPresenter.getDateQuery(mFirstYear, mFirstMonth, mFirstDay);
+                    mBtnStartDate.setText(mStartDateQuery.substring(2));
 
                     isBtnSet = true;
                 }
-            },2021, 0, 1 );
+            },year, month - 1, day );
 
 
             date.set(2021, 0, 1);
@@ -160,7 +165,8 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
                         mLateMonth = month + 1;
                         mLateYear = year;
 
-                        mBtnEndDate.setText(mPresenter.getDateQuery(mLateYear, mLateMonth, mLateDay).substring(2));
+                        mEndDateQuery = mPresenter.getDateQuery(mLateYear, mLateMonth, mLateDay);
+                        mBtnEndDate.setText(mEndDateQuery.substring(2));
 
                         isBtnSetLate = true;
                     }
@@ -193,10 +199,8 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
 
             if (!mState) {
 
-                mBarChartSales.invalidate();
-                mBarChartSales.animateY(1000);
-                mBarChartSales.setVisibility(View.VISIBLE);
-                mBarChartAgeChart.setVisibility(View.GONE);
+
+                mPieChartAgeChart.setVisibility(View.GONE);
                 mPieChartGenderChart.setVisibility(View.GONE);
                 mBtnSales.setBackgroundColor(black);
                 mBtnSales.setTextColor(white);
@@ -211,10 +215,7 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
 
             if (mState) {
 
-                mBarChartAgeChart.invalidate();
-                mBarChartAgeChart.animateY(1000);
-                mBarChartSales.setVisibility(View.GONE);
-                mBarChartAgeChart.setVisibility(View.VISIBLE);
+                mPieChartAgeChart.setVisibility(View.VISIBLE);
                 mPieChartGenderChart.setVisibility(View.VISIBLE);
                 mBtnCInfo.setBackgroundColor(black);
                 mBtnCInfo.setTextColor(white);
@@ -252,9 +253,11 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
                 Toast.makeText(getContext(), "마지막 날짜를 다시 선택해주세요", Toast.LENGTH_SHORT).show();
             } else {
 
-                mStartDateQuery = mPresenter.getDateQuery(mFirstYear, mFirstMonth, mFirstDay);
-                mEndDateQuery = mPresenter.getDateQuery(mLateYear, mLateMonth, mLateDay);
-                mPresenter.getSalesDate(mShopId, mStartDateQuery, mEndDateQuery);
+                if (!mState) {
+
+                    mPresenter.getGenderTotal(mShopId, mStartDateQuery, mEndDateQuery);
+                    mPresenter.getAgeTotal(mShopId, mStartDateQuery, mEndDateQuery);
+                }
             }
         }
     }
@@ -266,8 +269,7 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         mBtnStartDate = view.findViewById(R.id.btnMStatisticsStartDate);
         mBtnEndDate = view.findViewById(R.id.btnMStatisticsEndDate);
 
-        mBarChartSales = view.findViewById(R.id.barChartMStatisticsSales);
-        mBarChartAgeChart = view.findViewById(R.id.barChartMStatisticsAgeChart);
+        mPieChartAgeChart = view.findViewById(R.id.pieChartMStatisticsAgeChart);
         mPieChartGenderChart = view.findViewById(R.id.pieChartMStatisticsGenderChart);
 
         mImageViewSendQuery = view.findViewById(R.id.imageViewMStatisticsSelect);
@@ -288,27 +290,91 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         black = activity.getColor(R.color.black);
         white = activity.getColor(R.color.white);
         gray = activity.getColor(R.color.gray);
+        red = activity.getColor(R.color.red);
+        blue = activity.getColor(R.color.blue);
+        lightGreen = activity.getColor(R.color.light_green);
+        purple = activity.getColor(R.color.purple_200);
+        pink = activity.getColor(R.color.pink);
     }
 
     @Override
     public void sendSalesData(ArrayList<String> listDates, ArrayList<Integer> listAmounts) {
 
-        mBarChartSales.getXAxis().setValueFormatter(new ValueFormatter() {
+    }
+
+    @Override
+    public void sendGenderTotal(ArrayList<String> genderList, ArrayList<Integer> countList) {
+
+
+        mGenderData = new ArrayList<>();
+        for (int i = 0; i < genderList.size(); i++) {
+
+            mGenderData.add(new PieEntry(countList.get(i), genderList.get(i)));
+        }
+
+        PieDataSet dataSet = new PieDataSet(mGenderData, "");
+        dataSet.setColors(mColorArrayGender);
+        dataSet.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return listDates.get((int) value);
+                return Math.round(value) + "%";
             }
         });
 
-        for (int i = 0; i < listDates.size(); i++) {
+        PieData pieData =  new PieData(dataSet);
+        pieData.setValueTextSize(20f);
+        pieData.setValueTextColor(white);
 
-            mSalesData.add(new BarEntry(i, listAmounts.get(i)));
+        mPieChartGenderChart.setData(pieData);
+        mPieChartGenderChart.animateXY(1000, 1000);
+        mPieChartGenderChart.invalidate();
+    }
+
+    @Override
+    public void sendAgeTotal(ArrayList<String> ageList, ArrayList<Integer> amountList) {
+
+        mAgeData = new ArrayList<>();
+        for(int i = 0; i < ageList.size(); i++) {
+            mAgeData.add(new PieEntry(amountList.get(i), ageList.get(i)));
         }
 
-        BarDataSet barDataSet = new BarDataSet(mSalesData, "sales by date");
+        PieDataSet dataSet = new PieDataSet(mAgeData, "");
+        dataSet.setColors(mColorArrayAge);
+        dataSet.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return Math.round(value) + "%";
+            }
+        });
 
-        BarData barData = new BarData(barDataSet);
+        PieData pieData = new PieData(dataSet);
+        pieData.setValueTextSize(15f);
+        pieData.setValueTextColor(white);
 
-        mBarChartSales.setData(barData);
+        mPieChartAgeChart.setData(pieData);
+        mPieChartAgeChart.animateXY(1000, 1000);
+        mPieChartAgeChart.invalidate();
+    }
+
+    public void initGenderChart() {
+
+        mPieChartGenderChart.animateXY(1000, 1000);
+        mPieChartGenderChart.setRotationEnabled(false);
+        mPieChartGenderChart.setDrawEntryLabels(false);
+        mPieChartGenderChart.setDrawHoleEnabled(false);
+        mPieChartGenderChart.setUsePercentValues(true);
+        mPieChartGenderChart.setDescription(null);
+        mPieChartGenderChart.invalidate();
+    }
+
+    public void initAgeChart() {
+
+        mPieChartAgeChart.animateXY(1000, 1000);
+        mPieChartAgeChart.setRotationEnabled(false);
+        mPieChartAgeChart.setDrawEntryLabels(false);
+        mPieChartAgeChart.setDrawHoleEnabled(false);
+        mPieChartAgeChart.setUsePercentValues(true);
+        mPieChartAgeChart.setDescription(null);
+        mPieChartAgeChart.invalidate();
     }
 }

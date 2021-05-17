@@ -135,7 +135,7 @@ public class StatisticsData {
         private int status;
         @SerializedName("results")
         @Expose
-        private List<GetAgeGroupRes.Result> results;
+        private List<GetGenderRes.Result> results;
 
         public int getStatus() {
             return status;
@@ -145,11 +145,11 @@ public class StatisticsData {
             this.status = status;
         }
 
-        public List<GetAgeGroupRes.Result> getResults() {
+        public List<GetGenderRes.Result> getResults() {
             return results;
         }
 
-        public void setResults(List<GetAgeGroupRes.Result> results) {
+        public void setResults(List<GetGenderRes.Result> results) {
             this.results = results;
         }
     }

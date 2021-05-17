@@ -10,6 +10,8 @@ import java.util.List;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.model.SalesData;
+import seoil.capstone.som.data.network.model.StatisticsData;
+import seoil.capstone.som.data.network.model.retrofit.Statistics;
 
 public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Presenter{
 
@@ -65,7 +67,7 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
         return dateQuery;
     }
 
-    public void getSalesDate(String shopId, String startDate, String endDate) {
+    public void getSalesStatistics(String shopId, String startDate, String endDate) {
 
         OnFinishApiListener<SalesData.GetRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetRes>() {
 
@@ -80,6 +82,7 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
                     ArrayList<String> listDates = new ArrayList<>();
                     int c = 0;
                     for (SalesData.GetRes.Result result : list) {
+
 
                         listAmounts.add(c, result.getSalesAmount());
                         listDates.add(c, result.getSalesDate());
@@ -99,6 +102,111 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
             }
         };
 
-        mInteractor.getSalesDate(shopId, startDate, endDate, onFinishApiListener);
+        mInteractor.getSalesStatistics(shopId, startDate, endDate, onFinishApiListener);
+    }
+
+    public void getGenderTotal(String shopId, String startDate, String endDate) {
+
+        OnFinishApiListener<StatisticsData.GetGenderRes> onFinishApiListener = new OnFinishApiListener<StatisticsData.GetGenderRes>() {
+            @Override
+            public void onSuccess(StatisticsData.GetGenderRes getRes) {
+
+                if (getRes.getStatus() == SalesApi.SUCCESS) {
+
+                    List<StatisticsData.GetGenderRes.Result> list = getRes.getResults();
+
+
+                    ArrayList<String> genderList = new ArrayList<>();
+                    ArrayList<Integer> countList = new ArrayList<>();
+
+                    int c = 0;
+                    for (StatisticsData.GetGenderRes.Result result : list) {
+
+                        Log.d("gender", result.getGender());
+                        if (list.size() == 2) {
+
+                            genderList.add(c, result.getGender());
+                            countList.add(c, result.getCount());
+                        } else if (list.size() == 1) {
+
+                            if (result.getGender().equals("M")) {
+
+                                genderList.add(c, result.getGender());
+                                countList.add(c, result.getCount());
+                                c++;
+                                genderList.add(c, "W");
+                                countList.add(c, 0);
+                            } else {
+                                genderList.add(c, "M");
+                                countList.add(c, 0);
+                                c++;
+                                genderList.add(c, result.getGender());
+                                countList.add(c, result.getCount());
+                            }
+                        }
+                        if (list.size() == 0) {
+                            genderList.add(c, "M");
+                            countList.add(c, 0);
+                            c++;
+                            genderList.add(c, "W");
+                            countList.add(c, 0);
+                        }
+                    }
+                    mView.sendGenderTotal(genderList, countList);
+
+                } else {
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        };
+        mInteractor.getGenderTotal(shopId, startDate, endDate, onFinishApiListener);
+    }
+
+    public void getAgeTotal(String shopId, String startDate, String endDate) {
+
+        OnFinishApiListener<StatisticsData.GetAgeGroupRes> onFinishApiListener = new OnFinishApiListener<StatisticsData.GetAgeGroupRes>() {
+            @Override
+            public void onSuccess(StatisticsData.GetAgeGroupRes getAgeGroupRes) {
+
+                if (getAgeGroupRes.getStatus() == SalesApi.SUCCESS) {
+
+                    List<StatisticsData.GetAgeGroupRes.Result> list = getAgeGroupRes.getResults();
+
+                    ArrayList<String> ageList = new ArrayList<>();
+                    ArrayList<Integer> amountList = new ArrayList<>();
+                    int c = 0;
+                    for (StatisticsData.GetAgeGroupRes.Result result : list) {
+
+                        if (c < result.getAgeGroup() - 1) {
+
+                            ageList.add(c, ((c + 1) * 10) + "대");
+                            amountList.add(c, 0);
+                        } else {
+
+                            ageList.add(c, result.getAgeGroup() * 10 + "대");
+                            amountList.add(c, result.getCount());
+                        }
+
+                        c++;
+                    }
+
+                    mView.sendAgeTotal(ageList, amountList);
+                } else {
+
+                }
+            }
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        };
+
+        mInteractor.getAgeTotal(shopId, startDate, endDate, onFinishApiListener);
     }
 }

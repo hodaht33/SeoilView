@@ -64,28 +64,18 @@
         app:layout_constraintStart_toEndOf="@+id/btnMStatisticsEndDate"
         app:layout_constraintTop_toBottomOf="@+id/btnMStatisticsCInfo" />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChartMStatisticsSales"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMStatisticsStartDate" />
-
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChartMStatisticsGenderChart"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/barChartMStatisticsAgeChart"
+        app:layout_constraintBottom_toTopOf="@+id/pieChartMStatisticsAgeChart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnMStatisticsStartDate" />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChartMStatisticsAgeChart"
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChartMStatisticsAgeChart"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"
