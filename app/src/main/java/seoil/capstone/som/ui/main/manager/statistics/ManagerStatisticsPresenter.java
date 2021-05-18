@@ -1,7 +1,5 @@
 package seoil.capstone.som.ui.main.manager.statistics;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -11,7 +9,6 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.model.SalesData;
 import seoil.capstone.som.data.network.model.StatisticsData;
-import seoil.capstone.som.data.network.model.retrofit.Statistics;
 
 public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Presenter{
 
@@ -69,19 +66,19 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
 
     public void getSalesStatistics(String shopId, String startDate, String endDate) {
 
-        OnFinishApiListener<SalesData.GetRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetRes>() {
+        OnFinishApiListener<SalesData.GetStatisticsRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetStatisticsRes>() {
 
             @Override
-            public void onSuccess(SalesData.GetRes getRes) {
+            public void onSuccess(SalesData.GetStatisticsRes getRes) {
 
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
 
-                    List<SalesData.GetRes.Result> list = getRes.getResults();
+                    List<SalesData.GetStatisticsRes.Result> list = getRes.getResults();
 
                     ArrayList<Integer> listAmounts = new ArrayList<>();
                     ArrayList<String> listDates = new ArrayList<>();
                     int c = 0;
-                    for (SalesData.GetRes.Result result : list) {
+                    for (SalesData.GetStatisticsRes.Result result : list) {
 
 
                         listAmounts.add(c, result.getSalesAmount());
@@ -102,7 +99,7 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
             }
         };
 
-        mInteractor.getSalesStatistics(shopId, startDate, endDate, onFinishApiListener);
+        mInteractor.getStatisticsSales(shopId, startDate, endDate, onFinishApiListener);
     }
 
     public void getGenderTotal(String shopId, String startDate, String endDate) {

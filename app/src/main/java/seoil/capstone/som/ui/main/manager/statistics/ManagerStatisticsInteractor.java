@@ -10,9 +10,9 @@ public class ManagerStatisticsInteractor implements ManagerStatisticsContract.In
 
 
     @Override
-    public void getSalesStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+    public void getStatisticsSales(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetStatisticsRes> onFinishApiListener) {
 
-        AppApiHelper.getInstance().getSalesStatistics(shopId, startDate, endDate, onFinishApiListener);
+        AppApiHelper.getInstance().getStatisticsSales(shopId, startDate, endDate, onFinishApiListener);
     }
 
     @Override

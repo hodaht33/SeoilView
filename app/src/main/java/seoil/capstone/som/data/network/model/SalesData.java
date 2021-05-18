@@ -201,7 +201,7 @@ public class SalesData {
         private int status;
         @SerializedName("results")
         @Expose
-        private List<GetRes.Result> results;
+        private List<Result> results;
 
         public int getStatus() {
             return status;
@@ -211,11 +211,11 @@ public class SalesData {
             this.status = status;
         }
 
-        public List<GetRes.Result> getResults() {
+        public List<Result> getResults() {
             return results;
         }
 
-        public void setResults(List<GetRes.Result> results) {
+        public void setResults(List<Result> results) {
             this.results = results;
         }
     }
