@@ -6,7 +6,9 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,9 +25,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.tabs.TabLayout;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -43,19 +48,27 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
     private MaterialCalendarView mCalendarView;
 
+    public final int SELECTED_SALE = 0;
+    public final int SELECTED_COST = 1;
+    public final int SELECTED_STOCK = 2;
     private ArrayList<String> mDataName;
     private ArrayList<Integer> mDataAmount;
     private int mYear;
     private int mMonth;
     private int mDay;
     private int mWidthPixels, mHeightPixels;
+    private int selectedIndex;
+    private String mDateQuery;
+    private String mShopId;
     private PopupWindow mPopupWindow;
     private Button mBtnClosePopup;
-    private TextView mTextViewDetailedSalePopup;
     private TextView mTextViewDate;
+    private TextView mTextViewTitle;
     private ManagerLedgerPresenter mPresenter;
     private RecyclerView mRecyclerView;
     private ManagerLedgerTextAdapter mAdapter;
+    private TabLayout mTabLayout;
+    private ImageView mImageViewAdd;
 
     /*TODO:// getMonth() 사용시 값이 1 작게 리턴됨*/
     public ManagerLedgerFragment() {
@@ -69,6 +82,8 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         mPresenter = new ManagerLedgerPresenter();
         mPresenter.createInteractor();
         mPresenter.setView(this);
+
+        selectedIndex = SELECTED_SALE;
     }
 
     @Override
@@ -79,19 +94,18 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
         initView(view);
 
+
         Bundle bundle = getActivity().getIntent().getBundleExtra("data");
-        String shopId = bundle.getString("id");
+        mShopId = bundle.getString("id");
 
 
 
-        initListener(shopId);
+        initListener(mShopId);
         mCalendarView.setSelectionColor(R.color.black);
 
 
         mDataName = new ArrayList<>();
         mDataAmount = new ArrayList<>();
-        mDataName.add("값이 없습니다.");
-        mDataAmount.add(-1);
 
         return view;
     }
@@ -99,6 +113,8 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
     private void initView(View view) {
 
         mCalendarView = view.findViewById(R.id.calendarViewMLedger);
+
+
     }
 
     private void initListener(String shopId) {
@@ -121,11 +137,6 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 
-                if (mYear == date.getYear() && mMonth == (date.getMonth() + 1) && mDay == date.getDay()) {
-
-                    return;
-                }
-
                 WindowManager windowManager = getActivity().getWindowManager();
                 Display display = windowManager.getDefaultDisplay();
                 DisplayMetrics metrics = new DisplayMetrics();
@@ -146,30 +157,17 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
                 setTextViewDate();
 
-                String dateQuery;
-                dateQuery = mPresenter.getDateQuery(mYear, mMonth, mDay);
+                mDateQuery = mPresenter.getDateQuery(mYear, mMonth, mDay);
 
-                mPresenter.getSales(shopId, dateQuery);
-                mPresenter.getStock(shopId);
+                mPresenter.getSales(shopId, mDateQuery);
             }
         });
-    }
 
-    @Override
-    public void setSales(int value) {
-
-        mTextViewDetailedSalePopup.setText(mPresenter.getDetailedSale(value));
-    }
-
-    @Override
-    public void setSaleError(String s) {
-
-        mTextViewDetailedSalePopup.setText(s);
     }
 
 
     @Override
-    public void setLayoutAdpater(ArrayList<String> listName, ArrayList<Integer> listAmount) {
+    public void setLayoutAdapter(ArrayList<String> listName, ArrayList<Integer> listAmount) {
 
         mAdapter.setData(listName, listAmount);
     }
@@ -178,11 +176,13 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
     @Override
     public void showProgress() {
 
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     @Override
     public void hideProgress() {
 
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     class SundayDecorator implements DayViewDecorator {
@@ -298,35 +298,103 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
     private void initPopupWindow() {
 
         try {
+
+            if (mPopupWindow != null) {
+
+                mPopupWindow.dismiss();
+            }
+
             //Layout 객체화
             LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            View layout = inflater.inflate(R.layout.popup_manager_ledger_show, (ViewGroup)getActivity().findViewById(R.id.popupMLedgerLayout));
+            View layout = inflater.inflate(R.layout.popup_manager_ledger_show, getActivity().findViewById(R.id.popupMLedgerLayout));
 
+            initViewPopup(layout);
 
-            mRecyclerView = layout.findViewById(R.id.recyclerViewMLedgerStockAmount);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             mAdapter = new ManagerLedgerTextAdapter(mDataName, mDataAmount);
             mRecyclerView.setAdapter(mAdapter);
 
             mPopupWindow = new PopupWindow(layout, mWidthPixels, mHeightPixels, true);
             mPopupWindow.showAtLocation(layout, Gravity.CENTER, 0 , 0);
-            mBtnClosePopup = layout.findViewById(R.id.btnMLedgerFinish);
-            mBtnClosePopup.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
+            mTabLayout.addTab(mTabLayout.newTab().setText("매출"), SELECTED_SALE);
+            mTabLayout.addTab(mTabLayout.newTab().setText("지출"), SELECTED_COST);
+            mTabLayout.addTab(mTabLayout.newTab().setText("재고"), SELECTED_STOCK);
 
-                    mPopupWindow.dismiss();
-                }
-            });
+            initListenerPopup();
 
-            mTextViewDetailedSalePopup = layout.findViewById(R.id.textViewMLedgerShowSalesAmount);
-            mTextViewDate = layout.findViewById(R.id.textViewMLedgerDate);
         } catch (Exception e) {
 
             e.printStackTrace();
         }
     }
 
+    private void initListenerPopup() {
+
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                int position = tab.getPosition();
+
+
+                if (position == SELECTED_SALE) {
+
+                    selectedIndex = SELECTED_SALE;
+                    mTextViewTitle.setText("매출");
+                    mAdapter.clear();
+                    mPresenter.getSales(mShopId, mDateQuery);
+                } else if (position == SELECTED_COST) {
+
+                    selectedIndex = SELECTED_COST;
+                    mTextViewTitle.setText("지출");
+                    mAdapter.clear();
+                } else if (position == SELECTED_STOCK) {
+
+                    selectedIndex = SELECTED_STOCK;
+                    mTextViewTitle.setText("재고");
+                    mAdapter.clear();
+                    mPresenter.getStock(mShopId);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        mBtnClosePopup.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                mPopupWindow.dismiss();
+            }
+        });
+        
+        mImageViewAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //다이얼로그로 데이터 추가창 생성
+            }
+        });
+    }
+
+    private void initViewPopup(View layout) {
+
+        mRecyclerView = layout.findViewById(R.id.recyclerViewMLedgerStockAmount);
+        mBtnClosePopup = layout.findViewById(R.id.btnMLedgerFinish);
+        mTabLayout = layout.findViewById(R.id.tabLayoutMLedgerTop);
+        mTextViewDate = layout.findViewById(R.id.textViewMLedgerDate);
+        mImageViewAdd = layout.findViewById(R.id.imageViewMLedgerInsert);
+        mTextViewTitle = layout.findViewById(R.id.textViewMLedgerShowTitle);
+    }
 }
