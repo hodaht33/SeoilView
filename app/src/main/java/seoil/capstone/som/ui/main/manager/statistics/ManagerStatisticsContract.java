@@ -25,7 +25,7 @@ public interface ManagerStatisticsContract {
 
     interface Interactor extends BaseContract.Interactor {
 
-        void getSalesStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener);
+        void getSalesStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetStatisticsRes> onFinishApiListener);
 
         void getGenderTotal (String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsData.GetGenderRes> onFinishApiListener);
 

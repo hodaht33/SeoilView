@@ -69,10 +69,10 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
 
     public void getSalesStatistics(String shopId, String startDate, String endDate) {
 
-        OnFinishApiListener<SalesData.GetRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetRes>() {
+        OnFinishApiListener<SalesData.GetStatisticsRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetStatisticsRes>() {
 
             @Override
-            public void onSuccess(SalesData.GetRes getRes) {
+            public void onSuccess(SalesData.GetStatisticsRes getRes) {
 
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
 

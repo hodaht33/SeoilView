@@ -10,6 +10,7 @@ import android.widget.EditText;
 import java.util.List;
 
 import seoil.capstone.som.R;
+
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.ShopApi;
@@ -76,7 +77,7 @@ public class TestShopInfoActivity extends AppCompatActivity implements View.OnCl
                     }
                 };
 
-                AppApiHelper.getInstance().insertShopInfo(new ShopData.InsertReq(id, shName, shAdr, category), onFinishApiListener);
+                AppApiHelper.getInstance().insertShopInfo(new ShopData.InsertReq(shopCode.getText().toString() ,id, shName,"1" ,shAdr, category), onFinishApiListener);
             }
 
         } else if (v.getId() == R.id.btnShopInfoGet) {
@@ -106,7 +107,7 @@ public class TestShopInfoActivity extends AppCompatActivity implements View.OnCl
                     }
                 };
 
-                AppApiHelper.getInstance().getShopInfoWithKeyword(id, onFinishApiListener);
+                AppApiHelper.getInstance().getShopInfoWithKeyword(id, 1,onFinishApiListener);
             }
 
         }
