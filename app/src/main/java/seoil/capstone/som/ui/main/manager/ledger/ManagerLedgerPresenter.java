@@ -5,6 +5,9 @@ import android.util.Log;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.L;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -126,7 +129,6 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         OnFinishApiListener<StockData.GetRes> onFinishApiListener = new OnFinishApiListener<StockData.GetRes>() {
             @Override
             public void onSuccess(StockData.GetRes getRes) {
-
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
 
                     List<StockData.GetRes.Result> list = getRes.getResults();
@@ -138,16 +140,13 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
                         dataName.add(result.getStockName());
                         dataAmount.add(result.getStockAmount());
                     }
-                    view.setLayoutAdpater(dataName, dataAmount);
-
+                    view.setLayoutAdapter(dataName, dataAmount);
                 } else {
-
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-
             }
         };
 
@@ -157,6 +156,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
     public void getSales(String shopId, String dateQuery) {
 
         OnFinishApiListener<SalesData.GetRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetRes>() {
+
             @Override
             public void onSuccess(SalesData.GetRes getRes) {
 
@@ -164,22 +164,23 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
                     List<SalesData.GetRes.Result> list = getRes.getResults();
 
-                    int sum = 0;
+                    ArrayList<String> dataDate = new ArrayList<>();
+                    ArrayList<Integer> dataAmount = new ArrayList<>();
+
                     for (SalesData.GetRes.Result result : list) {
 
-                        sum += result.getSalesAmount();
+                        dataDate.add(result.getSalesDate());
+                        dataAmount.add(result.getSalesAmount());
                     }
-                    view.setSales(sum);
+                    view.setLayoutAdapter(dataDate, dataAmount);
                 } else {
-
-                    view.setSaleError("값이 없습니다.");
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
 
-                Log.d("test", t.toString());
+                Log.d("managerLedger", t.toString());
             }
         };
 

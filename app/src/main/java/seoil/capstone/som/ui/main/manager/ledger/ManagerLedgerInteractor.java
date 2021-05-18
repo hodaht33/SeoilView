@@ -17,6 +17,6 @@ public class ManagerLedgerInteractor implements ManagerLedgerContract.Interactor
     @Override
     public void getSales(String shopId, String dateQuery, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        AppApiHelper.getInstance().getSalesData(shopId, dateQuery, onFinishApiListener);
+        AppApiHelper.getInstance().getSalesStatistics(shopId, dateQuery, dateQuery, onFinishApiListener);
     }
 }
