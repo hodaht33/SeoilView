@@ -15,4 +15,5 @@
     <color name="btn_text">#FFFFFFFF</color>
     <color name="blue">#FF0000FF</color>
     <color name="red">#FFFF0000</color>
+    <color name="pink">#FFEB348C</color>
 </resources>

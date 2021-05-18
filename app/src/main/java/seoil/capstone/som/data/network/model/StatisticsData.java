@@ -145,6 +145,7 @@ public class StatisticsData {
             this.status = status;
         }
 
+
         public List<Result> getResults() {
             return results;
         }

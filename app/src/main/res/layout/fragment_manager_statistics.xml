@@ -6,17 +6,82 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.manager.statistics.ManagerStatisticsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+
+    <Button
+        android:id="@+id/btnMStatisticsSales"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:text="Statistics"
-        android:textSize="24sp"
+        android:layout_marginEnd="2dp"
+        android:text="매출"
+        app:layout_constraintEnd_toStartOf="@+id/btnMStatisticsCInfo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btnMStatisticsCInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="32dp"
+        android:text="사용자 통계"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnMStatisticsSales"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnMStatisticsSales" />
+
+    <Button
+        android:id="@+id/btnMStatisticsStartDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="2dp"
+        android:text="시작 날짜 선택"
+        app:layout_constraintEnd_toStartOf="@+id/btnMStatisticsEndDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMStatisticsSales" />
+
+    <Button
+        android:id="@+id/btnMStatisticsEndDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="64dp"
+        android:text="마지막 날짜 선택"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/btnMStatisticsSales"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnMStatisticsStartDate" />
+
+    <ImageView
+        android:id="@+id/imageViewMStatisticsSelect"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/calender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnMStatisticsEndDate"
+        app:layout_constraintTop_toBottomOf="@+id/btnMStatisticsCInfo" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChartMStatisticsGenderChart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/pieChartMStatisticsAgeChart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMStatisticsStartDate" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChartMStatisticsAgeChart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pieChartMStatisticsGenderChart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
