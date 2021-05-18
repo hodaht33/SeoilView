@@ -167,27 +167,11 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
 
     @Override
-    public void setLayoutAdapter(ArrayList<String> listName, ArrayList<Integer> listAmount, String type) {
-
-        ArrayList<String> listAmountFormat = new ArrayList<>();
-
-        if (type.equals("Sales") || type.equals("Cost")) {
-
-            for (int i = 0; i < listAmount.size(); i++) {
-
-                listAmountFormat.add(mPresenter.getDetailedSale(listAmount.get(i)));
-            }
+    public void setLayoutAdapter(ArrayList<String> listName, ArrayList<String> listAmount) {
 
 
-        } else if (type.equals("Stock")) {
 
-            for (int i = 0; i < listAmount.size(); i++) {
-
-                listAmountFormat.add(listAmount.get(i) + "개");
-            }
-        }
-
-        mAdapter.setData(listName, listAmountFormat);
+        mAdapter.setData(listName, listAmount);
     }
 
 

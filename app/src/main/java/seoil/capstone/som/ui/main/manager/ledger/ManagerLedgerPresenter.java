@@ -125,13 +125,13 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
                     List<StockData.GetRes.Result> list = getRes.getResults();
 
                     ArrayList<String> dataName = new ArrayList<>();
-                    ArrayList<Integer> dataAmount = new ArrayList<>();
+                    ArrayList<String> dataAmount = new ArrayList<>();
                     for (StockData.GetRes.Result result : list) {
 
                         dataName.add(result.getStockName());
-                        dataAmount.add(result.getStockAmount());
+                        dataAmount.add(result.getStockAmount() + "개");
                     }
-                    view.setLayoutAdapter(dataName, dataAmount, "Stock");
+                    view.setLayoutAdapter(dataName, dataAmount);
                 } else {
                 }
             }
@@ -156,14 +156,14 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
                     List<SalesData.GetRes.Result> list = getRes.getResults();
 
                     ArrayList<String> dataDate = new ArrayList<>();
-                    ArrayList<Integer> dataAmount = new ArrayList<>();
+                    ArrayList<String> dataAmount = new ArrayList<>();
 
                     for (SalesData.GetRes.Result result : list) {
 
                         dataDate.add(result.getSalesDate());
-                        dataAmount.add(result.getSalesAmount());
+                        dataAmount.add(getDetailedSale(result.getSalesAmount()));
                     }
-                    view.setLayoutAdapter(dataDate, dataAmount, "Sales");
+                    view.setLayoutAdapter(dataDate, dataAmount);
                 } else {
                 }
             }

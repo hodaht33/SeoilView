@@ -18,7 +18,7 @@ public interface ManagerLedgerContract {
 
     interface View extends BaseContract.View {
 
-        void setLayoutAdapter(ArrayList<String> listName, ArrayList<Integer> listAmount, String type);
+        void setLayoutAdapter(ArrayList<String> listName, ArrayList<String> listAmount);
 
     }
 
