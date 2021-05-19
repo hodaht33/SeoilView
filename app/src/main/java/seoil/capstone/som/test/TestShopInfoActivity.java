@@ -77,7 +77,8 @@ public class TestShopInfoActivity extends AppCompatActivity implements View.OnCl
                     }
                 };
 
-                AppApiHelper.getInstance().insertShopInfo(new ShopData.InsertReq(shopCode.getText().toString() ,id, shName,"1" ,shAdr, category), onFinishApiListener);
+                //AppApiHelper.getInstance().insertShopInfo(new ShopData.InsertReq(id, shName, shAdr, category), onFinishApiListener);
+
             }
 
         } else if (v.getId() == R.id.btnShopInfoGet) {
@@ -107,7 +108,8 @@ public class TestShopInfoActivity extends AppCompatActivity implements View.OnCl
                     }
                 };
 
-                AppApiHelper.getInstance().getShopInfoWithKeyword(id, 1,onFinishApiListener);
+                //AppApiHelper.getInstance().getShopInfoWithKeyword(id, onFinishApiListener);
+
             }
 
         }

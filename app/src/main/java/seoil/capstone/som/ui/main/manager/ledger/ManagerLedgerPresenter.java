@@ -240,7 +240,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         return true;
     }
 
-    public void setSales(String shopId, String name, int amount) {
+    public void insertSalesWithDate(String shopId, String name, int amount, String dateQuery) {
 
         OnFinishApiListener<SalesData.StatusRes> onFinishApiListener =  new OnFinishApiListener<SalesData.StatusRes>() {
 
@@ -256,7 +256,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
             }
         };
 
-        mInteractor.setSales(shopId, name, amount, onFinishApiListener);
+        mInteractor.insertSalesWithDate(shopId, name, amount, dateQuery, onFinishApiListener);
     }
 
     public void setStock(String shopId, String name, int amount) {

@@ -317,7 +317,7 @@ public class AppApiHelper {
         mSalesApi.getSalesStatistics(shopId, startDate, endDate, onFinishApiListener);
     }
 
-    public void updateSpendingSales(SalesData.UpdateReq req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+    public void updateSpendingSales(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
         mSalesApi.updateSpendingSales(req, onFinishApiListener);
     }
@@ -327,7 +327,12 @@ public class AppApiHelper {
         mSalesApi.deleteSpendingSales(shopId, salesDate, onFinishApiListener);
     }
 
-    public void insertSalesData(SalesData.InsertReq req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+    public void insertSalesWithDate(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+
+        mSalesApi.insertSalesWithDate(req, onFinishApiListener);
+    }
+
+    public void insertSales(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
         mSalesApi.insertSales(req, onFinishApiListener);
     }

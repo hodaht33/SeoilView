@@ -19,7 +19,9 @@ import seoil.capstone.som.R;
 public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedgerTextAdapter.ViewHolder> {
 
     private ArrayList<String> mDataName;
+
     private ArrayList<String> mDataAmount;
+
     public final int ADAPTER_EDIT = 1001;
     public final int ADAPTER_DELETE = 1002;
 
@@ -117,3 +119,4 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
         }
     };
 }
+

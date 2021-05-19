@@ -17,7 +17,7 @@ public interface ManagerLedgerContract {
 
         void getCost(String shopId, String dateQuery, OnFinishApiListener<SalesData.GetRes> onFinishApiListener);
 
-        void setSales(String shopId, String name, int amount, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener);
+        void insertSalesWithDate(String shopId, String name, int amount, String dateQuery ,OnFinishApiListener<SalesData.StatusRes> onFinishApiListener);
 
         void setStock(String shopId, String name, int amount, OnFinishApiListener<StockData.StatusRes> onFinishApiListener);
     }
@@ -32,6 +32,6 @@ public interface ManagerLedgerContract {
     }
 
     interface Presenter extends BaseContract.Presenter<ManagerLedgerContract.View> {
-        
+
     }
 }

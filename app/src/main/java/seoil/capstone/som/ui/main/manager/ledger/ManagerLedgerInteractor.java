@@ -27,9 +27,9 @@ public class ManagerLedgerInteractor implements ManagerLedgerContract.Interactor
     }
 
     @Override
-    public void setSales(String shopId, String name, int amount, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+    public void insertSalesWithDate(String shopId, String name, int amount, String dateQuery ,OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
-        AppApiHelper.getInstance().insertSalesData(new SalesData.InsertReq(shopId, name, amount), onFinishApiListener);
+        AppApiHelper.getInstance().insertSalesWithDate(new SalesData.Req(dateQuery, shopId, name, amount), onFinishApiListener);
     }
 
     @Override

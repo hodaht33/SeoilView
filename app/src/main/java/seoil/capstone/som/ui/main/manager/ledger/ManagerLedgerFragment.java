@@ -447,7 +447,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
                             if (selectedIndex == SELECTED_COST) {
 
-                                mPresenter.setSales(mShopId, name, Integer.parseInt(amount) * -1);
+                                mPresenter.insertSalesWithDate(mShopId, name, Integer.parseInt(amount) * -1, mDateQuery);
                             } else if (selectedIndex == SELECTED_STOCK) {
 
                                 mPresenter.setStock(mShopId, name, Integer.parseInt(amount));
