@@ -91,74 +91,11 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
         notifyItemRangeChanged(0, size);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements  MenuItem.OnMenuItemClickListener{
 
         TextView textViewItemName;
         TextView textViewItemAmount;
 
-        final MenuItem.OnMenuItemClickListener onMenuItemClickListener = new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-
-                int id = item.getItemId();
-
-                if (id == ADAPTER_DELETE) {
-
-
-                } else if (id == ADAPTER_EDIT) {
-
-                    if (mAlertDialog != null) {
-
-                        mAlertDialog.dismiss();
-                    }
-                    //다이얼로그로 데이터 추가창 생성
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-
-                    View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_manager_ledger_stock, null, false);
-
-                    builder.setView(view);
-
-                    Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitDialogStock);
-                    TextView textViewName = view.findViewById(R.id.textViewMLedgerNameDialogStock);
-                    EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialogStock);
-
-                    btnSubmit.setText("확인");
-
-                    textViewName.setText(mDataName.get(getAdapterPosition()));
-                    editTextAmount.setText(mDataAmount.get(getAdapterPosition()).substring(0, mDataAmount.get(getAdapterPosition()).length() - 1));
-
-                    mAlertDialog = builder.create();
-                    mAlertDialog.show();
-
-                    btnSubmit.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View v) {
-
-                            String amount = editTextAmount.getText().toString();
-
-                            if (mPresenter.isTextSet(amount) != mPresenter.TEXT_LENGTH_INVALID) {
-
-                                editTextAmount.setError("11자 이하로 입력해주세요");
-                                editTextAmount.requestFocus();
-                            } else if (!mPresenter.isNumeric(amount)) {
-
-                                editTextAmount.setError("숫자만 입력해주세요");
-                                editTextAmount.requestFocus();
-                            } else {
-
-                                mPresenter.updateStock(mShopId, mDataName.get(getAdapterPosition()), Integer.parseInt(amount));
-                                notifyItemChanged(getAdapterPosition());
-                                mAlertDialog.dismiss();
-                            }
-
-                        }
-
-                    });
-                }
-                return true;
-            }
-        };
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -172,11 +109,74 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
                 public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
                     MenuItem Edit = menu.add(Menu.NONE, ADAPTER_EDIT, 1, "편집");
                     MenuItem Delete = menu.add(Menu.NONE, ADAPTER_DELETE, 2, "삭제");
-                    Edit.setOnMenuItemClickListener(onMenuItemClickListener);
-                    Delete.setOnMenuItemClickListener(onMenuItemClickListener);
+                    Edit.setOnMenuItemClickListener(ViewHolder.this::onMenuItemClick);
+                    Delete.setOnMenuItemClickListener(ViewHolder.this::onMenuItemClick);
                 }
             });
 
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+
+            int id = item.getItemId();
+
+            if (id == ADAPTER_DELETE) {
+
+                mPresenter.deleteStock(mShopId, mDataName.get(getAdapterPosition()));
+            } else if (id == ADAPTER_EDIT) {
+
+                if (mAlertDialog != null) {
+
+                    mAlertDialog.dismiss();
+                }
+                //다이얼로그로 데이터 추가창 생성
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+                View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_manager_ledger_stock, null, false);
+
+                builder.setView(view);
+
+                Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitDialogStock);
+                TextView textViewName = view.findViewById(R.id.textViewMLedgerNameDialogStock);
+                EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialogStock);
+
+                btnSubmit.setText("확인");
+
+                textViewName.setText(mDataName.get(getAdapterPosition()));
+                editTextAmount.setText(mDataAmount.get(getAdapterPosition()).substring(0, mDataAmount.get(getAdapterPosition()).length() - 1));
+
+                mAlertDialog = builder.create();
+                mAlertDialog.show();
+
+                btnSubmit.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+                        String amount = editTextAmount.getText().toString();
+
+                        if (mPresenter.isTextSet(amount) != mPresenter.TEXT_LENGTH_INVALID) {
+
+                            editTextAmount.setError("11자 이하로 입력해주세요");
+                            editTextAmount.requestFocus();
+                        } else if (!mPresenter.isNumeric(amount)) {
+
+                            editTextAmount.setError("숫자만 입력해주세요");
+                            editTextAmount.requestFocus();
+                        } else {
+
+                            mPresenter.updateStock(mShopId, mDataName.get(getAdapterPosition()), Integer.parseInt(amount));
+                            notifyItemChanged(getAdapterPosition());
+                            mAlertDialog.dismiss();
+                        }
+
+                    }
+
+                });
+            }
+
+            return true;
         }
     }
 

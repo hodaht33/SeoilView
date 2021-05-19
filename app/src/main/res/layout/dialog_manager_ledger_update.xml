@@ -7,19 +7,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textViewMLedgerNameDialog"
+    <EditText
+        android:id="@+id/editTextMLedgerNameDialogUpdate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:textSize="24sp"
+        android:hint="지출명을 입력해주세요."
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/editTextMLedgerAmountDialog"/>
+        app:layout_constraintBottom_toTopOf="@id/editTextMLedgerAmountDialogUpdate"/>
 
     <EditText
-        android:id="@+id/editTextMLedgerAmountDialog"
+        android:id="@+id/editTextMLedgerAmountDialogUpdate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -27,15 +28,15 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewMLedgerNameDialog" />
+        app:layout_constraintTop_toBottomOf="@id/editTextMLedgerNameDialogUpdate" />
 
     <Button
-        android:id="@+id/btnMLedgerSubmitDialog"
+        android:id="@+id/btnMLedgerSubmitDialogUpdate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="수정"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextMLedgerAmountDialog" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextMLedgerAmountDialogUpdate" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -101,29 +101,12 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         return dateQuery;
     }
 
-    public String getDetailedSale (int value){
-
-        if (value == 0) {
-
-            return "0원";
-        }
-
-        StringBuffer temp = new StringBuffer(String.valueOf(value));
-
-        for(int i = temp.length() - 3; i > 0; i -= 3) {
-
-            temp.insert(i,",");
-        }
-        temp.append("원");
-
-        return temp.toString();
-    }
 
     public int isTextSet(String str) {
         if (str == null || str.equals("")) {
 
             return TEXT_LENGTH_NONE;
-        } else if (str.length() > 11 && str.length() <= 0) {
+        } else if (str.length() > 11 || str.length() <= 0) {
 
             return TEXT_LENGTH_OVER;
         }
@@ -159,70 +142,6 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         mInteractor.getStock(shopId, onFinishApiListener);
     }
 
-    public void getSales(String shopId, String dateQuery) {
-
-        OnFinishApiListener<SalesData.GetRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetRes>() {
-
-            @Override
-            public void onSuccess(SalesData.GetRes getRes) {
-
-                if (getRes.getStatus() == SalesApi.SUCCESS) {
-
-                    List<SalesData.GetRes.Result> list = getRes.getResults();
-
-                    ArrayList<String> dataDate = new ArrayList<>();
-                    ArrayList<String> dataAmount = new ArrayList<>();
-
-                    for (SalesData.GetRes.Result result : list) {
-
-                        dataDate.add(result.getSalesDate());
-                        dataAmount.add(getDetailedSale(result.getSalesAmount()));
-                    }
-                    view.setLayoutAdapterSales(dataDate, dataAmount);
-                } else {
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-                Log.d("managerLedger", t.toString());
-            }
-        };
-
-        mInteractor.getSales(shopId, dateQuery, onFinishApiListener);
-    }
-
-    public void getCost(String shopId, String dateQuery) {
-
-        OnFinishApiListener<SalesData.GetRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetRes>() {
-
-            @Override
-            public void onSuccess(SalesData.GetRes getRes) {
-                if (getRes.getStatus() == SalesApi.SUCCESS) {
-
-                    List<SalesData.GetRes.Result> list = getRes.getResults();
-
-                    ArrayList<String> dataName = new ArrayList<>();
-                    ArrayList<String> dataAmount = new ArrayList<>();
-
-                    for (SalesData.GetRes.Result result : list) {
-
-                        dataName.add(result.getSalesName());
-                        dataAmount.add(getDetailedSale(Math.abs(result.getSalesAmount())));
-                    }
-                    view.setLayoutAdapterSales(dataName, dataAmount);
-                } else {
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        };
-        mInteractor.getCost(shopId, dateQuery, onFinishApiListener);
-    }
 
     public boolean isNumeric(String str) {
 
@@ -235,25 +154,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         return true;
     }
 
-    public void insertSalesWithDate(String shopId, String name, int amount, String dateQuery) {
 
-        OnFinishApiListener<SalesData.StatusRes> onFinishApiListener =  new OnFinishApiListener<SalesData.StatusRes>() {
-
-            @Override
-            public void onSuccess(SalesData.StatusRes statusRes) {
-
-                Log.d("setSales", String.valueOf(statusRes.getStatus()));
-                view.initCost();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.d("setSales", t.getMessage());
-            }
-        };
-
-        mInteractor.insertSalesWithDate(shopId, name, amount, dateQuery, onFinishApiListener);
-    }
 
     public void insertStock(String shopId, String name, int amount) {
 
@@ -290,4 +191,23 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         };
         mInteractor.updateStock(shopId, name, amount, onFinishApiListener);
     }
+
+    public void deleteStock(String shopId, String name) {
+
+        OnFinishApiListener<StockData.StatusRes> onFinishApiListener = new OnFinishApiListener<StockData.StatusRes>() {
+            @Override
+            public void onSuccess(StockData.StatusRes statusRes) {
+
+                view.initStock();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        };
+        mInteractor.deleteStock(shopId, name, onFinishApiListener);
+    }
+
+
 }

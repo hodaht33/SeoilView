@@ -1,6 +1,7 @@
 package seoil.capstone.som.ui.main.manager.ledger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -25,7 +26,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -42,40 +42,28 @@ import java.util.Calendar;
 import java.util.Date;
 
 import seoil.capstone.som.R;
+import seoil.capstone.som.ui.main.manager.ledger.Sales.ManagerLedgerSalesActivity;
+import seoil.capstone.som.ui.main.manager.ledger.Sales.ManagerLedgerTextAdapter;
 
 public class ManagerLedgerFragment extends Fragment implements ManagerLedgerContract.View{
 
     private MaterialCalendarView mCalendarView;
 
-    public final int SELECTED_SALE = 0;
-    public final int SELECTED_COST = 1;
     public final int SELECTED_CALENDAR = 10;
     public final int SELECTED_STOCK = 11;
-    private ArrayList<String> mDataName;
-    private ArrayList<String> mDataAmount;
     private ArrayList<String> mDataNameStock;
     private ArrayList<String> mDataAmountStock;
     private int mYear;
     private int mMonth;
     private int mDay;
-    private int mWidthPixels, mHeightPixels;
-    private int selectedIndex;
     private int selectedIndexMain;
     private String mDateQuery;
     private String mShopId;
-    private PopupWindow mPopupWindow;
-    private Button mBtnClosePopup;
     private Button mBtnInsertStock;
-    private TextView mTextViewDate;
-    private TextView mTextViewTitle;
     private ManagerLedgerPresenter mPresenter;
-    private RecyclerView mRecyclerView;
     private RecyclerView mRecyclerViewMain;
-    private ManagerLedgerTextAdapter mAdapter;
     private ManagerLedgerStockAdapter mAdapterStock;
-    private TabLayout mTabLayout;
     private TabLayout mTabLayoutMain;
-    private ImageView mImageViewAdd;
     private AlertDialog mAlertDialogInsert;
 
     /*TODO:// getMonth() 사용시 값이 1 작게 리턴됨*/
@@ -93,7 +81,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
         mDataNameStock = new ArrayList<>();
         mDataAmountStock = new ArrayList<>();
-        selectedIndex = SELECTED_SALE;
+
         selectedIndexMain = SELECTED_CALENDAR;
     }
 
@@ -115,11 +103,9 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         mCalendarView.setSelectionColor(R.color.black);
 
         mRecyclerViewMain.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapterStock = new ManagerLedgerStockAdapter(mDataNameStock, mDataAmount, mPresenter, mShopId, getContext());
+        mAdapterStock = new ManagerLedgerStockAdapter(mDataNameStock, mDataAmountStock, mPresenter, mShopId, getContext());
         mRecyclerViewMain.setAdapter(mAdapterStock);
 
-        mDataName = new ArrayList<>();
-        mDataAmount = new ArrayList<>();
 
         return view;
     }
@@ -130,6 +116,22 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         mTabLayoutMain = view.findViewById(R.id.tabLayoutMLedgerTopView);
         mRecyclerViewMain = view.findViewById(R.id.recyclerViewMLedgerStockAmountMain);
         mBtnInsertStock = view.findViewById(R.id.btnMLedgerInsertStock);
+    }
+
+    private String setDate() {
+
+        CalendarDay cd = mCalendarView.getSelectedDate();
+        mYear = cd.getYear();
+        mMonth = cd.getMonth() + 1;
+        mDay = cd.getDay();
+        String dateSelected = mPresenter.getDate(cd.getDate().toString().substring(0,3));
+        String text = "" + mYear + "년 " + mMonth + "월 " + mDay + "일 (" + dateSelected + ")";
+        return text;
+    }
+
+    private void intentSales(Intent intent) {
+
+        this.startActivityForResult(intent, 0);
     }
 
     private void initListener(String shopId) {
@@ -152,29 +154,16 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 
-                WindowManager windowManager = getActivity().getWindowManager();
-                Display display = windowManager.getDefaultDisplay();
-                DisplayMetrics metrics = new DisplayMetrics();
-                display.getMetrics(metrics);
-                mWidthPixels = metrics.widthPixels;
-                mHeightPixels = metrics.heightPixels;
-
-                try {
-                    Point realSize = new Point();
-                    Display.class.getMethod("getRealSize", Point.class).invoke(display, realSize);
-                    mWidthPixels = realSize.x;
-                    mHeightPixels = realSize.y;
-                } catch (Exception e) {
-
-                }
-
-                initPopupWindow();
-
-                setTextViewDate();
+                String temp = setDate();
 
                 mDateQuery = mPresenter.getDateQuery(mYear, mMonth, mDay);
 
-                mPresenter.getSales(shopId, mDateQuery);
+                Intent intent = new Intent(getActivity(), ManagerLedgerSalesActivity.class);
+                intent.putExtra("dateQuery", mDateQuery);
+                intent.putExtra("id", mShopId);
+                intent.putExtra("date", temp);
+
+                intentSales(intent);
             }
         });
 
@@ -193,9 +182,9 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
                     mCalendarView.setVisibility(View.GONE);
                     selectedIndexMain = SELECTED_STOCK;
-                    if (mAdapter != null) {
+                    if (mAdapterStock != null) {
 
-                        mAdapter.clear();
+                        mAdapterStock.clear();
                     }
                     mPresenter.getStock(mShopId);
                     mRecyclerViewMain.setVisibility(View.VISIBLE);
@@ -228,9 +217,9 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
                 builder.setView(view);
 
-                Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitDialog);
-                EditText editTextName = view.findViewById(R.id.editTextMLedgerNameDialog);
-                EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialog);
+                Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitDialogStock);
+                TextView textViewName = view.findViewById(R.id.textViewMLedgerNameDialogStock);
+                EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialogStock);
 
                 btnSubmit.setText("삽입");
 
@@ -242,14 +231,10 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
                     @Override
                     public void onClick(View v) {
 
-                        String name = editTextName.getText().toString();
+                        String name = textViewName.getText().toString();
                         String amount = editTextAmount.getText().toString();
 
-                        if (mPresenter.isTextSet(name) != mPresenter.TEXT_LENGTH_INVALID) {
-                            editTextName.setError("11자 이하로 입력해주세요");
-                            editTextName.requestFocus();
-                            return;
-                        } else if (mPresenter.isTextSet(amount) != mPresenter.TEXT_LENGTH_INVALID) {
+                        if (mPresenter.isTextSet(amount) != mPresenter.TEXT_LENGTH_INVALID) {
 
                             editTextAmount.setError("11자 이하로 입력해주세요");
                             editTextAmount.requestFocus();
@@ -273,24 +258,12 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         });
     }
 
-
-    @Override
-    public void setLayoutAdapterSales(ArrayList<String> listName, ArrayList<String> listAmount) {
-
-        mAdapter.setData(listName, listAmount);
-    }
-
     @Override
     public void setLayoutAdapterStock(ArrayList<String> listName, ArrayList<String> listAmount) {
 
         mAdapterStock.setData(listName, listAmount);
     }
 
-    @Override
-    public void initCost() {
-
-        mPresenter.getCost(mShopId, mDateQuery);
-    }
 
     @Override
     public void initStock() {
@@ -406,167 +379,4 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         }
     }
 
-
-
-
-    private void setTextViewDate() {
-
-        CalendarDay cd = mCalendarView.getSelectedDate();
-        mYear = cd.getYear();
-        mMonth = cd.getMonth() + 1;
-        mDay = cd.getDay();
-        String dateSelected = mPresenter.getDate(cd.getDate().toString().substring(0,3));
-        String text = "" + mYear + "년 " + mMonth + "월 " + mDay + "일 (" + dateSelected + ")";
-        mTextViewDate.setText(text);
-    }
-
-
-    private void initPopupWindow() {
-
-        try {
-
-            if (mPopupWindow != null) {
-
-                mPopupWindow.dismiss();
-            }
-
-            //Layout 객체화
-            LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            View layout = inflater.inflate(R.layout.popup_manager_ledger_show, getActivity().findViewById(R.id.popupMLedgerLayout));
-
-            initViewPopup(layout);
-
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            mAdapter = new ManagerLedgerTextAdapter(mDataName, mDataAmount);
-            mRecyclerView.setAdapter(mAdapter);
-
-            mPopupWindow = new PopupWindow(layout, mWidthPixels, mHeightPixels, true);
-            mPopupWindow.showAtLocation(layout, Gravity.CENTER, 0 , 0);
-
-            mTabLayout.addTab(mTabLayout.newTab().setText("매출"), SELECTED_SALE);
-            mTabLayout.addTab(mTabLayout.newTab().setText("지출"), SELECTED_COST);
-
-            initListenerPopup();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
-    }
-
-    private void initListenerPopup() {
-
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                int position = tab.getPosition();
-
-
-                if (position == SELECTED_SALE) {
-
-                    mImageViewAdd.setVisibility(View.INVISIBLE);
-                    selectedIndex = SELECTED_SALE;
-                    mTextViewTitle.setText("매출");
-                    mAdapter.clear();
-                    mPresenter.getSales(mShopId, mDateQuery);
-                } else if (position == SELECTED_COST) {
-
-                    mImageViewAdd.setVisibility(View.VISIBLE);
-                    selectedIndex = SELECTED_COST;
-                    mTextViewTitle.setText("지출");
-                    mAdapter.clear();
-                    mPresenter.getCost(mShopId, mDateQuery);
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-        mBtnClosePopup.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                mPopupWindow.dismiss();
-            }
-        });
-
-        mImageViewAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (mAlertDialogInsert != null) {
-                    mAlertDialogInsert.dismiss();
-                }
-                //다이얼로그로 데이터 추가창 생성
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_manager_ledger_insert, null, false);
-
-                builder.setView(view);
-
-                Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitDialog);
-                EditText editTextName = view.findViewById(R.id.editTextMLedgerNameDialog);
-                EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialog);
-
-                btnSubmit.setText("삽입");
-
-                mAlertDialogInsert = builder.create();
-                mAlertDialogInsert.show();
-
-                btnSubmit.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View v) {
-
-                        String name = editTextName.getText().toString();
-                        String amount = editTextAmount.getText().toString();
-
-                        if (mPresenter.isTextSet(name) != mPresenter.TEXT_LENGTH_INVALID) {
-                            editTextName.setError("11자 이하로 입력해주세요");
-                            editTextName.requestFocus();
-                            return;
-                        } else if (mPresenter.isTextSet(amount) != mPresenter.TEXT_LENGTH_INVALID) {
-
-                            editTextAmount.setError("11자 이하로 입력해주세요");
-                            editTextAmount.requestFocus();
-                        } else if (!mPresenter.isNumeric(amount)) {
-
-                            editTextAmount.setError("숫자만 입력해주세요");
-                            editTextAmount.requestFocus();
-                        } else {
-
-                            if (selectedIndex == SELECTED_COST) {
-
-                                mPresenter.insertSalesWithDate(mShopId, name, Integer.parseInt(amount) * -1, mDateQuery);
-                            }
-
-                            mAlertDialogInsert.dismiss();
-                        }
-
-                    }
-                });
-            }
-        });
-    }
-
-    private void initViewPopup(View layout) {
-
-        mRecyclerView = layout.findViewById(R.id.recyclerViewMLedgerSalesAmount);
-        mBtnClosePopup = layout.findViewById(R.id.btnMLedgerFinish);
-        mTabLayout = layout.findViewById(R.id.tabLayoutMLedgerTop);
-        mTextViewDate = layout.findViewById(R.id.textViewMLedgerDate);
-        mImageViewAdd = layout.findViewById(R.id.imageViewMLedgerInsert);
-        mTextViewTitle = layout.findViewById(R.id.textViewMLedgerShowTitle);
-    }
 }
