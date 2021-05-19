@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import seoil.capstone.som.R;
 
@@ -39,6 +40,6 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-
+        Toast.makeText(getApplicationContext(), "완료", Toast.LENGTH_SHORT).show();
     }
 }
