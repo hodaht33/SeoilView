@@ -93,9 +93,9 @@ public class StockApi {
         });
     }
 
-    public void deleteStock(String shopId, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+    public void deleteStock(String shopId, String stockName, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
-        Call<StockData.StatusRes> call = mStockData.deleteStock(shopId);
+        Call<StockData.StatusRes> call = mStockData.deleteStock(shopId, stockName);
         call.enqueue(new Callback<StockData.StatusRes>() {
             @Override
             public void onResponse(Call<StockData.StatusRes> call, Response<StockData.StatusRes> response) {

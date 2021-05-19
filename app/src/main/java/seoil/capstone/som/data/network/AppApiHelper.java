@@ -372,9 +372,9 @@ public class AppApiHelper {
         mStockApi.updateStock(req, onFinishApiListener);
     }
 
-    public void deleteStock(String shopId, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+    public void deleteStock(String shopId, String stockName, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
-        mStockApi.deleteStock(shopId, onFinishApiListener);
+        mStockApi.deleteStock(shopId, stockName, onFinishApiListener);
     }
 
     public void getAgeGroupStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsData.GetAgeGroupRes> onFinishApiListener) {
