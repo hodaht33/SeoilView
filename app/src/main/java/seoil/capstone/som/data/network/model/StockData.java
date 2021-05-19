@@ -11,7 +11,7 @@ public class StockData {
 
         @SerializedName("shopId")
         @Expose
-        private int shopId;
+        private String shopId;
         @SerializedName("stockName")
         @Expose
         private String stockName;
@@ -19,17 +19,17 @@ public class StockData {
         @Expose
         private int stockAmount;
 
-        public Req(int shopId, String stockName, int stockAmount) {
+        public Req(String shopId, String stockName, int stockAmount) {
             this.shopId = shopId;
             this.stockName = stockName;
             this.stockAmount = stockAmount;
         }
 
-        public int getShopId() {
+        public String getShopId() {
             return shopId;
         }
 
-        public void setShopId(int shopId) {
+        public void setShopId(String shopId) {
             this.shopId = shopId;
         }
 
