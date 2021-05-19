@@ -178,9 +178,9 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
     }
 
     @Override
-    public void initSales() {
+    public void initCost() {
 
-        mPresenter.getSales(mShopId, mDateQuery);
+        mPresenter.getCost(mShopId, mDateQuery);
     }
 
     @Override
@@ -452,8 +452,10 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
                                 mPresenter.setStock(mShopId, name, Integer.parseInt(amount));
                             }
+
+                            mAlertDialogInsert.dismiss();
                         }
-                        mAlertDialogInsert.dismiss();
+
                     }
                 });
             }

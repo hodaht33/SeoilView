@@ -26,7 +26,7 @@ public interface ManagerLedgerContract {
 
         void setLayoutAdapter(ArrayList<String> listName, ArrayList<String> listAmount);
 
-        void initSales();
+        void initCost();
 
         void initStock();
     }

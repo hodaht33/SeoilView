@@ -8,6 +8,7 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.model.SalesData;
 import seoil.capstone.som.data.network.model.StockData;
+import seoil.capstone.som.util.Utility;
 
 public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
@@ -119,10 +120,10 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
     }
 
     public int isTextSet(String str) {
-        if (str == null) {
+        if (str == null || str.equals("")) {
 
             return TEXT_LENGTH_NONE;
-        } else if (str.length() > 11) {
+        } else if (str.length() > 11 && str.length() <= 0) {
 
             return TEXT_LENGTH_OVER;
         }
@@ -225,18 +226,12 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
     public boolean isNumeric(String str) {
 
-        if (str == null) {
+        for (int i = 0; i < str.length(); i++) {
 
-            return false;
+            if (str.charAt(i) < '0' || str.charAt(i) > '9') {
+                return false;
+            }
         }
-        try {
-
-            double d= Double.parseDouble(str);
-        } catch (NumberFormatException nfe) {
-
-            return false;
-        }
-
         return true;
     }
 
@@ -247,7 +242,8 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
             @Override
             public void onSuccess(SalesData.StatusRes statusRes) {
 
-                view.initSales();
+                Log.d("setSales", String.valueOf(statusRes.getStatus()));
+                view.initCost();
             }
 
             @Override
@@ -265,7 +261,6 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
             @Override
             public void onSuccess(StockData.StatusRes statusRes) {
-
 
                 view.initStock();
             }
