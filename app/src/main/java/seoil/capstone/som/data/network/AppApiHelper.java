@@ -302,14 +302,14 @@ public class AppApiHelper {
         mShopApi.deleteShopInfo(shopId, shopCode, onFinishApiListener);
     }
 
-    public void getIncomeSales(String shopId, int salesCode, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+    public void getIncomeSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        mSalesApi.getIncomeSales(shopId, salesCode, salesDate, onFinishApiListener);
+        mSalesApi.getIncomeSales(shopId, salesDate, onFinishApiListener);
     }
 
-    public void getSpendingSales(String shopId, int salesCode, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+    public void getSpendingSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        mSalesApi.getSpendingSales(shopId, salesCode, salesDate, onFinishApiListener);
+        mSalesApi.getSpendingSales(shopId, salesDate, onFinishApiListener);
     }
 
     public void getStatisticsSales(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetStatisticsRes> onFinishApiListener) {
