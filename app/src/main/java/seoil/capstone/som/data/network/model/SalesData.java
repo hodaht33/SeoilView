@@ -9,6 +9,9 @@ public class SalesData {
 
     public static class Req {
 
+        @SerializedName("salesCode")
+        @Expose
+        private String salesCode;
         @SerializedName("salesDate")
         @Expose
         private String salesDate;
@@ -22,11 +25,20 @@ public class SalesData {
         @Expose
         private int salesAmount;
 
-        public Req(String salesDate, String shopId, String salesName, int salesAmount) {
+        public Req(String salesCode, String salesDate, String shopId, String salesName, int salesAmount) {
+            this.salesCode = salesCode;
             this.salesDate = salesDate;
             this.shopId = shopId;
             this.salesName = salesName;
             this.salesAmount = salesAmount;
+        }
+
+        public String getSalesCode() {
+            return salesCode;
+        }
+
+        public void setSalesCode(String salesCode) {
+            this.salesCode = salesCode;
         }
 
         public String getSalesDate() {
@@ -66,6 +78,9 @@ public class SalesData {
 
         public class Result {
 
+            @SerializedName("salesCode")
+            @Expose
+            private String salesCode;
             @SerializedName("salesDate")
             @Expose
             private String salesDate;
@@ -75,6 +90,14 @@ public class SalesData {
             @SerializedName("salesAmount")
             @Expose
             private int salesAmount;
+
+            public String getSalesCode() {
+                return salesCode;
+            }
+
+            public void setSalesCode(String salesCode) {
+                this.salesCode = salesCode;
+            }
 
             public String getSalesDate() {
                 return salesDate;

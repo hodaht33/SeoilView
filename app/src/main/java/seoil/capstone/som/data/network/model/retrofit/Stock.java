@@ -8,6 +8,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import seoil.capstone.som.data.network.model.StockData;
 
 public interface Stock {
@@ -22,5 +23,5 @@ public interface Stock {
     Call<StockData.StatusRes> updateStock(@Body StockData.Req req);
 
     @DELETE("stock/{shopId}")
-    Call<StockData.StatusRes> deleteStock(@Path("shopId") String shopId);
+    Call<StockData.StatusRes> deleteStock(@Path("shopId") String shopId, @Query("stockName") String stockName);
 }
