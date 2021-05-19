@@ -146,7 +146,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
                         dataName.add(result.getStockName());
                         dataAmount.add(result.getStockAmount() + "개");
                     }
-                    view.setLayoutAdapter(dataName, dataAmount);
+                    view.setLayoutAdapterStock(dataName, dataAmount);
                 } else {
                 }
             }
@@ -178,7 +178,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
                         dataDate.add(result.getSalesDate());
                         dataAmount.add(getDetailedSale(result.getSalesAmount()));
                     }
-                    view.setLayoutAdapter(dataDate, dataAmount);
+                    view.setLayoutAdapterSales(dataDate, dataAmount);
                 } else {
                 }
             }
@@ -203,15 +203,15 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
                     List<SalesData.GetRes.Result> list = getRes.getResults();
 
-                    ArrayList<String> dataDate = new ArrayList<>();
+                    ArrayList<String> dataName = new ArrayList<>();
                     ArrayList<String> dataAmount = new ArrayList<>();
 
                     for (SalesData.GetRes.Result result : list) {
 
-                        dataDate.add(result.getSalesDate());
+                        dataName.add(result.getSalesName());
                         dataAmount.add(getDetailedSale(Math.abs(result.getSalesAmount())));
                     }
-                    view.setLayoutAdapter(dataDate, dataAmount);
+                    view.setLayoutAdapterSales(dataName, dataAmount);
                 } else {
                 }
             }
@@ -255,7 +255,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         mInteractor.insertSalesWithDate(shopId, name, amount, dateQuery, onFinishApiListener);
     }
 
-    public void setStock(String shopId, String name, int amount) {
+    public void insertStock(String shopId, String name, int amount) {
 
         OnFinishApiListener<StockData.StatusRes> onFinishApiListener = new OnFinishApiListener<StockData.StatusRes>() {
 
@@ -271,6 +271,23 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
                 Log.d("setStock", t.getMessage());
             }
         };
-        mInteractor.setStock(shopId, name, amount, onFinishApiListener);
+        mInteractor.insertStock(shopId, name, amount, onFinishApiListener);
+    }
+
+    public void updateStock (String shopId, String name, int amount) {
+
+        OnFinishApiListener<StockData.StatusRes> onFinishApiListener = new OnFinishApiListener<StockData.StatusRes>() {
+            @Override
+            public void onSuccess(StockData.StatusRes statusRes) {
+
+                view.initStock();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        };
+        mInteractor.updateStock(shopId, name, amount, onFinishApiListener);
     }
 }

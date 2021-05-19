@@ -33,8 +33,16 @@ public class ManagerLedgerInteractor implements ManagerLedgerContract.Interactor
     }
 
     @Override
-    public void setStock(String shopId, String name, int amount, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+    public void insertStock(String shopId, String name, int amount, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
         AppApiHelper.getInstance().insertStock(new StockData.Req(shopId, name, amount), onFinishApiListener);
     }
+
+    @Override
+    public void updateStock(String shopId, String name, int amount, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+
+        AppApiHelper.getInstance().updateStock(new StockData.Req(shopId, name, amount), onFinishApiListener);
+    }
+
+
 }

@@ -19,12 +19,17 @@ public interface ManagerLedgerContract {
 
         void insertSalesWithDate(String shopId, String name, int amount, String dateQuery ,OnFinishApiListener<SalesData.StatusRes> onFinishApiListener);
 
-        void setStock(String shopId, String name, int amount, OnFinishApiListener<StockData.StatusRes> onFinishApiListener);
+        void insertStock(String shopId, String name, int amount, OnFinishApiListener<StockData.StatusRes> onFinishApiListener);
+
+        void updateStock(String shopId, String name, int amount, OnFinishApiListener<StockData.StatusRes> onFinishApiListener);
+
     }
 
     interface View extends BaseContract.View {
 
-        void setLayoutAdapter(ArrayList<String> listName, ArrayList<String> listAmount);
+        void setLayoutAdapterSales(ArrayList<String> listName, ArrayList<String> listAmount);
+
+        void setLayoutAdapterStock(ArrayList<String> listName, ArrayList<String> listAmount);
 
         void initCost();
 

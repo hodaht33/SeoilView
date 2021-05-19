@@ -73,7 +73,7 @@
             android:text="매출"
             android:textColor="@color/black"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerViewMLedgerStockAmount"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewMLedgerSalesAmount"
             app:layout_constraintEnd_toStartOf="@+id/imageViewMLedgerInsert"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewMLedgerDate" />
@@ -90,7 +90,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewMLedgerDate" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewMLedgerStockAmount"
+            android:id="@+id/recyclerViewMLedgerSalesAmount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -109,7 +109,7 @@
             android:textColor="@color/btn_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewMLedgerStockAmount" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewMLedgerSalesAmount" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

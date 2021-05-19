@@ -6,9 +6,7 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -30,7 +28,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -52,24 +49,32 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
     public final int SELECTED_SALE = 0;
     public final int SELECTED_COST = 1;
-    public final int SELECTED_STOCK = 2;
+    public final int SELECTED_CALENDAR = 10;
+    public final int SELECTED_STOCK = 11;
     private ArrayList<String> mDataName;
     private ArrayList<String> mDataAmount;
+    private ArrayList<String> mDataNameStock;
+    private ArrayList<String> mDataAmountStock;
     private int mYear;
     private int mMonth;
     private int mDay;
     private int mWidthPixels, mHeightPixels;
     private int selectedIndex;
+    private int selectedIndexMain;
     private String mDateQuery;
     private String mShopId;
     private PopupWindow mPopupWindow;
     private Button mBtnClosePopup;
+    private Button mBtnInsertStock;
     private TextView mTextViewDate;
     private TextView mTextViewTitle;
     private ManagerLedgerPresenter mPresenter;
     private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerViewMain;
     private ManagerLedgerTextAdapter mAdapter;
+    private ManagerLedgerStockAdapter mAdapterStock;
     private TabLayout mTabLayout;
+    private TabLayout mTabLayoutMain;
     private ImageView mImageViewAdd;
     private AlertDialog mAlertDialogInsert;
 
@@ -86,7 +91,10 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         mPresenter.createInteractor();
         mPresenter.setView(this);
 
+        mDataNameStock = new ArrayList<>();
+        mDataAmountStock = new ArrayList<>();
         selectedIndex = SELECTED_SALE;
+        selectedIndexMain = SELECTED_CALENDAR;
     }
 
     @Override
@@ -97,15 +105,18 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
         initView(view);
 
+        mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("가계부"), 0);
+        mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("재고"), 1);
 
         Bundle bundle = getActivity().getIntent().getBundleExtra("data");
         mShopId = bundle.getString("id");
 
-
-
         initListener(mShopId);
         mCalendarView.setSelectionColor(R.color.black);
 
+        mRecyclerViewMain.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAdapterStock = new ManagerLedgerStockAdapter(mDataNameStock, mDataAmount, mPresenter, mShopId, getContext());
+        mRecyclerViewMain.setAdapter(mAdapterStock);
 
         mDataName = new ArrayList<>();
         mDataAmount = new ArrayList<>();
@@ -116,8 +127,9 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
     private void initView(View view) {
 
         mCalendarView = view.findViewById(R.id.calendarViewMLedger);
-
-
+        mTabLayoutMain = view.findViewById(R.id.tabLayoutMLedgerTopView);
+        mRecyclerViewMain = view.findViewById(R.id.recyclerViewMLedgerStockAmountMain);
+        mBtnInsertStock = view.findViewById(R.id.btnMLedgerInsertStock);
     }
 
     private void initListener(String shopId) {
@@ -166,15 +178,112 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
             }
         });
 
+        mTabLayoutMain.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+
+                if (position == 0) {
+
+                    mCalendarView.setVisibility(View.VISIBLE);
+                    selectedIndexMain = SELECTED_CALENDAR;
+                    mRecyclerViewMain.setVisibility(View.GONE);
+                    mBtnInsertStock.setVisibility(View.GONE);
+                } else if (position == 1) {
+
+                    mCalendarView.setVisibility(View.GONE);
+                    selectedIndexMain = SELECTED_STOCK;
+                    if (mAdapter != null) {
+
+                        mAdapter.clear();
+                    }
+                    mPresenter.getStock(mShopId);
+                    mRecyclerViewMain.setVisibility(View.VISIBLE);
+                    mBtnInsertStock.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        mBtnInsertStock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mAlertDialogInsert != null) {
+
+                    mAlertDialogInsert.dismiss();
+                }
+                //다이얼로그로 데이터 추가창 생성
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_manager_ledger_insert, null, false);
+
+                builder.setView(view);
+
+                Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitDialog);
+                EditText editTextName = view.findViewById(R.id.editTextMLedgerNameDialog);
+                EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialog);
+
+                btnSubmit.setText("삽입");
+
+                mAlertDialogInsert = builder.create();
+                mAlertDialogInsert.show();
+
+                btnSubmit.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View v) {
+
+                        String name = editTextName.getText().toString();
+                        String amount = editTextAmount.getText().toString();
+
+                        if (mPresenter.isTextSet(name) != mPresenter.TEXT_LENGTH_INVALID) {
+                            editTextName.setError("11자 이하로 입력해주세요");
+                            editTextName.requestFocus();
+                            return;
+                        } else if (mPresenter.isTextSet(amount) != mPresenter.TEXT_LENGTH_INVALID) {
+
+                            editTextAmount.setError("11자 이하로 입력해주세요");
+                            editTextAmount.requestFocus();
+                        } else if (!mPresenter.isNumeric(amount)) {
+
+                            editTextAmount.setError("숫자만 입력해주세요");
+                            editTextAmount.requestFocus();
+                        } else {
+
+                            if (selectedIndexMain == SELECTED_STOCK) {
+
+                                mPresenter.insertStock(mShopId, name, Integer.parseInt(amount));
+                            }
+
+                            mAlertDialogInsert.dismiss();
+                        }
+
+                    }
+                });
+            }
+        });
     }
 
 
     @Override
-    public void setLayoutAdapter(ArrayList<String> listName, ArrayList<String> listAmount) {
-
-
+    public void setLayoutAdapterSales(ArrayList<String> listName, ArrayList<String> listAmount) {
 
         mAdapter.setData(listName, listAmount);
+    }
+
+    @Override
+    public void setLayoutAdapterStock(ArrayList<String> listName, ArrayList<String> listAmount) {
+
+        mAdapterStock.setData(listName, listAmount);
     }
 
     @Override
@@ -337,7 +446,6 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
             mTabLayout.addTab(mTabLayout.newTab().setText("매출"), SELECTED_SALE);
             mTabLayout.addTab(mTabLayout.newTab().setText("지출"), SELECTED_COST);
-            mTabLayout.addTab(mTabLayout.newTab().setText("재고"), SELECTED_STOCK);
 
             initListenerPopup();
 
@@ -370,13 +478,6 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
                     mTextViewTitle.setText("지출");
                     mAdapter.clear();
                     mPresenter.getCost(mShopId, mDateQuery);
-                } else if (position == SELECTED_STOCK) {
-
-                    mImageViewAdd.setVisibility(View.VISIBLE);
-                    selectedIndex = SELECTED_STOCK;
-                    mTextViewTitle.setText("재고");
-                    mAdapter.clear();
-                    mPresenter.getStock(mShopId);
                 }
             }
 
@@ -448,9 +549,6 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
                             if (selectedIndex == SELECTED_COST) {
 
                                 mPresenter.insertSalesWithDate(mShopId, name, Integer.parseInt(amount) * -1, mDateQuery);
-                            } else if (selectedIndex == SELECTED_STOCK) {
-
-                                mPresenter.setStock(mShopId, name, Integer.parseInt(amount));
                             }
 
                             mAlertDialogInsert.dismiss();
@@ -464,7 +562,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
     private void initViewPopup(View layout) {
 
-        mRecyclerView = layout.findViewById(R.id.recyclerViewMLedgerStockAmount);
+        mRecyclerView = layout.findViewById(R.id.recyclerViewMLedgerSalesAmount);
         mBtnClosePopup = layout.findViewById(R.id.btnMLedgerFinish);
         mTabLayout = layout.findViewById(R.id.tabLayoutMLedgerTop);
         mTextViewDate = layout.findViewById(R.id.textViewMLedgerDate);
