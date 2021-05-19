@@ -66,6 +66,9 @@ public class SalesData {
 
         public class Result {
 
+            @SerializedName("salesCode")
+            @Expose
+            private String salesCode;
             @SerializedName("salesDate")
             @Expose
             private String salesDate;
@@ -75,6 +78,14 @@ public class SalesData {
             @SerializedName("salesAmount")
             @Expose
             private int salesAmount;
+
+            public String getSalesCode() {
+                return salesCode;
+            }
+
+            public void setSalesCode(String salesCode) {
+                this.salesCode = salesCode;
+            }
 
             public String getSalesDate() {
                 return salesDate;
