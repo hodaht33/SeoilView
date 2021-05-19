@@ -19,4 +19,22 @@ public class ManagerLedgerInteractor implements ManagerLedgerContract.Interactor
 
         AppApiHelper.getInstance().getIncomeSales(shopId, dateQuery, onFinishApiListener);
     }
+
+    @Override
+    public void getCost(String shopId, String dateQuery, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+
+        AppApiHelper.getInstance().getSpendingSales(shopId, dateQuery, onFinishApiListener);
+    }
+
+    @Override
+    public void setSales(String shopId, String name, int amount, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+
+        AppApiHelper.getInstance().insertSalesData(new SalesData.InsertReq(shopId, name, amount), onFinishApiListener);
+    }
+
+    @Override
+    public void setStock(String shopId, String name, int amount, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+
+        AppApiHelper.getInstance().insertStock(new StockData.Req(shopId, name, amount), onFinishApiListener);
+    }
 }

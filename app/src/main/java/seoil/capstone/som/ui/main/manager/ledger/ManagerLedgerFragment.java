@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -69,6 +71,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
     private ManagerLedgerTextAdapter mAdapter;
     private TabLayout mTabLayout;
     private ImageView mImageViewAdd;
+    private AlertDialog mAlertDialogInsert;
 
     /*TODO:// getMonth() 사용시 값이 1 작게 리턴됨*/
     public ManagerLedgerFragment() {
@@ -172,6 +175,18 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
 
         mAdapter.setData(listName, listAmount);
+    }
+
+    @Override
+    public void initSales() {
+
+        mPresenter.getSales(mShopId, mDateQuery);
+    }
+
+    @Override
+    public void initStock() {
+
+        mPresenter.getStock(mShopId);
     }
 
 
@@ -343,17 +358,21 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
                 if (position == SELECTED_SALE) {
 
+                    mImageViewAdd.setVisibility(View.INVISIBLE);
                     selectedIndex = SELECTED_SALE;
                     mTextViewTitle.setText("매출");
                     mAdapter.clear();
                     mPresenter.getSales(mShopId, mDateQuery);
                 } else if (position == SELECTED_COST) {
 
+                    mImageViewAdd.setVisibility(View.VISIBLE);
                     selectedIndex = SELECTED_COST;
                     mTextViewTitle.setText("지출");
                     mAdapter.clear();
+                    mPresenter.getCost(mShopId, mDateQuery);
                 } else if (position == SELECTED_STOCK) {
 
+                    mImageViewAdd.setVisibility(View.VISIBLE);
                     selectedIndex = SELECTED_STOCK;
                     mTextViewTitle.setText("재고");
                     mAdapter.clear();
@@ -385,7 +404,58 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
             @Override
             public void onClick(View v) {
 
+                if (mAlertDialogInsert != null) {
+                    mAlertDialogInsert.dismiss();
+                }
                 //다이얼로그로 데이터 추가창 생성
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_manager_ledger_insert, null, false);
+
+                builder.setView(view);
+
+                Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitDialog);
+                EditText editTextName = view.findViewById(R.id.editTextMLedgerNameDialog);
+                EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialog);
+
+                btnSubmit.setText("삽입");
+
+                mAlertDialogInsert = builder.create();
+                mAlertDialogInsert.show();
+
+                btnSubmit.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View v) {
+
+                        String name = editTextName.getText().toString();
+                        String amount = editTextAmount.getText().toString();
+
+                        if (mPresenter.isTextSet(name) != mPresenter.TEXT_LENGTH_INVALID) {
+                            editTextName.setError("11자 이하로 입력해주세요");
+                            editTextName.requestFocus();
+                            return;
+                        } else if (mPresenter.isTextSet(amount) != mPresenter.TEXT_LENGTH_INVALID) {
+
+                            editTextAmount.setError("11자 이하로 입력해주세요");
+                            editTextAmount.requestFocus();
+                        } else if (!mPresenter.isNumeric(amount)) {
+
+                            editTextAmount.setError("숫자만 입력해주세요");
+                            editTextAmount.requestFocus();
+                        } else {
+
+                            if (selectedIndex == SELECTED_COST) {
+
+                                mPresenter.setSales(mShopId, name, Integer.parseInt(amount) * -1);
+                            } else if (selectedIndex == SELECTED_STOCK) {
+
+                                mPresenter.setStock(mShopId, name, Integer.parseInt(amount));
+                            }
+                        }
+                        mAlertDialogInsert.dismiss();
+                    }
+                });
             }
         });
     }

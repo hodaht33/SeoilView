@@ -14,12 +14,21 @@ public interface ManagerLedgerContract {
         void getStock(String shopId, OnFinishApiListener<StockData.GetRes> onFinishApiListener);
 
         void getSales(String shopId, String dateQuery, OnFinishApiListener<SalesData.GetRes> onFinishApiListener);
+
+        void getCost(String shopId, String dateQuery, OnFinishApiListener<SalesData.GetRes> onFinishApiListener);
+
+        void setSales(String shopId, String name, int amount, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener);
+
+        void setStock(String shopId, String name, int amount, OnFinishApiListener<StockData.StatusRes> onFinishApiListener);
     }
 
     interface View extends BaseContract.View {
 
         void setLayoutAdapter(ArrayList<String> listName, ArrayList<String> listAmount);
 
+        void initSales();
+
+        void initStock();
     }
 
     interface Presenter extends BaseContract.Presenter<ManagerLedgerContract.View> {

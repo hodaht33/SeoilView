@@ -84,6 +84,7 @@
             android:layout_height="40dp"
             android:layout_marginEnd="24dp"
             android:src="@drawable/add_sign"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textViewMLedgerShowTitle"
             app:layout_constraintTop_toBottomOf="@+id/textViewMLedgerDate" />
