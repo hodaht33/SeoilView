@@ -23,9 +23,9 @@ public class SalesApi {
         mSalesInfo = retrofit.create(Sales.class);
     }
 
-    public void getIncomeSales(String shopId, int salesCode, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+    public void getIncomeSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        Call<SalesData.GetRes> call = mSalesInfo.getIncomeSales(shopId, salesCode, salesDate);
+        Call<SalesData.GetRes> call = mSalesInfo.getIncomeSales(shopId, salesDate);
         call.enqueue(new Callback<SalesData.GetRes>() {
             @Override
             public void onResponse(Call<SalesData.GetRes> call, Response<SalesData.GetRes> response) {
@@ -46,9 +46,9 @@ public class SalesApi {
         });
     }
 
-    public void getSpendingSales(String shopId, int salesCode, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+    public void getSpendingSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        Call<SalesData.GetRes> call = mSalesInfo.getSpendingSales(shopId, salesCode, salesDate);
+        Call<SalesData.GetRes> call = mSalesInfo.getSpendingSales(shopId, salesDate);
         call.enqueue(new Callback<SalesData.GetRes>() {
             @Override
             public void onResponse(Call<SalesData.GetRes> call, Response<SalesData.GetRes> response) {

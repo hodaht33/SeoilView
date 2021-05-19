@@ -13,10 +13,10 @@ import seoil.capstone.som.data.network.model.SalesData;
 public interface Sales {
 
     @GET("sales/{shopId}/income")
-    Call<SalesData.GetRes> getIncomeSales(@Path("shopId") String shopId, @Query("salesCode") int salesCode, @Query("salesDate") String salesDate);
+    Call<SalesData.GetRes> getIncomeSales(@Path("shopId") String shopId, @Query("salesDate") String salesDate);
 
     @GET("sales/{shopId}/spending")
-    Call<SalesData.GetRes> getSpendingSales(@Path("shopId") String shopId, @Query("salesCode") int salesCode, @Query("salesDate") String salesDate);
+    Call<SalesData.GetRes> getSpendingSales(@Path("shopId") String shopId, @Query("salesDate") String salesDate);
 
     @GET("sales/{shopId}/statistics")
     Call<SalesData.GetStatisticsRes> getStatisticsSales(@Path("shopId") String shopId, @Query("startDate") String startDate, @Query("endDate") String endDate);

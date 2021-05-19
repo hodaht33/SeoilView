@@ -11,7 +11,7 @@ public class SalesData {
 
         @SerializedName("salesCode")
         @Expose
-        private String salesCode;
+        private int salesCode;
         @SerializedName("salesDate")
         @Expose
         private String salesDate;
@@ -25,7 +25,7 @@ public class SalesData {
         @Expose
         private int salesAmount;
 
-        public Req(String salesCode, String salesDate, String shopId, String salesName, int salesAmount) {
+        public Req(int salesCode, String salesDate, String shopId, String salesName, int salesAmount) {
             this.salesCode = salesCode;
             this.salesDate = salesDate;
             this.shopId = shopId;
@@ -33,11 +33,11 @@ public class SalesData {
             this.salesAmount = salesAmount;
         }
 
-        public String getSalesCode() {
+        public int getSalesCode() {
             return salesCode;
         }
 
-        public void setSalesCode(String salesCode) {
+        public void setSalesCode(int salesCode) {
             this.salesCode = salesCode;
         }
 
