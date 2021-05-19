@@ -23,9 +23,9 @@ public class SalesApi {
         mSalesInfo = retrofit.create(Sales.class);
     }
 
-    public void getIncomeSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+    public void getIncomeSales(String shopId, int salesCode, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        Call<SalesData.GetRes> call = mSalesInfo.getIncomeSales(shopId, salesDate);
+        Call<SalesData.GetRes> call = mSalesInfo.getIncomeSales(shopId, salesCode, salesDate);
         call.enqueue(new Callback<SalesData.GetRes>() {
             @Override
             public void onResponse(Call<SalesData.GetRes> call, Response<SalesData.GetRes> response) {
@@ -46,9 +46,9 @@ public class SalesApi {
         });
     }
 
-    public void getSpendingSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+    public void getSpendingSales(String shopId, int salesCode, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
-        Call<SalesData.GetRes> call = mSalesInfo.getSpendingSales(shopId, salesDate);
+        Call<SalesData.GetRes> call = mSalesInfo.getSpendingSales(shopId, salesCode, salesDate);
         call.enqueue(new Callback<SalesData.GetRes>() {
             @Override
             public void onResponse(Call<SalesData.GetRes> call, Response<SalesData.GetRes> response) {
@@ -161,9 +161,9 @@ public class SalesApi {
         });
     }
 
-    public void deleteSpendingSales(String shopId, String salesDate, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+    public void deleteSpendingSales(String shopId, int salesCode, String salesDate, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
-        Call<SalesData.StatusRes> call = mSalesInfo.deleteSpendingSales(shopId, salesDate);
+        Call<SalesData.StatusRes> call = mSalesInfo.deleteSpendingSales(shopId, salesCode, salesDate);
         call.enqueue(new Callback<SalesData.StatusRes>() {
             @Override
             public void onResponse(Call<SalesData.StatusRes> call, Response<SalesData.StatusRes> response) {
