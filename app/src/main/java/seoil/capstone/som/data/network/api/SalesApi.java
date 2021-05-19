@@ -92,7 +92,30 @@ public class SalesApi {
         });
     }
 
-    public void insertSales(SalesData.InsertReq req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+    public void insertSalesWithDate(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+
+        Call<SalesData.StatusRes> call = mSalesInfo.insertSalesWithDate(req);
+        call.enqueue(new Callback<SalesData.StatusRes>() {
+            @Override
+            public void onResponse(Call<SalesData.StatusRes> call, Response<SalesData.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<SalesData.StatusRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void insertSales(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
         Call<SalesData.StatusRes> call = mSalesInfo.insertSales(req);
         call.enqueue(new Callback<SalesData.StatusRes>() {
@@ -115,7 +138,7 @@ public class SalesApi {
         });
     }
 
-    public void updateSpendingSales(SalesData.UpdateReq req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+    public void updateSpendingSales(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
         Call<SalesData.StatusRes> call = mSalesInfo.updateSpendingSales(req);
         call.enqueue(new Callback<SalesData.StatusRes>() {

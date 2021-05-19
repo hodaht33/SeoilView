@@ -22,10 +22,13 @@ public interface Sales {
     Call<SalesData.GetStatisticsRes> getStatisticsSales(@Path("shopId") String shopId, @Query("startDate") String startDate, @Query("endDate") String endDate);
 
     @POST("sales")
-    Call<SalesData.StatusRes> insertSales(@Body SalesData.InsertReq req);
+    Call<SalesData.StatusRes> insertSalesWithDate(@Body SalesData.Req res);
+
+    @POST("sales/income")
+    Call<SalesData.StatusRes> insertSales(@Body SalesData.Req req);
 
     @PUT("sales/spending")
-    Call<SalesData.StatusRes> updateSpendingSales(@Body SalesData.UpdateReq req);
+    Call<SalesData.StatusRes> updateSpendingSales(@Body SalesData.Req req);
 
     @DELETE("sales/{shpoId}/spending")
     Call<SalesData.StatusRes> deleteSpendingSales(@Path("shopId") String shopId, @Query("salesDate") String salesDate);

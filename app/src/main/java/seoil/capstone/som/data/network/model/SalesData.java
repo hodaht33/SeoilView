@@ -7,50 +7,7 @@ import java.util.List;
 
 public class SalesData {
 
-    public static class InsertReq {
-
-        @SerializedName("shopId")
-        @Expose
-        private String shopId;
-        @SerializedName("salesName")
-        @Expose
-        private String salesName;
-        @SerializedName("salesAmount")
-        @Expose
-        private int salesAmount;
-
-        public InsertReq(String shopId, String salesName, int salesAmount) {
-            this.shopId = shopId;
-            this.salesName = salesName;
-            this.salesAmount = salesAmount;
-        }
-
-        public String getShopId() {
-            return shopId;
-        }
-
-        public void setShopId(String shopId) {
-            this.shopId = shopId;
-        }
-
-        public String getSalesName() {
-            return salesName;
-        }
-
-        public void setSalesName(String salesName) {
-            this.salesName = salesName;
-        }
-
-        public int getSalesAmount() {
-            return salesAmount;
-        }
-
-        public void setSalesAmount(int salesAmount) {
-            this.salesAmount = salesAmount;
-        }
-    }
-
-    public static class UpdateReq {
+    public static class Req {
 
         @SerializedName("salesDate")
         @Expose
@@ -65,7 +22,7 @@ public class SalesData {
         @Expose
         private int salesAmount;
 
-        public UpdateReq(String salesDate, String shopId, String salesName, int salesAmount) {
+        public Req(String salesDate, String shopId, String salesName, int salesAmount) {
             this.salesDate = salesDate;
             this.shopId = shopId;
             this.salesName = salesName;
