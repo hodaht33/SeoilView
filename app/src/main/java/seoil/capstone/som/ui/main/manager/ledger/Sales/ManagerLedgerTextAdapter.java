@@ -33,6 +33,7 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
     private String mDateQuery;
     private ManagerLedgerSalesPresenter mPresenter;
     private AlertDialog mAlertDialog;
+    private Boolean isCost;
 
 
 
@@ -46,6 +47,7 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
         mShopId = shopId;
         mPresenter = presenter;
         mDateQuery = dateQuery;
+        isCost = false;
     }
 
     @NonNull
@@ -112,7 +114,7 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
 
                 if (id == ADAPTER_DELETE) {
 
-                    mPresenter.deleteSpendingSales(mShopId, mAutoInc.get(getAdapterPosition()), mDateQuery);
+                    mPresenter.deleteSpendingSales(mShopId, mAutoInc.get(getAdapterPosition()), mDateQuery, isCost);
                     return true;
                 } else if (id == ADAPTER_EDIT) {
 
@@ -154,8 +156,12 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
                                 editTextAmount.requestFocus();
                             } else {
 
+                                int Iamount = Integer.parseInt(amount);
+                                if (isCost) {
+                                    Iamount = Iamount * -1;
+                                }
                                 mPresenter.updateSpendingSales(mAutoInc.get(getAdapterPosition()),mDateQuery, mShopId, mDataName.get(getAdapterPosition()),
-                                        Integer.parseInt(editTextAmount.getText().toString()) * -1);
+                                        Iamount, isCost);
                                 notifyItemChanged(getAdapterPosition());
                                 mAlertDialog.dismiss();
                             }
@@ -187,6 +193,11 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
                 }
             });
         }
+    }
+
+    public void setIsCost(Boolean isCost) {
+
+        this.isCost = isCost;
     }
 
 }

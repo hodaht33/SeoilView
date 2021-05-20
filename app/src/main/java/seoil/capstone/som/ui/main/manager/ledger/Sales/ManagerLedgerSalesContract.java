@@ -27,6 +27,8 @@ public interface ManagerLedgerSalesContract {
         void setLayoutAdapterSales(ArrayList<String> listName, ArrayList<Integer> listAmount, ArrayList<Integer> autoInc);
 
         void initCost();
+
+        void initSales();
     }
 
     interface Presenter extends BaseContract.Presenter<ManagerLedgerSalesContract.View> {

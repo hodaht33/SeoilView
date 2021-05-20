@@ -76,6 +76,7 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
 
         initListener();
 
+        mPresenter.getSales(mShopId, mDateQuery);
     }
 
     @Override
@@ -90,6 +91,11 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
         mPresenter.getCost(mShopId, mDateQuery);
     }
 
+    @Override
+    public void initSales() {
+
+        mPresenter.getSales(mShopId, mDateQuery);
+    }
 
 
     private void initListener() {
@@ -106,12 +112,14 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
                     selectedIndex = SELECTED_SALE;
                     mTextViewTitle.setText("매출");
                     mAdapter.clear();
+                    mAdapter.setIsCost(false);
                     mPresenter.getSales(mShopId, mDateQuery);
                 } else if (position == SELECTED_COST) {
 
                     mImageViewAdd.setVisibility(View.VISIBLE);
                     selectedIndex = SELECTED_COST;
                     mTextViewTitle.setText("지출");
+                    mAdapter.setIsCost(true);
                     mAdapter.clear();
                     mPresenter.getCost(mShopId, mDateQuery);
                 }
