@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/dialogMLedgerUpdateStock"
+    android:id="@+id/dialogMLedgerUpdateSales"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textViewMLedgerNameDialogStock"
+        android:id="@+id/textViewMLedgerNameUpdate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -16,10 +16,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/editTextMLedgerAmountDialogStock"/>
+        app:layout_constraintBottom_toTopOf="@id/editTextMLedgerAmountUpdate"/>
 
     <EditText
-        android:id="@+id/editTextMLedgerAmountDialogStock"
+        android:id="@+id/editTextMLedgerAmountUpdate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -27,15 +27,15 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewMLedgerNameDialogStock" />
+        app:layout_constraintTop_toBottomOf="@id/textViewMLedgerNameUpdate" />
 
     <Button
-        android:id="@+id/btnMLedgerSubmitDialogStock"
+        android:id="@+id/btnMLedgerSubmitUpdate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="수정"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextMLedgerAmountDialogStock" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextMLedgerAmountUpdate" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -102,12 +102,12 @@
             app:layout_constraintTop_toBottomOf="@+id/imageViewMLedgerInsert" />
 
         <Button
-            android:id="@+id/btnMLedgerFinish"
+            android:id="@+id/btnMLedgerFinishSales"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:background="@color/btn_color"
-            android:text="finish"
+            android:text="가계부"
             android:textColor="@color/btn_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

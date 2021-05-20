@@ -116,7 +116,7 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
             @Override
             public void onSuccess(SalesData.StatusRes statusRes) {
 
-                Log.d("setSales", String.valueOf(statusRes.getStatus()));
+
                 view.initCost();
             }
 
@@ -129,13 +129,18 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
         mInteractor.insertSalesWithDate(shopId, name, amount, dateQuery, onFinishApiListener);
     }
 
-    public void deleteSpendingSales(String shopId, int salesCode, String salesDate) {
+    public void deleteSpendingSales(String shopId, int salesCode, String salesDate, Boolean isCost) {
 
         OnFinishApiListener<SalesData.StatusRes> onFinishApiListener = new OnFinishApiListener<SalesData.StatusRes>() {
             @Override
             public void onSuccess(SalesData.StatusRes statusRes) {
 
-                view.initCost();
+                if (isCost) {
+                    view.initCost();
+                } else {
+
+                    view.initSales();
+                }
             }
 
             @Override
@@ -146,13 +151,18 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
         mInteractor.deleteSpendingSales(shopId, salesCode, salesDate, onFinishApiListener);
     }
 
-    public void updateSpendingSales(int salesCode, String salesDate, String shopId, String salesName, int salesAmount) {
+    public void updateSpendingSales(int salesCode, String salesDate, String shopId, String salesName, int salesAmount, Boolean isCost) {
 
         OnFinishApiListener<SalesData.StatusRes> onFinishApiListener = new OnFinishApiListener<SalesData.StatusRes>() {
             @Override
             public void onSuccess(SalesData.StatusRes statusRes) {
 
-                view.initCost();
+                if (isCost) {
+                    view.initCost();
+                } else {
+
+                    view.initSales();
+                }
             }
 
             @Override

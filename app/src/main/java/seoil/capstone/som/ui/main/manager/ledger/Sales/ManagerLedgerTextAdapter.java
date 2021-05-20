@@ -1,6 +1,7 @@
 package seoil.capstone.som.ui.main.manager.ledger.Sales;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import seoil.capstone.som.R;
-import seoil.capstone.som.ui.main.manager.ledger.ManagerLedgerPresenter;
 
 public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedgerTextAdapter.ViewHolder> {
 
@@ -33,6 +33,7 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
     private String mDateQuery;
     private ManagerLedgerSalesPresenter mPresenter;
     private AlertDialog mAlertDialog;
+    private Boolean isCost;
 
 
 
@@ -46,6 +47,7 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
         mShopId = shopId;
         mPresenter = presenter;
         mDateQuery = dateQuery;
+        isCost = false;
     }
 
     @NonNull
@@ -112,7 +114,7 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
 
                 if (id == ADAPTER_DELETE) {
 
-                    mPresenter.deleteSpendingSales(mShopId, mAutoInc.get(getAdapterPosition()), mDateQuery);
+                    mPresenter.deleteSpendingSales(mShopId, mAutoInc.get(getAdapterPosition()), mDateQuery, isCost);
                     return true;
                 } else if (id == ADAPTER_EDIT) {
 
@@ -123,15 +125,13 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
                     //다이얼로그로 데이터 추가창 생성
                     AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-                    View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_manager_ledger_insert, null, false);
+                    View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_manager_ledger_update_sales, null, false);
 
                     builder.setView(view);
 
-                    Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitDialog);
-                    TextView textViewName = view.findViewById(R.id.textViewMLedgerNameDialog);
-                    EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialog);
-
-                    btnSubmit.setText("확인");
+                    Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitUpdate);
+                    TextView textViewName = view.findViewById(R.id.textViewMLedgerNameUpdate);
+                    EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountUpdate);
 
                     textViewName.setText(mDataName.get(getAdapterPosition()));
                     editTextAmount.setText(String.valueOf(mDataAmount.get(getAdapterPosition())));
@@ -156,8 +156,12 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
                                 editTextAmount.requestFocus();
                             } else {
 
+                                int Iamount = Integer.parseInt(amount);
+                                if (isCost) {
+                                    Iamount = Iamount * -1;
+                                }
                                 mPresenter.updateSpendingSales(mAutoInc.get(getAdapterPosition()),mDateQuery, mShopId, mDataName.get(getAdapterPosition()),
-                                        Integer.parseInt(editTextAmount.getText().toString()));
+                                        Iamount, isCost);
                                 notifyItemChanged(getAdapterPosition());
                                 mAlertDialog.dismiss();
                             }
@@ -189,6 +193,11 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
                 }
             });
         }
+    }
+
+    public void setIsCost(Boolean isCost) {
+
+        this.isCost = isCost;
     }
 
 }

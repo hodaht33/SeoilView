@@ -1,9 +1,7 @@
 package seoil.capstone.som.ui.main.manager.ledger;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -17,16 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
-import android.util.DisplayMetrics;
-import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
@@ -43,7 +37,6 @@ import java.util.Date;
 
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.main.manager.ledger.Sales.ManagerLedgerSalesActivity;
-import seoil.capstone.som.ui.main.manager.ledger.Sales.ManagerLedgerTextAdapter;
 
 public class ManagerLedgerFragment extends Fragment implements ManagerLedgerContract.View{
 
@@ -213,13 +206,13 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
                 //다이얼로그로 데이터 추가창 생성
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_manager_ledger_insert, null, false);
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_manager_ledger_stock_insert, null, false);
 
                 builder.setView(view);
 
                 Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitDialogStock);
-                TextView textViewName = view.findViewById(R.id.textViewMLedgerNameDialogStock);
-                EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialogStock);
+                EditText editTextName = view.findViewById(R.id.editTextMLedgerNameDialogInsertStock);
+                EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialogInsertStock);
 
                 btnSubmit.setText("삽입");
 
@@ -231,7 +224,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
                     @Override
                     public void onClick(View v) {
 
-                        String name = textViewName.getText().toString();
+                        String name = editTextName.getText().toString();
                         String amount = editTextAmount.getText().toString();
 
                         if (mPresenter.isTextSet(amount) != mPresenter.TEXT_LENGTH_INVALID) {
