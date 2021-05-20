@@ -3,24 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/dialogMLedgerInsert"
+    android:id="@+id/dialogMLedgerInsertStock"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editTextMLedgerNameDialogUpdate"
+        android:id="@+id/editTextMLedgerNameDialogInsertStock"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="지출명을 입력해주세요."
+        android:hint="재고명을 입력해주세요."
         android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/editTextMLedgerAmountDialogUpdate"/>
+        app:layout_constraintBottom_toTopOf="@id/editTextMLedgerAmountDialogInsertStock"/>
 
     <EditText
-        android:id="@+id/editTextMLedgerAmountDialogUpdate"
+        android:id="@+id/editTextMLedgerAmountDialogInsertStock"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -28,15 +28,15 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextMLedgerNameDialogUpdate" />
+        app:layout_constraintTop_toBottomOf="@id/editTextMLedgerNameDialogInsertStock" />
 
     <Button
-        android:id="@+id/btnMLedgerSubmitDialogUpdate"
+        android:id="@+id/btnMLedgerSubmitDialogStock"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="수정"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextMLedgerAmountDialogUpdate" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextMLedgerAmountDialogInsertStock" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,10 @@
 package seoil.capstone.som.ui.main.manager.ledger.Sales;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,13 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
 
 import seoil.capstone.som.R;
-import seoil.capstone.som.ui.main.manager.ledger.ManagerLedgerContract;
-import seoil.capstone.som.ui.main.manager.ledger.ManagerLedgerPresenter;
 
 public class ManagerLedgerSalesActivity extends AppCompatActivity implements ManagerLedgerSalesContract.View{
 
@@ -47,6 +44,7 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
     private TextView mTextViewDate;
     private TextView mTextViewTitle;
     private AlertDialog mAlertDialogInsert;
+    private Button mBtnClose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +62,11 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
         mAutoInc = new ArrayList<>();
         selectedIndex = SELECTED_SALE;
 
+        Intent intent = getIntent();
+        mShopId = intent.getStringExtra("id");
+        mDateQuery = intent.getStringExtra("dateQuery");
+        mDate = intent.getStringExtra("date");
+
         mTabLayout.addTab(mTabLayout.newTab().setText("매출"), SELECTED_SALE);
         mTabLayout.addTab(mTabLayout.newTab().setText("지출"), SELECTED_COST);
 
@@ -73,10 +76,6 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
 
         initListener();
 
-        Intent intent = getIntent();
-        mShopId = intent.getStringExtra("id");
-        mDateQuery = intent.getStringExtra("dateQuery");
-        mDate = intent.getStringExtra("date");
     }
 
     @Override
@@ -137,15 +136,15 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
                     mAlertDialogInsert.dismiss();
                 }
                 //다이얼로그로 데이터 추가창 생성
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(ManagerLedgerSalesActivity.this);
 
-                View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_manager_ledger_update, null, false);
+                View view = LayoutInflater.from(ManagerLedgerSalesActivity.this).inflate(R.layout.dialog_manager_ledger_insert_sales, null, false);
 
                 builder.setView(view);
 
-                Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitDialogUpdate);
-                EditText editTextName = view.findViewById(R.id.editTextMLedgerNameDialogUpdate);
-                EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialogUpdate);
+                Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitDialogSales);
+                EditText editTextName = view.findViewById(R.id.editTextMLedgerNameDialogInsert);
+                EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialogInsert);
 
                 mAlertDialogInsert = builder.create();
                 mAlertDialogInsert.show();
@@ -184,6 +183,13 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
                 });
             }
         });
+
+        mBtnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
@@ -196,6 +202,7 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
         mTextViewDate = this.findViewById(R.id.textViewMLedgerDateSales);
         mImageViewAdd = this.findViewById(R.id.imageViewMLedgerInsert);
         mTextViewTitle = this.findViewById(R.id.textViewMLedgerShowTitleSales);
+        mBtnClose = this.findViewById(R.id.btnMLedgerFinishSales);
     }
 
     @Override

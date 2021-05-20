@@ -1,6 +1,7 @@
 package seoil.capstone.som.ui.main.manager.ledger.Sales;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import seoil.capstone.som.R;
-import seoil.capstone.som.ui.main.manager.ledger.ManagerLedgerPresenter;
 
 public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedgerTextAdapter.ViewHolder> {
 
@@ -123,15 +123,13 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
                     //다이얼로그로 데이터 추가창 생성
                     AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-                    View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_manager_ledger_insert, null, false);
+                    View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_manager_ledger_update_sales, null, false);
 
                     builder.setView(view);
 
-                    Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitDialog);
-                    TextView textViewName = view.findViewById(R.id.textViewMLedgerNameDialog);
-                    EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialog);
-
-                    btnSubmit.setText("확인");
+                    Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitUpdate);
+                    TextView textViewName = view.findViewById(R.id.textViewMLedgerNameUpdate);
+                    EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountUpdate);
 
                     textViewName.setText(mDataName.get(getAdapterPosition()));
                     editTextAmount.setText(String.valueOf(mDataAmount.get(getAdapterPosition())));
@@ -157,7 +155,7 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
                             } else {
 
                                 mPresenter.updateSpendingSales(mAutoInc.get(getAdapterPosition()),mDateQuery, mShopId, mDataName.get(getAdapterPosition()),
-                                        Integer.parseInt(editTextAmount.getText().toString()));
+                                        Integer.parseInt(editTextAmount.getText().toString()) * -1);
                                 notifyItemChanged(getAdapterPosition());
                                 mAlertDialog.dismiss();
                             }
