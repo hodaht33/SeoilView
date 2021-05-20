@@ -94,7 +94,6 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
 
                         dataName.add(result.getSalesName());
                         dataAmount.add(Math.abs(result.getSalesAmount()));
-                        Log.d("salescode",String.valueOf(result.getSalesCode()));
                         autoInc.add(result.getSalesCode());
                     }
                     view.setLayoutAdapterSales(dataName, dataAmount, autoInc);
