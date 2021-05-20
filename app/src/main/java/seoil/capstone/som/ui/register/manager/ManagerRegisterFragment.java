@@ -9,6 +9,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcher;
+import androidx.activity.OnBackPressedDispatcherOwner;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -28,6 +32,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -39,11 +44,15 @@ import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.ui.address.SearchAddressActivity;
 import seoil.capstone.som.ui.main.MainPresenter;
+import seoil.capstone.som.ui.register.RegisterCommunicator;
 import seoil.capstone.som.ui.register.select.ProgressProcess;
+import seoil.capstone.som.ui.register.select.SelectUserFragment;
 import seoil.capstone.som.util.Utility;
 
 public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener, OnFinishApiListener<Auth.StatusRes> {
 
+    private RegisterCommunicator.Communicator mCommunicator;
+    private OnBackPressedCallback mOnBackPressedCallback;
     private ManagerRegisterPresenter mPresenter;
     private TextInputEditText mEditTextId;
     private TextInputEditText mEditTextPwd;
@@ -63,8 +72,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private TextInputLayout mTextLayoutAuthCode;
     private TextInputLayout mTextLayoutBirthdate;
     private TextInputLayout mTextLayoutCorporateNumber;
-    private TextInputLayout mTextLayoutMarketName;
-    private TextInputLayout mTextLayoutDetailedAddress;
     private CheckBox mChkBoxFemale;
     private CheckBox mChkBoxMale;
     private CheckBox mChkBoxTermsOfUse;
@@ -88,9 +95,54 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private ProgressProcess mProgressProcess;
     private Spinner mSpinnerCategory;
     private Dialog mDialog;
+    private long mLastTimeBackPressed;
 
     public ManagerRegisterFragment() {
 
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof RegisterCommunicator.Communicator) {
+
+            mCommunicator = (RegisterCommunicator.Communicator) context;
+        } else {
+
+            throw new RuntimeException(context.toString() + " not implement Communicator");
+        }
+
+        // 뒤로가기 버튼 콜백 함수
+        mOnBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+                if(System.currentTimeMillis() - mLastTimeBackPressed < 1000) {
+
+                    Log.d("test", "t");
+                    // 들고있던 정보 가지고 되돌아감
+                    mCommunicator.changeAnotherFragment(new SelectUserFragment(), getArguments());
+
+                    return;
+                }
+
+                mLastTimeBackPressed = System.currentTimeMillis();
+                Toast.makeText(getActivity(),"'뒤로' 버튼을 한 번 더 누르면 회원 선택 창으로 돌아갑니다.", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        // 뒤로가기 버튼에 콜백 함수 등록
+        requireActivity().getOnBackPressedDispatcher().addCallback(mOnBackPressedCallback);
+    }
+
+    @Override
+    public void onDetach() {
+
+        mOnBackPressedCallback.remove();
+        mCommunicator = null;
+
+        super.onDetach();
     }
 
     @Override
@@ -147,6 +199,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
         return view;
     }
+
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -270,9 +324,32 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             }
         } else if (viewId == R.id.btnMRegitSendAuthorizationCode) {
 
-            mPresenter.sendSms(mEditTextPhoneNumber.getText().toString());
-            mBtnCheckAuthCode.setVisibility(View.VISIBLE);
-            mTextLayoutAuthCode.setVisibility(View.VISIBLE);
+            int phoneValid = mPresenter.phoneNumberValid(mEditTextPhoneNumber.getText().toString());
+
+            if (phoneValid != mPresenter.PHONE_VALID) {
+
+                if (phoneValid == mPresenter.PHONE_EMPTY) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPhoneNumber.setError("핸드폰 번호를 입력해주세요.");
+                    mEditTextPhoneNumber.requestFocus();
+                } else if (phoneValid == mPresenter.PHONE_LENGTH_ERROR) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPhoneNumber.setError("'-'없이 11자리로 입력해주세요.");
+                    mEditTextPhoneNumber.requestFocus();
+                } else if (phoneValid == mPresenter.PHONE_ERROR_OTHER_CHAR) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPhoneNumber.setError("숫자만 입력해주세요.");
+                    mEditTextPhoneNumber.requestFocus();
+                }
+            } else {
+
+                mPresenter.sendSms(mEditTextPhoneNumber.getText().toString());
+                mBtnCheckAuthCode.setVisibility(View.VISIBLE);
+                mTextLayoutAuthCode.setVisibility(View.VISIBLE);
+            }
         } else if (viewId == R.id.btnMRegitCheckAuthorizationCode) {
 
             mPresenter.sendAuthCode(mEditTextPhoneNumber.getText().toString(), mEditTextAuthCode.getText().toString());
@@ -289,8 +366,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mTextLayoutAuthCode = view.findViewById(R.id.textLayoutMRegitAuthorizationCode);
         mTextLayoutBirthdate = view.findViewById(R.id.textLayoutMRegitBirthdate);
         mTextLayoutCorporateNumber = view.findViewById(R.id.textLayoutMRegitCorporateRegistrationNumber);
-        mTextLayoutMarketName = view.findViewById(R.id.textLayoutMRegitMarketName);
-        mTextLayoutDetailedAddress = view.findViewById(R.id.textLayoutMRegitDetailedAddress);
 
         mEditTextId = view.findViewById(R.id.editTextMRegitId);
         mEditTextPwd = view.findViewById(R.id.editTextMRegitPw);
@@ -754,12 +829,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         startActivity(intent);
     }
 
-
-    @Override
-    public void onFailure(Throwable t) {
-
-    }
-
     private void doRegister(String platform) {
 
         // TODO: 비즈니스 로직이므로 presenter로 옮겨야 함?
@@ -804,4 +873,9 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         }
     }
 
+    @Override
+    public void onFailure(Throwable t) {
+
+        showDialog("아이디 중복 확인 불가");
+    }
 }
