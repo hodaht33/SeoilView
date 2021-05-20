@@ -85,12 +85,10 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         initView(view);
         initListener();
 
-        // TODO: 두개 다 테스트용으로 true로 선언, 제대로 된 기능 구현 후 false로 만들고 테스트
         mIsIdValid = false;
-        mIsValidPhoneNumber = true;
+        mIsValidPhoneNumber = false;
         mIdValidCode = mPresenter.ID_EMPTY;
 
-        // TODO: bundle을 Presenter로 넘겨 naver와 kakao 또는 그 외를 판단하여 뷰를 바꾸는 메서드 호출하는 구조로 변경
         mBundleData = getArguments();
         String platform = mBundleData.getString("platform");
 
@@ -433,7 +431,9 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                 if (neededCheckCode == mPresenter.TERMS_OF_USE_NEEDED) {
 
                     msg += "이용약관 동의가 필요합니다.\n";
-                } else if (neededCheckCode == mPresenter.PERSONAL_INFO_NEEDED) {
+                }
+
+                if (neededCheckCode == mPresenter.PERSONAL_INFO_NEEDED) {
 
                     msg += "개인정보 취급방침 동의가 필요합니다.\n";
                 }
@@ -461,13 +461,10 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             genderCode = mPresenter.genderValid(mChkBoxMale.isChecked(), mChkBoxFemale.isChecked());
             birthDateCode = mPresenter.birthdateValid(mEditTextBirthdate.getText().toString());
 
-            if (mIsIdValid) {
+            if (!mIsIdValid) {
 
                 showDialog("아이디 중복 확인을 해주세요.");
-
-                return false;
-            }
-            if (idCode != mPresenter.ID_VALID) {
+            } else if (idCode != mPresenter.ID_VALID) {
 
                 if(idCode == mPresenter.ID_EMPTY) {
 
@@ -564,7 +561,9 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                 if (neededCheckCode == mPresenter.TERMS_OF_USE_NEEDED) {
 
                     msg += "이용약관 동의가 필요합니다.\n";
-                } else if (neededCheckCode == mPresenter.PERSONAL_INFO_NEEDED) {
+                }
+
+                if (neededCheckCode == mPresenter.PERSONAL_INFO_NEEDED) {
 
                     msg += "개인정보 취급방침 동의가 필요합니다.\n";
                 }
