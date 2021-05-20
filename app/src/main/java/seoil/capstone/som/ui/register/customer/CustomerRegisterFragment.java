@@ -58,7 +58,6 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
     private Button mBtnSendAuthCode;
     private Button mBtnCheckAuthCode;
     private Button mBtnFinish;
-    private TextView mTextViewError;
     private Bundle mBundleData;
     private boolean mIsIdValid;
     private boolean mIsValidPhoneNumber;
@@ -117,10 +116,6 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             mTextLayoutCheckPwd.setVisibility(View.GONE);
             mBtnCheckIdDuplication.setVisibility(View.GONE);
         }
-
-
-        // 에러 관련 텍스트 뷰는 에러 출력 시에만 VISIBLE로 사용
-        mTextViewError.setVisibility(View.GONE);
 
         return view;
     }
@@ -182,8 +177,6 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
             mPresenter.sendAuthCode(mEditTextPhoneNumber.getText().toString(), mEditTextAuthCode.getText().toString());
         } else if (viewId == R.id.btnCRegitFinish) {
-
-            mTextViewError.setVisibility(View.GONE);
 
             doRegister(mBundleData.getString("platform"));
         } else if (viewId == R.id.chBoxCRegitFemale) {
@@ -268,8 +261,6 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         mBtnSendAuthCode = view.findViewById(R.id.btnCRegitSendAuthorizationCode);
         mBtnCheckAuthCode = view.findViewById(R.id.btnCRegitCheckAuthorizationCode);
         mBtnFinish = view.findViewById(R.id.btnCRegitFinish);
-
-        mTextViewError = view.findViewById(R.id.labelCRegitError);
     }
 
     private void initListener() {
@@ -472,8 +463,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
             if (mIsIdValid) {
 
-                mTextViewError.setVisibility(View.VISIBLE);
-                mTextViewError.setText("중복확인을 해주세요.");
+                showDialog("아이디 중복 확인을 해주세요.");
 
                 return false;
             }
