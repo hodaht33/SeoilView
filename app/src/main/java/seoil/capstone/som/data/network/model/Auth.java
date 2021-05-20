@@ -5,11 +5,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class Auth {
 
-    public static class SmsReq {
+    public static class Req {
 
         @SerializedName("phoneNumber")
         @Expose
         private String phoneNumber;
+        @SerializedName("authCode")
+        @Expose
+        private String authCode;
+
+        public Req(String phoneNumber, String authCode) {
+            this.phoneNumber = phoneNumber;
+            this.authCode = authCode;
+        }
 
         public String getPhoneNumber() {
             return phoneNumber;
@@ -17,6 +25,14 @@ public class Auth {
 
         public void setPhoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
+        }
+
+        public String getAuthCode() {
+            return authCode;
+        }
+
+        public void setAuthCode(String authCode) {
+            this.authCode = authCode;
         }
     }
 

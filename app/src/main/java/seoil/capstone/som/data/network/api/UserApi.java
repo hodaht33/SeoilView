@@ -27,6 +27,9 @@ public class UserApi {
     public static final int CLOSED_BUSINESS = 3;
     public static final int ERROR_CRAWLING = 4;
 
+    // 유효하지 않은 인증번호 입력
+    public static final int ERROR_INVALID_AUTH = 4;
+
     private User mUserData;
 
     public UserApi(Retrofit retrofit) {
@@ -57,7 +60,7 @@ public class UserApi {
         });
     }
 
-    public void sendSms(Auth.SmsReq req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
+    public void sendSms(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         Call<Auth.StatusRes> call = mUserData.sendSms(req);
         call.enqueue(new Callback<Auth.StatusRes>() {
@@ -80,9 +83,9 @@ public class UserApi {
         });
     }
 
-    public void sendAuthCode(String authCode, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
+    public void sendAuthCode(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
-        Call<Auth.StatusRes> call = mUserData.sendAuthCode(authCode);
+        Call<Auth.StatusRes> call = mUserData.sendAuthCode(req);
         call.enqueue(new Callback<Auth.StatusRes>() {
             @Override
             public void onResponse(Call<Auth.StatusRes> call, Response<Auth.StatusRes> response) {

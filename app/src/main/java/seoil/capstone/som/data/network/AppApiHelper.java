@@ -217,6 +217,16 @@ public class AppApiHelper {
         oAuthLogin.startOauthLoginActivity((Activity) context, oAuthLoginHandler);
     }
 
+    public void sendSms(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
+
+        mUserApi.sendSms(req, onFinishApiListener);
+    }
+
+    public void sendAuthCode(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
+
+        mUserApi.sendAuthCode(req, onFinishApiListener);
+    }
+
     public void checkIdDuplicate(String id, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         mUserApi.checkIdDuplicate(id, onFinishApiListener);

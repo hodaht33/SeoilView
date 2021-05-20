@@ -18,11 +18,11 @@ public interface User {
     @POST("login")
     Call<Login.LoginRes> getLoginData(@Body Login.LoginReq req);
 
-    @POST("send-sms")
-    Call<Auth.StatusRes> sendSms(@Body Auth.SmsReq req);
+    @POST("phone-auth/send")
+    Call<Auth.StatusRes> sendSms(@Body Auth.Req req);
 
-    @GET("auth-sms")
-    Call<Auth.StatusRes> sendAuthCode(@Query("authCode") String authCode);
+    @POST("phone-auth/auth")
+    Call<Auth.StatusRes> sendAuthCode(@Body Auth.Req req);
 
     // 아이디 중복 확인
     @GET("duplicate/{id}")
