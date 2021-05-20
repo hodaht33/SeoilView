@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
+import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.Register;
 import seoil.capstone.som.ui.login.LoginActivity;
 import seoil.capstone.som.ui.main.MainActivity;
@@ -13,6 +14,7 @@ import seoil.capstone.som.ui.register.ValidChecker;
 
 public class CustomerRegisterPresenter extends ValidChecker implements CustomerRegisterContract.Presenter {
 
+    public static final String TAG = "CRegitPresenter";
     private CustomerRegisterContract.View mView;
     private CustomerRegisterContract.Interactor mInteractor;
 
@@ -67,10 +69,53 @@ public class CustomerRegisterPresenter extends ValidChecker implements CustomerR
             @Override
             public void onFailure(Throwable t) {
 
-                Log.d("CRegitPresenter", "Error : " + t);
+                Log.d(TAG, "register Error : " + t);
             }
         };
 
         mInteractor.register(new Register.Customer(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement), onFinishApiListener);
+    }
+
+    @Override
+    public void sendSms(String phoneNumber) {
+
+        OnFinishApiListener<Auth.StatusRes> onFinishApiListener = new OnFinishApiListener<Auth.StatusRes>() {
+            @Override
+            public void onSuccess(Auth.StatusRes statusRes) {
+
+                if (statusRes.getStatus() == UserApi.SUCCESS) {
+
+                    mView.showDialog("인증번호가 발송되었습니다.");
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+                Log.d(TAG, "sms Error : " + t);
+            }
+        };
+
+        mInteractor.sendSms(new Auth.Req(phoneNumber, null), onFinishApiListener);
+    }
+
+    @Override
+    public void sendAuthCode(String phoneNumber, String authCode) {
+
+        OnFinishApiListener<Auth.StatusRes> onFinishApiListener = new OnFinishApiListener<Auth.StatusRes>() {
+            @Override
+            public void onSuccess(Auth.StatusRes statusRes) {
+
+                mView.changePhoneAuthButton(statusRes.getStatus());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+                Log.d(TAG, "phone auth Error : " + t);
+            }
+        };
+
+        mInteractor.sendAuthCode(new Auth.Req(phoneNumber, authCode), onFinishApiListener);
     }
 }

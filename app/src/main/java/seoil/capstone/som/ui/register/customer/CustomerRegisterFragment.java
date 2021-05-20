@@ -1,9 +1,14 @@
 package seoil.capstone.som.ui.register.customer;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -58,6 +63,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
     private boolean mIsIdValid;
     private boolean mIsValidPhoneNumber;
     private int mIdValidCode;
+    private Dialog mDialog;
 
     public CustomerRegisterFragment() {
 
@@ -169,13 +175,12 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             }
         } else if (viewId == R.id.btnCRegitSendAuthorizationCode) {
 
+            mPresenter.sendSms(mEditTextPhoneNumber.getText().toString());
             mTextLayoutAuthCode.setVisibility(View.VISIBLE);
             mBtnCheckAuthCode.setVisibility(View.VISIBLE);
         } else if (viewId == R.id.btnCRegitCheckAuthorizationCode) {
 
-            // TODO: Presenter에 인증번호를 보내 확인, Presenter에선 Interactor에 보냄, Interactor에선 api로 보내 확인후 listener를 통해 확인, 확인됐으면 안보이게 설정
-            mTextLayoutAuthCode.setVisibility(View.GONE);
-            mBtnCheckAuthCode.setVisibility(View.GONE);
+            mPresenter.sendAuthCode(mEditTextPhoneNumber.getText().toString(), mEditTextAuthCode.getText().toString());
         } else if (viewId == R.id.btnCRegitFinish) {
 
             mTextViewError.setVisibility(View.GONE);
@@ -187,6 +192,46 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         } else if (viewId == R.id.chBoxCRegitMale) {
 
             mChkBoxFemale.setChecked(false);
+        }
+    }
+
+    @Override
+    public void showDialog(String msg) {
+
+        if (mDialog == null) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(msg)
+                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            if (mDialog != null) {
+
+                                mDialog = null;
+                            }
+                        }
+                    });
+
+            mDialog = builder.create();
+            mDialog.show();
+        }
+    }
+
+    @Override
+    public void changePhoneAuthButton(int status) {
+
+        if (status == UserApi.SUCCESS) {
+
+            mIsValidPhoneNumber = true;
+            mBtnSendAuthCode.setText("인증 완료");
+            mBtnSendAuthCode.setEnabled(false);
+            mBtnSendAuthCode.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.light_green));
+            mTextLayoutAuthCode.setVisibility(View.GONE);
+            mBtnCheckAuthCode.setVisibility(View.GONE);
+        } else if (status == UserApi.ERROR_INVALID_AUTH) {
+
+            showDialog("유효하지 않은 인증번호 입니다.");
         }
     }
 
@@ -266,6 +311,8 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             public void afterTextChanged(Editable s) {
 
                 mIsValidPhoneNumber = false;
+                mBtnSendAuthCode.setText("인증번호 전송");
+                mBtnSendAuthCode.setEnabled(true);
             }
         });
 
@@ -298,7 +345,13 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
     private boolean checkValidAndPutData(String platform) {
 
-        int emailCode, phoneNumberCode, birthDateCode, neededCheckCode, idCode, pwCode, genderCode;
+        int emailCode;
+        int phoneNumberCode;
+        int birthDateCode;
+        int neededCheckCode;
+        int idCode;
+        int pwCode;
+        int genderCode;
 
         neededCheckCode = mPresenter.neededCheck(mChkBoxTermsOfUse.isChecked(), mChkBoxPersonalInfo.isChecked());
 
@@ -306,18 +359,22 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
             if (neededCheckCode != mPresenter.NEEDED_VALID) {
 
+                String msg = "";
+                if (neededCheckCode == mPresenter.TERMS_OF_USE_NEEDED) {
+
+                    msg += "이용약관 동의가 필요합니다.\n";
+                } else if (neededCheckCode == mPresenter.PERSONAL_INFO_NEEDED) {
+
+                    msg += "개인정보 취급방침 동의가 필요합니다.\n";
+                }
+
+                showDialog(msg);
+            } else {
+
                 mBundleData.putString("pwd", "naver");
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
-            } else if (neededCheckCode == mPresenter.TERMS_OF_USE_NEEDED) {
-
-                mTextViewError.setVisibility(View.VISIBLE);
-                mTextViewError.setText("이용약관 동의가 필요합니다.");
-            } else if (neededCheckCode == mPresenter.PERSONAL_INFO_NEEDED) {
-
-                mTextViewError.setVisibility(View.VISIBLE);
-                mTextViewError.setText("개인정보 취급방침 동의가 필요합니다.");
             }
 
             return false;
@@ -358,6 +415,9 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                     mEditTextPhoneNumber.setError("핸드폰 번호가 맞는지 확인해주세요.(010xxxxxxxx)");
                     mEditTextPhoneNumber.requestFocus();
                 }
+            } else if (!mIsValidPhoneNumber) {
+
+                showDialog("핸드폰 인증을 해주세요.");
             } else if (birthDateCode != mPresenter.BIRTH_VALID) {
 
                 if (birthDateCode == mPresenter.BIRTH_EMPTY) {
@@ -378,15 +438,16 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                 }
             } else if (neededCheckCode != mPresenter.NEEDED_VALID) {
 
+                String msg = "";
                 if (neededCheckCode == mPresenter.TERMS_OF_USE_NEEDED) {
 
-                    mTextViewError.setVisibility(View.VISIBLE);
-                    mTextViewError.setText("이용약관 동의가 필요합니다.");
+                    msg += "이용약관 동의가 필요합니다.\n";
                 } else if (neededCheckCode == mPresenter.PERSONAL_INFO_NEEDED) {
 
-                    mTextViewError.setVisibility(View.VISIBLE);
-                    mTextViewError.setText("개인정보 취급방침 동의가 필요합니다.");
+                    msg += "개인정보 취급방침 동의가 필요합니다.\n";
                 }
+
+                showDialog(msg);
             } else {
 
                 mBundleData.putString("pwd", "kakao");
@@ -483,6 +544,9 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                     mEditTextPhoneNumber.setError("핸드폰 번호가 맞는지 확인해주세요.(010xxxxxxxx)");
                     mEditTextPhoneNumber.requestFocus();
                 }
+            } else if (!mIsValidPhoneNumber) {
+
+                showDialog("핸드폰 인증을 해주세요.");
             } else if (birthDateCode != mPresenter.BIRTH_VALID) {
 
                 if (birthDateCode == mPresenter.BIRTH_EMPTY) {
@@ -503,25 +567,20 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                 }
             } else if (genderCode != mPresenter.GENDER_VALID) {
 
-                mTextViewError.setVisibility(View.VISIBLE);
-                mTextViewError.setText("성별을 선택해주세요.");
+                showDialog("성별을 선택해주세요.");
             } else if (neededCheckCode != mPresenter.NEEDED_VALID) {
 
+                String msg = "";
                 if (neededCheckCode == mPresenter.TERMS_OF_USE_NEEDED) {
 
-                    mTextViewError.setVisibility(View.VISIBLE);
-                    mTextViewError.setText("이용약관 동의가 필요합니다.");
+                    msg += "이용약관 동의가 필요합니다.\n";
                 } else if (neededCheckCode == mPresenter.PERSONAL_INFO_NEEDED) {
 
-                    mTextViewError.setVisibility(View.VISIBLE);
-                    mTextViewError.setText("개인정보 취급방침 동의가 필요합니다.");
+                    msg += "개인정보 취급방침 동의가 필요합니다.\n";
                 }
-            }
 
-            if (mIsIdValid && idCode == mPresenter.ID_VALID && pwCode == mPresenter.PWD_VALID &&
-                    emailCode == mPresenter.EMAIL_VALID && genderCode == mPresenter.GENDER_VALID &&
-                    phoneNumberCode == mPresenter.PHONE_VALID && neededCheckCode == mPresenter.NEEDED_VALID &&
-                    birthDateCode == mPresenter.BIRTH_VALID) {
+                showDialog(msg);
+            } else {
 
                 mBundleData.putString("id", editTextToString(mEditTextId));
                 mBundleData.putString("pwd", editTextToString(mEditTextPwd));
@@ -565,7 +624,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
             mBtnCheckIdDuplication.setEnabled(false);
             mBtnCheckIdDuplication.setText("확인 완료");
-            mBtnCheckIdDuplication.setBackgroundColor(getResources().getColor(R.color.light_green));
+            mBtnCheckIdDuplication.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.light_green));
         } else if (status == UserApi.ID_DUPLICATE) {
 
             mEditTextId.setError("중복된 아이디가 존재합니다.");
