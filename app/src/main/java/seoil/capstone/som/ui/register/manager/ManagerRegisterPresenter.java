@@ -16,6 +16,7 @@ import seoil.capstone.som.ui.register.ValidChecker;
 
 public class ManagerRegisterPresenter extends ValidChecker implements ManagerRegisterContract.Presenter {
 
+    public static final String TAG = "MRegitPresenter";
     private ManagerRegisterContract.View mView;
     private ManagerRegisterInteractor mInteractor;
 
@@ -90,6 +91,49 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         };
 
         mInteractor.register(new Register.Manager(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement, shopCode, shopName, shopPostCode, shopAddress, shopCategory), onFinishApiListener);
+    }
+
+    @Override
+    public void sendSms(String phoneNumber) {
+
+        OnFinishApiListener<Auth.StatusRes> onFinishApiListener = new OnFinishApiListener<Auth.StatusRes>() {
+            @Override
+            public void onSuccess(Auth.StatusRes statusRes) {
+
+                if (statusRes.getStatus() == UserApi.SUCCESS) {
+
+                    mView.showDialog("인증번호가 발송되었습니다.");
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+                Log.d(TAG, "sms Error : " + t);
+            }
+        };
+
+        mInteractor.sendSms(new Auth.Req(phoneNumber, null), onFinishApiListener);
+    }
+
+    @Override
+    public void sendAuthCode(String phoneNumber, String authCode) {
+
+        OnFinishApiListener<Auth.StatusRes> onFinishApiListener = new OnFinishApiListener<Auth.StatusRes>() {
+            @Override
+            public void onSuccess(Auth.StatusRes statusRes) {
+
+                mView.changePhoneAuthButton(statusRes.getStatus());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+                Log.d(TAG, "phone auth Error : " + t);
+            }
+        };
+
+        mInteractor.sendAuthCode(new Auth.Req(phoneNumber, authCode), onFinishApiListener);
     }
 
     public int checkCorporateNumber(String corporateNumber) {
