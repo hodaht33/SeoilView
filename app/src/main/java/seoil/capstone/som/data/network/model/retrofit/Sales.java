@@ -30,6 +30,6 @@ public interface Sales {
     @PUT("sales/spending")
     Call<SalesData.StatusRes> updateSpendingSales(@Body SalesData.Req req);
 
-    @DELETE("sales/{shpoId}/spending")
+    @DELETE("sales/{shopId}/spending")
     Call<SalesData.StatusRes> deleteSpendingSales(@Path("shopId") String shopId, @Query("salesCode") int salesCode, @Query("salesDate") String salesDate);
 }
