@@ -38,8 +38,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
                 .beginTransaction()
                 .add(mFragmentLayoutId, selectUserFragment)
                 .commit();
-
-        selectUserFragment = null;
     }
 
     @Override
@@ -59,7 +57,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(mFragmentLayoutId, fragment)
-                .addToBackStack(null)
                 .commit();
     }
 

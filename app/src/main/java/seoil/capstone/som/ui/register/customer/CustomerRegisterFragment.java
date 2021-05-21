@@ -2,17 +2,21 @@ package seoil.capstone.som.ui.register.customer;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +33,15 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.Auth;
+import seoil.capstone.som.ui.register.RegisterCommunicator;
+import seoil.capstone.som.ui.register.select.SelectUserFragment;
 import seoil.capstone.som.util.Utility;
 
 // TODO: 제대로된 MVP으로 만들어져 있지 않음, 추후 리팩토링 필요(presenter내에서 valid검사, id중복확인 요청은 interactor를 통해 수행)
 public class CustomerRegisterFragment extends Fragment implements CustomerRegisterContract.View, View.OnClickListener, OnFinishApiListener<Auth.StatusRes> {
 
+    private RegisterCommunicator.Communicator mCommunicator;
+    private OnBackPressedCallback mOnBackPressedCallback;
     private CustomerRegisterPresenter mPresenter;
     private TextInputEditText mEditTextId;
     private TextInputEditText mEditTextPwd;
@@ -63,9 +71,54 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
     private boolean mIsValidPhoneNumber;
     private int mIdValidCode;
     private Dialog mDialog;
+    private long mLastTimeBackPressed;
 
     public CustomerRegisterFragment() {
 
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof RegisterCommunicator.Communicator) {
+
+            mCommunicator = (RegisterCommunicator.Communicator) context;
+        } else {
+
+            throw new RuntimeException(context.toString() + " not implement Communicator");
+        }
+
+        // 뒤로가기 버튼 콜백 함수
+        mOnBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+                if(System.currentTimeMillis() - mLastTimeBackPressed < 1000) {
+
+                    Log.d("test", "t");
+                    // 들고있던 정보 가지고 되돌아감
+                    mCommunicator.changeAnotherFragment(new SelectUserFragment(), getArguments());
+
+                    return;
+                }
+
+                mLastTimeBackPressed = System.currentTimeMillis();
+                Toast.makeText(getActivity(),"'뒤로' 버튼을 한 번 더 누르면 회원 선택 창으로 돌아갑니다.", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        // 뒤로가기 버튼에 콜백 함수 등록
+        requireActivity().getOnBackPressedDispatcher().addCallback(mOnBackPressedCallback);
+    }
+
+    @Override
+    public void onDetach() {
+
+        mOnBackPressedCallback.remove();
+        mCommunicator = null;
+
+        super.onDetach();
     }
 
     @Override
@@ -168,9 +221,32 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             }
         } else if (viewId == R.id.btnCRegitSendAuthorizationCode) {
 
-            mPresenter.sendSms(mEditTextPhoneNumber.getText().toString());
-            mTextLayoutAuthCode.setVisibility(View.VISIBLE);
-            mBtnCheckAuthCode.setVisibility(View.VISIBLE);
+            int phoneValid = mPresenter.phoneNumberValid(mEditTextPhoneNumber.getText().toString());
+
+            if (phoneValid != mPresenter.PHONE_VALID) {
+
+                if (phoneValid == mPresenter.PHONE_EMPTY) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPhoneNumber.setError("핸드폰 번호를 입력해주세요.");
+                    mEditTextPhoneNumber.requestFocus();
+                } else if (phoneValid == mPresenter.PHONE_LENGTH_ERROR) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPhoneNumber.setError("'-'없이 11자리로 입력해주세요.");
+                    mEditTextPhoneNumber.requestFocus();
+                } else if (phoneValid == mPresenter.PHONE_ERROR_OTHER_CHAR) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPhoneNumber.setError("숫자만 입력해주세요.");
+                    mEditTextPhoneNumber.requestFocus();
+                }
+            } else {
+
+                mPresenter.sendSms(mEditTextPhoneNumber.getText().toString());
+                mBtnCheckAuthCode.setVisibility(View.VISIBLE);
+                mTextLayoutAuthCode.setVisibility(View.VISIBLE);
+            }
         } else if (viewId == R.id.btnCRegitCheckAuthorizationCode) {
 
             mPresenter.sendAuthCode(mEditTextPhoneNumber.getText().toString(), mEditTextAuthCode.getText().toString());
@@ -623,6 +699,6 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
     @Override
     public void onFailure(Throwable t) {
 
-        Toast.makeText(getActivity(), "에러 발생", Toast.LENGTH_LONG).show();
+        showDialog("아이디 중복 확인 불가");
     }
 }

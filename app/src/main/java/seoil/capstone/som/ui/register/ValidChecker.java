@@ -6,11 +6,18 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
+import seoil.capstone.som.data.network.api.UserApi;
+import seoil.capstone.som.data.network.model.Auth;
+import seoil.capstone.som.ui.register.customer.CustomerRegisterContract;
 import seoil.capstone.som.util.Utility;
 
 public class ValidChecker {
@@ -40,7 +47,6 @@ public class ValidChecker {
     public final int PERSONAL_INFO_NEEDED = 2;
     public final int NEEDED_VALID = 0;
 
-
     public int idValid(String id) {
 
         if (id.isEmpty()) {
@@ -59,9 +65,9 @@ public class ValidChecker {
 
     public boolean checkIdValid(String id, OnFinishApiListener onFinishApiListener) {
 
-            AppApiHelper.getInstance().checkIdDuplicate(id, onFinishApiListener);
+        AppApiHelper.getInstance().checkIdDuplicate(id, onFinishApiListener);
 
-            return true;
+        return true;
         // TODO: Presenter와 Interactor로 나누면 해결될 문제 Presenter에서 onSuccess내에서 뷰를 바꿔주는 함수를 호출하면 되기 때문, 추후 리팩토링
         // TODO: 하지만 중복을 피하면서 모두 분리하면 클래스가 늘어나는데 괜찮은가?
     }
@@ -95,13 +101,6 @@ public class ValidChecker {
 
         return EMAIL_VALID;
     }
-
-//    public String phoneNumberToInternationalNumber(String phoneNumber) {
-//
-//        // 유효성검사를 이미 했다고 치고 변환
-//        // TODO: SMS API에 따라 다른지 확인 후 변경
-//        return phoneNumber.replaceFirst("0", "+82");
-//    }
 
     public int phoneNumberValid(String phoneNumberText) {
 

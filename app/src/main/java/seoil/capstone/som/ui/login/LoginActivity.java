@@ -27,8 +27,6 @@ import seoil.capstone.som.util.Utility;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View, View.OnClickListener, TextView.OnEditorActionListener {
 
-    private static final String TAG = "LoginActivity";
-
     private LoginPresenter mPresenter;
 
     private SharedPreferences mSharedPreferences;
@@ -43,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     private Button mBtnToRegit;
     private Button mBtnFindIdPwd;
     private CheckBox mChkBoxKeepLogin;
+    private long mLastTimeBackPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +76,19 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         mNaverLogin.setOnClickListener(this);
         mKakaoLogin.setOnClickListener(this);
         mBtnFindIdPwd.setOnClickListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(System.currentTimeMillis() - mLastTimeBackPressed < 1000) {
+            finish();
+
+            return;
+        }
+
+        mLastTimeBackPressed = System.currentTimeMillis();
+        Toast.makeText(this,"'뒤로' 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

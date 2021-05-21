@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setContentView(R.layout.activity_main);
 
         String userId = getIntent().getStringExtra("userId");
-        Toast.makeText(this, "Login to " + userId, Toast.LENGTH_LONG);
 
         mUserCode = getIntent().getBundleExtra("data").getString("code", "C");
 
@@ -62,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void onBackPressed() {
+
         if(System.currentTimeMillis() - mLastTimeBackPressed < 1000) {
             finish();
 
@@ -147,7 +147,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 .beginTransaction()
                 .replace(R.id.fragmentLayoutMain, selectedFragment)
                 .commit();
-
 
         return true;
     }
