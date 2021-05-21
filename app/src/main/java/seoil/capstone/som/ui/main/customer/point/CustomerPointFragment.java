@@ -23,9 +23,6 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
 
 
     private RecyclerView mRecyclerView;
-    private List<CustomerPointAdapter.Item> mCurrentPoint;
-    private CustomerPointAdapter.Item mUsePoint;
-    private CustomerPointAdapter.Item mSavePoint;
     private List<CustomerPointAdapter.Item> mPoint;
 
     private CustomerPointAdapter mAdapter;
@@ -41,7 +38,6 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
         super.onCreate(savedInstanceState);
 
 
-        mCurrentPoint = new ArrayList<>();
         mPoint = new ArrayList<>();
     }
 
