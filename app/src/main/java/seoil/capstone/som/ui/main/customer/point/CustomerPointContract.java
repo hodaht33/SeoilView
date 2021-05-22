@@ -13,9 +13,9 @@ public interface CustomerPointContract {
 
         void setCurrentPoint(List<CustomerPointAdapter.Item> currentPoint);
 
-        void setUsePoint(CustomerPointAdapter.Item usePoint);
+        void setUsePoint(CustomerPointAdapter.Item usePoint, List<String> useDate);
 
-        void setSavePoint(CustomerPointAdapter.Item savePoint);
+        void setSavePoint(CustomerPointAdapter.Item savePoint, List<String> saveDate);
 
     }
 

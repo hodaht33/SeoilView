@@ -49,7 +49,17 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
 
                     List<CustomerPointAdapter.Item> list = new ArrayList<>();
                     list.add(new CustomerPointAdapter.Item(CustomerPointAdapter.HEADER,"잔여 포인트"));
-                    list.add(new CustomerPointAdapter.Item(CustomerPointAdapter.CHILD, String.valueOf(getCurrentRes.getPoint())));
+                    Integer amount = getCurrentRes.getPoint();
+
+                    if (amount == null) {
+
+                        list.add(new CustomerPointAdapter.Item(CustomerPointAdapter.CHILD, String.valueOf(0)));
+                    } else {
+
+                        list.add(new CustomerPointAdapter.Item(CustomerPointAdapter.CHILD, String.valueOf(getCurrentRes.getPoint())));
+                    }
+
+
 
                     view.setCurrentPoint(list);
                 }
@@ -77,12 +87,27 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
                     List<PointData.GetSaveRes.Result> list = getSaveRes.getResults();
 
                     savePoint.invisibleChildren = new ArrayList<>();
-                    for (PointData.GetSaveRes.Result result : list) {
 
-                        savePoint.invisibleChildren.add(new CustomerPointAdapter.Item(CustomerPointAdapter.CHILD, String.valueOf(result.getSavePointAmount())));
+
+                    List<String> saveDate = new ArrayList<>();
+                    saveDate.add("");
+
+                    if (list == null) {
+
+                        savePoint.invisibleChildren.add(new CustomerPointAdapter.Item(CustomerPointAdapter.CHILD, String.valueOf(0)));
+                        saveDate.add("");
+                    } else {
+
+
+                        for (PointData.GetSaveRes.Result result : list) {
+
+                            saveDate.add(result.getSavePointDate().substring(0, 10));
+                            savePoint.invisibleChildren.add(new CustomerPointAdapter.Item(CustomerPointAdapter.CHILD, String.valueOf(result.getSavePointAmount())));
+                        }
                     }
 
-                    view.setSavePoint(savePoint);
+
+                    view.setSavePoint(savePoint, saveDate);
                 }
             }
 
@@ -108,11 +133,26 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
                     List<PointData.GetUsingRes.Result> list = getUsingRes.getResults();
 
                     usePoint.invisibleChildren = new ArrayList<>();
-                    for (PointData.GetUsingRes.Result result : list) {
 
-                        usePoint.invisibleChildren.add(new CustomerPointAdapter.Item(CustomerPointAdapter.CHILD, String.valueOf(result.getUsingPointAmount())));
+                    List<String> useDate = new ArrayList<>();
+                    useDate.add("");
+
+                    if (list == null) {
+
+                        usePoint.invisibleChildren.add(new CustomerPointAdapter.Item(CustomerPointAdapter.CHILD, String.valueOf(0)));
+                        useDate.add("");
+                    } else {
+
+                        for (PointData.GetUsingRes.Result result : list) {
+
+                            useDate.add(result.getUsingPointDate().substring(0, 10));
+                            usePoint.invisibleChildren.add(new CustomerPointAdapter.Item(CustomerPointAdapter.CHILD, String.valueOf(result.getUsingPointAmount())));
+                        }
                     }
-                    view.setUsePoint(usePoint);
+
+
+
+                    view.setUsePoint(usePoint, useDate);
                 }
             }
 

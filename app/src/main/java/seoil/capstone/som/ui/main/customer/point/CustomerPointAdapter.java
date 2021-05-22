@@ -22,15 +22,17 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
     public static final int HEADER = 0;
     public static final int CHILD = 1;
 
-    private Context mContext;
+    private final Context mContext;
 
-    private List<Item> data;
+    private final List<Item> pointList;
+    private final List<String> mPointDate;
 
-    public CustomerPointAdapter(List<Item> point, Context context) {
+    public CustomerPointAdapter(List<Item> point, Context context, List<String> pointDate) {
 
-        data = point;
+        pointList = point;
 
         mContext = context;
+        mPointDate = pointDate;
     }
 
     @NonNull
@@ -38,6 +40,7 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
     public CustomerPointAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = null;
         Context context = parent.getContext();
+
 
         switch (viewType) {
             case HEADER:
@@ -60,29 +63,29 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
     @Override
     public void onBindViewHolder(@NonNull CustomerPointAdapter.ViewHolder holder, int position) {
 
-        final Item item = data.get(position);
+        final Item item = pointList.get(position);
         switch (item.type) {
             case HEADER:
                 final ViewHolder itemController =  holder;
                 itemController.refferalItem = item;
-                itemController.header_title.setText(item.text);
-                itemController.header_title.setOnClickListener(new View.OnClickListener() {
+                itemController.headerTitle.setText(item.text);
+                itemController.headerTitle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (item.invisibleChildren == null) {
                             item.invisibleChildren = new ArrayList<>();
                             int count = 0;
-                            int pos = data.indexOf(itemController.refferalItem);
-                            while (data.size() > pos + 1 && data.get(pos + 1).type == CHILD) {
-                                item.invisibleChildren.add(data.remove(pos + 1));
+                            int pos = pointList.indexOf(itemController.refferalItem);
+                            while (pointList.size() > pos + 1 && pointList.get(pos + 1).type == CHILD) {
+                                item.invisibleChildren.add(pointList.remove(pos + 1));
                                 count++;
                             }
                             notifyItemRangeRemoved(pos + 1, count);
                         } else {
-                            int pos = data.indexOf(itemController.refferalItem);
+                            int pos = pointList.indexOf(itemController.refferalItem);
                             int index = pos + 1;
                             for (Item i : item.invisibleChildren) {
-                                data.add(index, i);
+                                pointList.add(index, i);
                                 index++;
                             }
                             notifyItemRangeInserted(pos + 1, index - pos - 1);
@@ -96,8 +99,25 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
                 float dp = mContext.getResources().getDisplayMetrics().density;
                 int subItemPaddingLeft = (int) (18 * dp);
                 int subItemPaddingTopAndBottom = (int) (5 * dp);
-                holder.header_title.setPadding(subItemPaddingLeft, subItemPaddingTopAndBottom, 0, subItemPaddingTopAndBottom);
-                holder.header_title.setText(data.get(position).text);
+                holder.headerTitle.setPadding(subItemPaddingLeft, subItemPaddingTopAndBottom, 0, subItemPaddingTopAndBottom);
+
+                int count = 0;
+                for (int i = 0; i < position; i ++) {
+
+                    if (pointList.get(i).invisibleChildren != null) {
+                        count = count + pointList.get(i).invisibleChildren.size();
+                    }
+                }
+
+                if (position > 1) {
+
+                    final String temp = pointList.get(position).text + " : " + mPointDate.get(position + count);
+                    holder.headerTitle.setText(temp);
+                } else {
+
+                    holder.headerTitle.setText(pointList.get(position).text);
+                }
+
                 break;
         }
     }
@@ -106,17 +126,21 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
 
     @Override
     public int getItemCount() {
-        return data.size();
+        if (pointList == null) {
+
+            return 0;
+        }
+        return pointList.size();
     }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView header_title;
+        public TextView headerTitle;
         public Item refferalItem;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            header_title = itemView.findViewById(R.id.textViewCPointHeader);
+            headerTitle = itemView.findViewById(R.id.textViewCPointHeader);
         }
     }
 
@@ -133,15 +157,6 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
             this.type = type;
             this.text = text;
         }
-    }
-
-
-    public void setPoint(List<Item> point) {
-
-        data.clear();
-
-        data.addAll(point);
-        notifyDataSetChanged();
     }
 
 }

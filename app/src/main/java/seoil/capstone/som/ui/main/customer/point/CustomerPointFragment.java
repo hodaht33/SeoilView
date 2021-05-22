@@ -28,6 +28,7 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
     private CustomerPointAdapter mAdapter;
     private CustomerPointPresenter mPresenter;
     private String mUserId;
+    private List<String> mPointDate;
 
     public CustomerPointFragment() {
 
@@ -37,7 +38,7 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        mPointDate = new ArrayList<>();
         mPoint = new ArrayList<>();
     }
 
@@ -96,35 +97,45 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
             mPoint.clear();
 
         }
+
         mPoint.addAll(currentPoint);
         mPresenter.getUsePoint(mUserId);
     }
 
     @Override
-    public synchronized void setUsePoint(CustomerPointAdapter.Item usePoint) {
+    public synchronized void setUsePoint(CustomerPointAdapter.Item usePoint, List<String> useDate) {
+
+        if (mPointDate != null) {
+
+            mPointDate.clear();
+        }
+
+        mPointDate.add("");
+        mPointDate.add("");
+        mPointDate.addAll(useDate);
 
         mPoint.add(usePoint);
         mPresenter.getSavePoint(mUserId);
     }
 
     @Override
-    public synchronized void setSavePoint(CustomerPointAdapter.Item savePoint) {
+    public synchronized void setSavePoint(CustomerPointAdapter.Item savePoint, List<String> saveDate) {
 
         mPoint.add(savePoint);
+
+        mPointDate.addAll(saveDate);
 
         setData();
     }
 
     public synchronized void initPoint() {
 
-
         mPresenter.getCurrentPoint(mUserId);
-
     }
 
     private void setData() {
 
-        mAdapter = new CustomerPointAdapter(mPoint, getContext());
+        mAdapter = new CustomerPointAdapter(mPoint, getContext(), mPointDate);
         mRecyclerView.setAdapter(mAdapter);
     }
 
