@@ -3,12 +3,12 @@ package seoil.capstone.som.ui.register.manager;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.Auth;
-import seoil.capstone.som.data.network.model.Register;
+import seoil.capstone.som.data.network.model.UserData;
 
 public class ManagerRegisterInteractor implements ManagerRegisterContract.Interactor {
 
     @Override
-    public void register(Register.Manager manager, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
+    public void register(UserData.Manager manager, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
 
         AppApiHelper.getInstance().managerRegister(manager, onFinishApiListener);
     }

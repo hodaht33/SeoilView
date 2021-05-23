@@ -7,7 +7,7 @@ import android.util.Log;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.Auth;
-import seoil.capstone.som.data.network.model.Register;
+import seoil.capstone.som.data.network.model.UserData;
 import seoil.capstone.som.ui.login.LoginActivity;
 import seoil.capstone.som.ui.main.MainActivity;
 import seoil.capstone.som.ui.register.ValidChecker;
@@ -41,9 +41,9 @@ public class CustomerRegisterPresenter extends ValidChecker implements CustomerR
     @Override
     public void register(Context context, String platform, String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement) {
 
-        OnFinishApiListener<Register.RegisterRes> onFinishApiListener = new OnFinishApiListener<Register.RegisterRes>() {
+        OnFinishApiListener<UserData.StatusRes> onFinishApiListener = new OnFinishApiListener<UserData.StatusRes>() {
             @Override
-            public void onSuccess(Register.RegisterRes registerResponse) {
+            public void onSuccess(UserData.StatusRes registerResponse) {
 
                 if (registerResponse.getStatus() == UserApi.SUCCESS) {
 
@@ -73,7 +73,7 @@ public class CustomerRegisterPresenter extends ValidChecker implements CustomerR
             }
         };
 
-        mInteractor.register(new Register.Customer(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement), onFinishApiListener);
+        mInteractor.register(new UserData.Customer(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement), onFinishApiListener);
     }
 
     @Override

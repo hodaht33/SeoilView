@@ -9,7 +9,7 @@ import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.Auth;
-import seoil.capstone.som.data.network.model.Register;
+import seoil.capstone.som.data.network.model.UserData;
 import seoil.capstone.som.ui.login.LoginActivity;
 import seoil.capstone.som.ui.main.MainActivity;
 import seoil.capstone.som.ui.register.ValidChecker;
@@ -58,9 +58,9 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
     public void register(Context context, String platform, String id, String pwd, String birthdate, String gender, String email, String phoneNumber,
                          String shopCode, String shopName, String shopPostCode, String shopAddress, String shopCategory, boolean marketingAgreement) {
 
-        OnFinishApiListener<Register.RegisterRes> onFinishApiListener = new OnFinishApiListener<Register.RegisterRes>() {
+        OnFinishApiListener<UserData.StatusRes> onFinishApiListener = new OnFinishApiListener<UserData.StatusRes>() {
             @Override
-            public void onSuccess(Register.RegisterRes registerResponse) {
+            public void onSuccess(UserData.StatusRes registerResponse) {
 
                 if (registerResponse.getStatus() == UserApi.SUCCESS) {
 
@@ -90,7 +90,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
             }
         };
 
-        mInteractor.register(new Register.Manager(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement, shopCode, shopName, shopPostCode, shopAddress, shopCategory), onFinishApiListener);
+        mInteractor.register(new UserData.Manager(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement, shopCode, shopName, shopPostCode, shopAddress, shopCategory), onFinishApiListener);
     }
 
     @Override

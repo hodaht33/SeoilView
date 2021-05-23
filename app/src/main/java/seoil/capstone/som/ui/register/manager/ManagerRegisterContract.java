@@ -6,13 +6,13 @@ import android.content.Intent;
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.Auth;
-import seoil.capstone.som.data.network.model.Register;
+import seoil.capstone.som.data.network.model.UserData;
 
 public interface ManagerRegisterContract {
 
     interface Interactor extends BaseContract.Interactor {
 
-        void register(Register.Manager manager, OnFinishApiListener<Register.RegisterRes> onFinishApiListener);
+        void register(UserData.Manager manager, OnFinishApiListener<UserData.StatusRes> onFinishApiListener);
         void sendSms(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener);
         void sendAuthCode(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener);
     }
