@@ -12,6 +12,9 @@ import seoil.capstone.som.data.network.model.ShopData;
 
 public interface Shop {
 
+    @GET("shop/{shopId}/information")
+    Call<ShopData.GetRes> getShopInformation(@Path("shopId") String shopId);
+
     @GET("shop/name")
     Call<ShopData.GetRes> getShopInfoWithKeyword(@Query("keyword") String keyword, @Query("page") int page);
 

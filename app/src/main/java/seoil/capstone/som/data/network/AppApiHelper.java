@@ -287,6 +287,11 @@ public class AppApiHelper {
         mUserApi.insertManager(managerRequest, onFinishApiListener);
     }
 
+    public void getShopInformation(String shopId, OnFinishApiListener<ShopData.GetRes> onFinishApiListener) {
+
+        mShopApi.getShopInformation(shopId, onFinishApiListener);
+    }
+
     public void getShopInfoWithKeyword(String keyword, int page, OnFinishApiListener<ShopData.GetRes> onFinishApiListener) {
 
         mShopApi.getShopInfoWithKeyword(keyword, page, onFinishApiListener);
