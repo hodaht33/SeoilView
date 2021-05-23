@@ -3,7 +3,9 @@ package seoil.capstone.som.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Register {
+import java.util.List;
+
+public class UserData {
 
     /////////
     // 요청 //
@@ -255,7 +257,48 @@ public class Register {
     // 응답 //
     /////////
 
-    public static class RegisterRes {
+    public static class FindIdRes {
+
+        public class Result {
+
+            @SerializedName("userId")
+            @Expose
+            private String userId;
+
+            public String getUserId() {
+                return userId;
+            }
+
+            public void setUserId(String userId) {
+                this.userId = userId;
+            }
+        }
+
+        @SerializedName("status")
+        @Expose
+        private int status;
+        @SerializedName("results")
+        @Expose
+        private List<Result> results;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public List<Result> getResults() {
+            return results;
+        }
+
+        public void setResults(List<Result> results) {
+            this.results = results;
+        }
+    }
+
+    public static class StatusRes {
 
         @SerializedName("status")
         @Expose
