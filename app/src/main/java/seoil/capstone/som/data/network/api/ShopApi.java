@@ -23,6 +23,29 @@ public class ShopApi {
         mShopInfo = retrofit.create(Shop.class);
     }
 
+    public void getShopInformation(String shopId, OnFinishApiListener onFinishApiListener) {
+
+        Call<ShopData.GetRes> call = mShopInfo.getShopInformation(shopId);
+        call.enqueue(new Callback<ShopData.GetRes>() {
+            @Override
+            public void onResponse(Call<ShopData.GetRes> call, Response<ShopData.GetRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ShopData.GetRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
     public void getShopInfoWithKeyword(String keyword, int page, OnFinishApiListener onFinishApiListener) {
 
         Call<ShopData.GetRes> call = mShopInfo.getShopInfoWithKeyword(keyword, page);

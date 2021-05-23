@@ -90,6 +90,12 @@ public class BookmarkInfo {
             @SerializedName("shopId")
             @Expose
             private String shopId;
+            @SerializedName("shopName")
+            @Expose
+            private String shopName;
+            @SerializedName("shopCategory")
+            @Expose
+            private String shopCategoory;
 
             public String getShopId() {
                 return shopId;
@@ -97,6 +103,22 @@ public class BookmarkInfo {
 
             public void setShopId(String shopId) {
                 this.shopId = shopId;
+            }
+
+            public String getShopName() {
+                return shopName;
+            }
+
+            public void setShopName(String shopName) {
+                this.shopName = shopName;
+            }
+
+            public String getShopCategoory() {
+                return shopCategoory;
+            }
+
+            public void setShopCategoory(String shopCategoory) {
+                this.shopCategoory = shopCategoory;
             }
         }
 
