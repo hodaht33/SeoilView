@@ -42,6 +42,7 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         mPresenter = new CustomerSearchPresenter();

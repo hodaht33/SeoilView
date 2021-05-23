@@ -86,5 +86,6 @@ public class CustomerSearchPresenter implements CustomerSearchContract.Presenter
             }
         };
         mInteractor.insertShop(ShopId, ShopName, ShopAddrees, onFinishApiListener);
+
     }
 }

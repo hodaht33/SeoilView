@@ -51,6 +51,5 @@
             android:text="주소"
             android:textColor="@color/black"
             android:textSize="12dp" />
-
     </RelativeLayout>
 </RelativeLayout>

@@ -39,6 +39,7 @@ public interface CustomerSearchContract {
     }
 
     interface  Presenter extends BaseContract.Presenter<CustomerSearchContract.View> {
+
         void setView(View view);
 
         void releaseView();

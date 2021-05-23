@@ -31,6 +31,7 @@ public class CustomerSearchAdapter extends  RecyclerView.Adapter<CustomerSearchA
         mPresenter = presenter;
         mShopId = shopId;
         mContext = context;
+
     }
 
     @NonNull

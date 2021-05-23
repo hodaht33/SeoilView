@@ -55,7 +55,6 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         View view = inflater.inflate(R.layout.fragment_customer_point, container, false);
 
         initView(view);

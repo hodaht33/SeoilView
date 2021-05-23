@@ -16,7 +16,8 @@
             android:layout_height="match_parent"
             android:src="@drawable/default_poster"
             android:scaleType="center"
-            android:background="@color/grayMedium"/>
+            android:background="@color/grayMedium"
+            />
 
         <RelativeLayout
             android:id="@+id/RelativeLayoutShopDetail"
