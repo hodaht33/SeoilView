@@ -13,7 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.login.LoginActivity;
-import seoil.capstone.som.ui.main.customer.home.CustomerHomeFragment;
+import seoil.capstone.som.ui.main.customer.bookmark.CustomerBookmarkFragment;
 import seoil.capstone.som.ui.main.customer.point.CustomerPointFragment;
 import seoil.capstone.som.ui.main.customer.search.CustomerSearchFragment;
 import seoil.capstone.som.ui.main.manager.event.ManagerEventFragment;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.fragmentLayoutMain, new CustomerHomeFragment())
+                    .add(R.id.fragmentLayoutMain, new CustomerPointFragment())
                     .commit();
         } else if (mUserCode.equals("M")) {
 
@@ -101,10 +101,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
             switch (item.getItemId()) {
 
-                case R.id.item_customer_home_fragment:
-
-                    selectedFragment = new CustomerHomeFragment();
-                    break;
                 case R.id.item_customer_point_fragment:
 
                     selectedFragment = new CustomerPointFragment();
@@ -112,6 +108,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 case R.id.item_customer_search_fragment:
 
                     selectedFragment = new CustomerSearchFragment();
+                    break;
+                case R.id.item_customer_bookmark_fragment:
+
+                    selectedFragment = new CustomerBookmarkFragment();
                     break;
                 default:
 
