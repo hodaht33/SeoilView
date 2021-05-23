@@ -7,18 +7,6 @@
     tools:context=".ui.find.FindActivity">
 
     <Button
-        android:id="@+id/btnFindBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:text="취소"
-        android:backgroundTint="@color/btn_color"
-        android:textColor="@color/btn_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/btnFindFindPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -36,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="128dp"
         android:backgroundTint="@color/white"
         android:text="아이디"
         android:textColor="@color/gray"
@@ -52,8 +40,8 @@
         android:layout_height="0dp"
         android:layout_marginStart="64dp"
         android:layout_marginEnd="64dp"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnFindBack"
+        android:layout_marginBottom="256dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnFindFindId" />

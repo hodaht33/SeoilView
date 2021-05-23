@@ -1,41 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <Button
-        android:id="@+id/btnFindIdIdent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="본인인증"
-        android:backgroundTint="@color/btn_color"
-        android:textColor="@color/btn_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLayoutFindIdGetPhone" />
-
+    android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textLayoutFindIdGetPhone"
+        android:id="@+id/textLayoutFindIdPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="64dp"
         app:boxBackgroundColor="@color/input_layout_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextFindIdGetPhone"
+            android:id="@+id/editTextFindIdPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color"
-            android:hint="전화번호 숫자만 입력"
-            android:inputType="textPersonName" />
+            android:hint="핸드폰 번호"
+            android:inputType="textPersonName"
+            android:textColor="@color/text_color" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textLayoutFindIdAuthCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:visibility="gone"
+        app:boxBackgroundColor="@color/input_layout_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLayoutFindIdPhoneNumber">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextFindIdAuthCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="인증 번호"
+            android:inputType="textPersonName"
+            android:textColor="@color/text_color" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnFindIdSendAndAuth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/btn_color"
+        android:text="본인인증"
+        android:textColor="@color/btn_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLayoutFindIdAuthCode" />
+
+    <TextView
+        android:id="@+id/textViewFindIdResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        android:text="아이디\n\n"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnFindIdSendAndAuth" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
