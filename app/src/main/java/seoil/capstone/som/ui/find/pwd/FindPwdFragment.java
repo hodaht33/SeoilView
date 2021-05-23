@@ -1,4 +1,4 @@
-package seoil.capstone.som.ui.find;
+package seoil.capstone.som.ui.find.pwd;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,11 +11,11 @@ import androidx.fragment.app.Fragment;
 
 import seoil.capstone.som.R;
 
-public class FragmentID extends Fragment {
+public class FindPwdFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        return inflater.inflate(R.layout.fragment_find_id, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_find_pwd, container, false);
     }
 }
