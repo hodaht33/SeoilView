@@ -3,12 +3,12 @@ package seoil.capstone.som.ui.register.customer;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.Auth;
-import seoil.capstone.som.data.network.model.Register;
+import seoil.capstone.som.data.network.model.UserData;
 
 public class CustomerRegisterInteractor implements CustomerRegisterContract.Interactor {
 
     @Override
-    public void register(Register.Customer customer, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
+    public void register(UserData.Customer customer, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
 
         AppApiHelper.getInstance().customerRegister(customer, onFinishApiListener);
     }
