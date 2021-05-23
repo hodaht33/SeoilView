@@ -34,7 +34,7 @@ import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.EventData;
 import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.data.network.model.PointData;
-import seoil.capstone.som.data.network.model.Register;
+import seoil.capstone.som.data.network.model.UserData;
 import seoil.capstone.som.data.network.model.SalesData;
 import seoil.capstone.som.data.network.model.ShopData;
 import seoil.capstone.som.data.network.model.StatisticsData;
@@ -227,6 +227,11 @@ public class AppApiHelper {
         mUserApi.sendAuthCode(req, onFinishApiListener);
     }
 
+    public void sendAuthForFindId(Auth.Req req, OnFinishApiListener<UserData.FindIdRes> onFinishApiListener) {
+
+        mUserApi.sendAuthForFindId(req, onFinishApiListener);
+    }
+
     public void checkIdDuplicate(String id, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         mUserApi.checkIdDuplicate(id, onFinishApiListener);
@@ -237,7 +242,7 @@ public class AppApiHelper {
         mUserApi.checkRegistrationNumber(number, onFinishApiListener);
     }
 
-    public void customerRegister(Register.Customer registerRequest, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
+    public void customerRegister(UserData.Customer registerRequest, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
 
         mUserApi.insertCustomer(registerRequest, onFinishApiListener);
     }
@@ -282,7 +287,7 @@ public class AppApiHelper {
         mPointApi.getUsingAndSavePointData(userId, onFinishApiListener);
     }
 
-    public void managerRegister(Register.Manager managerRequest, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
+    public void managerRegister(UserData.Manager managerRequest, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
 
         mUserApi.insertManager(managerRequest, onFinishApiListener);
     }

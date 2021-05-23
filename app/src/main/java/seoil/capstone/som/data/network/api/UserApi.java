@@ -7,7 +7,7 @@ import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.Login;
-import seoil.capstone.som.data.network.model.Register;
+import seoil.capstone.som.data.network.model.UserData;
 import seoil.capstone.som.data.network.model.retrofit.User;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 
@@ -106,6 +106,29 @@ public class UserApi {
         });
     }
 
+    public void sendAuthForFindId(Auth.Req req, OnFinishApiListener<UserData.FindIdRes> onFinishApiListener) {
+
+        Call<UserData.FindIdRes> call = mUserData.sendAuthForFindId(req);
+        call.enqueue(new Callback<UserData.FindIdRes>() {
+            @Override
+            public void onResponse(Call<UserData.FindIdRes> call, Response<UserData.FindIdRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<UserData.FindIdRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
     public void checkIdDuplicate(String id, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         Call<Auth.StatusRes> call = mUserData.checkIdDuplicate(id);
@@ -129,12 +152,12 @@ public class UserApi {
         });
     }
 
-    public void insertCustomer(Register.Customer registerRequest, OnFinishApiListener<Register.RegisterRes> onFinishApiListener) {
+    public void insertCustomer(UserData.Customer registerRequest, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
 
-        Call<Register.RegisterRes> call = mUserData.insertCustomer(registerRequest);
-        call.enqueue(new Callback<Register.RegisterRes>() {
+        Call<UserData.StatusRes> call = mUserData.insertCustomer(registerRequest);
+        call.enqueue(new Callback<UserData.StatusRes>() {
             @Override
-            public void onResponse(Call<Register.RegisterRes> call, Response<Register.RegisterRes> response) {
+            public void onResponse(Call<UserData.StatusRes> call, Response<UserData.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -145,19 +168,19 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<Register.RegisterRes> call, Throwable t) {
+            public void onFailure(Call<UserData.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
         });
     }
 
-    public void insertManager(Register.Manager registerRequest, OnFinishApiListener onFinishApiListener) {
+    public void insertManager(UserData.Manager registerRequest, OnFinishApiListener onFinishApiListener) {
 
-        Call<Register.RegisterRes> call = mUserData.insertManager(registerRequest);
-        call.enqueue(new Callback<Register.RegisterRes>() {
+        Call<UserData.StatusRes> call = mUserData.insertManager(registerRequest);
+        call.enqueue(new Callback<UserData.StatusRes>() {
             @Override
-            public void onResponse(Call<Register.RegisterRes> call, Response<Register.RegisterRes> response) {
+            public void onResponse(Call<UserData.StatusRes> call, Response<UserData.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -168,7 +191,7 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<Register.RegisterRes> call, Throwable t) {
+            public void onFailure(Call<UserData.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

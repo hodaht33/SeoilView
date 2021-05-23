@@ -7,10 +7,9 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.Login;
-import seoil.capstone.som.data.network.model.Register;
+import seoil.capstone.som.data.network.model.UserData;
 
 public interface User {
 
@@ -24,6 +23,9 @@ public interface User {
     @POST("phone-auth/auth")
     Call<Auth.StatusRes> sendAuthCode(@Body Auth.Req req);
 
+    @POST("phone-auth/auth/find")
+    Call<UserData.FindIdRes> sendAuthForFindId(@Body Auth.Req req);
+
     // 아이디 중복 확인
     @GET("duplicate/{id}")
     Call<Auth.StatusRes> checkIdDuplicate(@Path("id") String id);
@@ -33,10 +35,10 @@ public interface User {
 
     // 유저 추가
     @POST("user/customer")
-    Call<Register.RegisterRes> insertCustomer(@Body Register.Customer request);
+    Call<UserData.StatusRes> insertCustomer(@Body UserData.Customer request);
 
     @POST("user/manager")
-    Call<Register.RegisterRes> insertManager(@Body Register.Manager request);
+    Call<UserData.StatusRes> insertManager(@Body UserData.Manager request);
 
     // 비밀번호 변경
     @PUT("user/{id}/password")
