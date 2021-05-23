@@ -59,7 +59,8 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
         initPoint();
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-
+        mAdapter = new CustomerPointAdapter(mPoint, getContext(), mPointDate);
+        mRecyclerView.setAdapter(mAdapter);
 
         return view;
     }
@@ -132,8 +133,6 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
 
     private void setData() {
 
-        mAdapter = new CustomerPointAdapter(mPoint, getContext(), mPointDate);
-        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setData(mPoint, mPointDate);
     }
-
 }

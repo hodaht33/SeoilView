@@ -22,12 +22,12 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
 
     private final Context mContext;
 
-    private final List<Item> pointList;
-    private final List<String> mPointDate;
+    private List<Item> mPointList;
+    private List<String> mPointDate;
 
     public CustomerPointAdapter(List<Item> point, Context context, List<String> pointDate) {
 
-        pointList = point;
+        mPointList = point;
 
         mContext = context;
         mPointDate = pointDate;
@@ -38,7 +38,6 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
     public CustomerPointAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = null;
         Context context = parent.getContext();
-
 
         switch (viewType) {
             case HEADER:
@@ -61,7 +60,7 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
     @Override
     public void onBindViewHolder(@NonNull CustomerPointAdapter.ViewHolder holder, int position) {
 
-        final Item item = pointList.get(position);
+        final Item item = mPointList.get(position);
         switch (item.type) {
             case HEADER:
                 final ViewHolder itemController =  holder;
@@ -73,17 +72,17 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
                         if (item.invisibleChildren == null) {
                             item.invisibleChildren = new ArrayList<>();
                             int count = 0;
-                            int pos = pointList.indexOf(itemController.refferalItem);
-                            while (pointList.size() > pos + 1 && pointList.get(pos + 1).type == CHILD) {
-                                item.invisibleChildren.add(pointList.remove(pos + 1));
+                            int pos = mPointList.indexOf(itemController.refferalItem);
+                            while (mPointList.size() > pos + 1 && mPointList.get(pos + 1).type == CHILD) {
+                                item.invisibleChildren.add(mPointList.remove(pos + 1));
                                 count++;
                             }
                             notifyItemRangeRemoved(pos + 1, count);
                         } else {
-                            int pos = pointList.indexOf(itemController.refferalItem);
+                            int pos = mPointList.indexOf(itemController.refferalItem);
                             int index = pos + 1;
                             for (Item i : item.invisibleChildren) {
-                                pointList.add(index, i);
+                                mPointList.add(index, i);
                                 index++;
                             }
                             notifyItemRangeInserted(pos + 1, index - pos - 1);
@@ -102,18 +101,18 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
                 int count = 0;
                 for (int i = 0; i < position; i ++) {
 
-                    if (pointList.get(i).invisibleChildren != null) {
-                        count = count + pointList.get(i).invisibleChildren.size();
+                    if (mPointList.get(i).invisibleChildren != null) {
+                        count = count + mPointList.get(i).invisibleChildren.size();
                     }
                 }
 
                 if (position > 1) {
 
-                    final String temp = pointList.get(position).text + " : " + mPointDate.get(position + count);
+                    final String temp = mPointList.get(position).text + " : " + mPointDate.get(position + count);
                     holder.headerTitle.setText(temp);
                 } else {
 
-                    holder.headerTitle.setText(pointList.get(position).text);
+                    holder.headerTitle.setText(mPointList.get(position).text);
                 }
 
                 break;
@@ -124,11 +123,11 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
 
     @Override
     public int getItemCount() {
-        if (pointList == null) {
+        if (mPointList == null) {
 
             return 0;
         }
-        return pointList.size();
+        return mPointList.size();
     }
 
 
@@ -157,5 +156,10 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
         }
     }
 
+    public void setData(List<Item> pointList, List<String> pointDate) {
+        mPointList = pointList;
+        mPointDate = pointDate;
+        notifyDataSetChanged();
+    }
 }
 

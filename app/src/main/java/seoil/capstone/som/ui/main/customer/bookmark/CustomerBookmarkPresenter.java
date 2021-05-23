@@ -1,5 +1,14 @@
 package seoil.capstone.som.ui.main.customer.bookmark;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import seoil.capstone.som.data.network.OnFinishApiListener;
+import seoil.capstone.som.data.network.api.BookmarkApi;
+import seoil.capstone.som.data.network.api.ShopApi;
+import seoil.capstone.som.data.network.model.BookmarkInfo;
+import seoil.capstone.som.data.network.model.ShopData;
+
 public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Presenter{
 
     private CustomerBookmarkContract.View mView;
@@ -24,4 +33,44 @@ public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Prese
     public void releaseInteractor() {
         mInteractor = null;
     }
+
+    @Override
+    public void getBookmarkShopInfo(String userId) {
+
+        OnFinishApiListener<BookmarkInfo.ShopInfoRes> onFinishApiListener = new OnFinishApiListener<BookmarkInfo.ShopInfoRes>() {
+            @Override
+            public void onSuccess(BookmarkInfo.ShopInfoRes shopInfoRes) {
+
+                ArrayList<String> shopName = new ArrayList<>();
+                ArrayList<String> shopCategory = new ArrayList<>();
+
+                if (shopInfoRes.getStatus() == BookmarkApi.SUCCESS) {
+
+                    List<BookmarkInfo.ShopInfoRes.Result> list = shopInfoRes.getResults();
+
+                    if (list == null) {
+
+                        shopName.add("즐겨찾기한 매장이 없습니다.");
+                        shopCategory.add("");
+                    } else {
+
+                        for (BookmarkInfo.ShopInfoRes.Result result : list) {
+
+                            shopName.add(result.getShopName());
+                            shopCategory.add(result.getShopCategoory());
+                        }
+                    }
+                    mView.setAdapterShopInfo(shopName, shopCategory);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        };
+
+        mInteractor.getBookmarkShopInfo(userId, onFinishApiListener);
+    }
+
 }
