@@ -1,6 +1,5 @@
 package seoil.capstone.som.ui.main.customer.point;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import seoil.capstone.som.base.BaseContract;

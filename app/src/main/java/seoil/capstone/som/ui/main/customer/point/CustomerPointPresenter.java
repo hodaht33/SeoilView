@@ -1,18 +1,11 @@
 package seoil.capstone.som.ui.main.customer.point;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.PointApi;
 import seoil.capstone.som.data.network.model.PointData;
-import seoil.capstone.som.data.network.model.Register;
-import seoil.capstone.som.data.network.model.SalesData;
 
 public class CustomerPointPresenter implements CustomerPointContract.Presenter {
 
