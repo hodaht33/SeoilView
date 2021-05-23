@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageShopDetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/default_poster"
+            android:scaleType="center"
+            android:background="@color/grayMedium"
+            />
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayoutShopDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageShopDetail"
+            android:background="@color/grayDark"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/textVIewShopNameDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="가계 이름"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewShopAddressDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textVIewShopNameDetail"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="위치 정보"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/buttonShopDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textVIewShopNameDetail"
+                android:layout_marginLeft="250dp"
+                android:padding="8dp"
+                android:text="좋아요" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textViewShopInformation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RelativeLayoutShopDetail"
+            android:padding="8dp"
+            android:text="설명"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:textColor="@color/grayMedium"/>
+
+    </RelativeLayout>
+
+</ScrollView>

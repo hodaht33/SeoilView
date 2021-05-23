@@ -16,4 +16,8 @@
     <color name="blue">#FF0000FF</color>
     <color name="red">#FFFF0000</color>
     <color name="pink">#FFEB348C</color>
+    <color name="grayLight">#ddd</color>
+    <color name="grayMedium">#777</color>
+    <color name="grayDark">#444</color>
+
 </resources>
