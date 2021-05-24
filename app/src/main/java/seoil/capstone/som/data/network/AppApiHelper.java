@@ -232,6 +232,11 @@ public class AppApiHelper {
         mUserApi.sendAuthForFindId(req, onFinishApiListener);
     }
 
+    public void getUserPhoneNumber(String userId, OnFinishApiListener<UserData.GetUserInfoRes> onFinishApiListener) {
+
+        mUserApi.getUserPhoneNumber(userId, onFinishApiListener);
+    }
+
     public void checkIdDuplicate(String id, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         mUserApi.checkIdDuplicate(id, onFinishApiListener);
@@ -290,6 +295,11 @@ public class AppApiHelper {
     public void managerRegister(UserData.Manager managerRequest, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
 
         mUserApi.insertManager(managerRequest, onFinishApiListener);
+    }
+
+    public void updatePassword(String userId, UserData.ChangePasswordReq req, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
+
+        mUserApi.updatePassword(userId, req, onFinishApiListener);
     }
 
     public void getShopInformation(String shopId, OnFinishApiListener<ShopData.GetRes> onFinishApiListener) {

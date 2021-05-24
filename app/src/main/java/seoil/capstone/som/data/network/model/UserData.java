@@ -253,9 +253,124 @@ public class UserData {
         }
     }
 
+    public static class ChangePasswordReq {
+
+        @SerializedName("password")
+        @Expose
+        private String password;
+
+        public ChangePasswordReq(String password) {
+            this.password = password;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+    }
+
     /////////
     // 응답 //
     /////////
+
+    public static class GetUserInfoRes {
+
+        public class Result {
+
+            @SerializedName("userId")
+            @Expose
+            private String userId;
+            @SerializedName("birthdate")
+            @Expose
+            private String birthdate;
+            @SerializedName("gender")
+            @Expose
+            private String gender;
+            @SerializedName("email")
+            @Expose
+            private String email;
+            @SerializedName("phoneNumber")
+            @Expose
+            private String phoneNumber;
+            @SerializedName("marketingAgreement")
+            @Expose
+            private boolean marketingAgreement;
+
+            public String getUserId() {
+                return userId;
+            }
+
+            public void setUserId(String userId) {
+                this.userId = userId;
+            }
+
+            public String getBirthdate() {
+                return birthdate;
+            }
+
+            public void setBirthdate(String birthdate) {
+                this.birthdate = birthdate;
+            }
+
+            public String getGender() {
+                return gender;
+            }
+
+            public void setGender(String gender) {
+                this.gender = gender;
+            }
+
+            public String getEmail() {
+                return email;
+            }
+
+            public void setEmail(String email) {
+                this.email = email;
+            }
+
+            public String getPhoneNumber() {
+                return phoneNumber;
+            }
+
+            public void setPhoneNumber(String phoneNumber) {
+                this.phoneNumber = phoneNumber;
+            }
+
+            public boolean isMarketingAgreement() {
+                return marketingAgreement;
+            }
+
+            public void setMarketingAgreement(boolean marketingAgreement) {
+                this.marketingAgreement = marketingAgreement;
+            }
+        }
+
+        @SerializedName("status")
+        @Expose
+        private int status;
+        @SerializedName("results")
+        @Expose
+        private List<Result> results;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public List<Result> getResults() {
+            return results;
+        }
+
+        public void setResults(List<Result> results) {
+            this.results = results;
+        }
+    }
 
     public static class FindIdRes {
 

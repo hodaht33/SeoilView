@@ -6,53 +6,126 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <Button
-        android:id="@+id/btnFindPwdIdent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="본인인증"
-        android:backgroundTint="@color/btn_color"
-        android:textColor="@color/btn_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLayoutFindPwdGetPhone" />
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textLayoutFindPwdGetId"
+        android:id="@+id/textLayoutFindPwdUserId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
+        android:visibility="visible"
         app:boxBackgroundColor="@color/input_layout_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextFindPwdGetId"
+            android:id="@+id/editTextFindPwdUserId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color"
-            android:hint="아이디 입력" />
+            android:hint="아이디 입력"
+            android:textColor="@color/text_color" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textLayoutFindPwdGetPhone"
+        android:id="@+id/textLayoutFindPwdAuthCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:visibility="gone"
         app:boxBackgroundColor="@color/input_layout_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLayoutFindPwdGetId">
+        app:layout_constraintTop_toBottomOf="@+id/textLayoutFindPwdUserId">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextFindPwdGetPhone"
+            android:id="@+id/editTextFindPwdAuthCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color"
-            android:hint="전화번호 숫자만 입력" />
+            android:hint="인증번호"
+            android:textColor="@color/text_color" />
+
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textViewFindPwdNotice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="회원가입 시 입력한 번호로\n인증번호가 전송됩니다."
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLayoutFindPwdAuthCode" />
+
+    <Button
+        android:id="@+id/btnFindPwdSendAndAuth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/btn_color"
+        android:text="본인인증"
+        android:textColor="@color/btn_text"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFindPwdNotice" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewFindPwdNotice" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textLayoutFindPwdPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:visibility="gone"
+        app:boxBackgroundColor="@color/input_layout_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnFindPwdSendAndAuth">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextFindPwdPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
+            android:textColor="@color/text_color" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textLayoutFindPwdPasswordCheck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:visibility="gone"
+        app:boxBackgroundColor="@color/input_layout_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLayoutFindPwdPassword">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextFindPwdPasswordCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="비밀번호 확인"
+            android:inputType="textPassword"
+            android:textColor="@color/text_color" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnFindPwdChangePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/btn_color"
+        android:text="비밀번호 변경"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLayoutFindPwdPasswordCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
