@@ -9,11 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +26,6 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
     private CustomerPointPresenter mPresenter;
     private String mUserId;
     private List<String> mPointDate;
-
-    private Animation mFabopen, mFabclose;
-    private boolean IsFaboepn = false;
-    private FloatingActionButton mFloatingActionSetting, mFloatingActingSave, mFloatingActingUse;
 
     public CustomerPointFragment() {
 
@@ -71,23 +62,6 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
         mAdapter = new CustomerPointAdapter(mPoint, getContext(), mPointDate);
         mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-
-        mRecyclerView = view.findViewById(R.id.recyclerViewPointInformation);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mAdapter);
-
-        mFabopen = AnimationUtils.loadAnimation(getContext(),R.anim.fabopen);
-        mFabclose = AnimationUtils.loadAnimation(getContext(), R.anim.fabclose);
-
-        mFloatingActionSetting = view.findViewById(R.id.floatingActionButtonSettingPoint);
-        mFloatingActingSave = view.findViewById(R.id.floatingActionButtonSavingPoint);
-        mFloatingActingUse = view.findViewById(R.id.floatingActionButtonUsingPoint);
-
-        mFloatingActionSetting.setOnClickListener(this);
-        mFloatingActingSave.setOnClickListener(this);
-        mFloatingActingUse.setOnClickListener(this);
-
         return view;
     }
 
@@ -105,43 +79,12 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
 
     @Override
     public void onClick(View v) {
-        int id = v.getId();
-        switch (id){
-            case R.id.floatingActionButtonSettingPoint:
-                anim();
-                break;
-            case R.id.floatingActionButtonSavingPoint:
-                anim();
-                Toast.makeText(getActivity(),"SAVING",Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.floatingActionButtonUsingPoint:
-                anim();
-                Toast.makeText(getActivity(),"USING",Toast.LENGTH_SHORT).show();
-                break;
 
-        }
     }
-
-    public void anim() {
-        if (IsFaboepn) {
-            mFloatingActingSave.startAnimation(mFabclose);
-            mFloatingActingUse.startAnimation(mFabclose);
-            mFloatingActingSave.setClickable(false);
-            mFloatingActingUse.setClickable(false);
-            IsFaboepn = false;
-        } else {
-            mFloatingActingSave.startAnimation(mFabopen);
-            mFloatingActingUse.startAnimation(mFabopen);
-            mFloatingActingSave.setClickable(true);
-            mFloatingActingUse.setClickable(true);
-            IsFaboepn = true;
-        }
-    }
-
 
     private void initView(View view) {
 
-        mRecyclerView = view.findViewById(R.id.recyclerViewPointInformation);
+        mRecyclerView = view.findViewById(R.id.recyclerViewCPoint);
     }
 
     @Override
