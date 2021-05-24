@@ -23,8 +23,11 @@ public interface User {
     @POST("phone-auth/auth")
     Call<Auth.StatusRes> sendAuthCode(@Body Auth.Req req);
 
-    @POST("phone-auth/auth/find")
+    @POST("phone-auth/auth/find/id")
     Call<UserData.FindIdRes> sendAuthForFindId(@Body Auth.Req req);
+
+    @GET("user/information/{userId}/phone")
+    Call<UserData.GetUserInfoRes> getUserPhoneNumber(@Path("userId") String userId);
 
     // 아이디 중복 확인
     @GET("duplicate/{id}")
@@ -40,10 +43,8 @@ public interface User {
     @POST("user/manager")
     Call<UserData.StatusRes> insertManager(@Body UserData.Manager request);
 
-    // 비밀번호 변경
-    @PUT("user/{id}/password")
-    void updateUser(@Path("id") String id);
-    // Body로 변경할 비밀번호 받음(이전 비밀번호는 애초에 비밀번호 변경 들어가기 전에 검사를 하게하여 여기서 받지 않음)
+    @PUT("user/{userId}/password")
+    Call<UserData.StatusRes> updatePassword(@Path("userId") String userId, @Body UserData.ChangePasswordReq req);
 
     // 회원 탈퇴
     @DELETE("user/{id}")

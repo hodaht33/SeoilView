@@ -4,6 +4,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.http.Body;
+import retrofit2.http.Path;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.Login;
@@ -17,6 +19,7 @@ public class UserApi {
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
     public static final int ERROR_UNDEFINED_VALUE = 2;
+    public static final int EROR_NONE_DATA = 3;
 
     public static final int LOGIN_FAIL_ID = 3;
     public static final int LOGIN_FAIL_PWD = 4;
@@ -129,6 +132,29 @@ public class UserApi {
         });
     }
 
+    public void getUserPhoneNumber(String userId, OnFinishApiListener<UserData.GetUserInfoRes> onFinishApiListener) {
+
+        Call<UserData.GetUserInfoRes> call = mUserData.getUserPhoneNumber(userId);
+        call.enqueue(new Callback<UserData.GetUserInfoRes>() {
+            @Override
+            public void onResponse(Call<UserData.GetUserInfoRes> call, Response<UserData.GetUserInfoRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<UserData.GetUserInfoRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
     public void checkIdDuplicate(String id, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         Call<Auth.StatusRes> call = mUserData.checkIdDuplicate(id);
@@ -198,6 +224,29 @@ public class UserApi {
         });
     }
 
+    public void updatePassword(String userId, UserData.ChangePasswordReq req, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
+
+        Call<UserData.StatusRes> call = mUserData.updatePassword(userId, req);
+        call.enqueue(new Callback<UserData.StatusRes>() {
+            @Override
+            public void onResponse(Call<UserData.StatusRes> call, Response<UserData.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<UserData.StatusRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
     public void checkRegistrationNumber(String number, OnFinishApiListener onFinishApiListener) {
 
         Call<Auth.StatusRes> call = mUserData.checkRegistrationNumber(number);
@@ -219,18 +268,5 @@ public class UserApi {
                 onFinishApiListener.onFailure(t);
             }
         });
-    }
-
-    public void update() {
-
-        // TODO: Call<ChangePwdResponse> call = mUserData.updateUser(changePwdRequest.getId(), getPrevPwd(), getPwd());
-        // TODO: call.enqueue(new Callback<ChangePwdResponse>() {});
-    }
-
-    public void delete() {
-
-        // TODO: Call<DeleteResponse> call = mUserData.deleteUser(deleteRequest.getId());
-        // TODO: call.enqueue(new Callback<DeleteResponse>() {});
-
     }
 }
