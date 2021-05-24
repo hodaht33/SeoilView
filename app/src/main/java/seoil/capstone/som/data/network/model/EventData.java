@@ -172,6 +172,46 @@ public class EventData {
             @SerializedName("endDate")
             @Expose
             private String endDate;
+
+            public int getEventCode() {
+                return eventCode;
+            }
+
+            public void setEventCode(int eventCode) {
+                this.eventCode = eventCode;
+            }
+
+            public String getEventName() {
+                return eventName;
+            }
+
+            public void setEventName(String eventName) {
+                this.eventName = eventName;
+            }
+
+            public String getEventContents() {
+                return eventContents;
+            }
+
+            public void setEventContents(String eventContents) {
+                this.eventContents = eventContents;
+            }
+
+            public String getStartDate() {
+                return startDate;
+            }
+
+            public void setStartDate(String startDate) {
+                this.startDate = startDate;
+            }
+
+            public String getEndDate() {
+                return endDate;
+            }
+
+            public void setEndDate(String endDate) {
+                this.endDate = endDate;
+            }
         }
 
         @SerializedName("status")
