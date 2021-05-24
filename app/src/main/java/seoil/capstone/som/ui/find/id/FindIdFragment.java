@@ -97,7 +97,7 @@ public class FindIdFragment extends Fragment implements FindIdContract.View {
     }
 
     @Override
-    public void visibleAuthEditText() {
+    public void visibleAuthView() {
 
         textInputLayoutAuthCode.setVisibility(View.VISIBLE);
         btnSendAndAuth.setText("인증");
@@ -111,7 +111,7 @@ public class FindIdFragment extends Fragment implements FindIdContract.View {
     }
 
     @Override
-    public void resultView(ArrayList<String> results) {
+    public void visibleResultView(ArrayList<String> results) {
 
         textInputLayoutPhoneNumber.setVisibility(View.GONE);
         textInputLayoutAuthCode.setVisibility(View.GONE);
