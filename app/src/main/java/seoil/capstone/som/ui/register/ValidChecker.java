@@ -1,58 +1,44 @@
 package seoil.capstone.som.ui.register;
 
-import android.app.Activity;
-import android.util.Log;
 import android.util.Patterns;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
-
-import com.google.android.material.textfield.TextInputEditText;
-
-import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.api.UserApi;
-import seoil.capstone.som.data.network.model.Auth;
-import seoil.capstone.som.ui.register.customer.CustomerRegisterContract;
-import seoil.capstone.som.util.Utility;
 
 public class ValidChecker {
 
+    public final int ID_VALID = 0;
     public final int ID_EMPTY = 1;
     public final int ID_SHORT = 2;
     public final int ID_LONG = 3;
-    public final int ID_VALID = 0;
+    public final int PWD_VALID = 0;
     public final int PWD_EMPTY = 1;
     public final int PWD_CHECK_EMPTY = 2;
     public final int PWD_CHECK_NOT_EQUAL = 3;
-    public final int PWD_VALID = 0;
-    public final int EMAIL_EMPTY = 1;
-    public final int EMAIL_NOT_VALID = 2;
+    public final int PWD_INVALID = 4;
     public final int EMAIL_VALID = 0;
+    public final int EMAIL_EMPTY = 1;
+    public final int EMAIL_INVALID = 2;
+    public final int PHONE_VALID = 0;
     public final int PHONE_EMPTY = 1;
     public final int PHONE_LENGTH_ERROR = 2;
     public final int PHONE_ERROR_OTHER_CHAR = 3;
-    public final int PHONE_VALID = 0;
+    public final int BIRTH_VALID = 0;
     public final int BIRTH_EMPTY = 1;
     public final int BIRTH_ERROR_OTHER_CHAR = 2;
-    public final int BIRTH_ERROR_LENTGTH = 3;
-    public final int BIRTH_VALID = 0;
-    public final int GENDER_NOT_VALID = 1;
+    public final int BIRTH_ERROR_LENGTH = 3;
     public final int GENDER_VALID = 0;
+    public final int GENDER_INVALID = 1;
+    public final int NEEDED_VALID = 0;
     public final int TERMS_OF_USE_NEEDED = 1;
     public final int PERSONAL_INFO_NEEDED = 2;
-    public final int NEEDED_VALID = 0;
 
     public int idValid(String id) {
 
         if (id.isEmpty()) {
 
             return ID_EMPTY;
-        } else if (id.length() < 3) {
+        } else if (id.length() < 8) {
 
             return ID_SHORT;
         } else if (id.length() > 20) {
@@ -68,8 +54,6 @@ public class ValidChecker {
         AppApiHelper.getInstance().checkIdDuplicate(id, onFinishApiListener);
 
         return true;
-        // TODO: Presenter와 Interactor로 나누면 해결될 문제 Presenter에서 onSuccess내에서 뷰를 바꿔주는 함수를 호출하면 되기 때문, 추후 리팩토링
-        // TODO: 하지만 중복을 피하면서 모두 분리하면 클래스가 늘어나는데 괜찮은가?
     }
 
     public int pwdValid(String pwdText, String pwdCheckText) {
@@ -77,11 +61,14 @@ public class ValidChecker {
         if (pwdText.isEmpty()) {
 
             return PWD_EMPTY;
+        } else if (!pwdText.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{10,}$")) {
+
+            // 영문자, 숫자, 특수문자가 하나라도 들어가있는 10자이상의 문자열이 아니면 유효하지 않음
+            return PWD_INVALID;
         } else if (pwdCheckText.isEmpty()) {
 
             return PWD_CHECK_EMPTY;
-        }
-        if (!pwdText.equals(pwdCheckText)) {
+        } else if (!pwdText.equals(pwdCheckText)) {
 
             return PWD_CHECK_NOT_EQUAL;
         }
@@ -96,7 +83,7 @@ public class ValidChecker {
             return EMAIL_EMPTY;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
 
-            return EMAIL_NOT_VALID;
+            return EMAIL_INVALID;
         }
 
         return EMAIL_VALID;
@@ -129,7 +116,7 @@ public class ValidChecker {
             return BIRTH_ERROR_OTHER_CHAR;
         } else if (birthdateText.length() != 8) {
 
-            return BIRTH_ERROR_LENTGTH;
+            return BIRTH_ERROR_LENGTH;
         }
 
         return BIRTH_VALID;
@@ -139,7 +126,7 @@ public class ValidChecker {
 
         if (!(maleChkBoxBool || femaleChkBoxBool)) {
 
-            return GENDER_NOT_VALID;
+            return GENDER_INVALID;
         }
 
         return GENDER_VALID;

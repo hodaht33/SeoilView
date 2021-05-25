@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -23,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -211,7 +209,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             } else if (mIdValidCode == mPresenter.ID_SHORT) {
 
                 Utility.getInstance().renderKeyboard(getActivity());
-                mEditTextId.setError("아이디가 너무 짧습니다. 3자 이상 입력해주세요.");
+                mEditTextId.setError("아이디가 너무 짧습니다. 8자 이상 입력해주세요.");
                 mEditTextId.requestFocus();
             } else if (mIdValidCode == mPresenter.ID_LONG) {
 
@@ -456,7 +454,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextEmail.setError("이메일을 입력해주세요.");
                     mEditTextEmail.requestFocus();
-                } else if (emailCode == mPresenter.EMAIL_NOT_VALID) {
+                } else if (emailCode == mPresenter.EMAIL_INVALID) {
 
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextEmail.setError("올바른 이메일을 입력해주세요.");
@@ -490,7 +488,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextBirthdate.setError("생년월일을 입력해주세요.");
                     mEditTextBirthdate.requestFocus();
-                } else if (birthDateCode == mPresenter.BIRTH_ERROR_LENTGTH) {
+                } else if (birthDateCode == mPresenter.BIRTH_ERROR_LENGTH) {
 
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextBirthdate.setError("8자리를 입력해주세요. (ex : 19500101)");
@@ -550,7 +548,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                 } else if (idCode == mPresenter.ID_SHORT) {
 
                     Utility.getInstance().renderKeyboard(getActivity());
-                    mEditTextId.setError("아이디가 너무 짧습니다. 3자 이상 입력해주세요.");
+                    mEditTextId.setError("아이디가 너무 짧습니다. 8자 이상 입력해주세요.");
                     mEditTextId.requestFocus();
                 } else if (idCode == mPresenter.ID_LONG) {
 
@@ -564,6 +562,11 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextPwd.setError("비밀번호를 입력해주세요.");
+                    mEditTextPwd.requestFocus();
+                } else if (pwCode == mPresenter.PWD_INVALID) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPwd.setError("@$!%*#?& 중 하나의 특수문자를 포함한 10자 이상의 비밀번호를 입력해주세요.");
                     mEditTextPwd.requestFocus();
                 } else if (pwCode == mPresenter.PWD_CHECK_EMPTY) {
 
@@ -583,7 +586,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextEmail.setError("이메일을 입력해주세요.");
                     mEditTextEmail.requestFocus();
-                } else if (emailCode == mPresenter.EMAIL_NOT_VALID) {
+                } else if (emailCode == mPresenter.EMAIL_INVALID) {
 
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextEmail.setError("올바른 이메일을 입력해주세요.");
@@ -617,7 +620,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextBirthdate.setError("생년월일을 입력해주세요.");
                     mEditTextBirthdate.requestFocus();
-                } else if (birthDateCode == mPresenter.BIRTH_ERROR_LENTGTH) {
+                } else if (birthDateCode == mPresenter.BIRTH_ERROR_LENGTH) {
 
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextBirthdate.setError("8자리를 입력해주세요. (ex : 19500101)");
@@ -685,7 +688,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         int status = res.getStatus();
         if (status == UserApi.SUCCESS) {
 
-            mIsIdValid = false;
+            mIsIdValid = true;
 
             mBtnCheckIdDuplication.setEnabled(false);
             mBtnCheckIdDuplication.setText("확인 완료");
