@@ -6,6 +6,7 @@ import java.util.List;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.SalesApi;
+import seoil.capstone.som.data.network.api.StockApi;
 import seoil.capstone.som.data.network.model.SalesData;
 import seoil.capstone.som.data.network.model.StockData;
 import seoil.capstone.som.util.Utility;
@@ -118,19 +119,27 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         OnFinishApiListener<StockData.GetRes> onFinishApiListener = new OnFinishApiListener<StockData.GetRes>() {
             @Override
             public void onSuccess(StockData.GetRes getRes) {
+
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
 
                     List<StockData.GetRes.Result> list = getRes.getResults();
-
+                    
                     ArrayList<String> dataName = new ArrayList<>();
                     ArrayList<String> dataAmount = new ArrayList<>();
+
+
                     for (StockData.GetRes.Result result : list) {
 
                         dataName.add(result.getStockName());
                         dataAmount.add(result.getStockAmount() + "개");
                     }
+
                     view.setLayoutAdapterStock(dataName, dataAmount);
+                } else if (getRes.getStatus() == SalesApi.ERROR_NONE_DATA){
+
+                    view.setLayoutAdapterStock(null, null);
                 } else {
+
                 }
             }
 
@@ -163,7 +172,10 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
             @Override
             public void onSuccess(StockData.StatusRes statusRes) {
 
-                view.initStock();
+                if (statusRes.getStatus() == StockApi.SUCCESS) {
+
+                    view.initStock();
+                }
             }
 
             @Override

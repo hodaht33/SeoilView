@@ -75,7 +75,7 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
                         Date date = new Date();
                         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         String nowDate = simpleDateFormat.format(date);
-                        
+
                         year = Integer.parseInt(nowDate.substring(0, 4));
                         month = Integer.parseInt(nowDate.substring(5, 7));
                         day = Integer.parseInt(nowDate.substring(8));

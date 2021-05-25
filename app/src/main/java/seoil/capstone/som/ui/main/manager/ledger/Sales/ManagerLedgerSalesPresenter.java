@@ -47,13 +47,13 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
             @Override
             public void onSuccess(SalesData.GetRes getRes) {
 
+                ArrayList<String> dataDate = new ArrayList<>();
+                ArrayList<Integer> dataAmount = new ArrayList<>();
+                ArrayList<Integer> autoInc = new ArrayList<>();
+
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
 
                     List<SalesData.GetRes.Result> list = getRes.getResults();
-
-                    ArrayList<String> dataDate = new ArrayList<>();
-                    ArrayList<Integer> dataAmount = new ArrayList<>();
-                    ArrayList<Integer> autoInc = new ArrayList<>();
 
                     for (SalesData.GetRes.Result result : list) {
 
@@ -62,7 +62,11 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
                         autoInc.add(result.getSalesCode());
                     }
                     view.setLayoutAdapterSales(dataDate, dataAmount, autoInc);
+                } else if (getRes.getStatus() == SalesApi.ERROR_NONE_DATA){
+
+                    view.setLayoutAdapterSales(null, null, null);
                 } else {
+
                 }
             }
 
@@ -97,7 +101,11 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
                         autoInc.add(result.getSalesCode());
                     }
                     view.setLayoutAdapterSales(dataName, dataAmount, autoInc);
+                } else if (getRes.getStatus() == SalesApi.ERROR_NONE_DATA){
+
+                    view.setLayoutAdapterSales(null, null, null);
                 } else {
+
                 }
             }
 
