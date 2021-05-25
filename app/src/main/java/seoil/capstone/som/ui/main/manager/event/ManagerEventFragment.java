@@ -1,5 +1,6 @@
 package seoil.capstone.som.ui.main.manager.event;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,18 +17,18 @@ import seoil.capstone.som.R;
 
 public class ManagerEventFragment extends Fragment implements ManagerEventContract.View {
 
-    private ManagerEventPresenter mPresenter;
-    private RecyclerView mRecyclerViewInProgress;
-    private RecyclerView mRecyclerViewEnd;
-    private ManagerEventAdapter mAdapterInProgress;
-    private ManagerEventAdapter mAdapterEnd;
+    private ManagerEventPresenter mPresenter;           //Fragment에서 발생하는 데이터를 처리 및 View 와 Interactor 연결
+    private RecyclerView mRecyclerViewInProgress;       //진행중 이벤트를 보여줄 리사이클러뷰
+    private RecyclerView mRecyclerViewEnd;              //종료된 이벤트를 보여줄 리사이클러뷰
+    private ManagerEventAdapter mAdapterInProgress;     //진행중 이벤트의 어댑터
+    private ManagerEventAdapter mAdapterEnd;            //종료된 이벤트의 어댑터
 
-    private ArrayList<String> mEventName;
-    private ArrayList<String> mEventStartDate;
-    private ArrayList<String> mEventEndDate;
-    private ArrayList<Integer> mEventCode;
+    private ArrayList<String> mEventName;               //어댑터 초기화용 변수
+    private ArrayList<String> mEventStartDate;          //
+    private ArrayList<String> mEventEndDate;            //
+    private ArrayList<Integer> mEventCode;              //
 
-    private String mShopId;
+    private String mShopId;                             //점주의 아이디
 
     public ManagerEventFragment() {
 
@@ -58,11 +59,11 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
         mShopId = bundle.getString("id");
 
         mRecyclerViewInProgress.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapterInProgress = new ManagerEventAdapter(mEventName, mEventCode, mEventStartDate, mEventEndDate);
+        mAdapterInProgress = new ManagerEventAdapter(mEventName, mEventCode, mEventStartDate, mEventEndDate, mPresenter);
         mRecyclerViewInProgress.setAdapter(mAdapterInProgress);
 
         mRecyclerViewEnd.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapterEnd = new ManagerEventAdapter(mEventName, mEventCode, mEventStartDate, mEventEndDate);
+        mAdapterEnd = new ManagerEventAdapter(mEventName, mEventCode, mEventStartDate, mEventEndDate, mPresenter);
         mRecyclerViewEnd.setAdapter(mAdapterEnd);
 
 
@@ -80,12 +81,14 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
 
     }
 
+    //ManagerEventFragment 뷰 초기화
     private void initView(View view) {
 
         mRecyclerViewInProgress = view.findViewById(R.id.recyclerViewMEventInProgress);
         mRecyclerViewEnd = view.findViewById(R.id.recyclerViewMEventEnd);
     }
 
+    //현재 진행중 이벤트, 종료된 이벤트를 Event Adapter에 갱신
     @Override
     public synchronized void setAdapter(ArrayList<String> eventName, ArrayList<Integer> eventCode, ArrayList<String> eventStartDate, ArrayList<String> eventEndDate, Boolean isInProgress) {
 
@@ -99,6 +102,13 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
             mAdapterInProgress.notifyDataSetChanged();
             mAdapterEnd.notifyDataSetChanged();
         }
+    }
+
+    //상세 정보 액티비티로 이동
+    @Override
+    public void startDetailedEvent(Intent intent) {
+
+        this.startActivityForResult(intent, 10);
     }
 
 

@@ -40,24 +40,24 @@ import seoil.capstone.som.ui.main.manager.ledger.Sales.ManagerLedgerSalesActivit
 
 public class ManagerLedgerFragment extends Fragment implements ManagerLedgerContract.View{
 
-    private MaterialCalendarView mCalendarView;
+    private MaterialCalendarView mCalendarView;         //매출,지출 조회 날짜를 얻어올 달력
 
     public final int SELECTED_CALENDAR = 10;
     public final int SELECTED_STOCK = 11;
-    private ArrayList<String> mDataNameStock;
-    private ArrayList<String> mDataAmountStock;
-    private int mYear;
-    private int mMonth;
-    private int mDay;
-    private int selectedIndexMain;
-    private String mDateQuery;
-    private String mShopId;
-    private Button mBtnInsertStock;
-    private ManagerLedgerPresenter mPresenter;
-    private RecyclerView mRecyclerViewMain;
-    private ManagerLedgerStockAdapter mAdapterStock;
+    private ArrayList<String> mDataNameStock;           //재고 이름
+    private ArrayList<String> mDataAmountStock;         //재고 수량
+    private int mYear;                                  //선택된 연도
+    private int mMonth;                                 //선택된 달
+    private int mDay;                                   //선택된 일
+    private int selectedIndexMain;                      //현재 선택된 곳이 가계부인지 재고인지 저장
+    private String mDateQuery;                          //DB에 전달할 날짜 쿼리
+    private String mShopId;                             //점주 아이디
+    private Button mBtnInsertStock;                     //재고 추가 버튼
+    private ManagerLedgerPresenter mPresenter;          //가계부의  Presenter
+    private RecyclerView mRecyclerViewMain;             //재고 리사이클러뷰
+    private ManagerLedgerStockAdapter mAdapterStock;    //재고 리사이클러뷰의 어댑터
     private TabLayout mTabLayoutMain;
-    private AlertDialog mAlertDialogInsert;
+    private AlertDialog mAlertDialogInsert;             //재고 추가시 데이터 입력 창
 
     /*TODO:// getMonth() 사용시 값이 1 작게 리턴됨*/
     public ManagerLedgerFragment() {
@@ -103,6 +103,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         return view;
     }
 
+    //뷰 초기화
     private void initView(View view) {
 
         mCalendarView = view.findViewById(R.id.calendarViewMLedger);
@@ -111,6 +112,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         mBtnInsertStock = view.findViewById(R.id.btnMLedgerInsertStock);
     }
 
+    //선택된 날짜 문자열로 변환
     private String setDate() {
 
         CalendarDay cd = mCalendarView.getSelectedDate();
@@ -122,11 +124,13 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         return text;
     }
 
+    //날짜 선택시 매출, 지출 조회 액티비티로 이동
     private void intentSales(Intent intent) {
 
         this.startActivityForResult(intent, 0);
     }
 
+    //리스너 초기화
     private void initListener(String shopId) {
 
         mCalendarView.state().edit()
@@ -251,32 +255,35 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         });
     }
 
+    //재고 어댑터에 데이터 설정
     @Override
     public void setLayoutAdapterStock(ArrayList<String> listName, ArrayList<String> listAmount) {
 
         mAdapterStock.setData(listName, listAmount);
     }
-
-
+    
+    //재고 조회
     @Override
     public void initStock() {
 
         mPresenter.getStock(mShopId);
     }
-
-
+    
+    //프로그레스바 활성화
     @Override
     public void showProgress() {
 
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
+    //프로그레스바 비활성화
     @Override
     public void hideProgress() {
 
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
+    //캘린더뷰의 일요일에 빨간색 설정
     class SundayDecorator implements DayViewDecorator {
 
         private final Calendar calendar = Calendar.getInstance();
@@ -299,6 +306,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         }
     }
 
+    //캘린더뷰의 토요일에 파란색 설정
     class SaturdayDecorator implements DayViewDecorator {
 
         private final Calendar calendar = Calendar.getInstance();
@@ -320,8 +328,8 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
             view.addSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.blue)));
         }
     }
-
-
+    
+    //평일 검은색 설정
     class WeekDecorator implements DayViewDecorator {
 
         private final Calendar calendar = Calendar.getInstance();
@@ -345,6 +353,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         }
     }
 
+    //오늘 날짜 표기 설정
     class TodayDecorator implements DayViewDecorator {
 
         private CalendarDay date;

@@ -40,8 +40,10 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
         mInteractor = null;
     }
 
+    //view에서 shopId, dateQuery를 받아 데이터 처리 방식을 Model에 전달
     public void getSales(String shopId, String dateQuery) {
 
+        //DB 조회된 매출 정보를 view에 전달
         OnFinishApiListener<SalesData.GetRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetRes>() {
 
             @Override
@@ -80,10 +82,12 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
         mInteractor.getSales(shopId, dateQuery, onFinishApiListener);
     }
 
+    //view에서 shopId, dateQuery를 받아 데이터 처리방식을 Model에 전달
     public void getCost(String shopId, String dateQuery) {
 
         OnFinishApiListener<SalesData.GetRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetRes>() {
 
+            //DB 조회된 지출 정보를 view에 전달
             @Override
             public void onSuccess(SalesData.GetRes getRes) {
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
@@ -117,6 +121,7 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
         mInteractor.getCost(shopId, dateQuery, onFinishApiListener);
     }
 
+    //지출 정보를 추가 후 지출 조회
     public void insertSalesWithDate(String shopId, String name, int amount, String dateQuery) {
 
         OnFinishApiListener<SalesData.StatusRes> onFinishApiListener =  new OnFinishApiListener<SalesData.StatusRes>() {
@@ -136,6 +141,7 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
         mInteractor.insertSalesWithDate(shopId, name, amount, dateQuery, onFinishApiListener);
     }
 
+    //지출 정보 삭제후 지출 조회
     public void deleteSpendingSales(String shopId, int salesCode, String salesDate, Boolean isCost) {
 
         OnFinishApiListener<SalesData.StatusRes> onFinishApiListener = new OnFinishApiListener<SalesData.StatusRes>() {
@@ -159,6 +165,7 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
         mInteractor.deleteSpendingSales(shopId, salesCode, salesDate, onFinishApiListener);
     }
 
+    //지출 정보 갱신
     public void updateSpendingSales(int salesCode, String salesDate, String shopId, String salesName, int salesAmount, Boolean isCost) {
 
         OnFinishApiListener<SalesData.StatusRes> onFinishApiListener = new OnFinishApiListener<SalesData.StatusRes>() {
@@ -182,6 +189,7 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
         mInteractor.updateSpendingSales(salesCode, salesDate, shopId, salesName, salesAmount, onFinishApiListener);
     }
 
+    //추가 수정 시 EditText의 데이터 확인
     public int isTextSet(String str) {
         if (str == null || str.equals("")) {
 
@@ -193,6 +201,7 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
         return TEXT_LENGTH_INVALID;
     }
 
+    //숫자로만 이루어졌는지 확인
     public boolean isNumeric(String str) {
 
         for (int i = 0; i < str.length(); i++) {
@@ -205,6 +214,7 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
         return true;
     }
 
+    //1,000,000 형식으로 값 변경
     public String getDetailedSale (int value){
 
         if (value == 0) {

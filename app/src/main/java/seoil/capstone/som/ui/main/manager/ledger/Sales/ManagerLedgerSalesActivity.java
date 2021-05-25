@@ -27,24 +27,23 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
 
 
     private ManagerLedgerSalesPresenter mPresenter;
-    private ArrayList<String> mDataName;
-    private ArrayList<Integer> mDataAmount;
-    private ArrayList<Integer> mAutoInc;
+    private ArrayList<String> mDataName;                    //매출 이름
+    private ArrayList<Integer> mDataAmount;                 //매출 데이터
+    private ArrayList<Integer> mAutoInc;                    //매출 구분코드
     private int selectedIndex;
 
-    private RecyclerView mRecyclerView;
-    private String mShopId;
-    private String mDateQuery;
-    private String mDate;
+    private RecyclerView mRecyclerView;                     //매출 정보 리사이클러뷰
+    private String mShopId;                                 //점주 아이디
+    private String mDateQuery;                              //날짜 쿼리
 
-    private ImageView mImageViewAdd;
-    private ManagerLedgerTextAdapter mAdapter;
-    private TabLayout mTabLayout;
+    private ImageView mImageViewAdd;                        //지출 추가 버튼
+    private ManagerLedgerTextAdapter mAdapter;              //매출 어댑터
+    private TabLayout mTabLayout;                           //Appbar
 
-    private TextView mTextViewDate;
-    private TextView mTextViewTitle;
-    private AlertDialog mAlertDialogInsert;
-    private Button mBtnClose;
+    private TextView mTextViewDate;                         //날짜 보여줄 텍스트뷰
+    private TextView mTextViewTitle;                        //매출, 지출 텍스트뷰
+    private AlertDialog mAlertDialogInsert;                 //지출 추가 다이얼로그
+    private Button mBtnClose;                               //종료 버튼
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,6 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
         Intent intent = getIntent();
         mShopId = intent.getStringExtra("id");
         mDateQuery = intent.getStringExtra("dateQuery");
-        mDate = intent.getStringExtra("date");
 
         mTabLayout.addTab(mTabLayout.newTab().setText("매출"), SELECTED_SALE);
         mTabLayout.addTab(mTabLayout.newTab().setText("지출"), SELECTED_COST);
@@ -141,6 +139,7 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
             public void onClick(View v) {
 
                 if (mAlertDialogInsert != null) {
+
                     mAlertDialogInsert.dismiss();
                 }
                 //다이얼로그로 데이터 추가창 생성
@@ -199,10 +198,8 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
             }
         });
     }
-
-
-
-
+    
+    //뷰 초기화
     private void initView() {
 
         mRecyclerView = this.findViewById(R.id.recyclerViewMLedgerSalesAmountSales);

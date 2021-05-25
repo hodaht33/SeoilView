@@ -17,13 +17,13 @@ import seoil.capstone.som.R;
 
 public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdapter.ViewHolder> {
 
-    public static final int HEADER = 0;
-    public static final int CHILD = 1;
+    public static final int HEADER = 0;         //포인트 구분
+    public static final int CHILD = 1;          //포인트 정보
 
-    private final Context mContext;
+    private final Context mContext;             //view의 콘텍스트
 
-    private List<Item> mPointList;
-    private List<String> mPointDate;
+    private List<Item> mPointList;              //전체 포인트 정보
+    private List<String> mPointDate;            //사용, 적립 포인트 날짜
 
     public CustomerPointAdapter(List<Item> point, Context context, List<String> pointDate) {
 
@@ -69,7 +69,9 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
                 itemController.headerTitle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         if (item.invisibleChildren == null) {
+
                             item.invisibleChildren = new ArrayList<>();
                             int count = 0;
                             int pos = mPointList.indexOf(itemController.refferalItem);
@@ -79,9 +81,11 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
                             }
                             notifyItemRangeRemoved(pos + 1, count);
                         } else {
+
                             int pos = mPointList.indexOf(itemController.refferalItem);
                             int index = pos + 1;
                             for (Item i : item.invisibleChildren) {
+
                                 mPointList.add(index, i);
                                 index++;
                             }
@@ -140,8 +144,8 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
             headerTitle = itemView.findViewById(R.id.textViewCPointHeader);
         }
     }
-
-
+    
+    //포인트에서 사용할 데이터 형식 (헤더에 invisibleChildren 데이터 넣을 시 뷰홀더에서 안보이게 설정)
     public static class Item {
         public int type;
         public String text;
@@ -156,6 +160,7 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
         }
     }
 
+    //포인트, 날짜 설정
     public void setData(List<Item> pointList, List<String> pointDate) {
         mPointList = pointList;
         mPointDate = pointDate;

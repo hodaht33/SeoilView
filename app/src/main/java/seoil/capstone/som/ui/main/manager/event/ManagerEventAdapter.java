@@ -13,23 +13,26 @@ import java.util.ArrayList;
 import seoil.capstone.som.R;
 
 public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapter.ViewHolder> {
-
     
-    private ArrayList<Integer> mEventCode = new ArrayList<>();
-    private ArrayList<String> mEventName = new ArrayList<>();
-    private ArrayList<String> mEventEndDate = new ArrayList<>();
-    private ArrayList<String> mEventStartDate = new ArrayList<>();
+    private ArrayList<Integer> mEventCode = new ArrayList<>();          //이벤트 구분코드
+    private ArrayList<String> mEventName = new ArrayList<>();           //이벤트 이름
+    private ArrayList<String> mEventEndDate = new ArrayList<>();        //이벤트 종료날짜
+    private ArrayList<String> mEventStartDate = new ArrayList<>();      //이벤트 시작 날짜
 
+    private ManagerEventPresenter mPresenter;
 
     public ManagerEventAdapter(ArrayList<String> eventName, ArrayList<Integer> eventCode,
-                               ArrayList<String> eventStartDate, ArrayList<String> eventEndDate) {
+                               ArrayList<String> eventStartDate, ArrayList<String> eventEndDate,
+                               ManagerEventPresenter presenter) {
 
         mEventCode = eventCode;
         mEventName = eventName;
         mEventStartDate = eventStartDate;
         mEventEndDate = eventEndDate;
+        mPresenter = presenter;
     }
 
+    //뷰 홀더 생성
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +41,7 @@ public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapte
         return viewHolder;
     }
 
+    //뷰 홀더 초기화
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
@@ -47,6 +51,7 @@ public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapte
 
     }
 
+    //현재 데이터의 갯수 조회
     @Override
     public int getItemCount() {
         if (mEventName == null) {
@@ -56,6 +61,7 @@ public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapte
         return mEventName.size();
     }
 
+    // 데이터 초기화
     public void clear() {
 
         if (mEventName == null) {
@@ -77,6 +83,7 @@ public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapte
         notifyItemRangeChanged(0, size);
     }
 
+    //어댑터에 있는 데이터 변경
     public void setData(ArrayList<String> eventName,ArrayList<Integer> eventCode, ArrayList<String> eventStartDate, ArrayList<String> eventEndDate) {
 
         clear();
@@ -87,6 +94,7 @@ public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapte
         mEventEndDate = eventEndDate;
     }
 
+    //뷰 홀더 정의
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView textViewContent;

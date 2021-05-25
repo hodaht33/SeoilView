@@ -13,36 +13,39 @@ import seoil.capstone.som.data.network.model.EventData;
 
 public class ManagerEventPresenter implements ManagerEventContract.Presenter {
 
-    private ManagerEventContract.View view;
-    private ManagerEventInteractor mInteractor;
+    private ManagerEventContract.View view;             //Presenter에 설정할 뷰
+    private ManagerEventInteractor mInteractor;         //DB 연결 기능을 함
 
+    //ManagerEventFragment의 뷰를 Presenter에 설정
     @Override
     public void setView(ManagerEventContract.View view) {
         this.view = view;
     }
 
+    //view 해제
     @Override
     public void releaseView() {
         this.view = null;
     }
 
+    //Interactor 생성
     @Override
     public void createInteractor() {
         mInteractor = new ManagerEventInteractor();
     }
 
+    //Interactor 해제
     @Override
     public void releaseInteractor() {
         mInteractor = null;
     }
 
+    //이벤트 조회 정보를 Interactor에 넘겨준다, Interactor에서 받은 데이터를 view에 전달
     public synchronized void getEvent(String shopId) {
 
         OnFinishApiListener<EventData.GetRes> onFinishApiListener = new OnFinishApiListener<EventData.GetRes>() {
             @Override
             public void onSuccess(EventData.GetRes getRes) {
-
-                Log.d("MEvent", String.valueOf(getRes.getStatus()));
 
                 if (getRes.getStatus() == EventApi.SUCCESS) {
 

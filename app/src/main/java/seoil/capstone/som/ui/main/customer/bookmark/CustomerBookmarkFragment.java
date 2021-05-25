@@ -17,12 +17,12 @@ import seoil.capstone.som.R;
 
 public class CustomerBookmarkFragment extends Fragment implements View.OnClickListener, CustomerBookmarkContract.View{
 
-    private CustomerBookmarkPresenter mPresenter;
-    private CustomerBookmarkAdapter mAdapter;
-    private RecyclerView mRecyclerView;
-    private ArrayList<String> mShopName;
-    private ArrayList<String> mShopCategory;
-    private String mUserId;
+    private CustomerBookmarkPresenter mPresenter;           //view의 데이터 처린
+    private CustomerBookmarkAdapter mAdapter;               //매장 정보 리사이클러뷰의 어댑터
+    private RecyclerView mRecyclerView;                     //매장 정보 리사이클러뷰
+    private ArrayList<String> mShopName;                    //매장 이름
+    private ArrayList<String> mShopCategory;                //매장 카테고리
+    private String mUserId;                                 //사용자 아이디
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,11 +70,13 @@ public class CustomerBookmarkFragment extends Fragment implements View.OnClickLi
 
     }
 
+    //뷰 초기화
     private void initView(View view) {
 
         mRecyclerView = view.findViewById(R.id.recyclerViewCPointBookmark);
     }
 
+    //조회된 매장 정보 adapter에 전달
     @Override
     public void setAdapterShopInfo(ArrayList<String> shopName, ArrayList<String> shopCategory) {
 

@@ -151,7 +151,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         mInteractor.getStock(shopId, onFinishApiListener);
     }
 
-
+    //숫자로만 이루어졌는지 확인
     public boolean isNumeric(String str) {
 
         for (int i = 0; i < str.length(); i++) {
@@ -164,8 +164,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         return true;
     }
 
-
-
+    //view에서 shopId, name, amount를 받아와 Model에 전달 후 재고 조회
     public void insertStock(String shopId, String name, int amount) {
 
         OnFinishApiListener<StockData.StatusRes> onFinishApiListener = new OnFinishApiListener<StockData.StatusRes>() {
@@ -187,6 +186,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         mInteractor.insertStock(shopId, name, amount, onFinishApiListener);
     }
 
+    //view에서 shopId, name, amount를 받아와 Model에 전달 후 재고 조회
     public void updateStock (String shopId, String name, int amount) {
 
         OnFinishApiListener<StockData.StatusRes> onFinishApiListener = new OnFinishApiListener<StockData.StatusRes>() {
@@ -204,6 +204,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         mInteractor.updateStock(shopId, name, amount, onFinishApiListener);
     }
 
+    //view에서 shopId, name, amount를 받아와 Model에 전달 후 재고 조회
     public void deleteStock(String shopId, String name) {
 
         OnFinishApiListener<StockData.StatusRes> onFinishApiListener = new OnFinishApiListener<StockData.StatusRes>() {

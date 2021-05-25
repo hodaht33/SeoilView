@@ -7,6 +7,13 @@
     tools:context=".ui.main.manager.event.ManagerEventFragment">
 
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineMEventTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2"/>
+
     <TextView
         android:id="@+id/textViewMEventInProgress"
         android:layout_width="0dp"
@@ -17,7 +24,7 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/guideLineMEventTop" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMEventInProgress"
@@ -25,17 +32,17 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideLineMEventHalf"
+        app:layout_constraintBottom_toTopOf="@+id/guideLineMEventBottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMEventInProgress" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideLineMEventHalf"
+        android:id="@+id/guideLineMEventBottom"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"/>
+        app:layout_constraintGuide_percent="0.6"/>
 
     <TextView
         android:id="@+id/textViewMEventEnd"
@@ -47,7 +54,7 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideLineMEventHalf" />
+        app:layout_constraintTop_toBottomOf="@+id/guideLineMEventBottom" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMEventEnd"
@@ -59,4 +66,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMEventEnd" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

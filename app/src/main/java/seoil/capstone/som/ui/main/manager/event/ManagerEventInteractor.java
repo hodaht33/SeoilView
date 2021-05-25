@@ -5,8 +5,8 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.EventData;
 
 public class ManagerEventInteractor implements ManagerEventContract.Interactor{
-
-
+    
+    //DB에 점주의 아이디로 이벤트 정보 조회
     @Override
     public void getEvent(String shopId, OnFinishApiListener<EventData.GetRes> onFinishApiListener) {
         AppApiHelper.getInstance().getEvent(shopId, onFinishApiListener);

@@ -22,16 +22,15 @@ import seoil.capstone.som.R;
 
 public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedgerStockAdapter.ViewHolder> {
 
-    private ArrayList<String> mDataName;
-
-    private ArrayList<String> mDataAmount;
+    private ArrayList<String> mDataName;            //재고명
+    private ArrayList<String> mDataAmount;          //재고 수량
 
     private ManagerLedgerPresenter mPresenter;
-    private String mShopId;
+    private String mShopId;                         //점주 아이디
     private Context mContext;
     public final int ADAPTER_EDIT = 1001;
     public final int ADAPTER_DELETE = 1002;
-    private AlertDialog mAlertDialog;
+    private AlertDialog mAlertDialog;               //재고 추가창 생성
 
     ManagerLedgerStockAdapter(ArrayList<String> listName, ArrayList<String> listAmount, ManagerLedgerPresenter presenter, String shopId, Context context) {
 
@@ -71,6 +70,7 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
         return mDataName.size();
     }
 
+    //데이터 설정
     public void setData(ArrayList<String> listName, ArrayList<String> listAmount) {
 
         mDataName = listName;
@@ -78,6 +78,7 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
         notifyDataSetChanged();
     }
 
+    //데이터 초기화
     public void clear() {
 
         if (mDataName == null) {
@@ -136,7 +137,7 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
 
                     mAlertDialog.dismiss();
                 }
-                //다이얼로그로 데이터 추가창 생성
+                //다이얼로그로 재고 추가창 생성
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
                 View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_manager_ledger_stock, null, false);
