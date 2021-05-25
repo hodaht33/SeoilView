@@ -47,11 +47,11 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
             @Override
             public void onSuccess(SalesData.GetRes getRes) {
 
-                ArrayList<String> dataDate = new ArrayList<>();
-                ArrayList<Integer> dataAmount = new ArrayList<>();
-                ArrayList<Integer> autoInc = new ArrayList<>();
-
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
+
+                    ArrayList<String> dataDate = new ArrayList<>();
+                    ArrayList<Integer> dataAmount = new ArrayList<>();
+                    ArrayList<Integer> autoInc = new ArrayList<>();
 
                     List<SalesData.GetRes.Result> list = getRes.getResults();
 
@@ -144,6 +144,7 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
             public void onSuccess(SalesData.StatusRes statusRes) {
 
                 if (isCost) {
+
                     view.initCost();
                 } else {
 
@@ -166,6 +167,7 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
             public void onSuccess(SalesData.StatusRes statusRes) {
 
                 if (isCost) {
+
                     view.initCost();
                 } else {
 

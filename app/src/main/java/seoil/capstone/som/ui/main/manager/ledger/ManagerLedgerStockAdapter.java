@@ -79,6 +79,12 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
     }
 
     public void clear() {
+
+        if (mDataName == null) {
+
+            return;
+        }
+
         int size = mDataName.size();
 
         if (size > 0) {

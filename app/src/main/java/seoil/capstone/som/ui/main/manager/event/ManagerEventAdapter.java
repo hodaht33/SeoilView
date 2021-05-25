@@ -58,6 +58,11 @@ public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapte
 
     public void clear() {
 
+        if (mEventName == null) {
+
+            return;
+        }
+
         int size = mEventName.size();
 
         if (size > 0) {
