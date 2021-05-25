@@ -34,8 +34,10 @@
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/editTextAddEventTitle"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="DuplicateIds" />
 
     <Button
@@ -84,33 +86,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAddEventTitle" />
 
-    <CheckBox
-        android:id="@+id/checkAddEventPush"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="푸쉬알림 전송"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddEventFinish"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guidelineAddEvent" />
-
     <Button
         android:id="@+id/btnAddEventFinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="64dp"
         android:text="완료"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toEndOf="@+id/btnCloseEvent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineAddEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="541dp"
+        app:layout_constraintGuide_begin="571dp"
         app:layout_constraintGuide_percent="0.75" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -126,7 +120,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp"
-        app:layout_constraintGuide_percent="0.65" />
+        app:layout_constraintGuide_end="256dp" />
+
+    <Button
+        android:id="@+id/btnCloseEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="64dp"
+        android:text="취소"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

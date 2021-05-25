@@ -30,7 +30,6 @@ public class AddEventActivity extends AppCompatActivity implements View.OnClickL
         mBtnStartDate=(Button)findViewById(R.id.btnAddEventStartDate);
         mBtnEndDate=(Button)findViewById(R.id.btnAddEventEndDate);
         mBtnFinish=(Button)findViewById(R.id.btnAddEventFinish);
-        mCheckPush=(CheckBox)findViewById(R.id.checkAddEventPush);
 
         mBtnStartDate.setOnClickListener(this);
         mBtnEndDate.setOnClickListener(this);
