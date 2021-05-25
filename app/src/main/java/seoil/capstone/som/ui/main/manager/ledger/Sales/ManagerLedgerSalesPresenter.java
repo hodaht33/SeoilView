@@ -124,7 +124,6 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
             @Override
             public void onSuccess(SalesData.StatusRes statusRes) {
 
-
                 view.initCost();
             }
 
@@ -199,6 +198,7 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
         for (int i = 0; i < str.length(); i++) {
 
             if (str.charAt(i) < '0' || str.charAt(i) > '9') {
+
                 return false;
             }
         }

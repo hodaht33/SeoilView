@@ -157,6 +157,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         for (int i = 0; i < str.length(); i++) {
 
             if (str.charAt(i) < '0' || str.charAt(i) > '9') {
+
                 return false;
             }
         }
@@ -181,7 +182,6 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
             @Override
             public void onFailure(Throwable t) {
 
-                Log.d("setStock", t.getMessage());
             }
         };
         mInteractor.insertStock(shopId, name, amount, onFinishApiListener);
