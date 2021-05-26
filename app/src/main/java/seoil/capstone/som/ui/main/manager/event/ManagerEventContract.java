@@ -15,7 +15,7 @@ public interface ManagerEventContract {
         void setAdapter(ArrayList<String> eventName, ArrayList<Integer> eventCode,
                              ArrayList<String> eventStartDate, ArrayList<String> eventEndDate, Boolean isInProgress);
 
-        void startDetailedEvent(Intent intent);
+        void startDetailedEvent(int eventCode);
     }
 
     interface Presenter extends BaseContract.Presenter<ManagerEventContract.View> {

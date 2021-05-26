@@ -136,4 +136,9 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
         };
         mInteractor.getEvent(shopId, onFinishApiListener);
     }
+
+    public void setEventCode(int eventCode) {
+
+        view.startDetailedEvent(eventCode);
+    }
 }

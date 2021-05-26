@@ -1,5 +1,6 @@
 package seoil.capstone.som.ui.main.manager.event;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import seoil.capstone.som.R;
+import seoil.capstone.som.ui.event.detail.DetailEventActivity;
 
 public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapter.ViewHolder> {
     
@@ -45,9 +47,20 @@ public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.setEventCode(mEventCode.get(position));
+            }
+        };
+
         holder.textViewContent.setText(mEventName.get(position));
         final String temp = mEventStartDate.get(position) + "~" + mEventEndDate.get(position);
         holder.textViewDate.setText(temp);
+
+        holder.textViewContent.setOnClickListener(clickListener);
+        holder.textViewDate.setOnClickListener(clickListener);
+
 
     }
 
@@ -95,7 +108,7 @@ public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapte
     }
 
     //뷰 홀더 정의
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView textViewContent;
         TextView textViewDate;
@@ -105,14 +118,6 @@ public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapte
 
             textViewContent = itemView.findViewById(R.id.textViewMEventRecyclerContentName);
             textViewDate = itemView.findViewById(R.id.textViewMEventRecyclerDate);
-
-            textViewContent.setOnClickListener(this);
-            textViewDate.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            //클릭시 상세정보 인텐트 처리
         }
     }
 }

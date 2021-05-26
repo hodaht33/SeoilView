@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import seoil.capstone.som.R;
+import seoil.capstone.som.ui.event.detail.DetailEventActivity;
 
 public class ManagerEventFragment extends Fragment implements ManagerEventContract.View {
 
@@ -106,8 +107,10 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
 
     //상세 정보 액티비티로 이동
     @Override
-    public void startDetailedEvent(Intent intent) {
+    public void startDetailedEvent(int eventCode) {
 
+        Intent intent = new Intent(getActivity(), DetailEventActivity.class);
+        intent.putExtra("eventCode", eventCode);
         this.startActivityForResult(intent, 10);
     }
 

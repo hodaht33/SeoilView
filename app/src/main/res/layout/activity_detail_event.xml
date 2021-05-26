@@ -6,148 +6,131 @@
     android:layout_height="match_parent"
     tools:context=".ui.event.detail.DetailEventActivity">
 
-        <EditText
-            android:id="@+id/editTextShopDetailName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="100dp"
-            android:background="@null"
-            android:inputType="textPersonName"
-            android:text="가게이름"
-            app:layout_constraintEnd_toStartOf="@+id/spinnerShopDetailCategory"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />  <!--background="@null"이 밑줄 제거 하고,
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTopLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1"/>
+
+    <TextView
+        android:id="@+id/textViewShopDetailEventName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="32dp"
+        android:textSize="20sp"
+        android:text="가게이름"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShopDetailCategory"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopLine" />  <!--background="@null"이 밑줄 제거 하고,
          editText.setClickable(false);을 사용하여 사용자는 읽기전용만하면 되지않을까? -->
 
-        <EditText
-            android:id="@+id/editTextShopDetailAddressLoaction"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="50dp"
-            android:inputType="textPersonName"
-            android:text="위치"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toStartOf="@+id/buttonCAddState"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextShopDetailName" />
+    <TextView
+        android:id="@+id/textViewShopDetailEventAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:text="위치"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShopDetailEventName" />
 
-        <Spinner
-            android:id="@+id/spinnerShopDetailCategory"
-            android:layout_width="120dp"
-            android:layout_height="26dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="8dp"
-            android:spinnerMode="dropdown"
-            app:boxBackgroundColor="@color/input_layout_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/textViewShopDetailCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:spinnerMode="dropdown"
+        app:boxBackgroundColor="@color/input_layout_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineTopLine" />
 
-        <Button
-            android:id="@+id/buttonCAddState"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:padding="8dp"
-            android:text="즐겨찾기추가"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerShopDetailCategory" />
+    <ImageView
+        android:id="@+id/imageViewDetailEventFavorite"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="8dp"
+        android:src="@drawable/market_favorite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShopDetailCategory" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineTopLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_end="550dp" />
+    <EditText
+        android:id="@+id/editTextShopDetailEventTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
+        android:inputType="textPersonName"
+        android:text="이벤트제목"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShopDetailEventAddress" />
 
-        <EditText
-            android:id="@+id/editTextShopDetailEventTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
-            android:inputType="textPersonName"
-            android:text="이벤트제목"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guidelineTopLine" />
+    <EditText
+        android:id="@+id/editTextShopDetailEventContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="start"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:maxLines="10"
+        android:minLines="6"
+        android:scrollbars="vertical"
+        android:text="이벤트내용"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextShopDetailEventTitle" />
 
-        <EditText
-            android:id="@+id/editTextShopDetailEventInformation"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="start"
-            android:inputType="textMultiLine"
-            android:lines="8"
-            android:maxLines="10"
-            android:minLines="6"
-            android:scrollbars="vertical"
-            android:text="이벤트내용"
-            app:layout_constraintBottom_toTopOf="@+id/guidelineBottomLine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextShopDetailEventTitle" />
+    <TextView
+        android:id="@+id/textViewShopDetailEventStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/border"
+        android:text="시작 날짜"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextShopDetailEventContent" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineBottomLine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="500dp" />
+    <TextView
+        android:id="@+id/textViewShopDetailEventDateEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:background="@drawable/border"
+        android:text="끝 날짜"
+        android:textSize="15sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewShopDetailEventStartDate"
+        app:layout_constraintStart_toEndOf="@+id/textViewShopDetailEventStartDate" />
 
-        <TextView
-            android:id="@+id/textViewShopDetailStartEventDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/border"
-            android:text="시작 날짜"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guidelineBottomLine" />
+    <Button
+        android:id="@+id/btnDetailEventRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:text="삭제"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnDetailEventUpdate"
+        app:layout_constraintStart_toEndOf="@+id/btnDetailEventUpdate" />
 
-        <TextView
-            android:id="@+id/textViewShopDetailEndEventDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/border"
-            android:text="끝 날짜"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/textViewShopDetailStartEventDate"
-            app:layout_constraintTop_toBottomOf="@+id/guidelineBottomLine" />
-
-        <Button
-            android:id="@+id/btnMRemovalEvenet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="30dp"
-            android:text="삭제"
-            android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@+id/btnMChangEvenet"
-            app:layout_constraintTop_toBottomOf="@+id/textViewShopDetailEndEventDate" />
-
-        <Button
-            android:id="@+id/btnMChangEvenet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="30dp"
-            android:text="수정"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewShopDetailStartEventDate" />
+    <Button
+        android:id="@+id/btnDetailEventUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="32dp"
+        android:text="수정"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShopDetailEventStartDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
