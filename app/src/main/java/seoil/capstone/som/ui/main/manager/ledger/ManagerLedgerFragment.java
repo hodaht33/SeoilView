@@ -207,7 +207,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
                     mAlertDialogInsert.dismiss();
                 }
-                //다이얼로그로 데이터 추가창 생성
+                //다이얼로그로 재고 추가창 생성
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_manager_ledger_stock_insert, null, false);

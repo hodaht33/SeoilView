@@ -41,6 +41,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         mInteractor = null;
     }
 
+    //영어로된 요일을 입력받아 한글로 반환
     public String getDate(String date) {
 
         String result;
@@ -74,7 +75,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         return result;
     }
 
-
+    //int 형식의 날짜를 2021-05-26 의 형식으로 변환
     public String getDateQuery(int year, int month, int day) {
 
         String dateQuery;
@@ -101,8 +102,8 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
         return dateQuery;
     }
-
-
+    
+    //EditText의 Text가 있는지 확인
     public int isTextSet(String str) {
         if (str == null || str.equals("")) {
 
@@ -114,6 +115,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         return TEXT_LENGTH_INVALID;
     }
 
+    // 재고 조회
     public void getStock(String shopId) {
 
         OnFinishApiListener<StockData.GetRes> onFinishApiListener = new OnFinishApiListener<StockData.GetRes>() {

@@ -30,7 +30,7 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
     private Context mContext;
     public final int ADAPTER_EDIT = 1001;
     public final int ADAPTER_DELETE = 1002;
-    private AlertDialog mAlertDialog;               //재고 추가창 생성
+    private AlertDialog mAlertDialog;               //재고 추가창
 
     ManagerLedgerStockAdapter(ArrayList<String> listName, ArrayList<String> listAmount, ManagerLedgerPresenter presenter, String shopId, Context context) {
 
@@ -123,6 +123,7 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
 
         }
 
+        //편집 또는 삭제 버튼 클릭시 처리
         @Override
         public boolean onMenuItemClick(MenuItem item) {
 
