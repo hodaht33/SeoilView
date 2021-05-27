@@ -1,5 +1,7 @@
 package seoil.capstone.som.ui.event.detail;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,6 +40,8 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
             @Override
             public void onSuccess(EventData.eventCodeRes eventCodeRes) {
 
+                Log.d("eventCode", String.valueOf(eventCodeRes.getStatus()));
+
                 if (eventCodeRes.getStatus() == EventApi.SUCCESS) {
 
                     List<EventData.eventCodeRes.Result> list = eventCodeRes.getResults();
@@ -62,6 +66,7 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
             @Override
             public void onFailure(Throwable t) {
 
+                Log.d("eventCode", t.getMessage());
             }
         };
 
@@ -70,10 +75,11 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
 
     public void updateEvent(int eventCode, String eventName, String eventContents, String startDate, String endDate) {
 
-        OnFinishApiListener<EventData.UpdateReq> onFinishApiListener = new OnFinishApiListener<EventData.UpdateReq>() {
+        OnFinishApiListener<EventData.StatusRes> onFinishApiListener = new OnFinishApiListener<EventData.StatusRes>() {
             @Override
-            public void onSuccess(EventData.UpdateReq updateReq) {
+            public void onSuccess(EventData.StatusRes statusRes) {
 
+                Log.d("eventstatus", String.valueOf(statusRes.getStatus()));
                 view.initDetailEvent();
             }
 

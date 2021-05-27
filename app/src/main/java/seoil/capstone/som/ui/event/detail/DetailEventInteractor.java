@@ -13,7 +13,7 @@ public class DetailEventInteractor implements DetailEventContract.Interactor {
     }
 
     @Override
-    public void updateEvent(EventData.UpdateReq req, OnFinishApiListener<EventData.UpdateReq> onFinishApiListener) {
+    public void updateEvent(EventData.UpdateReq req, OnFinishApiListener<EventData.StatusRes> onFinishApiListener) {
         AppApiHelper.getInstance().updateEvent(req, onFinishApiListener);
     }
 

@@ -39,16 +39,11 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
     private String mUserCode;
     private String mStartDateQuery;
     private String mEndDateQuery;
-    private Boolean isBtnSet;
-    private Boolean isBtnSetLate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_event);
-
-        isBtnSet = false;
-        isBtnSetLate = false;
 
         mPresenter = new DetailEventPresenter();
         mPresenter.setView(this);
@@ -135,19 +130,10 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
 
         if (viewId == R.id.btnDetailEventUpdate) { //이벤트 수정 버튼
 
-            if (mPresenter.isTextSet(mEditTextEventName.getText().toString())) {
+            if (!mPresenter.isTextSet(mEditTextEventName.getText().toString())) {
 
                 Toast.makeText(this, "이벤트명을 입력해주세요", Toast.LENGTH_SHORT).show();
-            } else if (!isBtnSet) {
-
-                Toast.makeText(this, "시작 날짜를 선택해주세요", Toast.LENGTH_SHORT).show();
-            } else if (!isBtnSetLate) {
-
-                Toast.makeText(this, "마지막 날짜를 선택해주세요", Toast.LENGTH_SHORT).show();
-            } else if (mLateDay > mFirstDay + 7) {
-
-                Toast.makeText(this, "마지막 날짜를 선택해주세요", Toast.LENGTH_SHORT).show();
-            } else if (mFirstYear > mLateYear || mFirstMonth > mLateMonth || mFirstDay > mLateDay) {
+            } else if (mFirstYear >= mLateYear && mFirstMonth >= mLateMonth && mFirstDay > mLateDay) {
 
                 Toast.makeText(this, "마지막 날짜를 다시 선택해주세요", Toast.LENGTH_SHORT).show();
             } else {
@@ -227,8 +213,6 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
 
                     mStartDateQuery = mPresenter.getDateQuery(mFirstYear, mFirstMonth, mFirstDay);
                     mTextViewStartDate.setText(mStartDateQuery.substring(2));
-
-                    isBtnSet = true;
                 }
             },year, month - 1, day );
 
@@ -238,8 +222,6 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
 
             datePickerDialog.show();
         } else {
-
-            if (isBtnSet) {
 
                 datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -252,18 +234,16 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
                         mEndDateQuery = mPresenter.getDateQuery(mLateYear, mLateMonth, mLateDay);
                         mTextViewEndDate.setText(mEndDateQuery.substring(2));
 
-                        isBtnSetLate = true;
                     }
                 }, mFirstYear, mFirstMonth - 1, mFirstDay);
 
-                date.set(mFirstYear, mFirstMonth - 1, mFirstDay + 7);
+                date.set(mFirstYear, mFirstMonth - 1, mFirstDay);
+                datePickerDialog.getDatePicker().setMinDate(date.getTime().getTime());
+                date.set(mFirstYear + 1, mFirstMonth, mFirstDay);
                 datePickerDialog.getDatePicker().setMaxDate(date.getTime().getTime());
 
                 datePickerDialog.show();
-            } else {
 
-                Toast.makeText(this, "시작 날짜를 선택해주세요", Toast.LENGTH_LONG).show();
-            }
         }
     }
 }

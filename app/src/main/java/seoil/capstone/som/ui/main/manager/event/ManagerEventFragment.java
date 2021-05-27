@@ -3,6 +3,7 @@ package seoil.capstone.som.ui.main.manager.event;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +34,13 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
 
     public ManagerEventFragment() {
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        mPresenter.getEvent(mShopId);
     }
 
     @Override

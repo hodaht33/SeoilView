@@ -12,7 +12,7 @@ public interface DetailEventContract {
 
         void getEventByCode(int eventCode, OnFinishApiListener<EventData.eventCodeRes> onFinishApiListener);
 
-        void updateEvent(EventData.UpdateReq req, OnFinishApiListener<EventData.UpdateReq> onFinishApiListener);
+        void updateEvent(EventData.UpdateReq req, OnFinishApiListener<EventData.StatusRes> onFinishApiListener);
 
         void deleteEvent(int eventCode, OnFinishApiListener<EventData.StatusRes> onFinishApiListener);
     }
