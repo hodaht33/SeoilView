@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 
+import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.ui.find.FindActivity;
@@ -224,6 +225,14 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void showToast(String text) {
 
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setUserData(String userID, String userCode) {
+
+        GlobalApplication app = (GlobalApplication) getApplicationContext();
+        app.setUserId(userID);
+        app.setUserCode(userCode);
     }
 
     @Override
