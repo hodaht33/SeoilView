@@ -72,7 +72,7 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
             mTextViewStartDate.setEnabled(false);
             mTextViewEndDate.setEnabled(false);
             mImageViewFavorite.setEnabled(true);
-        } else {
+        } else if (mUserCode.equals("M")){
 
             mBtnUpdate.setVisibility(View.VISIBLE);
             mBtnRemove.setVisibility(View.VISIBLE);
