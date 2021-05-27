@@ -238,6 +238,113 @@ public class EventData {
         }
     }
 
+    public static class eventCodeRes {
+
+        public class Result {
+
+            @SerializedName("shopName")
+            @Expose
+            private String shopName;
+            @SerializedName("shopAddress")
+            @Expose
+            private String shopAddress;
+            @SerializedName("shopCategory")
+            @Expose
+            private String shopCategory;
+            @SerializedName("eventName")
+            @Expose
+            private String eventName;
+            @SerializedName("eventContents")
+            @Expose
+            private String eventContents;
+            @SerializedName("eventStartDate")
+            @Expose
+            private String eventStartDate;
+            @SerializedName("eventEndDate")
+            @Expose
+            private String eventEndDate;
+
+            public String getShopName() {
+                return shopName;
+            }
+
+            public void setShopName(String shopName) {
+                this.shopName = shopName;
+            }
+
+            public String getShopAddress() {
+                return shopAddress;
+            }
+
+            public void setShopAddress(String shopAddress) {
+                this.shopAddress = shopAddress;
+            }
+
+            public String getShopCategory() {
+                return shopCategory;
+            }
+
+            public void setShopCategory(String shopCategory) {
+                this.shopCategory = shopCategory;
+            }
+
+            public String getEventName() {
+                return eventName;
+            }
+
+            public void setEventName(String eventName) {
+                this.eventName = eventName;
+            }
+
+            public String getEventContents() {
+                return eventContents;
+            }
+
+            public void setEventContents(String eventContents) {
+                this.eventContents = eventContents;
+            }
+
+            public String getEventStartDate() {
+                return eventStartDate;
+            }
+
+            public void setEventStartDate(String eventStartDate) {
+                this.eventStartDate = eventStartDate;
+            }
+
+            public String getEventEndDate() {
+                return eventEndDate;
+            }
+
+            public void setEventEndDate(String eventEndDate) {
+                this.eventEndDate = eventEndDate;
+            }
+        }
+
+        @SerializedName("status")
+        @Expose
+        private int status;
+        @SerializedName("results")
+        @Expose
+        private List<Result> results;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+        public List<Result> getResults() {
+            return results;
+        }
+
+        public void setResults(List<Result> results) {
+            this.results = results;
+        }
+    }
+
     public static class StatusRes {
 
         @SerializedName("status")

@@ -427,6 +427,11 @@ public class AppApiHelper {
         mEventApi.getEvent(shopId, onFinishApiListener);
     }
 
+    public void getEventByCode(int eventCode, OnFinishApiListener<EventData.eventCodeRes> onFinishApiListener) {
+
+        mEventApi.getEventByCode(eventCode, onFinishApiListener);
+    }
+
     public void insertEvent(EventData.InsertReq req, OnFinishApiListener onFinishApiListener) {
 
         mEventApi.insertEvent(req, onFinishApiListener);
