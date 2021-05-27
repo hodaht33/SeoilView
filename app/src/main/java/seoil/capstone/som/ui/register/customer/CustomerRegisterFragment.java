@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
@@ -304,6 +305,8 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
 
     @Override
     public void finishRegister(Intent intent) {
+
+        ((GlobalApplication)getContext().getApplicationContext()).setUserCode("C");
 
         startActivity(intent);
     }

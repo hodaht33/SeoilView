@@ -7,6 +7,10 @@ import com.google.firebase.FirebaseApp;
 import com.kakao.sdk.common.KakaoSdk;
 
 public class GlobalApplication extends Application {
+
+    private String userId;
+    private String userCode;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -16,5 +20,21 @@ public class GlobalApplication extends Application {
 
         // Firebase 어플 초기화
         FirebaseApp.initializeApp(this);
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 }
