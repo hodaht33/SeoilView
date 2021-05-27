@@ -1,5 +1,7 @@
 package seoil.capstone.som.ui.event.detail;
 
+import java.util.HashMap;
+
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.EventData;
@@ -8,7 +10,7 @@ public interface DetailEventContract {
 
     interface Interactor extends BaseContract.Interactor {
 
-        void getEvent(String shopId, OnFinishApiListener<EventData.GetRes> onFinishApiListener);
+        void getEventByCode(int eventCode, OnFinishApiListener<EventData.eventCodeRes> onFinishApiListener);
 
         void updateEvent(EventData.UpdateReq req, OnFinishApiListener<EventData.UpdateReq> onFinishApiListener);
 
@@ -21,5 +23,10 @@ public interface DetailEventContract {
 
     interface View extends BaseContract.View {
 
+        void setEvent(HashMap<String, String> eventHashMap);
+
+        void setDeleted();
+
+        void initDetailEvent();
     }
 }

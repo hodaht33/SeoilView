@@ -8,8 +8,8 @@ public class DetailEventInteractor implements DetailEventContract.Interactor {
 
 
     @Override
-    public void getEvent(String shopId, OnFinishApiListener<EventData.GetRes> onFinishApiListener) {
-        AppApiHelper.getInstance().getEvent(shopId, onFinishApiListener);
+    public void getEventByCode(int eventCode, OnFinishApiListener<EventData.eventCodeRes> onFinishApiListener) {
+        AppApiHelper.getInstance().getEventByCode(eventCode, onFinishApiListener);
     }
 
     @Override
