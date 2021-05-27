@@ -30,7 +30,6 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
     private TextView mTextViewMarketName;
     private TextView mTextViewMarketCategory;
     private TextView mTextViewMarketLocation;
-    private ImageView mImageViewFavorite;
     private EditText mEditTextEventName;
     private EditText mEditTextEventContent;
     private TextView mTextViewStartDate;
@@ -71,7 +70,6 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
             mEditTextEventName.setEnabled(false);
             mTextViewStartDate.setEnabled(false);
             mTextViewEndDate.setEnabled(false);
-            mImageViewFavorite.setEnabled(true);
         } else if (mUserCode.equals("M")){
 
             mBtnUpdate.setVisibility(View.VISIBLE);
@@ -82,7 +80,6 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
             mEditTextEventName.setEnabled(true);
             mTextViewStartDate.setEnabled(true);
             mTextViewEndDate.setEnabled(true);
-            mImageViewFavorite.setEnabled(false);
         }
 
         mPresenter.getEvent(mEventCode);
@@ -105,8 +102,6 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
         mTextViewMarketCategory = findViewById(R.id.textViewShopDetailCategory);
         mTextViewMarketLocation = findViewById(R.id.textViewShopDetailEventAddress);
 
-        mImageViewFavorite = findViewById(R.id.imageViewDetailEventFavorite);
-
         mEditTextEventName = findViewById(R.id.editTextShopDetailEventTitle);
         mEditTextEventContent = findViewById(R.id.editTextShopDetailEventContent);
 
@@ -126,7 +121,6 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
         mTextViewStartDate.setOnClickListener(this);
         mTextViewEndDate.setOnClickListener(this);
 
-        mImageViewFavorite.setOnClickListener(this);
     }
 
     @Override
@@ -172,10 +166,6 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
             showDate(false);
         }
 
-        if (viewId == R.id.imageViewDetailEventFavorite) { //즐겨찾기 이미지 버튼
-
-
-        }
     }
 
     @Override
@@ -265,9 +255,6 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
                         isBtnSetLate = true;
                     }
                 }, mFirstYear, mFirstMonth - 1, mFirstDay);
-
-                date.set(mFirstYear, mFirstMonth - 1, mFirstDay);
-                datePickerDialog.getDatePicker().setMinDate(date.getTime().getTime());
 
                 date.set(mFirstYear, mFirstMonth - 1, mFirstDay + 7);
                 datePickerDialog.getDatePicker().setMaxDate(date.getTime().getTime());
