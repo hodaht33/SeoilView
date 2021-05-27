@@ -18,8 +18,8 @@ public interface FindIdContract {
     interface View extends BaseContract.View {
 
         void showDialog(String msg);
-        void visibleAuthEditText();
-        void resultView(ArrayList<String> idResults);
+        void visibleAuthView();
+        void visibleResultView(ArrayList<String> idResults);
     }
 
     interface Presenter extends BaseContract.Presenter<FindIdContract.View> {

@@ -3,7 +3,6 @@ package seoil.capstone.som.ui.find.id;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
@@ -61,7 +60,7 @@ public class FindIdPresenter implements FindIdContract.Presenter{
                     if (statusRes.getStatus() == UserApi.SUCCESS) {
 
                         mView.showDialog("문자 전송 완료\n인증번호를 입력해주세요.");
-                        mView.visibleAuthEditText();
+                        mView.visibleAuthView();
                     } else {
 
                         mView.showDialog("문자 전송 문제가 발생했습니다.");
@@ -72,7 +71,6 @@ public class FindIdPresenter implements FindIdContract.Presenter{
                 public void onFailure(Throwable t) {
 
                     mView.showDialog("문자 전송 문제가 발생했습니다.");
-                    Log.d("findid", t.toString());
                 }
             };
 
@@ -92,7 +90,7 @@ public class FindIdPresenter implements FindIdContract.Presenter{
 
                     if  (res.getResults().isEmpty()) {
 
-                        mView.resultView(null);
+                        mView.visibleResultView(null);
 
                         return;
                     }
@@ -104,7 +102,7 @@ public class FindIdPresenter implements FindIdContract.Presenter{
                         results.add(result.getUserId());
                     }
 
-                    mView.resultView(results);
+                    mView.visibleResultView(results);
                 } else if (res.getStatus() == UserApi.ERROR_INVALID_AUTH) {
 
                     mView.showDialog("유효하지 않은 인증번호 입니다.");

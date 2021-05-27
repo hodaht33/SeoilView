@@ -47,6 +47,29 @@ public class EventApi {
         });
     }
 
+    public void getEventByCode(int eventCode, OnFinishApiListener onFinishApiListener) {
+
+        Call<EventData.eventCodeRes> call = mEventData.getEventByCode(eventCode);
+        call.enqueue(new Callback<EventData.eventCodeRes>() {
+            @Override
+            public void onResponse(Call<EventData.eventCodeRes> call, Response<EventData.eventCodeRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<EventData.eventCodeRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
     public void insertEvent(EventData.InsertReq req, OnFinishApiListener onFinishApiListener) {
 
         Call<EventData.StatusRes> call = mEventData.insertEvent(req);

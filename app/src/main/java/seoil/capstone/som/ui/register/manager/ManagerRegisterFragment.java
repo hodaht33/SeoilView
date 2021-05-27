@@ -10,8 +10,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.OnBackPressedDispatcher;
-import androidx.activity.OnBackPressedDispatcherOwner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -19,7 +17,6 @@ import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +35,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
@@ -120,7 +118,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
                 if(System.currentTimeMillis() - mLastTimeBackPressed < 1000) {
 
-                    Log.d("test", "t");
                     // 들고있던 정보 가지고 되돌아감
                     mCommunicator.changeAnotherFragment(new SelectUserFragment(), getArguments());
 
@@ -289,7 +286,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             } else if (mIdValidCode == mPresenter.ID_SHORT) {
 
                 Utility.getInstance().renderKeyboard(getActivity());
-                mEditTextId.setError("아이디가 너무 짧습니다. 3자 이상 입력해주세요.");
+                mEditTextId.setError("아이디가 너무 짧습니다. 8자 이상 입력해주세요.");
                 mEditTextId.requestFocus();
             } else if (mIdValidCode == mPresenter.ID_LONG) {
 
@@ -527,7 +524,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
                 mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
                 mBundleData.putString("shopCategory", mSpinnerCategory.getSelectedItem().toString());
-                mBundleData.putString("shopAddress", mTextViewPostalCode.getText().toString() + " " + mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
+                mBundleData.putString("shopPostCode", mTextViewPostalCode.getText().toString());
+                mBundleData.putString("shopAddress", mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
@@ -616,7 +614,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mBundleData.putString("shopCode", editTextToString(mEditTextCorporateNumber));
                 mBundleData.putString("shopName", editTextToString(mEditTextMarketName));
                 mBundleData.putString("shopCategory", mSpinnerCategory.getSelectedItem().toString());
-                mBundleData.putString("shopAddress", mTextViewPostalCode.getText().toString() + " " + mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
+                mBundleData.putString("shopPostCode", mTextViewPostalCode.getText().toString());
+                mBundleData.putString("shopAddress", mTextViewAddress.getText().toString() + " " + editTextToString(mEditTextDetailedAddress));
                 mBundleData.putBoolean("marketingAgreement", mChkBoxMarketingInfo.isChecked());
 
                 return true;
@@ -826,12 +825,14 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     @Override
     public void finishRegister(Intent intent) {
 
+        ((GlobalApplication)getContext().getApplicationContext()).setUserId(mBundleData.getString("id"));
+        ((GlobalApplication)getContext().getApplicationContext()).setUserCode("C");
+
         startActivity(intent);
     }
 
     private void doRegister(String platform) {
 
-        // TODO: 비즈니스 로직이므로 presenter로 옮겨야 함?
         if (checkValidAndPutData(platform)) {
 
             mPresenter.register(
@@ -852,7 +853,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                     mChkBoxMarketingInfo.isChecked()
 
             );
-            Log.d("MRegit","1");
         }
     }
 

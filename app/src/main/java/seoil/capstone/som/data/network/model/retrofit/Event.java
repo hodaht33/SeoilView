@@ -15,6 +15,9 @@ public interface Event {
     @GET("event/{shopId}")
     Call<EventData.GetRes> getEvent(@Path("shopId") String shopId);
 
+    @GET("event/{eventCode}/event-data")
+    Call<EventData.eventCodeRes> getEventByCode(@Path("eventCode") int eventCode);
+
     @POST("event")
     Call<EventData.StatusRes> insertEvent(@Body EventData.InsertReq req);
 
