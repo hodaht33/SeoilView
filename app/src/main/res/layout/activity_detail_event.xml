@@ -82,44 +82,49 @@
         android:id="@+id/textViewShopDetailEventStartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/border"
         android:text="시작 날짜"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/textViewShopDetailEventDateEnd"
         app:layout_constraintTop_toBottomOf="@+id/editTextShopDetailEventContent" />
 
     <TextView
         android:id="@+id/textViewShopDetailEventDateEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
         android:background="@drawable/border"
         android:text="끝 날짜"
         android:textSize="15sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textViewShopDetailEventStartDate"
-        app:layout_constraintStart_toEndOf="@+id/textViewShopDetailEventStartDate" />
-
-    <Button
-        android:id="@+id/btnDetailEventRemove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:text="삭제"
-        android:visibility="gone"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btnDetailEventUpdate"
-        app:layout_constraintStart_toEndOf="@+id/btnDetailEventUpdate" />
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintLeft_toRightOf="@+id/textViewShopDetailEventStartDate"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
         android:id="@+id/btnDetailEventUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
         android:layout_marginTop="32dp"
         android:text="수정"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btnDetailEventRemove"
         app:layout_constraintTop_toBottomOf="@+id/textViewShopDetailEventStartDate" />
+
+    <Button
+        android:id="@+id/btnDetailEventRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="삭제"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnDetailEventUpdate"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintLeft_toRightOf="@+id/btnDetailEventUpdate"
+        app:layout_constraintRight_toRightOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
