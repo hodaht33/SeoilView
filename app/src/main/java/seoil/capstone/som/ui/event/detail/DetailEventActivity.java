@@ -133,7 +133,7 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
             if (!mPresenter.isTextSet(mEditTextEventName.getText().toString())) {
 
                 Toast.makeText(this, "이벤트명을 입력해주세요", Toast.LENGTH_SHORT).show();
-            } else if (mFirstYear >= mLateYear && mFirstMonth >= mLateMonth && mFirstDay > mLateDay) {
+            } else if (mFirstYear > mLateYear || mFirstMonth > mLateMonth || (mFirstYear == mLateYear && mFirstMonth == mLateMonth && mFirstDay > mLateDay)) {
 
                 Toast.makeText(this, "마지막 날짜를 다시 선택해주세요", Toast.LENGTH_SHORT).show();
             } else {
@@ -217,7 +217,7 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
             },year, month - 1, day );
 
 
-            date.set(2021, 0, 1);
+            date.set(year, month - 1, day);
             datePickerDialog.getDatePicker().setMinDate(date.getTime().getTime());
 
             datePickerDialog.show();

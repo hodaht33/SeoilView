@@ -66,19 +66,24 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
                 final ViewHolder itemController =  holder;
                 itemController.refferalItem = item;
                 itemController.headerTitle.setText(item.text);
+                itemController.headerTitle.setPadding(0, 0, 0, 0);
                 itemController.headerTitle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
+                        // 숨겨진 아이템 없을 때
                         if (item.invisibleChildren == null) {
 
                             item.invisibleChildren = new ArrayList<>();
                             int count = 0;
                             int pos = mPointList.indexOf(itemController.refferalItem);
-                            while (mPointList.size() > pos + 1 && mPointList.get(pos + 1).type == CHILD) {
+                            while (mPointList.size() > pos + 1
+                                    && mPointList.get(pos + 1).type == CHILD) {
+
                                 item.invisibleChildren.add(mPointList.remove(pos + 1));
                                 count++;
                             }
+
                             notifyItemRangeRemoved(pos + 1, count);
                         } else {
 
@@ -89,6 +94,7 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
                                 mPointList.add(index, i);
                                 index++;
                             }
+
                             notifyItemRangeInserted(pos + 1, index - pos - 1);
                             item.invisibleChildren = null;
                         }
