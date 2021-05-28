@@ -30,6 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 
 public class ManagerStatisticsFragment extends Fragment implements ManagerStatisticsContract.View, View.OnClickListener{
@@ -104,8 +105,7 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         mBtnCInfo.setBackgroundColor(white);
         mBtnCInfo.setTextColor(gray);
 
-        Bundle bundle = getActivity().getIntent().getBundleExtra("data");
-        mShopId = bundle.getString("id");
+        mShopId = ((GlobalApplication) getActivity().getApplicationContext()).getUserId();
 
         return view;
     }

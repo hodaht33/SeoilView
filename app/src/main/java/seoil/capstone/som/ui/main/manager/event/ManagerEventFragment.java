@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.event.detail.DetailEventActivity;
 
@@ -64,8 +65,7 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
 
         initView(view);
 
-        Bundle bundle = getActivity().getIntent().getBundleExtra("data");
-        mShopId = bundle.getString("id");
+        mShopId = ((GlobalApplication) getActivity().getApplicationContext()).getUserId();
 
         mRecyclerViewInProgress.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapterInProgress = new ManagerEventAdapter(mEventName, mEventCode, mEventStartDate, mEventEndDate, mPresenter);

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 
 public class CustomerBookmarkFragment extends Fragment implements View.OnClickListener, CustomerBookmarkContract.View{
@@ -35,8 +36,7 @@ public class CustomerBookmarkFragment extends Fragment implements View.OnClickLi
         mShopName = new ArrayList<>();
         mShopCategory = new ArrayList<>();
 
-        Bundle bundle = getActivity().getIntent().getBundleExtra("data");
-        mUserId = bundle.getString("id");
+        mUserId = ((GlobalApplication) getActivity().getApplicationContext()).getUserId();
     }
 
     @Nullable

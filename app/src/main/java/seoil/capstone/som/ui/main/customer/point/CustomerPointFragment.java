@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 
 
@@ -51,8 +52,7 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
 
         initView(view);
 
-        Bundle bundle = getActivity().getIntent().getBundleExtra("data");
-        mUserId = bundle.getString("id");
+        mUserId = ((GlobalApplication) getActivity().getApplicationContext()).getUserId();
 
 
         mPresenter = new CustomerPointPresenter();

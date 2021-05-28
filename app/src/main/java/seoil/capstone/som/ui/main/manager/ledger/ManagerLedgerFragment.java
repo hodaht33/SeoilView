@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.main.manager.ledger.Sales.ManagerLedgerSalesActivity;
 
@@ -89,8 +90,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("가계부"), 0);
         mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("재고"), 1);
 
-        Bundle bundle = getActivity().getIntent().getBundleExtra("data");
-        mShopId = bundle.getString("id");
+        mShopId = ((GlobalApplication) getActivity().getApplicationContext()).getUserId();
 
         initListener(mShopId);
         mCalendarView.setSelectionColor(R.color.black);
