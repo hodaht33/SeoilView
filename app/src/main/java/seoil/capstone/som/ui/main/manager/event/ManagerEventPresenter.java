@@ -90,7 +90,9 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
                             int monthResult = Integer.parseInt(dateResult.substring(5, 7));
                             int dayResult = Integer.parseInt(dateResult.substring(8, 10));
 
-                            if (yearResult > year || monthResult > month || (month == monthResult && dayResult >= day)) {
+                            if (yearResult > year
+                                    || monthResult > month
+                                    || (month == monthResult && dayResult >= day)) {
 
                                 eventNameInProgress.add(result.getEventName());
                                 eventCodeInProgress.add(result.getEventCode());

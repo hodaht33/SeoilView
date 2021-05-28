@@ -133,7 +133,9 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
             if (!mPresenter.isTextSet(mEditTextEventName.getText().toString())) {
 
                 Toast.makeText(this, "이벤트명을 입력해주세요", Toast.LENGTH_SHORT).show();
-            } else if (mFirstYear > mLateYear || mFirstMonth > mLateMonth || (mFirstYear == mLateYear && mFirstMonth == mLateMonth && mFirstDay > mLateDay)) {
+            } else if (mFirstYear > mLateYear
+                        || mFirstMonth > mLateMonth
+                        || (mFirstYear == mLateYear && mFirstMonth == mLateMonth && mFirstDay > mLateDay)) {
 
                 Toast.makeText(this, "마지막 날짜를 다시 선택해주세요", Toast.LENGTH_SHORT).show();
             } else {
