@@ -1,7 +1,5 @@
 package seoil.capstone.som.ui.main.manager.event;
 
-import android.content.Intent;
-
 import java.util.ArrayList;
 
 import seoil.capstone.som.base.BaseContract;

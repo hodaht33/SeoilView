@@ -1,7 +1,5 @@
 package seoil.capstone.som.ui.main.manager.event;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seoil.capstone.som.R;
-import seoil.capstone.som.ui.event.detail.DetailEventActivity;
-import seoil.capstone.som.ui.main.customer.point.CustomerPointAdapter;
 
 public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapter.ViewHolder> {
 
