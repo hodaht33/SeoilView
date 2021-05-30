@@ -34,9 +34,11 @@ public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Prese
         mInteractor = null;
     }
 
+    //Model에 사용자Id, 조회된 매장 정보 처리 방식을 전달
     @Override
     public void getBookmarkShopInfo(String userId) {
 
+        //조회된 매장 즐겨찾기 정보를 view에 전달
         OnFinishApiListener<BookmarkInfo.ShopInfoRes> onFinishApiListener = new OnFinishApiListener<BookmarkInfo.ShopInfoRes>() {
             @Override
             public void onSuccess(BookmarkInfo.ShopInfoRes shopInfoRes) {

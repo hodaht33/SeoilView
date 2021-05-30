@@ -23,6 +23,7 @@ public interface LoginContract {
         void toMain(Intent intent);
         void toRegit(Intent intent);
         void showToast(String text);
+        void setUserData(String userID, String userCode);
     }
 
     interface Presenter extends BaseContract.Presenter<View> {

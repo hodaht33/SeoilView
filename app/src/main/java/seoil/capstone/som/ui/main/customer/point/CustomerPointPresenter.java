@@ -12,28 +12,35 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
     private CustomerPointContract.View view;
     private CustomerPointInteractor mInteractor;
 
+    //뷰 설정
     @Override
     public void setView(CustomerPointContract.View view) {
         this.view = view;
     }
 
+    //뷰 해제
     @Override
     public void releaseView() {
         this.view = null;
     }
 
+    //DB 접근 Model 생성
     @Override
     public void createInteractor() {
         mInteractor = new CustomerPointInteractor();
     }
 
+    //Model 해제
     @Override
     public void releaseInteractor() {
         mInteractor = null;
     }
 
+    
+    //Fragment에서 받아온 사용자 아이디와 조회된 잔여 포인트를 처리할 방식을 Model에 전달
     public synchronized void getCurrentPoint(String id) {
 
+        //DB에 조회 성공 했을 때 잔여 사용 포인트 정보, 사용 날짜를 view에 전달
         OnFinishApiListener<PointData.GetCurrentRes> onFinishApiListener = new OnFinishApiListener<PointData.GetCurrentRes>() {
             @Override
             public void onSuccess(PointData.GetCurrentRes getCurrentRes) {
@@ -52,8 +59,6 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
                         list.add(new CustomerPointAdapter.Item(CustomerPointAdapter.CHILD, String.valueOf(getCurrentRes.getPoint())));
                     }
 
-
-
                     view.setCurrentPoint(list);
                 }
             }
@@ -67,8 +72,10 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
         mInteractor.getCurrentPoint(id, onFinishApiListener);
     }
 
+    //Fragment에서 받아온 사용자 아이디와 조회된 적립 포인트를 처리할 방식을 Model에 전달
     public synchronized void getSavePoint(String id) {
 
+        //DB에 조회 성공 했을 때 적립 포인트 정보, 적립 날짜를 view에 전달
         OnFinishApiListener<PointData.GetSaveRes> onFinishApiListener = new OnFinishApiListener<PointData.GetSaveRes>() {
             @Override
             public void onSuccess(PointData.GetSaveRes getSaveRes) {
@@ -80,7 +87,6 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
                     List<PointData.GetSaveRes.Result> list = getSaveRes.getResults();
 
                     savePoint.invisibleChildren = new ArrayList<>();
-
 
                     List<String> saveDate = new ArrayList<>();
                     saveDate.add("");
@@ -98,8 +104,7 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
                             savePoint.invisibleChildren.add(new CustomerPointAdapter.Item(CustomerPointAdapter.CHILD, String.valueOf(result.getSavePointAmount())));
                         }
                     }
-
-
+                    
                     view.setSavePoint(savePoint, saveDate);
                 }
             }
@@ -113,6 +118,7 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
         mInteractor.getSavePoint(id, onFinishApiListener);
     }
 
+    //Fragment에서 받아온 사용자 아이디와 조회된 사용 포인트를 처리할 방식을 Model에 전달
     public synchronized void getUsePoint(String id) {
 
         OnFinishApiListener<PointData.GetUsingRes> onFinishApiListener = new OnFinishApiListener<PointData.GetUsingRes>() {

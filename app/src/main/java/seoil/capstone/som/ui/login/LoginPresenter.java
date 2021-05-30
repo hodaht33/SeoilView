@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 
+import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.Login;
@@ -56,6 +57,8 @@ public class LoginPresenter implements LoginContract.Presenter {
                     Bundle bundle = new Bundle();
                     bundle.putString("id", id);
                     bundle.putString("code", loginResponse.getCode());
+
+                    mView.setUserData(id, loginResponse.getCode());
 
                     if (pwd.equals("naver")
                         || pwd.equals("kakao")) {

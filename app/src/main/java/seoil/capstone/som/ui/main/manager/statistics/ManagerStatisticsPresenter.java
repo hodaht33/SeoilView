@@ -78,17 +78,16 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
                     ArrayList<Integer> listAmounts = new ArrayList<>();
                     ArrayList<String> listDates = new ArrayList<>();
                     int c = 0;
-                    for (SalesData.GetStatisticsRes.Result result : list) {
 
+                    for (SalesData.GetStatisticsRes.Result result : list) {
 
                         listAmounts.add(c, result.getSalesAmount());
                         listDates.add(c, result.getSalesDate());
                         c++;
                     }
+
                     mView.sendSalesData(listDates, listAmounts);
-
                 } else {
-
 
                 }
             }
@@ -111,7 +110,6 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
 
                     List<StatisticsData.GetGenderRes.Result> list = getRes.getResults();
-
 
                     ArrayList<String> genderList = new ArrayList<>();
                     ArrayList<Integer> countList = new ArrayList<>();
@@ -151,9 +149,19 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
                     }
                     mView.sendGenderTotal(genderList, countList);
 
-                } else {
+                } else if (getRes.getStatus() == SalesApi.ERROR_NONE_DATA){
 
+                    ArrayList<String> genderList = new ArrayList<>();
+                    ArrayList<Integer> countList = new ArrayList<>();
 
+                    int c = 0;
+                    genderList.add(c, "M");
+                    countList.add(c, 0);
+                    c++;
+                    genderList.add(c, "W");
+                    countList.add(c, 0);
+
+                    mView.sendGenderTotal(genderList, countList);
                 }
             }
 
@@ -178,6 +186,7 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
                     ArrayList<String> ageList = new ArrayList<>();
                     ArrayList<Integer> amountList = new ArrayList<>();
                     int c = 0;
+
                     for (StatisticsData.GetAgeGroupRes.Result result : list) {
 
                         if (c < result.getAgeGroup() - 1) {

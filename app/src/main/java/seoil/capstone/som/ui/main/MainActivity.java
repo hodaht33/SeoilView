@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.login.LoginActivity;
 import seoil.capstone.som.ui.main.customer.bookmark.CustomerBookmarkFragment;
@@ -33,9 +34,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String userId = getIntent().getStringExtra("userId");
-
-        mUserCode = getIntent().getBundleExtra("data").getString("code", "C");
+        mUserCode = ((GlobalApplication) getApplicationContext()).getUserCode();
 
         mNavView = findViewById(R.id.bottomNavMain);
         mFragmentLayoutId = R.id.fragmentLayoutMain;

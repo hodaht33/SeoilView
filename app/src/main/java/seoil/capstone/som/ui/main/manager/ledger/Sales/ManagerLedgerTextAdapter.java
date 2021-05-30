@@ -88,6 +88,10 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
     }
 
     public void clear() {
+
+        if (mDataName == null) {
+            return;
+        }
         int size = mDataName.size();
 
         if (size > 0) {

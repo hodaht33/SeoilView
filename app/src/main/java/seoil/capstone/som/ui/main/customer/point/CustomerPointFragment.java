@@ -16,19 +16,20 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 
 
 public class CustomerPointFragment extends Fragment implements CustomerPointContract.View, View.OnClickListener {
 
 
-    private RecyclerView mRecyclerView;
-    private List<CustomerPointAdapter.Item> mPoint;
+    private RecyclerView mRecyclerView;                 //포인터를 보여줄 리사이클러뷰
+    private List<CustomerPointAdapter.Item> mPoint;     //포인트 정보
 
-    private CustomerPointAdapter mAdapter;
-    private CustomerPointPresenter mPresenter;
-    private String mUserId;
-    private List<String> mPointDate;
+    private CustomerPointAdapter mAdapter;              //포인트 리사이클러뷰에 사용할 어댑터
+    private CustomerPointPresenter mPresenter;          //사용자 포인트 Presenter
+    private String mUserId;                             //사용자 아이디
+    private List<String> mPointDate;                    //사용 및 적립 포인트 날짜 정보
 
     public CustomerPointFragment() {
 
@@ -51,8 +52,7 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
 
         initView(view);
 
-        Bundle bundle = getActivity().getIntent().getBundleExtra("data");
-        mUserId = bundle.getString("id");
+        mUserId = ((GlobalApplication) getActivity().getApplicationContext()).getUserId();
 
 
         mPresenter = new CustomerPointPresenter();
@@ -85,11 +85,13 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
 
     }
 
+    //뷰 초기화
     private void initView(View view) {
 
         mRecyclerView = view.findViewById(R.id.recyclerViewCPoint);
     }
 
+    //잔여 포인트 설정
     @Override
     public synchronized void setCurrentPoint(List<CustomerPointAdapter.Item> currentPoint) {
 
@@ -103,6 +105,7 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
         mPresenter.getUsePoint(mUserId);
     }
 
+    //사용 포인트 설정
     @Override
     public synchronized void setUsePoint(CustomerPointAdapter.Item usePoint, List<String> useDate) {
 
@@ -119,6 +122,7 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
         mPresenter.getSavePoint(mUserId);
     }
 
+    //적립 포인트 설정
     @Override
     public synchronized void setSavePoint(CustomerPointAdapter.Item savePoint, List<String> saveDate) {
 
@@ -129,11 +133,13 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
         setData();
     }
 
+    //포인트 조회
     public synchronized void initPoint() {
 
         mPresenter.getCurrentPoint(mUserId);
     }
 
+    //어댑터의 데이터 변경
     private void setData() {
 
         mAdapter.setData(mPoint, mPointDate);

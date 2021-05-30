@@ -6,6 +6,7 @@ import java.util.List;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.SalesApi;
+import seoil.capstone.som.data.network.api.StockApi;
 import seoil.capstone.som.data.network.model.SalesData;
 import seoil.capstone.som.data.network.model.StockData;
 import seoil.capstone.som.util.Utility;
@@ -40,6 +41,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         mInteractor = null;
     }
 
+    //영어로된 요일을 입력받아 한글로 반환
     public String getDate(String date) {
 
         String result;
@@ -73,7 +75,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         return result;
     }
 
-
+    //int 형식의 날짜를 2021-05-26 의 형식으로 변환
     public String getDateQuery(int year, int month, int day) {
 
         String dateQuery;
@@ -100,8 +102,8 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
         return dateQuery;
     }
-
-
+    
+    //EditText의 Text가 있는지 확인
     public int isTextSet(String str) {
         if (str == null || str.equals("")) {
 
@@ -113,24 +115,33 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         return TEXT_LENGTH_INVALID;
     }
 
+    // 재고 조회
     public void getStock(String shopId) {
 
         OnFinishApiListener<StockData.GetRes> onFinishApiListener = new OnFinishApiListener<StockData.GetRes>() {
             @Override
             public void onSuccess(StockData.GetRes getRes) {
+
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
 
                     List<StockData.GetRes.Result> list = getRes.getResults();
-
+                    
                     ArrayList<String> dataName = new ArrayList<>();
                     ArrayList<String> dataAmount = new ArrayList<>();
+
+
                     for (StockData.GetRes.Result result : list) {
 
                         dataName.add(result.getStockName());
                         dataAmount.add(result.getStockAmount() + "개");
                     }
+
                     view.setLayoutAdapterStock(dataName, dataAmount);
+                } else if (getRes.getStatus() == SalesApi.ERROR_NONE_DATA){
+
+                    view.setLayoutAdapterStock(null, null);
                 } else {
+
                 }
             }
 
@@ -142,20 +153,20 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         mInteractor.getStock(shopId, onFinishApiListener);
     }
 
-
+    //숫자로만 이루어졌는지 확인
     public boolean isNumeric(String str) {
 
         for (int i = 0; i < str.length(); i++) {
 
             if (str.charAt(i) < '0' || str.charAt(i) > '9') {
+
                 return false;
             }
         }
         return true;
     }
 
-
-
+    //view에서 shopId, name, amount를 받아와 Model에 전달 후 재고 조회
     public void insertStock(String shopId, String name, int amount) {
 
         OnFinishApiListener<StockData.StatusRes> onFinishApiListener = new OnFinishApiListener<StockData.StatusRes>() {
@@ -163,18 +174,21 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
             @Override
             public void onSuccess(StockData.StatusRes statusRes) {
 
-                view.initStock();
+                if (statusRes.getStatus() == StockApi.SUCCESS) {
+
+                    view.initStock();
+                }
             }
 
             @Override
             public void onFailure(Throwable t) {
 
-                Log.d("setStock", t.getMessage());
             }
         };
         mInteractor.insertStock(shopId, name, amount, onFinishApiListener);
     }
 
+    //view에서 shopId, name, amount를 받아와 Model에 전달 후 재고 조회
     public void updateStock (String shopId, String name, int amount) {
 
         OnFinishApiListener<StockData.StatusRes> onFinishApiListener = new OnFinishApiListener<StockData.StatusRes>() {
@@ -192,6 +206,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
         mInteractor.updateStock(shopId, name, amount, onFinishApiListener);
     }
 
+    //view에서 shopId, name, amount를 받아와 Model에 전달 후 재고 조회
     public void deleteStock(String shopId, String name) {
 
         OnFinishApiListener<StockData.StatusRes> onFinishApiListener = new OnFinishApiListener<StockData.StatusRes>() {

@@ -5,20 +5,22 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.PointData;
 
 public class CustomerPointInteractor implements CustomerPointContract.Interactor{
-
-
+    
+    //DB 잔여 포인트 조회
     @Override
     public synchronized void getCurrentPoint(String id, OnFinishApiListener<PointData.GetCurrentRes> onFinishApiListener) {
 
         AppApiHelper.getInstance().getCurrentPoint(id, onFinishApiListener);
     }
 
+    //DB 적립 포인트 조회
     @Override
     public synchronized void getSavePoint(String id, OnFinishApiListener<PointData.GetSaveRes> onFinishApiListener) {
 
         AppApiHelper.getInstance().getSavePoint(id, onFinishApiListener);
     }
 
+    //DB 사용 포인트 조회
     @Override
     public synchronized void getUsingPoint(String id, OnFinishApiListener<PointData.GetUsingRes> onFinishApiListener) {
 
