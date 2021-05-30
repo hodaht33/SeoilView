@@ -1,7 +1,5 @@
 package seoil.capstone.som.ui.main.manager.event;
 
-import android.content.Intent;
-
 import java.util.ArrayList;
 
 import seoil.capstone.som.base.BaseContract;
@@ -12,8 +10,7 @@ public interface ManagerEventContract {
 
     interface View extends BaseContract.View {
 
-        void setAdapter(ArrayList<String> eventName, ArrayList<Integer> eventCode,
-                             ArrayList<String> eventStartDate, ArrayList<String> eventEndDate, Boolean isInProgress);
+        void setAdapter(ArrayList<ManagerEventAdapter.Item> eventName, ArrayList<Integer> eventCode, ArrayList<String> eventDate);
 
         void startDetailedEvent(int eventCode);
     }
