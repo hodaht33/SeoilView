@@ -51,29 +51,45 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
 
                     List<EventData.GetRes.Result> list = getRes.getResults();
 
-                    ArrayList<Integer> eventCodeInProgress = new ArrayList<>();
-                    ArrayList<Integer> eventCodeEnd = new ArrayList<>();
-                    ArrayList<String> eventNameInProgress = new ArrayList<>();
-                    ArrayList<String> eventEndDateInProgress = new ArrayList<>();
-
-                    ArrayList<String> eventNameEnd = new ArrayList<>();
-                    ArrayList<String> eventEndDateEnd = new ArrayList<>();
-                    ArrayList<String> eventStartDateInProgress = new ArrayList<>();
-                    ArrayList<String> eventStartDateEnd = new ArrayList<>();
+                    ArrayList<ManagerEventAdapter.Item> mainEventName = new ArrayList<>();
+                    ArrayList<Integer> mainEventCode = new ArrayList<>();
+                    ArrayList<String> mainEventDate = new ArrayList<>();
 
                     if (list == null) {
 
-                        eventNameInProgress.add("진행중인 이벤트가 없습니다.");
-                        eventEndDateInProgress.add("");
-                        eventCodeInProgress.add(null);
-                        eventStartDateInProgress.add("");
-
-                        eventNameEnd.add("종료된 이벤트가 없습니다.");
-                        eventEndDateEnd.add("");
-                        eventCodeEnd.add(null);
-                        eventStartDateEnd.add("");
+                        mainEventName.add(new ManagerEventAdapter.Item(ManagerEventAdapter.HEADER, "진행중 이벤트", null));
+                        mainEventName.add(new ManagerEventAdapter.Item(ManagerEventAdapter.HEADER, "시작전 이벤트", null));
+                        mainEventName.add(new ManagerEventAdapter.Item(ManagerEventAdapter.HEADER, "종료된 이벤트", null));
                     } else {
 
+
+                        ManagerEventAdapter.Item doEventName;
+                        ArrayList<Integer> doEventCode = new ArrayList<>();
+                        ArrayList<String> doEventDate = new ArrayList<>();
+
+                        doEventName = new ManagerEventAdapter.Item(ManagerEventAdapter.HEADER,"진행중 이벤트", null);
+                        doEventCode.add(-1);
+                        doEventDate.add("");
+                        doEventName.invisibleChildren = new ArrayList<>();
+
+                        ManagerEventAdapter.Item beforeEventName;
+                        ArrayList<Integer> beforeEventCode = new ArrayList<>();
+                        ArrayList<String> beforeEventDate = new ArrayList<>();
+
+                        beforeEventName = new ManagerEventAdapter.Item(ManagerEventAdapter.HEADER,"시작전 이벤트", null);
+                        beforeEventCode.add(-1);
+                        beforeEventDate.add("");
+                        beforeEventName.invisibleChildren = new ArrayList<>();
+
+                        ManagerEventAdapter.Item endEventName;
+                        ArrayList<Integer> endEventCode = new ArrayList<>();
+                        ArrayList<String> endEventDate = new ArrayList<>();
+                        
+                        endEventName = new ManagerEventAdapter.Item(ManagerEventAdapter.HEADER,"종료된 이벤트", null);
+                        endEventCode.add(-1);
+                        endEventDate.add("");
+                        endEventName.invisibleChildren = new ArrayList<>();
+                        
                         int year, month, day;
                         Date date = new Date();
                         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -90,41 +106,52 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
                             int monthResult = Integer.parseInt(dateResult.substring(5, 7));
                             int dayResult = Integer.parseInt(dateResult.substring(8, 10));
 
-                            if (yearResult > year
+                            String dateResultStart = result.getStartDate();
+                            int yearResultStart = Integer.parseInt(dateResultStart.substring(0, 4));
+                            int monthResultStart = Integer.parseInt(dateResultStart.substring(5, 7));
+                            int dayResultStart = Integer.parseInt(dateResultStart.substring(8, 10));
+
+                            String temp = result.getStartDate() + "~" + result.getEndDate();
+
+                            if (yearResultStart > year
+                                    || monthResultStart > month
+                                    || (month == monthResultStart && dayResultStart > day)) {   //시작전 이벤트
+
+                                beforeEventName.invisibleChildren.add(new ManagerEventAdapter.Item(ManagerEventAdapter.CHILD, result.getEventName(),
+                                        temp));
+                                beforeEventDate.add(temp);
+                                beforeEventCode.add(result.getEventCode());
+                            } else if (yearResult > year
                                     || monthResult > month
-                                    || (month == monthResult && dayResult >= day)) {
+                                    || (month == monthResult && dayResult >= day)) {            //진행중 이벤트
 
-                                eventNameInProgress.add(result.getEventName());
-                                eventCodeInProgress.add(result.getEventCode());
-                                eventEndDateInProgress.add(result.getEndDate());
-                                eventStartDateInProgress.add(result.getStartDate());
-                            } else {
+                                doEventName.invisibleChildren.add(new ManagerEventAdapter.Item(ManagerEventAdapter.CHILD, result.getEventName(),
+                                                                    temp));
+                                doEventDate.add(temp);
+                                doEventCode.add(result.getEventCode());
+                            } else {                                                            //종료된 이벤트
 
-                                eventNameEnd.add(result.getEventName());
-                                eventCodeEnd.add(result.getEventCode());
-                                eventEndDateEnd.add(result.getEndDate());
-                                eventStartDateEnd.add(result.getStartDate());
+                                endEventName.invisibleChildren.add(new ManagerEventAdapter.Item(ManagerEventAdapter.CHILD, result.getEventName(),
+                                                                        temp));
+                                endEventDate.add(temp);
+                                endEventCode.add(result.getEventCode());
                             }
                         }
 
-                        if (eventCodeEnd == null) {
+                        mainEventName.add(doEventName);
+                        mainEventName.add(beforeEventName);
+                        mainEventName.add(endEventName);
 
-                            eventNameEnd.add("종료된 이벤트가 없습니다.");
-                            eventEndDateEnd.add(null);
-                            eventCodeEnd.add(null);
-                            eventStartDateEnd.add(null);
-                        }
-                        if (eventCodeInProgress == null) {
+                        mainEventCode.addAll(doEventCode);
+                        mainEventCode.addAll(beforeEventCode);
+                        mainEventCode.addAll(endEventCode);
 
-                            eventNameInProgress.add("진행중인 이벤트가 없습니다.");
-                            eventEndDateInProgress.add(null);
-                            eventCodeInProgress.add(null);
-                            eventStartDateInProgress.add(null);
-                        }
+                        mainEventDate.addAll(doEventDate);
+                        mainEventDate.addAll(beforeEventDate);
+                        mainEventDate.addAll(endEventDate);
                     }
 
-                    view.setAdapter(eventNameInProgress, eventCodeInProgress, eventStartDateInProgress, eventEndDateInProgress, true);
-                    view.setAdapter(eventNameEnd, eventCodeEnd, eventStartDateEnd, eventEndDateEnd, false);
+                    view.setAdapter(mainEventName, mainEventCode, mainEventDate);
                 }
             }
 
