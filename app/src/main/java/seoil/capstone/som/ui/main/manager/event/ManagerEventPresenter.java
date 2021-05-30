@@ -62,7 +62,6 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
                         mainEventName.add(new ManagerEventAdapter.Item(ManagerEventAdapter.HEADER, "종료된 이벤트", null));
                     } else {
 
-
                         ManagerEventAdapter.Item doEventName;
                         ArrayList<Integer> doEventCode = new ArrayList<>();
                         ArrayList<String> doEventDate = new ArrayList<>();
@@ -117,22 +116,22 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
                                     || monthResultStart > month
                                     || (month == monthResultStart && dayResultStart > day)) {   //시작전 이벤트
 
-                                beforeEventName.invisibleChildren.add(new ManagerEventAdapter.Item(ManagerEventAdapter.CHILD, result.getEventName(),
-                                        temp));
+                                beforeEventName.invisibleChildren.add(new ManagerEventAdapter.Item(ManagerEventAdapter.CHILD,
+                                                                        result.getEventName(), temp));
                                 beforeEventDate.add(temp);
                                 beforeEventCode.add(result.getEventCode());
                             } else if (yearResult > year
                                     || monthResult > month
                                     || (month == monthResult && dayResult >= day)) {            //진행중 이벤트
 
-                                doEventName.invisibleChildren.add(new ManagerEventAdapter.Item(ManagerEventAdapter.CHILD, result.getEventName(),
-                                                                    temp));
+                                doEventName.invisibleChildren.add(new ManagerEventAdapter.Item(ManagerEventAdapter.CHILD,
+                                                                        result.getEventName(), temp));
                                 doEventDate.add(temp);
                                 doEventCode.add(result.getEventCode());
                             } else {                                                            //종료된 이벤트
 
-                                endEventName.invisibleChildren.add(new ManagerEventAdapter.Item(ManagerEventAdapter.CHILD, result.getEventName(),
-                                                                        temp));
+                                endEventName.invisibleChildren.add(new ManagerEventAdapter.Item(ManagerEventAdapter.CHILD,
+                                                                        result.getEventName(), temp));
                                 endEventDate.add(temp);
                                 endEventCode.add(result.getEventCode());
                             }

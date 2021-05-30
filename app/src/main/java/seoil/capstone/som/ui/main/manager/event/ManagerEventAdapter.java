@@ -97,7 +97,6 @@ public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapte
                 itemController.textViewDate.setEnabled(true);
                 itemController.textViewDate.setVisibility(View.VISIBLE);
 
-
                 int count = 0;
                 for (int i = 0; i <= position; i ++) {
 
@@ -137,10 +136,8 @@ public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapte
                     holder.textViewContentName.setOnClickListener(clickListener);
                     holder.textViewDate.setOnClickListener(clickListener);
                 }
-
                 break;
         }
-
     }
 
     //현재 데이터의 갯수 조회

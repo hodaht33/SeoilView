@@ -21,14 +21,14 @@ import seoil.capstone.som.ui.event.detail.DetailEventActivity;
 public class ManagerEventFragment extends Fragment implements ManagerEventContract.View {
 
     private ManagerEventPresenter mPresenter;           //Fragment에서 발생하는 데이터를 처리 및 View 와 Interactor 연결
-    private RecyclerView mRecyclerViewMain;       //진행중 이벤트를 보여줄 리사이클러뷰
-    private ManagerEventAdapter mAdapterMain;     //진행중 이벤트의 어댑터
+    private RecyclerView mRecyclerViewMain;             //진행중 이벤트를 보여줄 리사이클러뷰
+    private ManagerEventAdapter mAdapterMain;           //진행중 이벤트의 어댑터
 
-    private ArrayList<ManagerEventAdapter.Item> mEventName;               //어댑터 초기화용 변수
-    private ArrayList<String> mEventDate;            //
-    private ArrayList<Integer> mEventCode;              //
+    private ArrayList<ManagerEventAdapter.Item> mEventName;                 //어댑터 초기화용 변수
+    private ArrayList<String> mEventDate;                                   //
+    private ArrayList<Integer> mEventCode;                                  //
 
-    private String mShopId;                             //점주의 아이디
+    private String mShopId;                                                 //점주의 아이디
 
     public ManagerEventFragment() {
 
@@ -103,6 +103,4 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
         intent.putExtra("eventCode", eventCode);
         this.startActivityForResult(intent, 10);
     }
-
-
 }
