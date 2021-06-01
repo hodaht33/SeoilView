@@ -214,7 +214,7 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
                     mFirstYear = year;
 
                     mStartDateQuery = mPresenter.getDateQuery(mFirstYear, mFirstMonth, mFirstDay);
-                    mTextViewStartDate.setText(mStartDateQuery.substring(2));
+                    mTextViewStartDate.setText(mStartDateQuery);
                 }
             },year, month - 1, day );
 
@@ -234,7 +234,7 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
                         mLateYear = year;
 
                         mEndDateQuery = mPresenter.getDateQuery(mLateYear, mLateMonth, mLateDay);
-                        mTextViewEndDate.setText(mEndDateQuery.substring(2));
+                        mTextViewEndDate.setText(mEndDateQuery);
 
                     }
                 }, mFirstYear, mFirstMonth - 1, mFirstDay);

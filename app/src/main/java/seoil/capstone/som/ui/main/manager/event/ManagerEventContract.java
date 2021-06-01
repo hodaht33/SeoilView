@@ -13,6 +13,8 @@ public interface ManagerEventContract {
         void setAdapter(ArrayList<ManagerEventAdapter.Item> eventName, ArrayList<Integer> eventCode, ArrayList<String> eventDate);
 
         void startDetailedEvent(int eventCode);
+
+        void endInsert();
     }
 
     interface Presenter extends BaseContract.Presenter<ManagerEventContract.View> {
@@ -22,5 +24,7 @@ public interface ManagerEventContract {
     interface Interactor extends BaseContract.Interactor {
 
         void getEvent(String shopId, OnFinishApiListener<EventData.GetRes> onFinishApiListener);
+
+        void insertEvent(EventData.InsertReq req, OnFinishApiListener<EventData.StatusRes> onFinishApiListener);
     }
 }
