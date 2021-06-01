@@ -417,6 +417,21 @@ public class AppApiHelper {
         mStatisticsApi.getGenderStatistics(shopId, startDate, endDate, onFinishApiListener);
     }
 
+    public void getDailySales(String shopId, String starDate, String endDate, OnFinishApiListener onFinishApiListener) {
+
+        mStatisticsApi.getDailySales(shopId, starDate, endDate, onFinishApiListener);
+    }
+
+    public void getWeeklySales(String shopId, String month, String startDate, OnFinishApiListener onFinishApiListener) {
+
+        mStatisticsApi.getWeeklySales(shopId, month, startDate, onFinishApiListener);
+    }
+
+    public void getMonthlySales(String shopId, String year, OnFinishApiListener onFinishApiListener) {
+
+        mStatisticsApi.getMonthlySales(shopId, year, onFinishApiListener);
+    }
+
     public void insertStatisticsData(StatisticsData.InsertReq req, OnFinishApiListener<StatisticsData.StatusRes> onFinishApiListener) {
 
         mStatisticsApi.insertStatisticsData(req, onFinishApiListener);
