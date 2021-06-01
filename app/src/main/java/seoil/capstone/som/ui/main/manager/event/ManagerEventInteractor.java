@@ -13,6 +13,7 @@ public class ManagerEventInteractor implements ManagerEventContract.Interactor{
         AppApiHelper.getInstance().getEvent(shopId, onFinishApiListener);
     }
 
+    //DB에 이벤트 정보 삽입
     @Override
     public void insertEvent(EventData.InsertReq req, OnFinishApiListener<EventData.StatusRes> onFinishApiListener) {
 

@@ -138,6 +138,7 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
         this.startActivityForResult(intent, 10);
     }
 
+    //다이얼로그 입력 완료시 종료 및 이벤트 갱신
     @Override
     public void endInsert() {
 
@@ -194,7 +195,7 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
                 }
             });
 
-            btnFinish.setOnClickListener(new View.OnClickListener() {
+            btnFinish.setOnClickListener(new View.OnClickListener() { //이벤트 추가 버튼 눌렀을 때 데이터 검사
                 @Override
                 public void onClick(View v) {
 
@@ -224,11 +225,12 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
                 }
             });
 
-            mAlertDialogInsertEvent = builder.create();
-            mAlertDialogInsertEvent.show();
+            mAlertDialogInsertEvent = builder.create();             //
+            mAlertDialogInsertEvent.show();                         //다이얼로그 생성 및 보여줌
         }
     }
 
+    //리스너 등록
     private void initListener() {
 
         mBtnAddEvent.setOnClickListener(this);
@@ -237,7 +239,7 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
     void showDate(Boolean flag) {
         DatePickerDialog datePickerDialog;
         Calendar date = Calendar.getInstance();
-        if (flag) {
+        if (flag) {                 //이벤트 시작 날짜 선택
 
             @SuppressLint("SimpleDateFormat")
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -267,7 +269,7 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
             datePickerDialog.getDatePicker().setMinDate(date.getTime().getTime());
 
             datePickerDialog.show();
-        } else {
+        } else {                    //이벤트 종료 날짜 선택
 
             datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                 @Override

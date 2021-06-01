@@ -92,7 +92,7 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
                         int year, month, day;
                         Date date = new Date();
                         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        String nowDate = simpleDateFormat.format(date);
+                        String nowDate = simpleDateFormat.format(date); //현재 시간
 
                         year = Integer.parseInt(nowDate.substring(0, 4));
                         month = Integer.parseInt(nowDate.substring(5, 7));
@@ -163,6 +163,7 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
         mInteractor.getEvent(shopId, onFinishApiListener);
     }
 
+    //이벤트 추가
     public void insertEvent(String shopId, String eventName, String eventContents, String startDate, String endDate, Boolean isSendPush) {
 
         OnFinishApiListener<EventData.StatusRes> onFinishApiListener = new OnFinishApiListener<EventData.StatusRes>() {
@@ -186,11 +187,13 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
     }
 
 
+    //이벤트 코드를 받아 상세이벤트로 이동
     public void setEventCode(int eventCode) {
 
         view.startDetailedEvent(eventCode);
     }
 
+    //2021-06-01 형식으로 반환
     public String getDateQuery(int year, int month, int day) {
 
         String dateQuery;
@@ -218,6 +221,7 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
         return dateQuery;
     }
 
+    //텍스트 입력 여부 확인
     public Boolean isTextSet(String str) {
 
         return str != null && !str.equals("");
