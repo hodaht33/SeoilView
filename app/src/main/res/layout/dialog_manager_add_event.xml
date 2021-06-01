@@ -10,54 +10,52 @@
         android:id="@+id/editTextMAddEventName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textViewMAddEventTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toEndOf="@+id/textViewMAddEventTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextMAddEventContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:inputType="textMultiLine"
+        android:lines="10"
+        android:maxLength="1000"
         android:maxLines="10"
-        android:minLines="1"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toEndOf="@+id/textViewMAddEventContents"
         app:layout_constraintTop_toBottomOf="@+id/editTextMAddEventName" />
 
     <Button
         android:id="@+id/btnMAddEventStartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/btn_color"
-        android:textColor="@color/white"
         android:text="시작 날짜"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnMAddEventEndDate"
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <Button
         android:id="@+id/btnMAddEventEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/btn_color"
-        android:textColor="@color/white"
         android:text="끝 날짜"
+        android:textColor="@color/white"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnMAddEventStartDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnMAddEventStartDate"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintStart_toEndOf="@+id/btnMAddEventStartDate" />
 
     <TextView
         android:id="@+id/textViewMAddEventTitle"
@@ -65,9 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
         android:text="제목:"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,9 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:text="내용"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        android:text="내용:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMAddEventTitle" />
 
@@ -87,50 +81,31 @@
         android:id="@+id/btnMAddEventFinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="64dp"
         android:backgroundTint="@color/btn_color"
-        android:textColor="@color/white"
         android:text="완료"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/white"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnMAddEventClose"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toEndOf="@+id/btnMAddEventClose" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineAddEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="571dp"
-        app:layout_constraintGuide_percent="0.75" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp"
-        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="256dp" />
+        app:layout_constraintGuide_percent="0.4"/>
 
     <Button
         android:id="@+id/btnMAddEventClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/btn_color"
-        android:textColor="@color/white"
         android:text="취소"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline3" />
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnMAddEventFinish"
+        app:layout_constraintTop_toBottomOf="@+id/btnMAddEventStartDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
