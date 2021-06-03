@@ -10,7 +10,7 @@ public interface DetailEventContract {
 
     interface Interactor extends BaseContract.Interactor {
 
-        void getEventByCode(int eventCode, OnFinishApiListener<EventData.eventCodeRes> onFinishApiListener);
+        void getEventByCode(int eventCode, OnFinishApiListener<EventData.EventCodeRes> onFinishApiListener);
 
         void updateEvent(EventData.UpdateReq req, OnFinishApiListener<EventData.StatusRes> onFinishApiListener);
 

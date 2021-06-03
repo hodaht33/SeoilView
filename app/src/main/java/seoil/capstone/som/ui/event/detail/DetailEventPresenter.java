@@ -36,19 +36,19 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
 
     public void getEvent(int eventCode) {
 
-        OnFinishApiListener<EventData.eventCodeRes> onFinishApiListener = new OnFinishApiListener<EventData.eventCodeRes>() {
+        OnFinishApiListener<EventData.EventCodeRes> onFinishApiListener = new OnFinishApiListener<EventData.EventCodeRes>() {
             @Override
-            public void onSuccess(EventData.eventCodeRes eventCodeRes) {
+            public void onSuccess(EventData.EventCodeRes eventCodeRes) {
 
                 Log.d("eventCode", String.valueOf(eventCodeRes.getStatus()));
 
                 if (eventCodeRes.getStatus() == EventApi.SUCCESS) {
 
-                    List<EventData.eventCodeRes.Result> list = eventCodeRes.getResults();
+                    List<EventData.EventCodeRes.Result> list = eventCodeRes.getResults();
 
                     HashMap<String, String> data = new HashMap<>();
 
-                    for (EventData.eventCodeRes.Result result : list) {
+                    for (EventData.EventCodeRes.Result result : list) {
 
                         data.put("shopName", result.getShopName());
                         data.put("shopAddress", result.getShopAddress());

@@ -12,12 +12,12 @@ import java.util.ArrayList;
 
 import seoil.capstone.som.R;
 
-public class CustomerBookmarkAdapter extends RecyclerView.Adapter<CustomerBookmarkAdapter.ViewHolder> {
+public class CustomerBookmarkMarketInfoAdapter extends RecyclerView.Adapter<CustomerBookmarkMarketInfoAdapter.ViewHolder> {
 
     private  ArrayList<String> mShopName;
     private  ArrayList<String> mShopCategory;
 
-    public CustomerBookmarkAdapter(ArrayList<String> marketName, ArrayList<String> marketCategory) {
+    public CustomerBookmarkMarketInfoAdapter(ArrayList<String> marketName, ArrayList<String> marketCategory) {
 
         mShopName = marketName;
         mShopCategory = marketCategory;
@@ -25,7 +25,7 @@ public class CustomerBookmarkAdapter extends RecyclerView.Adapter<CustomerBookma
 
     @NonNull
     @Override
-    public CustomerBookmarkAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CustomerBookmarkMarketInfoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_customer_bookmark, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
@@ -35,7 +35,7 @@ public class CustomerBookmarkAdapter extends RecyclerView.Adapter<CustomerBookma
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomerBookmarkAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CustomerBookmarkMarketInfoAdapter.ViewHolder holder, int position) {
 
         TextView marketName = holder.marketName;
         TextView marketCategory = holder.marketCategory;

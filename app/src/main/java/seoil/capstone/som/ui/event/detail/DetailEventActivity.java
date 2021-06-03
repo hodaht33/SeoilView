@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -61,20 +62,20 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
             mBtnRemove.setVisibility(View.GONE);
             mBtnUpdate.setEnabled(false);
             mBtnRemove.setEnabled(false);
-            mEditTextEventContent.setEnabled(false);
-            mEditTextEventName.setEnabled(false);
-            mTextViewStartDate.setEnabled(false);
-            mTextViewEndDate.setEnabled(false);
+            mEditTextEventName.setInputType(InputType.TYPE_NULL);
+            mEditTextEventContent.setInputType(InputType.TYPE_NULL);
+            mTextViewStartDate.setClickable(false);
+            mTextViewEndDate.setClickable(false);
         } else if (mUserCode.equals("M")){
 
             mBtnUpdate.setVisibility(View.VISIBLE);
             mBtnRemove.setVisibility(View.VISIBLE);
             mBtnUpdate.setEnabled(true);
             mBtnRemove.setEnabled(true);
-            mEditTextEventContent.setEnabled(true);
-            mEditTextEventName.setEnabled(true);
-            mTextViewStartDate.setEnabled(true);
-            mTextViewEndDate.setEnabled(true);
+            mEditTextEventName.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+            mEditTextEventContent.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+            mTextViewStartDate.setClickable(true);
+            mTextViewEndDate.setClickable(true);
         }
 
         mPresenter.getEvent(mEventCode);
