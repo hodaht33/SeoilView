@@ -384,7 +384,7 @@ public class AppApiHelper {
 
     public void getOngoingEvent(String userId, OnFinishApiListener onFinishApiListener) {
 
-        mBookmarkApi.getOngoingEvent(userId, onFinishApiListener);
+        mEventApi.getOngoingEvent(userId, onFinishApiListener);
     }
 
     public void addBookmark(BookmarkData.InsertReq createReq, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
@@ -457,7 +457,7 @@ public class AppApiHelper {
         mEventApi.getEvent(shopId, onFinishApiListener);
     }
 
-    public void getEventByCode(int eventCode, OnFinishApiListener<EventData.eventCodeRes> onFinishApiListener) {
+    public void getEventByCode(int eventCode, OnFinishApiListener<EventData.EventCodeRes> onFinishApiListener) {
 
         mEventApi.getEventByCode(eventCode, onFinishApiListener);
     }

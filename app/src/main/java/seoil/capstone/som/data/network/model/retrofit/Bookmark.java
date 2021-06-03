@@ -17,9 +17,6 @@ public interface Bookmark {
     @GET("bookmark/{shopId}/user")
     Call<BookmarkData.UserInfoRes> getUserInfo(@Path("shopId") String shopId);
 
-    @GET("bookmark/{userId}/ongoing-event")
-    Call<BookmarkData.OngoingEventRes> getOngoingEvent(@Path("userId") String userId);
-
     @POST("bookmark")
     Call<BookmarkData.StatusRes> addBookmark(@Body BookmarkData.InsertReq createReq);
 

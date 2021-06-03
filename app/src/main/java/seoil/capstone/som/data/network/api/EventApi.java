@@ -6,9 +6,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
+import seoil.capstone.som.data.network.model.BookmarkData;
 import seoil.capstone.som.data.network.model.EventData;
 import seoil.capstone.som.data.network.model.retrofit.Event;
-import seoil.capstone.som.data.network.model.retrofit.Point;
 
 public class EventApi {
 
@@ -49,10 +49,10 @@ public class EventApi {
 
     public void getEventByCode(int eventCode, OnFinishApiListener onFinishApiListener) {
 
-        Call<EventData.eventCodeRes> call = mEventData.getEventByCode(eventCode);
-        call.enqueue(new Callback<EventData.eventCodeRes>() {
+        Call<EventData.EventCodeRes> call = mEventData.getEventByCode(eventCode);
+        call.enqueue(new Callback<EventData.EventCodeRes>() {
             @Override
-            public void onResponse(Call<EventData.eventCodeRes> call, Response<EventData.eventCodeRes> response) {
+            public void onResponse(Call<EventData.EventCodeRes> call, Response<EventData.EventCodeRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -63,7 +63,30 @@ public class EventApi {
             }
 
             @Override
-            public void onFailure(Call<EventData.eventCodeRes> call, Throwable t) {
+            public void onFailure(Call<EventData.EventCodeRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void getOngoingEvent(String userId, OnFinishApiListener onFinishApiListener) {
+
+        Call<EventData.OngoingEventRes> call = mEventData.getOngoingEvent(userId);
+        call.enqueue(new Callback<EventData.OngoingEventRes>() {
+            @Override
+            public void onResponse(Call<EventData.OngoingEventRes> call, Response<EventData.OngoingEventRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<EventData.OngoingEventRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

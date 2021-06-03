@@ -70,29 +70,6 @@ public class BookmarkApi {
         });
     }
 
-    public void getOngoingEvent(String userId, OnFinishApiListener onFinishApiListener) {
-
-        Call<BookmarkData.OngoingEventRes> call = mBookmarkData.getOngoingEvent(userId);
-        call.enqueue(new Callback<BookmarkData.OngoingEventRes>() {
-            @Override
-            public void onResponse(Call<BookmarkData.OngoingEventRes> call, Response<BookmarkData.OngoingEventRes> response) {
-
-                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
-
-                    return;
-                }
-
-                onFinishApiListener.onSuccess(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<BookmarkData.OngoingEventRes> call, Throwable t) {
-
-                onFinishApiListener.onFailure(t);
-            }
-        });
-    }
-
     public void addBookmark(BookmarkData.InsertReq createReq, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
 
         Call<BookmarkData.StatusRes> call = mBookmarkData.addBookmark(createReq);
