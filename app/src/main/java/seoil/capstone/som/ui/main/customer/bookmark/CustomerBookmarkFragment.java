@@ -196,7 +196,7 @@ public class CustomerBookmarkFragment extends Fragment implements View.OnClickLi
                 .setMessage("즐겨찾기한 매장을 삭제하시겠습니까?")
                 .setCancelable(false)
                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    @Override
+                    @Override 
                     public void onClick(DialogInterface dialog, int which) {
 
                         mPresenter.deleteBookmark(mUserId, mUserBookmarkShopId.get(position), position);
@@ -206,7 +206,7 @@ public class CustomerBookmarkFragment extends Fragment implements View.OnClickLi
                 .setNegativeButton("취소", new DialogInterface.OnClickListener() {
                     @Override 
                     public void onClick(DialogInterface dialog, int which) {
-
+                        
                         mAdapterMarket.setData(mShopName, mShopCategory);
                         dialog.cancel();
                     }
