@@ -139,10 +139,6 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
 
     public Boolean isTextSet(String str) {
 
-        if (str == null || str.equals("")) {
-
-            return false;
-        }
-        return true;
+        return str != null && !str.equals("");
     }
 }

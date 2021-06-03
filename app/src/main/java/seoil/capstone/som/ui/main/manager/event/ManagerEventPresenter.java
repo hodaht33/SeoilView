@@ -92,7 +92,7 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
                         int year, month, day;
                         Date date = new Date();
                         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        String nowDate = simpleDateFormat.format(date);
+                        String nowDate = simpleDateFormat.format(date); //현재 시간
 
                         year = Integer.parseInt(nowDate.substring(0, 4));
                         month = Integer.parseInt(nowDate.substring(5, 7));
@@ -163,8 +163,67 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
         mInteractor.getEvent(shopId, onFinishApiListener);
     }
 
+    //이벤트 추가
+    public void insertEvent(String shopId, String eventName, String eventContents, String startDate, String endDate, Boolean isSendPush) {
+
+        OnFinishApiListener<EventData.StatusRes> onFinishApiListener = new OnFinishApiListener<EventData.StatusRes>() {
+            @Override
+            public void onSuccess(EventData.StatusRes statusRes) {
+
+                if (statusRes.getStatus() == EventApi.SUCCESS) {
+
+                    view.endInsert();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+                Log.d("EventInsertError",t.getMessage());
+            }
+        };
+
+        mInteractor.insertEvent(new EventData.InsertReq(shopId, eventName, eventContents, startDate, endDate, isSendPush), onFinishApiListener);
+    }
+
+
+    //이벤트 코드를 받아 상세이벤트로 이동
     public void setEventCode(int eventCode) {
 
         view.startDetailedEvent(eventCode);
+    }
+
+    //2021-06-01 형식으로 반환
+    public String getDateQuery(int year, int month, int day) {
+
+        String dateQuery;
+        if (day < 10) {
+
+            if (month < 10) {
+
+                dateQuery = "" + year + "-0" + month + "-0" + day;
+            } else {
+
+                dateQuery = "" + year + "-" + month + "-0" + day;
+            }
+
+        } else {
+
+            if (month < 10) {
+
+                dateQuery = "" + year + "-0" + month + "-" + day;
+            } else {
+
+                dateQuery = "" + year + "-" + month + "-" + day;
+            }
+        }
+
+        return dateQuery;
+    }
+
+    //텍스트 입력 여부 확인
+    public Boolean isTextSet(String str) {
+
+        return str != null && !str.equals("");
     }
 }
