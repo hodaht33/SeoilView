@@ -41,7 +41,6 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.ui.address.SearchAddressActivity;
-import seoil.capstone.som.ui.main.MainPresenter;
 import seoil.capstone.som.ui.register.RegisterCommunicator;
 import seoil.capstone.som.ui.register.select.ProgressProcess;
 import seoil.capstone.som.ui.register.select.SelectUserFragment;
@@ -545,7 +544,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextEmail.setError("이메일을 입력해주세요.");
                     mEditTextEmail.requestFocus();
-                } else if (emailCode == mPresenter.EMAIL_NOT_VALID) {
+                } else if (emailCode == mPresenter.EMAIL_INVALID) {
 
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextEmail.setError("올바른 이메일을 입력해주세요.");
@@ -579,7 +578,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextBirthdate.setError("생년월일을 입력해주세요.");
                     mEditTextBirthdate.requestFocus();
-                } else if (birthDateCode == mPresenter.BIRTH_ERROR_LENTGTH) {
+                } else if (birthDateCode == mPresenter.BIRTH_ERROR_LENGTH) {
 
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextBirthdate.setError("8자리를 입력해주세요. (ex : 19500101)");
@@ -644,6 +643,11 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextPwd.setError("비밀번호를 입력해주세요.");
                     mEditTextPwd.requestFocus();
+                } else if (pwCode == mPresenter.PWD_INVALID) {
+
+                    Utility.getInstance().renderKeyboard(getActivity());
+                    mEditTextPwd.setError("@$!%*#?& 중 하나의 특수문자를 포함한 10자 이상의 비밀번호를 입력해주세요.");
+                    mEditTextPwd.requestFocus();
                 } else if (pwCode == mPresenter.PWD_CHECK_EMPTY) {
 
                     Utility.getInstance().renderKeyboard(getActivity());
@@ -662,7 +666,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextEmail.setError("이메일을 입력해주세요.");
                     mEditTextEmail.requestFocus();
-                } else if (emailCode == mPresenter.EMAIL_NOT_VALID) {
+                } else if (emailCode == mPresenter.EMAIL_INVALID) {
 
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextEmail.setError("올바른 이메일을 입력해주세요.");
@@ -716,7 +720,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextBirthdate.setError("생년월일을 입력해주세요.");
                     mEditTextBirthdate.requestFocus();
-                } else if (birthDateCode == mPresenter.BIRTH_ERROR_LENTGTH) {
+                } else if (birthDateCode == mPresenter.BIRTH_ERROR_LENGTH) {
 
                     Utility.getInstance().renderKeyboard(getActivity());
                     mEditTextBirthdate.setError("8자리를 입력해주세요. (ex : 19500101)");
