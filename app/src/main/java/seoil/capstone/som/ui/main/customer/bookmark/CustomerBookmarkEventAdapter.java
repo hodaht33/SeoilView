@@ -14,11 +14,11 @@ import seoil.capstone.som.R;
 
 public class CustomerBookmarkEventAdapter extends RecyclerView.Adapter<CustomerBookmarkEventAdapter.ViewHolder> {
 
-    private final CustomerBookmarkPresenter mPresenter;
-    private ArrayList<String> mMarketName;
-    private ArrayList<String> mMarketEventName;
-    private ArrayList<String> mMarketEventDate;
-    private ArrayList<Integer> mMarketEventCode;
+    private final CustomerBookmarkPresenter mPresenter;             //어댑터에서 인텐트 사용
+    private ArrayList<String> mMarketName;                          //즐겨찾기된 매장 이름
+    private ArrayList<String> mMarketEventName;                     //즐겨찾기된 매장의 진행중인 이벤트명
+    private ArrayList<String> mMarketEventDate;                     //즐겨찾기된 매장의 진행중인 이벤트 기간
+    private ArrayList<Integer> mMarketEventCode;                    //즐겨찾기된 매장의 진행중인 이벤트 코드
 
     public CustomerBookmarkEventAdapter(CustomerBookmarkPresenter presenter, ArrayList<String> marketName,
                                             ArrayList<String> eventName, ArrayList<String> eventDate,
@@ -67,6 +67,7 @@ public class CustomerBookmarkEventAdapter extends RecyclerView.Adapter<CustomerB
         return mMarketName.size();
     }
 
+    //데이터 변경
     public void setData(ArrayList<String> marketName, ArrayList<String> eventName, ArrayList<String> eventDate, ArrayList<Integer> eventCode) {
 
         mMarketName = marketName;

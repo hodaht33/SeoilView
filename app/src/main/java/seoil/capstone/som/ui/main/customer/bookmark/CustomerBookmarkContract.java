@@ -18,8 +18,6 @@ public interface CustomerBookmarkContract {
         void intentDetailEvent(int eventCode);
 
         void setAdapterEvent(ArrayList<String> marketName, ArrayList<String> eventName, ArrayList<String> eventDate, ArrayList<Integer> eventCode);
-
-        void createAlert(int position);
     }
 
     interface Presenter extends BaseContract.Presenter<CustomerBookmarkContract.View> {

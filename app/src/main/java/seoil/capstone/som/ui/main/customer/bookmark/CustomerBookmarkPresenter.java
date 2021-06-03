@@ -79,6 +79,7 @@ public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Prese
         mInteractor.getBookmarkShopInfo(userId, onFinishApiListener);
     }
 
+    //즐겨찾기 삭제
     public void deleteBookmark(String userId, String shopId, int position) {
 
         OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener = new OnFinishApiListener<BookmarkData.StatusRes>() {
@@ -102,11 +103,13 @@ public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Prese
         mInteractor.deleteBookmark(userId, shopId, onFinishApiListener);
     }
 
+    //이벤트 상세 정보 액티비티로 이동
     public void intentDetailEventCustomer(int eventCode) {
 
         mView.intentDetailEvent(eventCode);
     }
 
+    //즐겨찾기된 매장의 진행중 이벤트 조회
     public void getOnGoingEvent(String userId) {
 
         OnFinishApiListener<EventData.OngoingEventRes> onFinishApiListener = new OnFinishApiListener<EventData.OngoingEventRes>() {

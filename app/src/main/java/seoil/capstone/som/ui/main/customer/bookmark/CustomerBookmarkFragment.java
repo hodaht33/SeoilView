@@ -25,16 +25,16 @@ import seoil.capstone.som.ui.event.detail.DetailEventActivity;
 
 public class CustomerBookmarkFragment extends Fragment implements View.OnClickListener, CustomerBookmarkContract.View{
 
-    private CustomerBookmarkPresenter mPresenter;           //view의 데이터 처린
+    private CustomerBookmarkPresenter mPresenter;           //view의 데이터 처리
     private CustomerBookmarkMarketInfoAdapter mAdapterMarket;               //즐겨찾기 매장 정보 어댑터
     private CustomerBookmarkEventAdapter mAdapterEvent;                     //즐겨찾기 매장 진행중 이벤트 어댑터
     private RecyclerView mRecyclerView;                     //매장 정보 리사이클러뷰
     private ArrayList<String> mShopName;                    //매장 이름
     private ArrayList<String> mShopCategory;                //매장 카테고리
-    private ArrayList<String> mUserBookmarkShopId;
+    private ArrayList<String> mUserBookmarkShopId;          //즐겨찾기된 매장 아이디
     private String mUserId;                                 //사용자 아이디
-    private TabLayout mTabLayoutMain;
-    private ItemTouchHelper mSwipeDelete;
+    private TabLayout mTabLayoutMain;                       //이벤트, 즐겨찾기 구분
+    private ItemTouchHelper mSwipeDelete;                   //스와이프 하여 삭제 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class CustomerBookmarkFragment extends Fragment implements View.OnClickLi
         mSwipeDelete = new ItemTouchHelper(simpleItemTouchCallback);
         mSwipeDelete.attachToRecyclerView(mRecyclerView);
 
-        mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("매장"), 0);
+        mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("즐겨찾기"), 0);
         mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("이벤트"), 1);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -99,6 +99,7 @@ public class CustomerBookmarkFragment extends Fragment implements View.OnClickLi
         mTabLayoutMain = view.findViewById(R.id.tabLayoutCBookMarkSelectView);
     }
 
+    //리스너 정의
     private void initListener() {
 
         mTabLayoutMain.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -107,7 +108,7 @@ public class CustomerBookmarkFragment extends Fragment implements View.OnClickLi
 
                 int position = tab.getPosition();
                 
-                if (position == 0) {            //매장일 때
+                if (position == 0) {            //즐겨찾기일 때
 
                     mSwipeDelete.attachToRecyclerView(mRecyclerView);
                     mRecyclerView.setAdapter(mAdapterMarket);
@@ -141,6 +142,7 @@ public class CustomerBookmarkFragment extends Fragment implements View.OnClickLi
         mAdapterMarket.setData(shopName, shopCategory);
     }
 
+    //즐겨찾기 삭제
     @Override
     public void deleteBookmark(int position) {
 
@@ -153,6 +155,7 @@ public class CustomerBookmarkFragment extends Fragment implements View.OnClickLi
         mPresenter.getOnGoingEvent(mUserId);
     }
 
+    //클릭된 이벤트의 상세정보로 이동
     @Override
     public void intentDetailEvent(int eventCode) {
 
@@ -162,12 +165,14 @@ public class CustomerBookmarkFragment extends Fragment implements View.OnClickLi
         this.startActivity(intent);
     }
 
+    //이벤트 어댑터의 데이터 변경
     @Override
     public void setAdapterEvent(ArrayList<String> marketName, ArrayList<String> eventName, ArrayList<String> eventDate, ArrayList<Integer> eventCode) {
 
         mAdapterEvent.setData(marketName, eventName, eventDate, eventCode);
     }
 
+    //스와이프 삭제 정의
     private final ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -183,8 +188,8 @@ public class CustomerBookmarkFragment extends Fragment implements View.OnClickLi
         }
     };
 
-    @Override
-    public void createAlert(int position){
+    //즐겨찾기 삭제 확인창
+    private void createAlert(int position){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("즐겨찾기 삭제 확인")
                 .setMessage("즐겨찾기한 매장을 삭제하시겠습니까?")

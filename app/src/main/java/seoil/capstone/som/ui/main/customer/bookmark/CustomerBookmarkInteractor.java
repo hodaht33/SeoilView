@@ -13,12 +13,14 @@ public class CustomerBookmarkInteractor implements CustomerBookmarkContract.Inte
         AppApiHelper.getInstance().getBookmarkShopInfo(userId, onFinishApiListener);
     }
 
+    //DB에 즐겨찾기 정보 삭제
     @Override
     public void deleteBookmark(String userId, String shopId, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
 
         AppApiHelper.getInstance().deleteBookmark(userId, shopId, onFinishApiListener);
     }
-
+    
+    //DB에 진행중 이벤트 조회
     @Override
     public void getOnGoingEvent(String userId, OnFinishApiListener<EventData.OngoingEventRes> onFinishApiListener) {
 

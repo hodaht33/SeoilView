@@ -14,8 +14,8 @@ import seoil.capstone.som.R;
 
 public class CustomerBookmarkMarketInfoAdapter extends RecyclerView.Adapter<CustomerBookmarkMarketInfoAdapter.ViewHolder> {
 
-    private  ArrayList<String> mShopName;
-    private  ArrayList<String> mShopCategory;
+    private  ArrayList<String> mShopName;               //즐겨찾기된 매장의 이름
+    private  ArrayList<String> mShopCategory;           //즐겨찾기된 매장의 분류
 
     public CustomerBookmarkMarketInfoAdapter(ArrayList<String> marketName, ArrayList<String> marketCategory) {
 
@@ -28,10 +28,8 @@ public class CustomerBookmarkMarketInfoAdapter extends RecyclerView.Adapter<Cust
     public CustomerBookmarkMarketInfoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_customer_bookmark, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
 
-
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -55,8 +53,8 @@ public class CustomerBookmarkMarketInfoAdapter extends RecyclerView.Adapter<Cust
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView marketName;
-        private TextView marketCategory;
+        private final TextView marketName;
+        private final TextView marketCategory;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
