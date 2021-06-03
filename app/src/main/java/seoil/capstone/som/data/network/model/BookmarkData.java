@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class BookmarkInfo {
+public class BookmarkData {
 
     // 요청 //
 

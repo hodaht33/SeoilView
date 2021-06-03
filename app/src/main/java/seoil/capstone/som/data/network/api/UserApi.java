@@ -269,4 +269,27 @@ public class UserApi {
             }
         });
     }
+
+    public void deleteUser(String id, OnFinishApiListener onFinishApiListener) {
+
+        Call<UserData.StatusRes> call = mUserData.deleteUser(id);
+        call.enqueue(new Callback<UserData.StatusRes>() {
+            @Override
+            public void onResponse(Call<UserData.StatusRes> call, Response<UserData.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<UserData.StatusRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
 }

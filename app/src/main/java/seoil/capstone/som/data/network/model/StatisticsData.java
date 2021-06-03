@@ -155,6 +155,182 @@ public class StatisticsData {
         }
     }
 
+    public static class GetDayRes {
+
+        public class Result {
+
+            @SerializedName("salesDate")
+            @Expose
+            private String salesDate;
+            @SerializedName("salesName")
+            @Expose
+            private String salesName;
+            @SerializedName("salesAmount")
+            @Expose
+            private int salesAmount;
+
+            public String getSalesDate() {
+                return salesDate;
+            }
+
+            public void setSalesDate(String salesDate) {
+                this.salesDate = salesDate;
+            }
+
+            public String getSalesName() {
+                return salesName;
+            }
+
+            public void setSalesName(String salesName) {
+                this.salesName = salesName;
+            }
+
+            public int getSalesAmount() {
+                return salesAmount;
+            }
+
+            public void setSalesAmount(int salesAmount) {
+                this.salesAmount = salesAmount;
+            }
+        }
+
+        @SerializedName("status")
+        @Expose
+        private int status;
+        @SerializedName("results")
+        @Expose
+        private List<GetGenderRes.Result> results;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+
+        public List<GetGenderRes.Result> getResults() {
+            return results;
+        }
+
+        public void setResults(List<GetGenderRes.Result> results) {
+            this.results = results;
+        }
+    }
+
+    public static class GetWeekRes {
+
+        public class Result {
+
+            @SerializedName("type")
+            @Expose
+            private String type;
+            @SerializedName("startDate")
+            @Expose
+            private String startDate;
+            @SerializedName("endDate")
+            @Expose
+            private String endDate;
+            @SerializedName("salesAmount")
+            @Expose
+            private int salesAmount;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public String getStartDate() {
+                return startDate;
+            }
+
+            public void setStartDate(String startDate) {
+                this.startDate = startDate;
+            }
+
+            public String getEndDate() {
+                return endDate;
+            }
+
+            public void setEndDate(String endDate) {
+                this.endDate = endDate;
+            }
+
+            public int getSalesAmount() {
+                return salesAmount;
+            }
+
+            public void setSalesAmount(int salesAmount) {
+                this.salesAmount = salesAmount;
+            }
+        }
+
+        @SerializedName("status")
+        @Expose
+        private int status;
+        @SerializedName("results")
+        @Expose
+        private List<GetGenderRes.Result> results;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
+
+
+        public List<GetGenderRes.Result> getResults() {
+            return results;
+        }
+
+        public void setResults(List<GetGenderRes.Result> results) {
+            this.results = results;
+        }
+    }
+
+    public static class GetMonthRes {
+
+        @SerializedName("type")
+        @Expose
+        private String type;
+        @SerializedName("salesDate")
+        @Expose
+        private String salesDate;
+        @SerializedName("salesAmount")
+        @Expose
+        private int salesAmount;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getSalesDate() {
+            return salesDate;
+        }
+
+        public void setSalesDate(String salesDate) {
+            this.salesDate = salesDate;
+        }
+
+        public int getSalesAmount() {
+            return salesAmount;
+        }
+
+        public void setSalesAmount(int salesAmount) {
+            this.salesAmount = salesAmount;
+        }
+    }
+
     public static class StatusRes {
 
         @SerializedName("status")

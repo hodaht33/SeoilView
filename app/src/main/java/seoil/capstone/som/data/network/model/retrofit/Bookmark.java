@@ -7,19 +7,19 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import seoil.capstone.som.data.network.model.BookmarkInfo;
+import seoil.capstone.som.data.network.model.BookmarkData;
 
 public interface Bookmark {
 
     @GET("bookmark/{id}/shop")
-    Call<BookmarkInfo.ShopInfoRes> getShopInfo(@Path("id") String id);
+    Call<BookmarkData.ShopInfoRes> getShopInfo(@Path("id") String id);
 
     @GET("bookmark/{shopId}/user")
-    Call<BookmarkInfo.UserInfoRes> getUserInfo(@Path("shopId") String shopId);
+    Call<BookmarkData.UserInfoRes> getUserInfo(@Path("shopId") String shopId);
 
     @POST("bookmark")
-    Call<BookmarkInfo.StatusRes> addBookmark(@Body BookmarkInfo.InsertReq createReq);
+    Call<BookmarkData.StatusRes> addBookmark(@Body BookmarkData.InsertReq createReq);
 
     @DELETE("bookmark/{userId}")
-    Call<BookmarkInfo.StatusRes> deleteBookmark(@Path("userId") String userId, @Query("shopCode") String shopCode, @Query("shopId") String shopId);
+    Call<BookmarkData.StatusRes> deleteBookmark(@Path("userId") String userId, @Query("shopId") String shopId);
 }
