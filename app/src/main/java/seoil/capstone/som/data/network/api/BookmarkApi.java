@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.http.Path;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.BookmarkData;
@@ -63,6 +64,29 @@ public class BookmarkApi {
 
             @Override
             public void onFailure(Call<BookmarkData.UserInfoRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void getOngoingEvent(String userId, OnFinishApiListener onFinishApiListener) {
+
+        Call<BookmarkData.OngoingEventRes> call = mBookmarkData.getOngoingEvent(userId);
+        call.enqueue(new Callback<BookmarkData.OngoingEventRes>() {
+            @Override
+            public void onResponse(Call<BookmarkData.OngoingEventRes> call, Response<BookmarkData.OngoingEventRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<BookmarkData.OngoingEventRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

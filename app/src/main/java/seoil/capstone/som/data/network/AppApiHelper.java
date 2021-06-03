@@ -382,6 +382,11 @@ public class AppApiHelper {
         mBookmarkApi.getUserInfo(shopId, onFinishApiListener);
     }
 
+    public void getOngoingEvent(String userId, OnFinishApiListener onFinishApiListener) {
+
+        mBookmarkApi.getOngoingEvent(userId, onFinishApiListener);
+    }
+
     public void addBookmark(BookmarkData.InsertReq createReq, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
 
         mBookmarkApi.addBookmark(createReq, onFinishApiListener);
