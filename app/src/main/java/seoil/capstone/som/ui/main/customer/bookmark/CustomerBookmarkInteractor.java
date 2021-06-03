@@ -10,6 +10,7 @@ public class CustomerBookmarkInteractor implements CustomerBookmarkContract.Inte
     //DB에 매장 즐겨찾기 정보 조회
     @Override
     public void getBookmarkShopInfo(String userId, OnFinishApiListener<BookmarkData.ShopInfoRes> onFinishApiListener) {
+
         AppApiHelper.getInstance().getBookmarkShopInfo(userId, onFinishApiListener);
     }
 

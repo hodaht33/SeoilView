@@ -140,7 +140,7 @@ public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Prese
                     }
 
                     mView.setAdapterEvent(marketName, marketEventName, marketEventDate, eventCode);
-                }else {
+                } else {
 
                     mView.setAdapterEvent(null, null, null, null);
                 }
