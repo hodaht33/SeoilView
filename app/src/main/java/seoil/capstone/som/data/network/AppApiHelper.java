@@ -29,7 +29,7 @@ import seoil.capstone.som.data.network.api.ShopApi;
 import seoil.capstone.som.data.network.api.StatisticsApi;
 import seoil.capstone.som.data.network.api.StockApi;
 import seoil.capstone.som.data.network.api.UserApi;
-import seoil.capstone.som.data.network.model.BookmarkInfo;
+import seoil.capstone.som.data.network.model.BookmarkData;
 import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.EventData;
 import seoil.capstone.som.data.network.model.Login;
@@ -252,6 +252,11 @@ public class AppApiHelper {
         mUserApi.insertCustomer(registerRequest, onFinishApiListener);
     }
 
+    public void deleteUser(String id, OnFinishApiListener onFinishApiListener) {
+
+        mUserApi.deleteUser(id, onFinishApiListener);
+    }
+
     public void getCurrentPoint(String id, OnFinishApiListener<PointData.GetCurrentRes> onFinishApiListener) {
 
         mPointApi.getCurrentPoint(id, onFinishApiListener);
@@ -367,24 +372,24 @@ public class AppApiHelper {
         mSalesApi.insertSales(req, onFinishApiListener);
     }
 
-    public void getBookmarkShopInfo(String userId, OnFinishApiListener<BookmarkInfo.ShopInfoRes> onFinishApiListener) {
+    public void getBookmarkShopInfo(String userId, OnFinishApiListener<BookmarkData.ShopInfoRes> onFinishApiListener) {
 
         mBookmarkApi.getShopInfo(userId, onFinishApiListener);
     }
 
-    public void getBookmarkUserInfo(String shopId, OnFinishApiListener<BookmarkInfo.UserInfoRes> onFinishApiListener) {
+    public void getBookmarkUserInfo(String shopId, OnFinishApiListener<BookmarkData.UserInfoRes> onFinishApiListener) {
 
         mBookmarkApi.getUserInfo(shopId, onFinishApiListener);
     }
 
-    public void addBookmark(BookmarkInfo.InsertReq createReq, OnFinishApiListener<BookmarkInfo.StatusRes> onFinishApiListener) {
+    public void addBookmark(BookmarkData.InsertReq createReq, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
 
         mBookmarkApi.addBookmark(createReq, onFinishApiListener);
     }
 
-    public void deleteBookmark(String userId, String shopCode, String shopId, OnFinishApiListener<BookmarkInfo.StatusRes> onFinishApiListener) {
+    public void deleteBookmark(String userId, String shopId, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
 
-        mBookmarkApi.deleteBookmark(userId, shopCode, shopId, onFinishApiListener);
+        mBookmarkApi.deleteBookmark(userId, shopId, onFinishApiListener);
     }
 
     public void getStock(String shopId, OnFinishApiListener<StockData.GetRes> onFinishApiListener) {
@@ -397,7 +402,12 @@ public class AppApiHelper {
         mStockApi.insertStock(req, onFinishApiListener);
     }
 
-    public void updateStock(StockData.Req req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+    public void updateStockAmount(StockData.Req req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+
+        mStockApi.updateStockAmount(req, onFinishApiListener);
+    }
+
+    public void updateStock(StockData.UpdateAllReq req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
         mStockApi.updateStock(req, onFinishApiListener);
     }

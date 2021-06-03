@@ -48,5 +48,5 @@ public interface User {
 
     // 회원 탈퇴
     @DELETE("user/{id}")
-    void deleteUser(@Path("id") String id);
+    Call<UserData.StatusRes> deleteUser(@Path("id") String id);
 }

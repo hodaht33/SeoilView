@@ -25,7 +25,7 @@ public class ManagerLedgerInteractor implements ManagerLedgerContract.Interactor
     @Override
     public void updateStock(String shopId, String name, int amount, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
-        AppApiHelper.getInstance().updateStock(new StockData.Req(shopId, name, amount), onFinishApiListener);
+        AppApiHelper.getInstance().updateStockAmount(new StockData.Req(shopId, name, amount), onFinishApiListener);
     }
 
     //DB에 재고 삭제

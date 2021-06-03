@@ -7,7 +7,6 @@ import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.StockData;
-import seoil.capstone.som.data.network.model.retrofit.Shop;
 import seoil.capstone.som.data.network.model.retrofit.Stock;
 
 public class StockApi {
@@ -70,7 +69,30 @@ public class StockApi {
         });
     }
 
-    public void updateStock(StockData.Req req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+    public void updateStockAmount(StockData.Req req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+
+        Call<StockData.StatusRes> call = mStockData.updateStockAmount(req);
+        call.enqueue(new Callback<StockData.StatusRes>() {
+            @Override
+            public void onResponse(Call<StockData.StatusRes> call, Response<StockData.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<StockData.StatusRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    public void updateStock(StockData.UpdateAllReq req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
         Call<StockData.StatusRes> call = mStockData.updateStock(req);
         call.enqueue(new Callback<StockData.StatusRes>() {

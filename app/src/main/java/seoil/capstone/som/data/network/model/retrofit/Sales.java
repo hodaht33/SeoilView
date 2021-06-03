@@ -12,24 +12,31 @@ import seoil.capstone.som.data.network.model.SalesData;
 
 public interface Sales {
 
+    // 매장 수입 검색
     @GET("sales/{shopId}/income")
     Call<SalesData.GetRes> getIncomeSales(@Path("shopId") String shopId, @Query("salesDate") String salesDate);
 
+    // 매장 지출 검색
     @GET("sales/{shopId}/spending")
     Call<SalesData.GetRes> getSpendingSales(@Path("shopId") String shopId, @Query("salesDate") String salesDate);
 
+    // 매장 매출 통계 검색
     @GET("sales/{shopId}/statistics")
     Call<SalesData.GetStatisticsRes> getStatisticsSales(@Path("shopId") String shopId, @Query("startDate") String startDate, @Query("endDate") String endDate);
 
+    // 매장 매출 추가
     @POST("sales")
     Call<SalesData.StatusRes> insertSalesWithDate(@Body SalesData.Req res);
 
+    // 매장 수입 추가
     @POST("sales/income")
     Call<SalesData.StatusRes> insertSales(@Body SalesData.Req req);
 
+    // 매장 지출 수정
     @PUT("sales/spending")
     Call<SalesData.StatusRes> updateSpendingSales(@Body SalesData.Req req);
 
+    // 매장 지출 삭제
     @DELETE("sales/{shopId}/spending")
     Call<SalesData.StatusRes> deleteSpendingSales(@Path("shopId") String shopId, @Query("salesCode") int salesCode, @Query("salesDate") String salesDate);
 }

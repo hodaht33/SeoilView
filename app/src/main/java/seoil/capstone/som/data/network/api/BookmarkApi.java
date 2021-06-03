@@ -6,7 +6,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.BookmarkInfo;
+import seoil.capstone.som.data.network.model.BookmarkData;
 import seoil.capstone.som.data.network.model.retrofit.Bookmark;
 
 public class BookmarkApi {
@@ -23,12 +23,12 @@ public class BookmarkApi {
         mBookmarkData = retrofit.create(Bookmark.class);
     }
 
-    public void getShopInfo(String userId, OnFinishApiListener<BookmarkInfo.ShopInfoRes> onFinishApiListener) {
+    public void getShopInfo(String userId, OnFinishApiListener<BookmarkData.ShopInfoRes> onFinishApiListener) {
 
-        Call<BookmarkInfo.ShopInfoRes> call = mBookmarkData.getShopInfo(userId);
-        call.enqueue(new Callback<BookmarkInfo.ShopInfoRes>() {
+        Call<BookmarkData.ShopInfoRes> call = mBookmarkData.getShopInfo(userId);
+        call.enqueue(new Callback<BookmarkData.ShopInfoRes>() {
             @Override
-            public void onResponse(Call<BookmarkInfo.ShopInfoRes> call, Response<BookmarkInfo.ShopInfoRes> response) {
+            public void onResponse(Call<BookmarkData.ShopInfoRes> call, Response<BookmarkData.ShopInfoRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -39,19 +39,19 @@ public class BookmarkApi {
             }
 
             @Override
-            public void onFailure(Call<BookmarkInfo.ShopInfoRes> call, Throwable t) {
+            public void onFailure(Call<BookmarkData.ShopInfoRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
         });
     }
 
-    public void getUserInfo(String shopId, OnFinishApiListener<BookmarkInfo.UserInfoRes> onFinishApiListener) {
+    public void getUserInfo(String shopId, OnFinishApiListener<BookmarkData.UserInfoRes> onFinishApiListener) {
 
-        Call<BookmarkInfo.UserInfoRes> call = mBookmarkData.getUserInfo(shopId);
-        call.enqueue(new Callback<BookmarkInfo.UserInfoRes>() {
+        Call<BookmarkData.UserInfoRes> call = mBookmarkData.getUserInfo(shopId);
+        call.enqueue(new Callback<BookmarkData.UserInfoRes>() {
             @Override
-            public void onResponse(Call<BookmarkInfo.UserInfoRes> call, Response<BookmarkInfo.UserInfoRes> response) {
+            public void onResponse(Call<BookmarkData.UserInfoRes> call, Response<BookmarkData.UserInfoRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -62,19 +62,19 @@ public class BookmarkApi {
             }
 
             @Override
-            public void onFailure(Call<BookmarkInfo.UserInfoRes> call, Throwable t) {
+            public void onFailure(Call<BookmarkData.UserInfoRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
         });
     }
 
-    public void addBookmark(BookmarkInfo.InsertReq createReq, OnFinishApiListener<BookmarkInfo.StatusRes> onFinishApiListener) {
+    public void addBookmark(BookmarkData.InsertReq createReq, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
 
-        Call<BookmarkInfo.StatusRes> call = mBookmarkData.addBookmark(createReq);
-        call.enqueue(new Callback<BookmarkInfo.StatusRes>() {
+        Call<BookmarkData.StatusRes> call = mBookmarkData.addBookmark(createReq);
+        call.enqueue(new Callback<BookmarkData.StatusRes>() {
             @Override
-            public void onResponse(Call<BookmarkInfo.StatusRes> call, Response<BookmarkInfo.StatusRes> response) {
+            public void onResponse(Call<BookmarkData.StatusRes> call, Response<BookmarkData.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -85,19 +85,19 @@ public class BookmarkApi {
             }
 
             @Override
-            public void onFailure(Call<BookmarkInfo.StatusRes> call, Throwable t) {
+            public void onFailure(Call<BookmarkData.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
         });
     }
 
-    public void deleteBookmark(String userId, String shopCode, String shopId, OnFinishApiListener<BookmarkInfo.StatusRes> onFinishApiListener) {
+    public void deleteBookmark(String userId, String shopId, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
 
-        Call<BookmarkInfo.StatusRes> call = mBookmarkData.deleteBookmark(userId, shopCode, shopId);
-        call.enqueue(new Callback<BookmarkInfo.StatusRes>() {
+        Call<BookmarkData.StatusRes> call = mBookmarkData.deleteBookmark(userId, shopId);
+        call.enqueue(new Callback<BookmarkData.StatusRes>() {
             @Override
-            public void onResponse(Call<BookmarkInfo.StatusRes> call, Response<BookmarkInfo.StatusRes> response) {
+            public void onResponse(Call<BookmarkData.StatusRes> call, Response<BookmarkData.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -108,7 +108,7 @@ public class BookmarkApi {
             }
 
             @Override
-            public void onFailure(Call<BookmarkInfo.StatusRes> call, Throwable t) {
+            public void onFailure(Call<BookmarkData.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

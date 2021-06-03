@@ -7,6 +7,7 @@ import java.util.List;
 
 public class StockData {
 
+    // 추가, 수량 수정 요청 DTO
     public static class Req {
 
         @SerializedName("shopId")
@@ -50,7 +51,63 @@ public class StockData {
         }
     }
 
+    // 이름, 수량 수정 요청 DTO
+    public static class UpdateAllReq {
 
+        @SerializedName("shopId")
+        @Expose
+        private String shopId;
+        @SerializedName("stockPrevName")
+        @Expose
+        private String stockPrevName;
+        @SerializedName("stockNewName")
+        @Expose
+        private String stockNewName;
+        @SerializedName("stockAmount")
+        @Expose
+        private int stockAmount;
+
+        public UpdateAllReq(String shopId, String stockPrevName, String stockNewName, int stockAmount) {
+            this.shopId = shopId;
+            this.stockPrevName = stockPrevName;
+            this.stockNewName = stockNewName;
+            this.stockAmount = stockAmount;
+        }
+
+        public String getShopId() {
+            return shopId;
+        }
+
+        public void setShopId(String shopId) {
+            this.shopId = shopId;
+        }
+
+        public String getStockPrevName() {
+            return stockPrevName;
+        }
+
+        public void setStockPrevName(String stockPrevName) {
+            this.stockPrevName = stockPrevName;
+        }
+
+        public String getStockNewName() {
+            return stockNewName;
+        }
+
+        public void setStockNewName(String stockNewName) {
+            this.stockNewName = stockNewName;
+        }
+
+        public int getStockAmount() {
+            return stockAmount;
+        }
+
+        public void setStockAmount(int stockAmount) {
+            this.stockAmount = stockAmount;
+        }
+    }
+
+    // 검색 응답 DTO
     public static class GetRes {
 
         public class Result {
@@ -104,6 +161,7 @@ public class StockData {
         }
     }
 
+    // 추가, 수정 수행 결과 정보 응답 DTO
     public class StatusRes {
 
         @SerializedName("status")
