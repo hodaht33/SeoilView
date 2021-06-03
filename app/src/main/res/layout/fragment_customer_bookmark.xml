@@ -29,12 +29,12 @@
             android:id="@+id/tabLayoutCBookMarkSelectView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/background_light"
+            android:background="@color/white"
             android:elevation="1dp"
             app:tabGravity="fill"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/light_green"
-            app:tabTextColor="@color/text_color" />
+            app:tabTextColor="@color/black" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
