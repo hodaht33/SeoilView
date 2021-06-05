@@ -52,12 +52,7 @@ public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Prese
 
                     List<BookmarkData.ShopInfoRes.Result> list = shopInfoRes.getResults();
 
-                    if (list == null) {
-
-                        shopName.add("즐겨찾기한 매장이 없습니다.");
-                        shopCategory.add("");
-                        shopId.add("");
-                    } else {
+                    if (list != null) {
 
                         for (BookmarkData.ShopInfoRes.Result result : list) {
 
@@ -65,9 +60,14 @@ public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Prese
                             shopCategory.add(result.getShopCategoory());
                             shopId.add(result.getShopId());
                         }
+
+                        mView.setAdapterShopInfo(shopName, shopCategory, shopId);
+                        return;
                     }
-                    mView.setAdapterShopInfo(shopName, shopCategory, shopId);
+
                 }
+
+                mView.setAdapterShopInfo(null, null, null);
             }
 
             @Override
