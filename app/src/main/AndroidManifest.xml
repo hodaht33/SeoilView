@@ -14,14 +14,6 @@
         android:theme="@style/Theme.SOM">
         <activity android:name=".ui.event.detail.DetailEventActivity"></activity>
         <activity android:name=".ui.main.manager.ledger.Sales.ManagerLedgerSalesActivity" />
-        <activity android:name=".test.TestPhoneAuthActivity" />
-        <activity android:name=".test.TestBookmarkActivity" />
-        <activity android:name=".test.TestBusinessRegistrationNumberActivity" />
-        <activity android:name=".test.TestSalesActivity" />
-        <activity android:name=".test.TestShopInfoActivity" />
-        <activity android:name=".test.TestSavePointActivity" />
-        <activity android:name=".test.TestUsingPointActivity" />
-        <activity android:name=".test.TestPointActivity" />
         <activity android:name=".ui.address.SearchAddressActivity" />
         <activity android:name=".ui.find.FindActivity" /> <!-- 카카오 리다이렉션 -->
         <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">

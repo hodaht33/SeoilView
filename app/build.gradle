@@ -73,7 +73,7 @@ dependencies {
     implementation 'com.github.prolificinteractive:material-calendarview:1.6.0'
     
     //그래프 라이브러리
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
 
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:28.0.1')
