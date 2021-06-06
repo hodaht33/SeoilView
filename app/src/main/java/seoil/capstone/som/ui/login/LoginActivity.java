@@ -115,13 +115,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 mEditTextId.setError("아이디를 입력해주세요.");
                 mEditTextId.requestFocus();
 
-                Utility.getInstance().renderKeyboard(this);
+                Utility.getInstance().activateKeyboard(this);
             } else if (mEditTextPw.getText().toString().equals("")) {
 
                 mEditTextPw.setError("비밀번호를 입력해주세요.");
                 mEditTextPw.requestFocus();
 
-                Utility.getInstance().renderKeyboard(this);
+                Utility.getInstance().activateKeyboard(this);
             } else {
 
                 mPresenter.serverLogin(
@@ -154,6 +154,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         }
     }
 
+    // 로그인 실패 에러 코드에 따라 알림창 출력
     @Override
     public void loginFail(int errorCode) {
         if (errorCode == UserApi.LOGIN_FAIL_ID) {
@@ -161,13 +162,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             mEditTextId.setError("아이디가 존재하지 않습니다.\n다시 확인해주세요.");
             mEditTextId.requestFocus();
 
-            Utility.getInstance().renderKeyboard(this);
+            Utility.getInstance().activateKeyboard(this);
         } else if (errorCode == UserApi.LOGIN_FAIL_PWD) {
 
             mEditTextPw.setError("비밀번호가 다릅니다.\n다시 확인해주세요.");
             mEditTextPw.requestFocus();
 
-            Utility.getInstance().renderKeyboard(this);
+            Utility.getInstance().activateKeyboard(this);
         } else {
 
             showToast("알 수 없는 문제가 발생했습니다.\n개발자에게 문의해 주세요.");
@@ -180,13 +181,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         // finish대신 flag를 지정하여 메인 액티비티로 이동 시 스택 내 액티비티 인스턴스 모두 삭제
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        boolean keepLoginIsChecked = mChkBoxKeepLogin.isChecked();
+        boolean isKeepLoginChecked = mChkBoxKeepLogin.isChecked();
 
         // 네이버나 카톡 로그인이 아닐 경우 platform의 값은 ""
         if (intent.getBundleExtra("data").getString("platform").isEmpty()
-            && keepLoginIsChecked) {
+            && isKeepLoginChecked) {
 
-            mEditor.putBoolean("keepLoginState", keepLoginIsChecked);
+            mEditor.putBoolean("keepLoginState", true);
             mEditor.putString("id", mEditTextId.getText().toString());
             mEditor.putString("pwd", mEditTextPw.getText().toString());
             mEditor.commit();
@@ -238,6 +239,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void showProgress() {
 
+        Utility.getInstance().activateProgressAnim(this, getWindow().findViewById(R.id.activityLoginLayout));
     }
 
     @Override

@@ -58,8 +58,6 @@ public class LoginPresenter implements LoginContract.Presenter {
                     bundle.putString("id", id);
                     bundle.putString("code", loginResponse.getCode());
 
-                    mView.setUserData(id, loginResponse.getCode());
-
                     if (pwd.equals("naver")
                         || pwd.equals("kakao")) {
 
@@ -76,6 +74,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                         // 로그인 성공했으므로 MainActivity로 이동하도록 설정
                         intent.setComponent(new ComponentName(context, MainActivity.class));
                         intent.putExtra("data", bundle);
+                        mView.setUserData(id, loginResponse.getCode());
 
                         mView.toMain(intent);
                     } else if (statusCode == UserApi.NEW_USER) {
@@ -116,7 +115,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void onSuccess(Login.KakaoLoginRes loginResponse) {
 
-                // 카카오 아이디가 null이 아니면 성공한 것이므로 som rest api로 서버에 보내 사용자인지 검사
+                // 카카오 아이디가 null이 아니면 성공한 것이므로 som api로 서버에 보내 사용자인지 검사
                 String kakaoId = loginResponse.getId();
                 if (kakaoId != null) {
 
@@ -159,13 +158,13 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                             Intent intent = new Intent();
 
-
                             if (statusCode == UserApi.SUCCESS) {
 
                                 intent.setComponent(new ComponentName(context, MainActivity.class));
                                 bundle.putString("code", serverLoginResponse.getCode());
                                 bundle.putString("platform", "naver");
                                 intent.putExtra("data", bundle);
+                                mView.setUserData(naverId, serverLoginResponse.getCode());
 
                                 mView.toMain(intent);
                             } else if (statusCode == UserApi.NEW_USER) {

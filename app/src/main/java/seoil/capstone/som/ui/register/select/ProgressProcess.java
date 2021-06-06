@@ -1,40 +1,37 @@
 package seoil.capstone.som.ui.register.select;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
+import android.app.Activity;
 import android.os.AsyncTask;
-import android.os.Debug;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.view.WindowManager;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.logging.LogRecord;
-
-import okhttp3.internal.http2.Http2Reader;
-import seoil.capstone.som.R;
+import seoil.capstone.som.util.Utility;
 
 public class ProgressProcess extends AsyncTask<Void, Void, Void> {
 
-    private LottieAnimationView mAinimationView;;
+    private LottieAnimationView mAinimationView;
+    private Activity mActivity;
     private boolean mIsRunning = false;
 
-    public ProgressProcess(LottieAnimationView animationView) {
-        mAinimationView = animationView;
-    }
+    public ProgressProcess setParameter(LottieAnimationView animationView, Activity activity) {
 
+        mAinimationView = animationView;
+        mActivity = activity;
+
+        return this;
+    }
 
     @Override
     protected void onPreExecute() {
+
+        // 키보드 내리기
+        Utility.getInstance().deactivateKeyboard(mActivity);
+
+        // 터치 불가 설정
+        mActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         mAinimationView.setVisibility(View.VISIBLE);
         mAinimationView.playAnimation();
@@ -46,8 +43,12 @@ public class ProgressProcess extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
 
+        // 터치 가능 설정
+        mActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
         mAinimationView.setVisibility(View.GONE);
         mAinimationView.cancelAnimation();
+
         super.onPostExecute(aVoid);
     }
 
@@ -55,13 +56,16 @@ public class ProgressProcess extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... voids) {
 
         try {
+
             while(mIsRunning) {
 
                 Thread.sleep(1000);
             }
         } catch (InterruptedException e) {
+
             Log.d("sleep", e.getMessage());
         }
+
         return null;
     }
 

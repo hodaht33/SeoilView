@@ -12,11 +12,13 @@ import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,7 +91,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private int mIsValidCorporateNumber;
     private int mIdValidCode;
     private LottieAnimationView mAnimationView;
-    private ProgressProcess mProgressProcess;
     private Spinner mSpinnerCategory;
     private Dialog mDialog;
     private long mLastTimeBackPressed;
@@ -160,8 +161,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         initView(view);
         initListener();
 
-        Bundle bundle = getArguments();
-
         mIsIdValid = false;
         mIsValidPhoneNumber = false;
         mIsValidCorporateNumber = mPresenter.CORPORATE_NUMBER_NOT_VALID;
@@ -196,8 +195,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         return view;
     }
 
-
-
     @SuppressLint("SetTextI18n")
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -227,15 +224,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     @Override
     public void showProgress() {
 
-        //키보드 내리기
-        InputMethodManager methodManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        methodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-        
-        //터치 불가 설정
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        
-        mProgressProcess = new ProgressProcess(mAnimationView);
-        mProgressProcess.execute();
+        Utility.getInstance().activateProgressAnim(getContext(), getView().findViewById(R.id.fragmentManagerRegisterLayout));
     }
 
     @Override
@@ -247,11 +236,8 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             mBtnCheckCorporateNumber.setText("확인 완료");
             mBtnCheckCorporateNumber.setBackgroundColor(getResources().getColor(R.color.light_green));
         }
-        mProgressProcess.endProgress();
-        mProgressProcess = null;
 
-        //터치 가능 설정
-        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        Utility.getInstance().deactivateProgressAnim();
     }
 
     @Override
@@ -279,17 +265,17 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mIsIdValid = mPresenter.checkIdValid(mEditTextId.getText().toString(), this);
             } else if(mIdValidCode == mPresenter.ID_EMPTY) {
 
-                Utility.getInstance().renderKeyboard(getActivity());
+                Utility.getInstance().activateKeyboard(getActivity());
                 mEditTextId.setError("아이디를 입력해주세요.");
                 mEditTextId.requestFocus();
             } else if (mIdValidCode == mPresenter.ID_SHORT) {
 
-                Utility.getInstance().renderKeyboard(getActivity());
+                Utility.getInstance().activateKeyboard(getActivity());
                 mEditTextId.setError("아이디가 너무 짧습니다. 8자 이상 입력해주세요.");
                 mEditTextId.requestFocus();
             } else if (mIdValidCode == mPresenter.ID_LONG) {
 
-                Utility.getInstance().renderKeyboard(getActivity());
+                Utility.getInstance().activateKeyboard(getActivity());
                 mEditTextId.setError("아이디가 너무 깁니다. 20자 이하로 입력해주세요.");
                 mEditTextId.requestFocus();
             }
@@ -304,17 +290,17 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
             } else if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_NOT_NUM) {
 
-                Utility.getInstance().renderKeyboard(getActivity());
+                Utility.getInstance().activateKeyboard(getActivity());
                 mEditTextCorporateNumber.setError("숫자만 입력해주세요 (ex : 123456789)");
                 mEditTextCorporateNumber.requestFocus();
             } else if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_LENGTH_ERROR) {
 
-                Utility.getInstance().renderKeyboard(getActivity());
+                Utility.getInstance().activateKeyboard(getActivity());
                 mEditTextCorporateNumber.setError("10자리를 입력해주세요 (ex : 123456789)");
                 mEditTextCorporateNumber.requestFocus();
             } else if (mIsValidCorporateNumber == mPresenter.CORPORATE_NUMBER_NOT_VALID) {
 
-                Utility.getInstance().renderKeyboard(getActivity());
+                Utility.getInstance().activateKeyboard(getActivity());
                 mEditTextCorporateNumber.setError("유효하지 않은 번호 입니다.");
                 mEditTextCorporateNumber.requestFocus();
             }
@@ -326,17 +312,17 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
                 if (phoneValid == mPresenter.PHONE_EMPTY) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextPhoneNumber.setError("핸드폰 번호를 입력해주세요.");
                     mEditTextPhoneNumber.requestFocus();
                 } else if (phoneValid == mPresenter.PHONE_LENGTH_ERROR) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextPhoneNumber.setError("'-'없이 11자리로 입력해주세요.");
                     mEditTextPhoneNumber.requestFocus();
                 } else if (phoneValid == mPresenter.PHONE_ERROR_OTHER_CHAR) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextPhoneNumber.setError("숫자만 입력해주세요.");
                     mEditTextPhoneNumber.requestFocus();
                 }
@@ -541,12 +527,12 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
                 if (emailCode == mPresenter.EMAIL_EMPTY) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextEmail.setError("이메일을 입력해주세요.");
                     mEditTextEmail.requestFocus();
                 } else if (emailCode == mPresenter.EMAIL_INVALID) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextEmail.setError("올바른 이메일을 입력해주세요.");
                     mEditTextEmail.requestFocus();
                 }
@@ -554,17 +540,17 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
                 if (phoneNumberCode == mPresenter.PHONE_EMPTY) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextPhoneNumber.setError("핸드폰 번호를 입력해주세요.");
                     mEditTextPhoneNumber.requestFocus();
                 } else if (phoneNumberCode == mPresenter.PHONE_ERROR_OTHER_CHAR) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextPhoneNumber.setError("숫자만 입력해주세요. (ex : 19500101)");
                     mEditTextPhoneNumber.requestFocus();
                 } else if (phoneNumberCode == mPresenter.PHONE_LENGTH_ERROR) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextPhoneNumber.setError("핸드폰 번호가 맞는지 확인해주세요.(010xxxxxxxx)");
                     mEditTextPhoneNumber.requestFocus();
                 }
@@ -575,17 +561,17 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
                 if (birthDateCode == mPresenter.BIRTH_EMPTY) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextBirthdate.setError("생년월일을 입력해주세요.");
                     mEditTextBirthdate.requestFocus();
                 } else if (birthDateCode == mPresenter.BIRTH_ERROR_LENGTH) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextBirthdate.setError("8자리를 입력해주세요. (ex : 19500101)");
                     mEditTextBirthdate.requestFocus();
                 } else if (birthDateCode == mPresenter.BIRTH_ERROR_OTHER_CHAR) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextBirthdate.setError("숫자만 입력해주세요. (ex : 19500101)");
                     mEditTextBirthdate.requestFocus();
                 }
@@ -640,22 +626,22 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
                 if (pwCode == mPresenter.PWD_EMPTY) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextPwd.setError("비밀번호를 입력해주세요.");
                     mEditTextPwd.requestFocus();
                 } else if (pwCode == mPresenter.PWD_INVALID) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextPwd.setError("@$!%*#?& 중 하나의 특수문자를 포함한 10자 이상의 비밀번호를 입력해주세요.");
                     mEditTextPwd.requestFocus();
                 } else if (pwCode == mPresenter.PWD_CHECK_EMPTY) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextCheckPwd.setError("비밀번호를 입력해주세요.");
                     mEditTextCheckPwd.requestFocus();
                 } else if (pwCode == mPresenter.PWD_CHECK_NOT_EQUAL) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextCheckPwd.setError("비밀번호가 서로 다릅니다.");
                     mEditTextCheckPwd.requestFocus();
                 }
@@ -663,12 +649,12 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
                 if (emailCode == mPresenter.EMAIL_EMPTY) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextEmail.setError("이메일을 입력해주세요.");
                     mEditTextEmail.requestFocus();
                 } else if (emailCode == mPresenter.EMAIL_INVALID) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextEmail.setError("올바른 이메일을 입력해주세요.");
                     mEditTextEmail.requestFocus();
                 }
@@ -676,17 +662,17 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
                 if (phoneNumberCode == mPresenter.PHONE_EMPTY) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextPhoneNumber.setError("핸드폰 번호를 입력해주세요.");
                     mEditTextPhoneNumber.requestFocus();
                 } else if (phoneNumberCode == mPresenter.PHONE_ERROR_OTHER_CHAR) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextPhoneNumber.setError("숫자만 입력해주세요. (ex : 19500101)");
                     mEditTextPhoneNumber.requestFocus();
                 } else if (phoneNumberCode == mPresenter.PHONE_LENGTH_ERROR) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextPhoneNumber.setError("핸드폰 번호가 맞는지 확인해주세요.(010xxxxxxxx)");
                     mEditTextPhoneNumber.requestFocus();
                 }
@@ -698,7 +684,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 showDialog("사업자 번호를 입력한 뒤 확인해주세요.");
             } else if (marketNameCode != mPresenter.MARKET_NAME_VALID) {
 
-                Utility.getInstance().renderKeyboard(getActivity());
+                Utility.getInstance().activateKeyboard(getActivity());
                 mEditTextMarketName.setError("매장명 입력해주세요");
                 mEditTextMarketName.requestFocus();
             } else if (!mIsCategorySelected) {
@@ -710,24 +696,24 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 showDialog("주소를 찾아 입력해주세요.");
             } else if (detailedAddressCode != mPresenter.DETAILED_ADDRESS_VALID) {
 
-                Utility.getInstance().renderKeyboard(getActivity());
+                Utility.getInstance().activateKeyboard(getActivity());
                 mEditTextDetailedAddress.setError("상세 주소를 입력해주세요 (ex : 동/호/층)");
                 mEditTextDetailedAddress.requestFocus();
             } else if (birthDateCode != mPresenter.BIRTH_VALID) {
 
                 if (birthDateCode == mPresenter.BIRTH_EMPTY) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextBirthdate.setError("생년월일을 입력해주세요.");
                     mEditTextBirthdate.requestFocus();
                 } else if (birthDateCode == mPresenter.BIRTH_ERROR_LENGTH) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextBirthdate.setError("8자리를 입력해주세요. (ex : 19500101)");
                     mEditTextBirthdate.requestFocus();
                 } else if (birthDateCode == mPresenter.BIRTH_ERROR_OTHER_CHAR) {
 
-                    Utility.getInstance().renderKeyboard(getActivity());
+                    Utility.getInstance().activateKeyboard(getActivity());
                     mEditTextBirthdate.setError("숫자만 입력해주세요. (ex : 19500101)");
                     mEditTextBirthdate.requestFocus();
                 }
