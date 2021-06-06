@@ -80,12 +80,18 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
             public void onSuccess(EventData.StatusRes statusRes) {
 
                 Log.d("eventstatus", String.valueOf(statusRes.getStatus()));
-                view.initDetailEvent();
+
+                if (statusRes.getStatus() == EventApi.SUCCESS) {
+
+                    view.finishDetailEvent();
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t) {
 
+                Log.d("eventstatus", String.valueOf(t.getMessage()));
             }
         };
 
@@ -98,7 +104,11 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
             @Override
             public void onSuccess(EventData.StatusRes statusRes) {
 
-                view.setDeleted();
+                if (statusRes.getStatus() == EventApi.SUCCESS) {
+
+                    view.setDeleted();
+                }
+
             }
 
             @Override

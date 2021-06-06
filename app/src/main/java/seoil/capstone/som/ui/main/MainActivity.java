@@ -15,6 +15,7 @@ import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.login.LoginActivity;
 import seoil.capstone.som.ui.main.customer.bookmark.CustomerBookmarkFragment;
+import seoil.capstone.som.ui.main.customer.info.CustomerInfoFragment;
 import seoil.capstone.som.ui.main.customer.point.CustomerPointFragment;
 import seoil.capstone.som.ui.main.customer.search.CustomerSearchFragment;
 import seoil.capstone.som.ui.main.manager.event.ManagerEventFragment;
@@ -111,6 +112,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 case R.id.item_customer_bookmark_fragment:
 
                     selectedFragment = new CustomerBookmarkFragment();
+                    break;
+                case R.id.item_customer_info_fragment:
+
+                    selectedFragment = new CustomerInfoFragment();
                     break;
                 default:
 

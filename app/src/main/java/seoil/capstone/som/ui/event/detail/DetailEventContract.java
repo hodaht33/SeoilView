@@ -27,6 +27,6 @@ public interface DetailEventContract {
 
         void setDeleted();
 
-        void initDetailEvent();
+        void finishDetailEvent();
     }
 }

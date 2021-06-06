@@ -56,7 +56,7 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
         mEventCode = getIntent().getIntExtra("eventCode", -1);
         mUserCode = ((GlobalApplication) getApplicationContext()).getUserCode();
 
-        if (mUserCode.equals("C")) {
+        if (mUserCode.equals("C")) {            //사용자가 손님일 때
 
             mBtnUpdate.setVisibility(View.GONE);
             mBtnRemove.setVisibility(View.GONE);
@@ -66,7 +66,7 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
             mEditTextEventContent.setInputType(InputType.TYPE_NULL);
             mTextViewStartDate.setClickable(false);
             mTextViewEndDate.setClickable(false);
-        } else if (mUserCode.equals("M")){
+        } else if (mUserCode.equals("M")){      //사용자가 점주일 때
 
             mBtnUpdate.setVisibility(View.VISIBLE);
             mBtnRemove.setVisibility(View.VISIBLE);
@@ -188,9 +188,10 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
     }
 
     @Override
-    public void initDetailEvent() {
+    public void finishDetailEvent() {
 
-        mPresenter.getEvent(mEventCode);
+        Toast.makeText(this, "이벤트가 수정 되었습니다.", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     void showDate(Boolean flag) {

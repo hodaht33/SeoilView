@@ -17,4 +17,9 @@
         android:icon="@drawable/ic_launcher_background"
         android:title="즐겨찾기" />
 
+    <item
+        android:id="@+id/item_customer_info_fragment"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="사용자 정보"/>
+
 </menu>
