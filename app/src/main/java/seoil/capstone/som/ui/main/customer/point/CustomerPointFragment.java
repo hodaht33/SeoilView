@@ -79,6 +79,11 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
 
     }
 
+    @Override
+    public void showDialog(String msg) {
+
+    }
+
 
     @Override
     public void onClick(View v) {

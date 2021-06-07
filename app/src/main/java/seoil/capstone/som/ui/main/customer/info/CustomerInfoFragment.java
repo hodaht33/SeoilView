@@ -55,6 +55,11 @@ public class CustomerInfoFragment extends Fragment implements CustomerInfoContra
 
     }
 
+    @Override
+    public void showDialog(String msg) {
+
+    }
+
     private void initView(View view) {
 
         mBtnLogout = view.findViewById(R.id.btnCInfoLogout);

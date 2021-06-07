@@ -85,4 +85,9 @@ public class ManagerInfoFragment extends Fragment implements ManagerInfoContract
     public void hideProgress() {
 
     }
+
+    @Override
+    public void showDialog(String msg) {
+
+    }
 }

@@ -8,6 +8,7 @@ import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.Login;
 
+// 로그인 MVP 인터페이스
 public interface LoginContract {
 
     interface Interactor {

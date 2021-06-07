@@ -20,7 +20,6 @@ public interface ManagerRegisterContract {
 
     interface View extends BaseContract.View {
 
-        void showDialog(String msg);
         void changePhoneAuthButton(int status);
         void finishRegister(Intent intent);
     }

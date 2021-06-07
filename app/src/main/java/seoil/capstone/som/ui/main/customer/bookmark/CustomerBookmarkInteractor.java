@@ -5,6 +5,7 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.BookmarkData;
 import seoil.capstone.som.data.network.model.EventData;
 
+// 손님 즐겨찾기 모델
 public class CustomerBookmarkInteractor implements CustomerBookmarkContract.Interactor{
     
     //DB에 매장 즐겨찾기 정보 조회

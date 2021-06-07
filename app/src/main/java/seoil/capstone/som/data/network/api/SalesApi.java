@@ -9,8 +9,10 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.SalesData;
 import seoil.capstone.som.data.network.model.retrofit.Sales;
 
+// 매출 api
 public class SalesApi {
 
+    // 매출 응답 코드
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
     public static final int ERROR_UNDEFINED_VALUE = 2;
@@ -23,6 +25,7 @@ public class SalesApi {
         mSalesInfo = retrofit.create(Sales.class);
     }
 
+    // 수입 요청
     public void getIncomeSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
         Call<SalesData.GetRes> call = mSalesInfo.getIncomeSales(shopId, salesDate);
@@ -46,6 +49,7 @@ public class SalesApi {
         });
     }
 
+    // 지출 요청
     public void getSpendingSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
         Call<SalesData.GetRes> call = mSalesInfo.getSpendingSales(shopId, salesDate);
@@ -69,6 +73,7 @@ public class SalesApi {
         });
     }
 
+    // 매출 통계 요청
     public void getSalesStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetStatisticsRes> onFinishApiListener) {
 
         Call<SalesData.GetStatisticsRes> call = mSalesInfo.getStatisticsSales(shopId, startDate, endDate);
@@ -92,6 +97,7 @@ public class SalesApi {
         });
     }
 
+    // 날짜와 함께 매출 추가 요청
     public void insertSalesWithDate(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
         Call<SalesData.StatusRes> call = mSalesInfo.insertSalesWithDate(req);
@@ -115,6 +121,7 @@ public class SalesApi {
         });
     }
 
+    // 매출 추가 요청(금일 날짜로 추가)
     public void insertSales(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
         Call<SalesData.StatusRes> call = mSalesInfo.insertSales(req);
@@ -138,6 +145,7 @@ public class SalesApi {
         });
     }
 
+    // 지출 수정 요청
     public void updateSpendingSales(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
         Call<SalesData.StatusRes> call = mSalesInfo.updateSpendingSales(req);
@@ -161,6 +169,7 @@ public class SalesApi {
         });
     }
 
+    // 지출 삭제 요청
     public void deleteSpendingSales(String shopId, int salesCode, String salesDate, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
         Call<SalesData.StatusRes> call = mSalesInfo.deleteSpendingSales(shopId, salesCode, salesDate);

@@ -10,6 +10,7 @@ import seoil.capstone.som.data.network.api.BookmarkApi;
 import seoil.capstone.som.data.network.model.BookmarkData;
 import seoil.capstone.som.data.network.model.EventData;
 
+// 손님 즐겨찾기 프레젠터
 public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Presenter{
 
     private CustomerBookmarkContract.View mView;

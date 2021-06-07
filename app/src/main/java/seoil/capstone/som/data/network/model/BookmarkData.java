@@ -5,10 +5,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+// 즐겨찾기 DTO
 public class BookmarkData {
 
     // 요청 //
 
+    // 추가 요청 DTO
     public static class InsertReq {
 
         @SerializedName("id")
@@ -42,6 +44,7 @@ public class BookmarkData {
 
     // 응답 //
 
+    // 사용자 정보 응답 DTO
     public static class UserInfoRes {
 
         public class Result {
@@ -83,6 +86,7 @@ public class BookmarkData {
         }
     }
 
+    // 매장 정보 응답 DTO
     public static class ShopInfoRes {
 
         public class Result {
@@ -146,6 +150,7 @@ public class BookmarkData {
         }
     }
 
+    // 서버 응답 DTO
     public static class StatusRes {
 
         @SerializedName("status")

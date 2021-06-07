@@ -3,12 +3,14 @@ package seoil.capstone.som.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+// 로그인 DTO
 public class Login {
 
     /////////
     // 요청 //
     /////////
 
+    // 로그인 요청 DTO
     public static class LoginReq {
 
         @SerializedName("id")
@@ -44,6 +46,7 @@ public class Login {
     // 응답 //
     /////////
 
+    // 로그인 응답 DTO
     public static class LoginRes {
 
         @SerializedName("status")
@@ -70,6 +73,7 @@ public class Login {
         }
     }
 
+    // 카카오 간편 로그인 응답 DTO
     public static class KakaoLoginRes {
 
         private String id;
@@ -87,6 +91,7 @@ public class Login {
         }
     }
 
+    // 네이버 간편 로그인 응답 DTO
     public static class NaverLoginRes {
 
         private String id;

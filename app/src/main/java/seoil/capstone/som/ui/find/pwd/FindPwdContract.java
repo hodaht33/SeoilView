@@ -1,12 +1,11 @@
 package seoil.capstone.som.ui.find.pwd;
 
-import java.util.ArrayList;
-
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.UserData;
 
+// 비밀번호 찾기(변경) MVP 인터페이스
 public interface FindPwdContract {
 
     interface Interactor extends BaseContract.Interactor {
@@ -19,7 +18,6 @@ public interface FindPwdContract {
 
     interface View extends BaseContract.View {
 
-        void showDialog(String msg);
         void visibleAuthView();
         void changeToPasswordView();
         void changeToResultView();

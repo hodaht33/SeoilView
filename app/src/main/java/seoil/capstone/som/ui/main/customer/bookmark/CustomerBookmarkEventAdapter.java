@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import seoil.capstone.som.R;
 
+// 손님 즐겨찾기 이벤트 리사이클러뷰 어댑터
 public class CustomerBookmarkEventAdapter extends RecyclerView.Adapter<CustomerBookmarkEventAdapter.ViewHolder> {
 
     private final CustomerBookmarkPresenter mPresenter;             //어댑터에서 인텐트 사용
@@ -30,6 +31,7 @@ public class CustomerBookmarkEventAdapter extends RecyclerView.Adapter<CustomerB
         mMarketEventCode = eventCode;
         mPresenter = presenter;
     }
+
     @NonNull
     @Override
     public CustomerBookmarkEventAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +40,7 @@ public class CustomerBookmarkEventAdapter extends RecyclerView.Adapter<CustomerB
         return new ViewHolder(view);
     }
 
+    // 뷰홀더 재사용시 호출되는 콜백 메서드
     @Override
     public void onBindViewHolder(@NonNull CustomerBookmarkEventAdapter.ViewHolder holder, int position) {
 
@@ -58,6 +61,7 @@ public class CustomerBookmarkEventAdapter extends RecyclerView.Adapter<CustomerB
         holder.textViewEventDate.setOnClickListener(detailEventCustomer);
     }
 
+    // 뷰홀더 아이템 수 반환
     @Override
     public int getItemCount() {
         if (mMarketName == null) {
@@ -78,6 +82,7 @@ public class CustomerBookmarkEventAdapter extends RecyclerView.Adapter<CustomerB
         notifyDataSetChanged();
     }
 
+    // 뷰홀더 모델
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView textViewMarketName;

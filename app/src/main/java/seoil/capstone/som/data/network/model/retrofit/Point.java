@@ -10,6 +10,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import seoil.capstone.som.data.network.model.PointData;
 
+// 포인트 api 라우팅 인터페이스
 public interface Point {
 
     //////////////

@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+// 재고 DTO
 public class StockData {
 
     // 추가, 수량 수정 요청 DTO
@@ -161,7 +162,7 @@ public class StockData {
         }
     }
 
-    // 추가, 수정 수행 결과 정보 응답 DTO
+    // 서버 응답 DTO
     public class StatusRes {
 
         @SerializedName("status")

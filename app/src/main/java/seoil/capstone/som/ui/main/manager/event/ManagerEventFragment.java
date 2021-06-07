@@ -114,6 +114,11 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
 
     }
 
+    @Override
+    public void showDialog(String msg) {
+
+    }
+
     //ManagerEventFragment 뷰 초기화
     private void initView(View view) {
 

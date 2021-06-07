@@ -5,8 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+// 이벤트 DTO
 public class EventData {
 
+    // 추가 요청 DTO
     public static class InsertReq {
 
         @SerializedName("shopId")
@@ -86,6 +88,7 @@ public class EventData {
         }
     }
 
+    // 수정 요청 DTO
     public static class UpdateReq {
 
         @SerializedName("eventCode")
@@ -153,6 +156,7 @@ public class EventData {
         }
     }
 
+    // 검색 응답 DTO
     public static class GetRes {
 
         public class Result {
@@ -238,6 +242,7 @@ public class EventData {
         }
     }
 
+    // 이벤트 코드로 검색 응답 DTO
     public static class EventCodeRes {
 
         public class Result {
@@ -345,6 +350,7 @@ public class EventData {
         }
     }
 
+    // 진행중인 이벤트 정보 응답 DTO
     public static class OngoingEventRes {
 
         public class Result {
@@ -441,6 +447,7 @@ public class EventData {
         }
     }
 
+    // 서버 응답 DTO
     public static class StatusRes {
 
         @SerializedName("status")

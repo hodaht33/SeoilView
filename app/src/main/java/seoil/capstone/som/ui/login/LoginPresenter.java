@@ -14,6 +14,7 @@ import seoil.capstone.som.data.network.model.Login;
 import seoil.capstone.som.ui.main.MainActivity;
 import seoil.capstone.som.ui.register.RegisterActivity;
 
+// 로그인 프레젠터
 public class LoginPresenter implements LoginContract.Presenter {
 
     private static final String TAG = "LoginPresenter";
@@ -40,6 +41,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         this.mInteractor = null;
     }
 
+    // 일반 로그인
     @Override
     public void serverLogin(String id, String pwd, Context context, OnFinishApiListener onFinishApiListener) {
 
@@ -108,6 +110,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         mInteractor.serverLogin(new Login.LoginReq(id, pwd), callback);
     }
 
+    // 카카오 간편 로그인
     @Override
     public void kakaoLogin(Context context) {
 
@@ -134,6 +137,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         mInteractor.kakaoLogin(context, callback);
     }
 
+    // 네이버 간편 로그인
     @Override
     public void naverLogin(Context context, Resources resources) {
 

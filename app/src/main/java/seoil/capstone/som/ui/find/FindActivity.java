@@ -12,6 +12,7 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.ui.find.id.FindIdFragment;
 import seoil.capstone.som.ui.find.pwd.FindPwdFragment;
 
+// 아이디, 비밀번호 찾기 뷰(액티비티)
 public class FindActivity extends AppCompatActivity implements View.OnClickListener{
 
     private final int FIND_ACTIVITY_ID = 1;
@@ -20,6 +21,7 @@ public class FindActivity extends AppCompatActivity implements View.OnClickListe
     private Button mBtnFindPwd;
     private int mState;
 
+    // UI, 리스너 초기화
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,7 @@ public class FindActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // 아이디 또는 비밀번호 찾기 뷰(프레그먼트) 설정
     private void changeView(int state) {
 
         if (state == FIND_ACTIVITY_ID) {

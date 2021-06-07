@@ -775,23 +775,20 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     @Override
     public void showDialog(String msg) {
 
+        DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (mDialog != null) {
+
+                    mDialog = null;
+                }
+            }
+        };
+
         if (mDialog == null) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage(msg)
-                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            if (mDialog != null) {
-
-                                mDialog = null;
-                            }
-                        }
-                    });
-
-            mDialog = builder.create();
-            mDialog.show();
+            Utility.getInstance().showDialog(mDialog, msg, getContext(), onClickListener);
         }
     }
 

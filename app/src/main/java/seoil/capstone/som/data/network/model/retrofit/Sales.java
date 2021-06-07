@@ -10,6 +10,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import seoil.capstone.som.data.network.model.SalesData;
 
+// 매출 api 라우팅 인터페이스
 public interface Sales {
 
     // 매장 수입 검색

@@ -7,6 +7,7 @@ import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.UserData;
 
+// 비밀번호 찾기(변경) 프레젠터
 public class FindPwdPresenter implements FindPwdContract.Presenter {
 
     private FindPwdContract.View mView;
@@ -34,7 +35,7 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
         mInteractor = null;
     }
 
-
+    // 아이디를 통해 핸드폰 번호 요청
     @Override
     public void sendSms(String userId) {
 
@@ -47,7 +48,6 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
             OnFinishApiListener<UserData.GetUserInfoRes> onFinishApiListener = new OnFinishApiListener<UserData.GetUserInfoRes>() {
                 @Override
                 public void onSuccess(UserData.GetUserInfoRes getUserInfoRes) {
-
 
                     if (getUserInfoRes.getStatus() == UserApi.SUCCESS) {
 
@@ -72,6 +72,7 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
         }
     }
 
+    // 인증번호 문자 전송 요청
     private void sendSmsReq(String phoneNumber) {
 
         OnFinishApiListener<Auth.StatusRes> onFinishApiListener = new OnFinishApiListener<Auth.StatusRes>() {
@@ -100,6 +101,7 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
         mInteractor.sendSms(new Auth.Req(phoneNumber, null), onFinishApiListener);
     }
 
+    // 인증번호 유효성 검사 후 확인 요청
     @Override
     public void sendAuthCode(String authCode) {
 
@@ -142,6 +144,7 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
         }
     }
 
+    // 비밀번호 유효성 검사 후 변경 요청
     @Override
     public void changePassword(String password, String passwordCheck) {
 
@@ -155,8 +158,10 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
         } else if (password.length() < 10) {
 
             mView.showDialog("10자 이상 써주세요.");
-        }// else if (password.matches())
-        else {
+        } else if (!password.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{10,}$")) {
+
+            mView.showDialog("영문자, 숫자, 특수문자(@$!%*#?&)를 최소 1개씩 포함시켜 주세요.");
+        } else {
 
             OnFinishApiListener<UserData.StatusRes> onFinishApiListener = new OnFinishApiListener<UserData.StatusRes>() {
                 @Override
@@ -183,6 +188,7 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
         }
     }
 
+    // 필요없는 데이터가 남지 않도록 해제
     @Override
     public void releaseAnother() {
 

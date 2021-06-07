@@ -3,8 +3,10 @@ package seoil.capstone.som.data.network.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+// 인증번호 인증 DTO
 public class Auth {
 
+    // 인증번호 확인 요청 DTO
     public static class Req {
 
         @SerializedName("phoneNumber")
@@ -36,6 +38,7 @@ public class Auth {
         }
     }
 
+    // 서버 응답 DTO
     public static class StatusRes {
 
         @SerializedName("status")

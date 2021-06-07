@@ -1,7 +1,10 @@
 package seoil.capstone.som.util;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -65,6 +68,20 @@ public class Utility {
     public void deactivateProgressAnim() {
 
         mProgressProcess.endProgress();
+    }
+
+    // 다이얼로그 창 활성화
+    public void showDialog(Dialog pramDialog, String msg, Context context, DialogInterface.OnClickListener onClickListener) {
+
+        if (pramDialog == null) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(msg)
+                    .setPositiveButton("확인", onClickListener);
+
+            pramDialog = builder.create();
+            pramDialog.show();
+        }
     }
 
     // xml이 아닌 자바 코드에서 ui크기를 지정할 땐 px단위로 지정되므로

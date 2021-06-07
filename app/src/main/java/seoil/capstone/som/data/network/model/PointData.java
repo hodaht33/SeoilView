@@ -5,12 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+// 포인트 DTO
 public class PointData {
 
     /////////
     // 요청 //
     /////////
 
+    // 잔여 포인트 추가 요청 DTO
     public static class InsertCurrentReq {
 
         @SerializedName("id")
@@ -30,6 +32,7 @@ public class PointData {
         }
     }
 
+    // 잔여 포인트 수정 요청 DTO
     public static class UpdateCurrentReq {
 
         @SerializedName("id")
@@ -61,6 +64,7 @@ public class PointData {
         }
     }
 
+    // 적립 내역 추가 요청 DTO
     public static class InsertSaveReq {
 
         @SerializedName("id")
@@ -104,6 +108,7 @@ public class PointData {
         }
     }
 
+    // 사용 내역 추가 요청 DTO
     public static class InsertUsingReq {
 
         @SerializedName("id")
@@ -151,6 +156,7 @@ public class PointData {
     // 응답 //
     /////////
 
+    // 잔여 포인트 응답 DTO
     public static class GetCurrentRes {
 
         @SerializedName("status")
@@ -177,6 +183,7 @@ public class PointData {
         }
     }
 
+    // 적립 내역 응답 DTO
     public static class GetSaveRes {
 
         public class Result {
@@ -240,6 +247,7 @@ public class PointData {
         }
     }
 
+    // 사용 내역 응답 DTO
     public static class GetUsingRes {
 
         public class Result {
@@ -302,6 +310,7 @@ public class PointData {
         }
     }
 
+    // 사용 내역, 적립 내역 응답 DTO
     public static class GetUsingAndSaveRes {
 
         public class Result {
@@ -365,6 +374,7 @@ public class PointData {
         }
     }
 
+    // 서버 응답 DTO
     public static class StatusRes {
 
         @SerializedName("status")

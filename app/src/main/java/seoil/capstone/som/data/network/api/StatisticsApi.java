@@ -11,8 +11,10 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.StatisticsData;
 import seoil.capstone.som.data.network.model.retrofit.Statistics;
 
+// 통계 api
 public class StatisticsApi {
 
+    // 통계 응답 코드
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
     public static final int ERROR_UNDEFINED_VALUE = 2;
@@ -25,6 +27,7 @@ public class StatisticsApi {
         mStatisticsData = retrofit.create(Statistics.class);
     }
 
+    // 나이대 통계 요청
     public void getAgeGroupStatistics(String shopId, String startDate, String endDate, OnFinishApiListener onFinishApiListener) {
 
         Call<StatisticsData.GetAgeGroupRes> call = mStatisticsData.getAgeGroupStatistics(shopId, startDate, endDate);
@@ -48,6 +51,7 @@ public class StatisticsApi {
         });
     }
 
+    // 성별 통계 요청
     public void getGenderStatistics(String shopId, String startDate, String endDate, OnFinishApiListener onFinishApiListener) {
 
         Call<StatisticsData.GetGenderRes> call = mStatisticsData.getGenderStatistics(shopId, startDate, endDate);
@@ -71,6 +75,7 @@ public class StatisticsApi {
         });
     }
 
+    // 일별 매출 통계 요청
     public void getDailySales(String shopId, String starDate, String endDate, OnFinishApiListener onFinishApiListener) {
 
         Call<StatisticsData.GetDayRes> call = mStatisticsData.getDailySales(shopId, starDate, endDate);
@@ -95,6 +100,7 @@ public class StatisticsApi {
 
     }
 
+    // 주별 매출 통계 요청
     public void getWeeklySales(String shopId, String month, String startDate, OnFinishApiListener onFinishApiListener) {
 
         Call<StatisticsData.GetWeekRes> call = mStatisticsData.getWeeklySales(shopId, month, startDate);
@@ -118,6 +124,7 @@ public class StatisticsApi {
         });
     }
 
+    // 월별 매출 통계 요청
     public void getMonthlySales(String shopId, String year, OnFinishApiListener onFinishApiListener) {
 
         Call<StatisticsData.GetMonthRes> call = mStatisticsData.getMonthlySales(shopId, year);
@@ -141,6 +148,7 @@ public class StatisticsApi {
         });
     }
 
+    // 통계(방문 정보) 추가 요청
     public void insertStatisticsData(StatisticsData.InsertReq req, OnFinishApiListener onFinishApiListener) {
 
         Call<StatisticsData.StatusRes> call = mStatisticsData.insertStatisticsData(req);

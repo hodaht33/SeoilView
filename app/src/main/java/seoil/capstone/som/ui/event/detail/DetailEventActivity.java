@@ -22,6 +22,7 @@ import java.util.HashMap;
 import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 
+// 이벤트 상세 정보 액티비티
 public class DetailEventActivity extends AppCompatActivity implements DetailEventContract.View, View.OnClickListener{
 
     private DetailEventPresenter mPresenter;
@@ -41,6 +42,7 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
     private String mStartDateQuery;
     private String mEndDateQuery;
 
+    // 사용자에 따른 UI 초기화
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +90,11 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
 
     @Override
     public void hideProgress() {
+
+    }
+
+    @Override
+    public void showDialog(String msg) {
 
     }
 
@@ -157,6 +164,7 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
 
     }
 
+    // 이벤트 정보 입력
     @Override
     public void setEvent(HashMap<String, String> eventHashMap) {
 
@@ -180,6 +188,7 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
         mEditTextEventContent.setText(eventHashMap.get("eventContent"));
     }
 
+    // 이벤트 삭제 완료
     @Override
     public void setDeleted() {
 
@@ -187,6 +196,7 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
         finish();
     }
 
+    // 이벤트 수정 완료
     @Override
     public void finishDetailEvent() {
 
@@ -194,9 +204,11 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
         finish();
     }
 
-    void showDate(Boolean flag) {
+    // 달력 출력 및 날짜 지정
+    private void showDate(Boolean flag) {
         DatePickerDialog datePickerDialog;
         Calendar date = Calendar.getInstance();
+
         if (flag) {
 
             @SuppressLint("SimpleDateFormat")
@@ -220,11 +232,8 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
                 }
             },year, month - 1, day );
 
-
             date.set(year, month - 1, day);
             datePickerDialog.getDatePicker().setMinDate(date.getTime().getTime());
-
-            datePickerDialog.show();
         } else {
 
                 datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -245,9 +254,8 @@ public class DetailEventActivity extends AppCompatActivity implements DetailEven
                 datePickerDialog.getDatePicker().setMinDate(date.getTime().getTime());
                 date.set(mFirstYear + 1, mFirstMonth, mFirstDay);
                 datePickerDialog.getDatePicker().setMaxDate(date.getTime().getTime());
-
-                datePickerDialog.show();
-
         }
+
+        datePickerDialog.show();
     }
 }

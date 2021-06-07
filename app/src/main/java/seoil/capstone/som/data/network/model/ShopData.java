@@ -5,8 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+// 매장 DTO
 public class ShopData {
 
+    // 매장 정보 요청 DTO
     public static class InsertReq {
 
         @SerializedName("shopCode")
@@ -86,6 +88,7 @@ public class ShopData {
         }
     }
 
+    // 매장 정보 수정 요청 DTO
     public static class UpdateReq {
 
         @SerializedName("shopCode")
@@ -165,6 +168,7 @@ public class ShopData {
         }
     }
 
+    // 매장 정보 응답 DTO
     public static class GetRes {
 
         public class Result {
@@ -228,6 +232,7 @@ public class ShopData {
         }
     }
 
+    // 서버 응답 DTO
     public static class StatusRes {
 
         @SerializedName("status")

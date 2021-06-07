@@ -1,7 +1,5 @@
 package seoil.capstone.som.ui.find.id;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
@@ -9,6 +7,7 @@ import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.UserData;
 
+// 아이디 찾기 프레젠터
 public class FindIdPresenter implements FindIdContract.Presenter{
 
     private FindIdContract.View mView;
@@ -39,6 +38,7 @@ public class FindIdPresenter implements FindIdContract.Presenter{
         mInteractor = null;
     }
 
+    // 핸드폰 번호 유효성 검사 및 인증번호 문자 전송 요청
     @Override
     public void sendSms(String phoneNumber) {
 
@@ -79,6 +79,7 @@ public class FindIdPresenter implements FindIdContract.Presenter{
         }
     }
 
+    // 인증번호 확인 요청
     @Override
     public void sendAuthCode(String authCode) {
 

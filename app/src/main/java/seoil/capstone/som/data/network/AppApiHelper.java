@@ -40,6 +40,8 @@ import seoil.capstone.som.data.network.model.ShopData;
 import seoil.capstone.som.data.network.model.StatisticsData;
 import seoil.capstone.som.data.network.model.StockData;
 
+// api 관리자
+// 싱글턴 클래스
 public class AppApiHelper {
 
     public static final String BASE_URL = "https://leebera.name/api/";
@@ -82,6 +84,7 @@ public class AppApiHelper {
         return mAppApiHelper;
     }
 
+    // 공용 404에러 확인 메서드
     public boolean check404Error(Response response, OnFinishApiListener onFinishApiListener) {
 
         if (response.code() == 404) {
@@ -94,11 +97,13 @@ public class AppApiHelper {
         return false;
     }
 
+    // 서버 로그인 요청
     public void serverLogin(Login.LoginReq req, OnFinishApiListener<Login.LoginRes> onFinishApiListener) {
 
         mUserApi.login(req, onFinishApiListener);
     }
 
+    // 카카오 간편 로그인 요청
     public void kakaoLogin(Context context, OnFinishApiListener<Login.KakaoLoginRes> onFinishApiListener) {
 
         // 카카오 로그인 콜백 함수 정의
@@ -149,6 +154,7 @@ public class AppApiHelper {
         }
     }
 
+    // 네이버 간편 로그인 요청
     public void naverLogin(Context context, Resources res, OnFinishApiListener<Login.NaverLoginRes> onFinishApiListener) {
 
         OAuthLogin oAuthLogin = OAuthLogin.getInstance();
@@ -217,261 +223,313 @@ public class AppApiHelper {
         oAuthLogin.startOauthLoginActivity((Activity) context, oAuthLoginHandler);
     }
 
+    // 인증번호 문자 전송 요청
     public void sendSms(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         mUserApi.sendSms(req, onFinishApiListener);
     }
 
+    // 인증번호 확인 요청
     public void sendAuthCode(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         mUserApi.sendAuthCode(req, onFinishApiListener);
     }
 
+    // 아이디 찾기를 위한 인증번호 확인 요청(아이디 찾기)
     public void sendAuthForFindId(Auth.Req req, OnFinishApiListener<UserData.FindIdRes> onFinishApiListener) {
 
         mUserApi.sendAuthForFindId(req, onFinishApiListener);
     }
 
+    // 사용자 핸드폰 번호 요청
     public void getUserPhoneNumber(String userId, OnFinishApiListener<UserData.GetUserInfoRes> onFinishApiListener) {
 
         mUserApi.getUserPhoneNumber(userId, onFinishApiListener);
     }
 
+    // 아이디 중복 확인 요청
     public void checkIdDuplicate(String id, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         mUserApi.checkIdDuplicate(id, onFinishApiListener);
     }
 
+    // 사업자 등록 번호 확인 요청
     public void checkRegistrationNumber(String number, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         mUserApi.checkRegistrationNumber(number, onFinishApiListener);
     }
 
+    // 손님 회원가입 요청
     public void customerRegister(UserData.Customer registerRequest, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
 
         mUserApi.insertCustomer(registerRequest, onFinishApiListener);
     }
 
-    public void deleteUser(String id, OnFinishApiListener onFinishApiListener) {
-
-        mUserApi.deleteUser(id, onFinishApiListener);
-    }
-
-    public void getCurrentPoint(String id, OnFinishApiListener<PointData.GetCurrentRes> onFinishApiListener) {
-
-        mPointApi.getCurrentPoint(id, onFinishApiListener);
-    }
-
-    public void insertCurrentPoint(PointData.InsertCurrentReq req, OnFinishApiListener<PointData.StatusRes> onFinishApiListener) {
-
-        mPointApi.insertCurrentPointTuple(req, onFinishApiListener);
-    }
-
-    public void updateCurrentPoint(PointData.UpdateCurrentReq req, OnFinishApiListener<PointData.StatusRes> onFinishApiListener) {
-
-        mPointApi.updateCurrentPoint(req, onFinishApiListener);
-    }
-
-    public void getUsingPoint(String id, OnFinishApiListener<PointData.GetUsingRes> onFinishApiListener) {
-
-        mPointApi.getUsingPointData(id, onFinishApiListener);
-    }
-
-    public void insertUsingPoint(PointData.InsertUsingReq req, OnFinishApiListener<PointData.StatusRes> onFinishApiListener) {
-
-        mPointApi.insertUsingPointData(req, onFinishApiListener);
-    }
-
-    public void getSavePoint(String id, OnFinishApiListener<PointData.GetSaveRes> onFinishApiListener) {
-
-        mPointApi.getSavePointData(id, onFinishApiListener);
-    }
-
-    public void insertSavePoint(PointData.InsertSaveReq req, OnFinishApiListener<PointData.StatusRes> onFinishApiListener) {
-
-        mPointApi.insertSavePointData(req, onFinishApiListener);
-    }
-
-    public void getUsingAndSavePoint(String userId, OnFinishApiListener<PointData.GetUsingAndSaveRes> onFinishApiListener) {
-
-        mPointApi.getUsingAndSavePointData(userId, onFinishApiListener);
-    }
-
+    // 점주 회원가입 요청
     public void managerRegister(UserData.Manager managerRequest, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
 
         mUserApi.insertManager(managerRequest, onFinishApiListener);
     }
 
+    // 사용자 삭제 요청
+    public void deleteUser(String id, OnFinishApiListener onFinishApiListener) {
+
+        mUserApi.deleteUser(id, onFinishApiListener);
+    }
+
+    // 잔여 포인트 확인 요청
+    public void getCurrentPoint(String id, OnFinishApiListener<PointData.GetCurrentRes> onFinishApiListener) {
+
+        mPointApi.getCurrentPoint(id, onFinishApiListener);
+    }
+
+    // 잔여 포인트 튜플 추가 요청
+    public void insertCurrentPoint(PointData.InsertCurrentReq req, OnFinishApiListener<PointData.StatusRes> onFinishApiListener) {
+
+        mPointApi.insertCurrentPointTuple(req, onFinishApiListener);
+    }
+
+    // 잔여 포인트 수정 요청
+    public void updateCurrentPoint(PointData.UpdateCurrentReq req, OnFinishApiListener<PointData.StatusRes> onFinishApiListener) {
+
+        mPointApi.updateCurrentPoint(req, onFinishApiListener);
+    }
+
+    // 사용 내역 요청
+    public void getUsingPoint(String id, OnFinishApiListener<PointData.GetUsingRes> onFinishApiListener) {
+
+        mPointApi.getUsingPointData(id, onFinishApiListener);
+    }
+
+    // 사용 내역 추가 요청
+    public void insertUsingPoint(PointData.InsertUsingReq req, OnFinishApiListener<PointData.StatusRes> onFinishApiListener) {
+
+        mPointApi.insertUsingPointData(req, onFinishApiListener);
+    }
+
+    // 적립 내역 요청
+    public void getSavePoint(String id, OnFinishApiListener<PointData.GetSaveRes> onFinishApiListener) {
+
+        mPointApi.getSavePointData(id, onFinishApiListener);
+    }
+
+    // 적립 내역 추가 요청
+    public void insertSavePoint(PointData.InsertSaveReq req, OnFinishApiListener<PointData.StatusRes> onFinishApiListener) {
+
+        mPointApi.insertSavePointData(req, onFinishApiListener);
+    }
+
+    // 사용 내역, 적립 내역 요청
+    public void getUsingAndSavePoint(String userId, OnFinishApiListener<PointData.GetUsingAndSaveRes> onFinishApiListener) {
+
+        mPointApi.getUsingAndSavePointData(userId, onFinishApiListener);
+    }
+
+    // 비밀번호 수정 요청
     public void updatePassword(String userId, UserData.ChangePasswordReq req, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
 
         mUserApi.updatePassword(userId, req, onFinishApiListener);
     }
 
+    // 매장 정보 요청
     public void getShopInformation(String shopId, OnFinishApiListener<ShopData.GetRes> onFinishApiListener) {
 
         mShopApi.getShopInformation(shopId, onFinishApiListener);
     }
 
+    // 키워드로 검색된 매장 정보 요청
     public void getShopInfoWithKeyword(String keyword, int page, OnFinishApiListener<ShopData.GetRes> onFinishApiListener) {
 
         mShopApi.getShopInfoWithKeyword(keyword, page, onFinishApiListener);
     }
 
+    // 카테고리로 검색된 매장 정보 요청
     public void getShopInfoWithCategory(String category, int page, OnFinishApiListener<ShopData.GetRes> onFinishApiListener) {
 
         mShopApi.getShopInfoWithCategory(category, page, onFinishApiListener);
     }
 
+    // 매장 정보 추가 요청
     public void insertShopInfo(ShopData.InsertReq req, OnFinishApiListener<ShopData.StatusRes> onFinishApiListener) {
 
         mShopApi.insertShopInfo(req, onFinishApiListener);
     }
 
+    // 매장 정보 수정 요청
     public void updateShopInfo(ShopData.UpdateReq req, OnFinishApiListener<ShopData.StatusRes> onFinishApiListener) {
 
         mShopApi.updateShopInfo(req, onFinishApiListener);
     }
 
+    // 매장 정보 삭제 요청
     public void deleteShopInfo(String shopId, String shopCode, OnFinishApiListener<ShopData.StatusRes> onFinishApiListener) {
 
         mShopApi.deleteShopInfo(shopId, shopCode, onFinishApiListener);
     }
 
+    // 수입 정보 요청
     public void getIncomeSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
         mSalesApi.getIncomeSales(shopId, salesDate, onFinishApiListener);
     }
 
+    // 지출 정보 요청
     public void getSpendingSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
 
         mSalesApi.getSpendingSales(shopId, salesDate, onFinishApiListener);
     }
 
+    // 매출 통계 요청
     public void getStatisticsSales(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetStatisticsRes> onFinishApiListener) {
 
         mSalesApi.getSalesStatistics(shopId, startDate, endDate, onFinishApiListener);
     }
 
+    // 지출 정보 수정 요청
     public void updateSpendingSales(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
         mSalesApi.updateSpendingSales(req, onFinishApiListener);
     }
 
+    // 지출 정보 삭제 요청
     public void deleteSpendingSales(String shopId, int salesCode, String salesDate, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
         mSalesApi.deleteSpendingSales(shopId, salesCode, salesDate, onFinishApiListener);
     }
 
+    // 날짜와 함께 매출 정보 추가 요청
     public void insertSalesWithDate(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
         mSalesApi.insertSalesWithDate(req, onFinishApiListener);
     }
 
+    // 매출 정보 추가 요청
     public void insertSales(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
 
         mSalesApi.insertSales(req, onFinishApiListener);
     }
 
+    // 즐겨찾기에서의 매장 정보 요청
     public void getBookmarkShopInfo(String userId, OnFinishApiListener<BookmarkData.ShopInfoRes> onFinishApiListener) {
 
         mBookmarkApi.getShopInfo(userId, onFinishApiListener);
     }
 
+    // 즐겨찾기에서의 손님 정보 요청
     public void getBookmarkUserInfo(String shopId, OnFinishApiListener<BookmarkData.UserInfoRes> onFinishApiListener) {
 
         mBookmarkApi.getUserInfo(shopId, onFinishApiListener);
     }
 
+    // 현재 진행중인 이벤트 정보 요청
     public void getOngoingEvent(String userId, OnFinishApiListener onFinishApiListener) {
 
         mEventApi.getOngoingEvent(userId, onFinishApiListener);
     }
 
+    // 즐겨찾기 추가 요청
     public void addBookmark(BookmarkData.InsertReq createReq, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
 
         mBookmarkApi.addBookmark(createReq, onFinishApiListener);
     }
 
+    // 즐겨찾기 삭제 요청
     public void deleteBookmark(String userId, String shopId, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
 
         mBookmarkApi.deleteBookmark(userId, shopId, onFinishApiListener);
     }
 
+    // 재고 정보 요청
     public void getStock(String shopId, OnFinishApiListener<StockData.GetRes> onFinishApiListener) {
 
         mStockApi.getStock(shopId, onFinishApiListener);
     }
 
+    // 재고 추가 요청
     public void insertStock(StockData.Req req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
         mStockApi.insertStock(req, onFinishApiListener);
     }
 
+    // 재고 수량 수정 요청
     public void updateStockAmount(StockData.Req req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
         mStockApi.updateStockAmount(req, onFinishApiListener);
     }
 
+    // 재고 수정 요청
     public void updateStock(StockData.UpdateAllReq req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
         mStockApi.updateStock(req, onFinishApiListener);
     }
 
+    // 재고 삭제 요청
     public void deleteStock(String shopId, String stockName, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
         mStockApi.deleteStock(shopId, stockName, onFinishApiListener);
     }
 
+    // 나이대 통계 요청
     public void getAgeGroupStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsData.GetAgeGroupRes> onFinishApiListener) {
 
         mStatisticsApi.getAgeGroupStatistics(shopId, startDate, endDate, onFinishApiListener);
     }
 
+    // 성별 통계 요청
     public void getGenderStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsData.GetGenderRes> onFinishApiListener) {
 
         mStatisticsApi.getGenderStatistics(shopId, startDate, endDate, onFinishApiListener);
     }
 
+    // 일별 매출 통계 요청
     public void getDailySales(String shopId, String starDate, String endDate, OnFinishApiListener onFinishApiListener) {
 
         mStatisticsApi.getDailySales(shopId, starDate, endDate, onFinishApiListener);
     }
 
+    // 주별 매출 통계 요청
     public void getWeeklySales(String shopId, String month, String startDate, OnFinishApiListener onFinishApiListener) {
 
         mStatisticsApi.getWeeklySales(shopId, month, startDate, onFinishApiListener);
     }
 
+    // 월별 매출 통계 요청
     public void getMonthlySales(String shopId, String year, OnFinishApiListener onFinishApiListener) {
 
         mStatisticsApi.getMonthlySales(shopId, year, onFinishApiListener);
     }
 
+    // 통계(방문 정보) 추가 요청
     public void insertStatisticsData(StatisticsData.InsertReq req, OnFinishApiListener<StatisticsData.StatusRes> onFinishApiListener) {
 
         mStatisticsApi.insertStatisticsData(req, onFinishApiListener);
     }
 
+    // 이벤트 정보 요청
     public void getEvent(String shopId, OnFinishApiListener<EventData.GetRes> onFinishApiListener) {
 
         mEventApi.getEvent(shopId, onFinishApiListener);
     }
 
+    // 이벤트 코드로 검색된 이벤트 정보 요청
     public void getEventByCode(int eventCode, OnFinishApiListener<EventData.EventCodeRes> onFinishApiListener) {
 
         mEventApi.getEventByCode(eventCode, onFinishApiListener);
     }
 
+    // 이벤트 추가 요청
     public void insertEvent(EventData.InsertReq req, OnFinishApiListener onFinishApiListener) {
 
         mEventApi.insertEvent(req, onFinishApiListener);
     }
 
+    // 이벤트 수정 요청
     public void updateEvent(EventData.UpdateReq req, OnFinishApiListener onFinishApiListener) {
 
         mEventApi.updateEvent(req, onFinishApiListener);
     }
 
+    // 이벤트 삭제 요청
     public void deleteEvent(int eventCode, OnFinishApiListener onFinishApiListener) {
 
         mEventApi.deleteEvent(eventCode, onFinishApiListener);

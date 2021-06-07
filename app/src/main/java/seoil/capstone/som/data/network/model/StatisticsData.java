@@ -5,8 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+// 통계 DTO
 public class StatisticsData {
 
+    // 통계(방문 정보) 추가 요청 DTO
     public static class InsertReq {
 
         @SerializedName("statisticsDate")
@@ -50,6 +52,7 @@ public class StatisticsData {
         }
     }
 
+    // 나이대 통계 응답 DTO
     public static class GetAgeGroupRes {
 
         public class Result {
@@ -102,6 +105,7 @@ public class StatisticsData {
         }
     }
 
+    // 성별 통계 응답 DTO
     public static class GetGenderRes {
 
         public class Result {
@@ -155,6 +159,7 @@ public class StatisticsData {
         }
     }
 
+    // 일별 매출 통계 응답 DTO
     public static class GetDayRes {
 
         public class Result {
@@ -219,6 +224,7 @@ public class StatisticsData {
         }
     }
 
+    // 주별 매출 통계 응답 DTO
     public static class GetWeekRes {
 
         public class Result {
@@ -294,6 +300,7 @@ public class StatisticsData {
         }
     }
 
+    // 월별 매출 통계 응답 DTO
     public static class GetMonthRes {
 
         @SerializedName("type")
@@ -331,6 +338,7 @@ public class StatisticsData {
         }
     }
 
+    // 서버 응답 DTO
     public static class StatusRes {
 
         @SerializedName("status")

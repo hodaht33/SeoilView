@@ -9,8 +9,10 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.PointData;
 import seoil.capstone.som.data.network.model.retrofit.Point;
 
+// 포인트 api
 public class PointApi {
 
+    // 포인트 응답 코드
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
     public static final int ERROR_UNDEFINED_VALUE = 2;
@@ -24,6 +26,7 @@ public class PointApi {
         mPointData = retrofit.create(Point.class);
     }
 
+    // 잔여 포인트 요청
     public void getCurrentPoint(String id, OnFinishApiListener onFinishApiListener) {
 
         Call<PointData.GetCurrentRes> call = mPointData.getCurrentPoint(id);
@@ -47,6 +50,7 @@ public class PointApi {
         });
     }
 
+    // 잔여 포인트 튜플 생성 요청
     public void insertCurrentPointTuple(PointData.InsertCurrentReq req, OnFinishApiListener onFinishApiListener) {
 
         Call<PointData.StatusRes> call = mPointData.insertPointTuple(req);
@@ -70,6 +74,7 @@ public class PointApi {
         });
     }
 
+    // 잔여 포인트 수정 요청
     public void updateCurrentPoint(PointData.UpdateCurrentReq req, OnFinishApiListener onFinishApiListener) {
 
         Call<PointData.StatusRes> call = mPointData.updatePoint(req);
@@ -93,6 +98,7 @@ public class PointApi {
         });
     }
 
+    // 잔여 포인트 튜플 삭제 요청
     public void deleteCurrentTuple(String id, OnFinishApiListener onFinishApiListener) {
 
         Call<PointData.StatusRes> call = mPointData.deletePointTuple(id);
@@ -116,6 +122,7 @@ public class PointApi {
         });
     }
 
+    // 포인트 사용 내역 요청
     public void getUsingPointData(String id, OnFinishApiListener onFinishApiListener) {
 
         Call<PointData.GetUsingRes> call = mPointData.getUsingPoint(id);
@@ -139,6 +146,7 @@ public class PointApi {
         });
     }
 
+    // 포인트 사용 내역 추가
     public void insertUsingPointData(PointData.InsertUsingReq req, OnFinishApiListener onFinishApiListener) {
 
         Call<PointData.StatusRes> call = mPointData.insertUsingPointTuple(req);
@@ -162,6 +170,7 @@ public class PointApi {
         });
     }
 
+    // 포인트 적립 내역 요청
     public void getSavePointData(String id, OnFinishApiListener onFinishApiListener) {
 
         Call<PointData.GetSaveRes> call = mPointData.getSavePoint(id);
@@ -185,6 +194,7 @@ public class PointApi {
         });
     }
 
+    // 포인트 적립 내역 추가
     public void insertSavePointData(PointData.InsertSaveReq req, OnFinishApiListener onFinishApiListener) {
 
         Call<PointData.StatusRes> call = mPointData.insertSavePointTuple(req);
@@ -208,6 +218,7 @@ public class PointApi {
         });
     }
 
+    // 포인트 사용 내역과 적립 내역 한번에 요청
     public void getUsingAndSavePointData(String userId, OnFinishApiListener onFinishApiListener) {
 
         Call<PointData.GetUsingAndSaveRes> call = mPointData.getUsingAndSavePoint(userId);

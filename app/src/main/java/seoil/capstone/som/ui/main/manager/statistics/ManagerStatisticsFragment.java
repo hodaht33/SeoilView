@@ -111,6 +111,11 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
 
     }
 
+    @Override
+    public void showDialog(String msg) {
+
+    }
+
     void showDate(Boolean flag) {
         DatePickerDialog datePickerDialog;
         Calendar date = Calendar.getInstance();

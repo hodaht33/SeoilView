@@ -5,12 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+// 사용자 DTO
 public class UserData {
 
     /////////
     // 요청 //
     /////////
 
+    // 손님 회원가입 요청 DTO
     public static class Customer {
 
         @SerializedName("id")
@@ -102,6 +104,7 @@ public class UserData {
         }
     }
 
+    // 점주 회원가입 요청 DTO
     public static class Manager {
 
         @SerializedName("id")
@@ -253,6 +256,7 @@ public class UserData {
         }
     }
 
+    // 비밀번호 수정 요청 DTO
     public static class ChangePasswordReq {
 
         @SerializedName("password")
@@ -276,6 +280,7 @@ public class UserData {
     // 응답 //
     /////////
 
+    // 사용자 정보 응답 DTO
     public static class GetUserInfoRes {
 
         public class Result {
@@ -372,6 +377,7 @@ public class UserData {
         }
     }
 
+    // 아이디 찾기 응답 DTO
     public static class FindIdRes {
 
         public class Result {
@@ -413,6 +419,7 @@ public class UserData {
         }
     }
 
+    // 서버 응답 DTO
     public static class StatusRes {
 
         @SerializedName("status")

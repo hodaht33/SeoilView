@@ -143,4 +143,9 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
+    @Override
+    public void showDialog(String msg) {
+
+    }
+
 }

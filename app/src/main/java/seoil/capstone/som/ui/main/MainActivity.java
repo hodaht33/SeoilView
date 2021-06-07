@@ -22,6 +22,7 @@ import seoil.capstone.som.ui.main.manager.event.ManagerEventFragment;
 import seoil.capstone.som.ui.main.manager.info.ManagerInfoFragment;
 import seoil.capstone.som.ui.main.manager.ledger.ManagerLedgerFragment;
 import seoil.capstone.som.ui.main.manager.statistics.ManagerStatisticsFragment;
+import seoil.capstone.som.util.Utility;
 
 // 로그인 후 프레그먼트들을 제어하여 화면을 보여주는 액티비티
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -44,12 +45,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         if (mUserCode.equals("C")) {
 
+            currentSelectedFragmentNum = R.id.item_customer_bookmark_fragment;
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(mFragmentLayoutId, new CustomerBookmarkFragment())
                     .commit();
         } else if (mUserCode.equals("M")) {
 
+            currentSelectedFragmentNum = R.id.item_manager_ledger_fragment;
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(mFragmentLayoutId, new ManagerLedgerFragment())
@@ -61,7 +64,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mNavView.setOnNavigationItemSelectedListener(this);
     }
 
-    // 뒤로가기 버튼 빠르게 두번 클릭하여 종료
+    // 어플이 화면에서 내려갔을 때 키보드가 활성화 되있는 오류 방지
+    @Override
+    protected void onPause() {
+
+        Utility.getInstance().deactivateKeyboard(this);
+
+        super.onPause();
+    }
+
+    // 뒤로가기 버튼 빠르게 두번 클릭하여 어플 종료
     @Override
     public void onBackPressed() {
 
@@ -198,10 +210,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         }
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(mFragmentLayoutId, selectedFragment)
-                .commit();
+        if (selectedFragment != null) {
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(mFragmentLayoutId, selectedFragment)
+                    .commit();
+        }
 
         return true;
     }

@@ -9,8 +9,10 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.StockData;
 import seoil.capstone.som.data.network.model.retrofit.Stock;
 
+// 재고 api
 public class StockApi {
 
+    // 재고 응답 코드
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
     public static final int ERROR_UNDEFINED_VALUE = 2;
@@ -23,6 +25,7 @@ public class StockApi {
         mStockData = retrofit.create(Stock.class);
     }
 
+    // 재고 정보 요청
     public void getStock(String shopId , OnFinishApiListener<StockData.GetRes> onFinishApiListener) {
 
         Call<StockData.GetRes> call = mStockData.getStock(shopId);
@@ -46,6 +49,7 @@ public class StockApi {
         });
     }
 
+    // 재고 추가 요청
     public void insertStock(StockData.Req req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
         Call<StockData.StatusRes> call = mStockData.insertStock(req);
@@ -69,6 +73,7 @@ public class StockApi {
         });
     }
 
+    // 재고 수량 수정 요청
     public void updateStockAmount(StockData.Req req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
         Call<StockData.StatusRes> call = mStockData.updateStockAmount(req);
@@ -92,6 +97,7 @@ public class StockApi {
         });
     }
 
+    // 재고 수정 요청
     public void updateStock(StockData.UpdateAllReq req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
         Call<StockData.StatusRes> call = mStockData.updateStock(req);
@@ -115,6 +121,7 @@ public class StockApi {
         });
     }
 
+    // 재고 삭제 요청
     public void deleteStock(String shopId, String stockName, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
 
         Call<StockData.StatusRes> call = mStockData.deleteStock(shopId, stockName);

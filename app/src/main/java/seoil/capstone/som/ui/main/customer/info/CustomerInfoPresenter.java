@@ -2,16 +2,17 @@ package seoil.capstone.som.ui.main.customer.info;
 
 public class CustomerInfoPresenter implements CustomerInfoContract.Presenter{
 
-    private CustomerInfoContract.View view;
+    private CustomerInfoContract.View mView;
     private CustomerInfoInteractor mInteractor;
+
     @Override
     public void setView(CustomerInfoContract.View view) {
-        this.view = view;
+        this.mView = view;
     }
 
     @Override
     public void releaseView() {
-        this.view = null;
+        this.mView = null;
     }
 
     @Override

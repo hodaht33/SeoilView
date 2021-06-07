@@ -26,6 +26,7 @@ import seoil.capstone.som.ui.find.FindActivity;
 import seoil.capstone.som.ui.register.RegisterActivity;
 import seoil.capstone.som.util.Utility;
 
+// 로그인 뷰(액티비티)
 public class LoginActivity extends AppCompatActivity implements LoginContract.View, View.OnClickListener, TextView.OnEditorActionListener {
 
     private LoginPresenter mPresenter;
@@ -44,20 +45,19 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     private CheckBox mChkBoxKeepLogin;
     private long mLastTimeBackPressed;
 
+    // 프레젠터 생성, 로그인 유지 여부 검사
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mPresenter = new LoginPresenter();
-        mPresenter.setView(this);
-        mPresenter.createInteractor();
-
         mSharedPreferences = getSharedPreferences("keepLogin", MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
 
-        keepLogin();
+        mPresenter = new LoginPresenter();
+        mPresenter.setView(this);
+        mPresenter.createInteractor();
 
         mEditTextId = findViewById(R.id.editTextLoginId);
         mEditTextPw = findViewById(R.id.editTextLoginPw);
@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         mBtnFindIdPwd.setOnClickListener(this);
     }
 
+    // 뒤로가기 버튼 빠르게 두번 클릭하여 어플 종료
     @Override
     public void onBackPressed() {
 
@@ -92,11 +93,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         Toast.makeText(this,"'뒤로' 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
     }
 
+    // 어플이 화면에서 내려갔을 때 키보드가 활성화 되있는 오류 방지
     @Override
     protected void onPause() {
 
-        InputMethodManager immhide = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        immhide.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+        Utility.getInstance().deactivateKeyboard(this);
 
         super.onPause();
     }
@@ -175,6 +176,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         }
     }
 
+    // 메인 뷰로 이동
     @Override
     public void toMain(Intent intent) {
 
@@ -196,6 +198,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         startActivity(intent);
     }
 
+    // 회원가입 뷰로 이동
     @Override
     public void toRegit(Intent intent) {
 
@@ -222,12 +225,14 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 .into(targetView);
     }
 
+    // 토스트 메시지 출력
     @Override
     public void showToast(String text) {
 
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
+    // 사용자 정보 어플리케이션 전역에 저장
     @Override
     public void setUserData(String userID, String userCode) {
 
@@ -236,14 +241,22 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         app.setUserCode(userCode);
     }
 
+    // 프로그레스 창 출력
     @Override
     public void showProgress() {
 
         Utility.getInstance().activateProgressAnim(this, getWindow().findViewById(R.id.activityLoginLayout));
     }
 
+    // 프로그레스 창 종료
     @Override
     public void hideProgress() {
+
+        Utility.getInstance().deactivateProgressAnim();
+    }
+
+    @Override
+    public void showDialog(String msg) {
 
     }
 
@@ -261,23 +274,5 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         }
 
         return false;
-    }
-
-    private void keepLogin() {
-
-        String id = mSharedPreferences.getString("id","");
-        String pwd = mSharedPreferences.getString("pwd", "");
-
-        if (mSharedPreferences.getBoolean("keepLoginState", false)
-            && !id.isEmpty()
-            && !pwd.isEmpty()) {
-
-            mPresenter.serverLogin(
-                    id,
-                    pwd,
-                    this,
-                    null
-            );
-        }
     }
 }

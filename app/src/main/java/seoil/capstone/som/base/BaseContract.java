@@ -14,6 +14,7 @@ public class BaseContract {
 
         void showProgress();
         void hideProgress();
+        void showDialog(String msg);
     }
 
     // 공용 프레젠터 인터페이스

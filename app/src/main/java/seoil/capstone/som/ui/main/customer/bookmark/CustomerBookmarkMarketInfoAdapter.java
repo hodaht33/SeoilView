@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import seoil.capstone.som.R;
 
+// 손님 즐겨찾기 매장 정보 리사이클러뷰 어댑터
 public class CustomerBookmarkMarketInfoAdapter extends RecyclerView.Adapter<CustomerBookmarkMarketInfoAdapter.ViewHolder> {
 
     private  ArrayList<String> mShopName;               //즐겨찾기된 매장의 이름
@@ -51,6 +52,7 @@ public class CustomerBookmarkMarketInfoAdapter extends RecyclerView.Adapter<Cust
         return mShopName.size();
     }
 
+    // 뷰홀더 모델
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private final TextView marketName;
@@ -71,6 +73,7 @@ public class CustomerBookmarkMarketInfoAdapter extends RecyclerView.Adapter<Cust
         }
     }
 
+    // 데이터 설정
     public void setData(ArrayList<String> shopName, ArrayList<String> shopCategory) {
 
         mShopName = shopName;

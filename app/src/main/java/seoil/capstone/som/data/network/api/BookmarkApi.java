@@ -10,8 +10,10 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.BookmarkData;
 import seoil.capstone.som.data.network.model.retrofit.Bookmark;
 
+// 즐겨찾기 api
 public class BookmarkApi {
 
+    // 즐겨찾기 응답 코드
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
     public static final int ERROR_UNDEFINED_VALUE = 2;
@@ -24,6 +26,7 @@ public class BookmarkApi {
         mBookmarkData = retrofit.create(Bookmark.class);
     }
 
+    // 점주 아이디 요청
     public void getShopInfo(String userId, OnFinishApiListener<BookmarkData.ShopInfoRes> onFinishApiListener) {
 
         Call<BookmarkData.ShopInfoRes> call = mBookmarkData.getShopInfo(userId);
@@ -47,6 +50,7 @@ public class BookmarkApi {
         });
     }
 
+    // 사용자 아이디 요청
     public void getUserInfo(String shopId, OnFinishApiListener<BookmarkData.UserInfoRes> onFinishApiListener) {
 
         Call<BookmarkData.UserInfoRes> call = mBookmarkData.getUserInfo(shopId);
@@ -70,6 +74,7 @@ public class BookmarkApi {
         });
     }
 
+    // 즐겨찾기 추가 요청
     public void addBookmark(BookmarkData.InsertReq createReq, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
 
         Call<BookmarkData.StatusRes> call = mBookmarkData.addBookmark(createReq);
@@ -93,6 +98,7 @@ public class BookmarkApi {
         });
     }
 
+    // 즐겨찾기 삭제 요청
     public void deleteBookmark(String userId, String shopId, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
 
         Call<BookmarkData.StatusRes> call = mBookmarkData.deleteBookmark(userId, shopId);

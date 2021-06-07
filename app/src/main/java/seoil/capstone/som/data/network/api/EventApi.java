@@ -10,8 +10,10 @@ import seoil.capstone.som.data.network.model.BookmarkData;
 import seoil.capstone.som.data.network.model.EventData;
 import seoil.capstone.som.data.network.model.retrofit.Event;
 
+// 이벤트 api
 public class EventApi {
 
+    // 이벤트 응답 코드
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
     public static final int ERROR_UNDEFINED_VALUE = 2;
@@ -24,6 +26,7 @@ public class EventApi {
         mEventData = retrofit.create(Event.class);
     }
 
+    // 이벤트 정보 요청
     public void getEvent(String shopId, OnFinishApiListener onFinishApiListener) {
 
         Call<EventData.GetRes> call = mEventData.getEvent(shopId);
@@ -47,6 +50,7 @@ public class EventApi {
         });
     }
 
+    // 이벤트 코드로 이벤트 정보 요청
     public void getEventByCode(int eventCode, OnFinishApiListener onFinishApiListener) {
 
         Call<EventData.EventCodeRes> call = mEventData.getEventByCode(eventCode);
@@ -70,6 +74,7 @@ public class EventApi {
         });
     }
 
+    // 현재 진행중인 이벤트 정보 요청
     public void getOngoingEvent(String userId, OnFinishApiListener onFinishApiListener) {
 
         Call<EventData.OngoingEventRes> call = mEventData.getOngoingEvent(userId);
@@ -93,6 +98,7 @@ public class EventApi {
         });
     }
 
+    // 이벤트 추가 요청
     public void insertEvent(EventData.InsertReq req, OnFinishApiListener onFinishApiListener) {
 
         Call<EventData.StatusRes> call = mEventData.insertEvent(req);
@@ -116,6 +122,7 @@ public class EventApi {
         });
     }
 
+    // 이벤트 수정 요청
     public void updateEvent(EventData.UpdateReq req, OnFinishApiListener onFinishApiListener) {
 
         Call<EventData.StatusRes> call = mEventData.updateEvent(req);
@@ -139,6 +146,7 @@ public class EventApi {
         });
     }
 
+    // 이벤트 삭제 요청
     public void deleteEvent(int eventCode, OnFinishApiListener onFinishApiListener) {
 
         Call<EventData.StatusRes> call = mEventData.deleteEvent(eventCode);

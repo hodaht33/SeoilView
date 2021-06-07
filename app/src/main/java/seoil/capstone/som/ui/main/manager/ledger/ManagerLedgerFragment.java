@@ -283,6 +283,11 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
+    @Override
+    public void showDialog(String msg) {
+
+    }
+
     //캘린더뷰의 일요일에 빨간색 설정
     class SundayDecorator implements DayViewDecorator {
 

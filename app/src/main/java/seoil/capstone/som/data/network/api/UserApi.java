@@ -13,9 +13,10 @@ import seoil.capstone.som.data.network.model.UserData;
 import seoil.capstone.som.data.network.model.retrofit.User;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 
-// "https://leebera.name/api/user"에서 사용자의 정보를 모두 받아오는 api
+// 사용자 api
 public class UserApi {
 
+    // 사용자 응답 코드
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
     public static final int ERROR_UNDEFINED_VALUE = 2;
@@ -40,6 +41,7 @@ public class UserApi {
         mUserData = retrofit.create(User.class);
     }
 
+    // 로그인 요청
     public void login(Login.LoginReq req, OnFinishApiListener onFinishApiListener) {
 
         Call<Login.LoginRes> call = mUserData.getLoginData(req);
@@ -63,6 +65,7 @@ public class UserApi {
         });
     }
 
+    // 인증번호 sms전송 요청
     public void sendSms(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         Call<Auth.StatusRes> call = mUserData.sendSms(req);
@@ -86,6 +89,7 @@ public class UserApi {
         });
     }
 
+    // 인증번호 확인 요청
     public void sendAuthCode(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         Call<Auth.StatusRes> call = mUserData.sendAuthCode(req);
@@ -109,6 +113,7 @@ public class UserApi {
         });
     }
 
+    // 인증 확인 후 해당 번호로 가입된 아이디 정보 요청(아이디 찾기)
     public void sendAuthForFindId(Auth.Req req, OnFinishApiListener<UserData.FindIdRes> onFinishApiListener) {
 
         Call<UserData.FindIdRes> call = mUserData.sendAuthForFindId(req);
@@ -132,6 +137,7 @@ public class UserApi {
         });
     }
 
+    // 사용자 핸드폰 번호 요청
     public void getUserPhoneNumber(String userId, OnFinishApiListener<UserData.GetUserInfoRes> onFinishApiListener) {
 
         Call<UserData.GetUserInfoRes> call = mUserData.getUserPhoneNumber(userId);
@@ -155,6 +161,7 @@ public class UserApi {
         });
     }
 
+    // 아이디 중복 확인 요청
     public void checkIdDuplicate(String id, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
 
         Call<Auth.StatusRes> call = mUserData.checkIdDuplicate(id);
@@ -178,6 +185,7 @@ public class UserApi {
         });
     }
 
+    // 손님 회원가입 요청
     public void insertCustomer(UserData.Customer registerRequest, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
 
         Call<UserData.StatusRes> call = mUserData.insertCustomer(registerRequest);
@@ -201,6 +209,7 @@ public class UserApi {
         });
     }
 
+    // 점주 회원가입 요청
     public void insertManager(UserData.Manager registerRequest, OnFinishApiListener onFinishApiListener) {
 
         Call<UserData.StatusRes> call = mUserData.insertManager(registerRequest);
@@ -224,6 +233,7 @@ public class UserApi {
         });
     }
 
+    // 비밀번호 수정(비밀번호 찾기) 요청
     public void updatePassword(String userId, UserData.ChangePasswordReq req, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
 
         Call<UserData.StatusRes> call = mUserData.updatePassword(userId, req);
@@ -247,6 +257,7 @@ public class UserApi {
         });
     }
 
+    // 사업자 등록 번호 확인 요청
     public void checkRegistrationNumber(String number, OnFinishApiListener onFinishApiListener) {
 
         Call<Auth.StatusRes> call = mUserData.checkRegistrationNumber(number);
@@ -270,6 +281,7 @@ public class UserApi {
         });
     }
 
+    // 사용자 삭제 요청
     public void deleteUser(String id, OnFinishApiListener onFinishApiListener) {
 
         Call<UserData.StatusRes> call = mUserData.deleteUser(id);

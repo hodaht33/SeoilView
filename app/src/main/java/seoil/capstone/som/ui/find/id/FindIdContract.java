@@ -7,6 +7,7 @@ import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.Auth;
 
+// 아이디 찾기 MVP 인터페이스
 public interface FindIdContract {
 
     interface Interactor extends BaseContract.Interactor {
@@ -17,7 +18,6 @@ public interface FindIdContract {
 
     interface View extends BaseContract.View {
 
-        void showDialog(String msg);
         void visibleAuthView();
         void visibleResultView(ArrayList<String> idResults);
     }

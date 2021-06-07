@@ -7,6 +7,7 @@ import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.Login;
 
+// 로그인 모델
 public class LoginInteractor implements LoginContract.Interactor {
 
     @Override

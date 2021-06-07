@@ -18,7 +18,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import seoil.capstone.som.R;
+import seoil.capstone.som.util.Utility;
 
+// 비밀번호 찾기(변경) 뷰(프레그먼트)
 public class FindPwdFragment extends Fragment implements FindPwdContract.View {
 
     private FindPwdPresenter mPresenter;
@@ -35,6 +37,7 @@ public class FindPwdFragment extends Fragment implements FindPwdContract.View {
     private Button btnChangePassword;
     private Dialog mDialog;
 
+    // 프레젠터 생성
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,7 @@ public class FindPwdFragment extends Fragment implements FindPwdContract.View {
         mPresenter.createInteractor();
     }
 
+    // 프레젠터 삭제
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -54,6 +58,7 @@ public class FindPwdFragment extends Fragment implements FindPwdContract.View {
         mPresenter = null;
     }
 
+    // UI, 리스너 초기화
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -96,26 +101,21 @@ public class FindPwdFragment extends Fragment implements FindPwdContract.View {
     @Override
     public void showDialog(String msg) {
 
-        if (mDialog == null) {
+        DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage(msg)
-                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                if (mDialog != null) {
 
-                            if (mDialog != null) {
+                    mDialog = null;
+                }
+            }
+        };
 
-                                mDialog = null;
-                            }
-                        }
-                    });
-
-            mDialog = builder.create();
-            mDialog.show();
-        }
+        Utility.getInstance().showDialog(mDialog, msg, getContext(), onClickListener);
     }
 
+    // 인증번호 입력 뷰 활성화
     @Override
     public void visibleAuthView() {
 
@@ -131,6 +131,7 @@ public class FindPwdFragment extends Fragment implements FindPwdContract.View {
         });
     }
 
+    // 변경할 비밀번호 입력 뷰 활성화
     @Override
     public void changeToPasswordView() {
 
@@ -151,6 +152,7 @@ public class FindPwdFragment extends Fragment implements FindPwdContract.View {
         });
     }
 
+    // 비밀번호 변경 결과 출력 뷰 활성화
     @Override
     public void changeToResultView() {
 

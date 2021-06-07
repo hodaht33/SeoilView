@@ -9,6 +9,7 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.EventApi;
 import seoil.capstone.som.data.network.model.EventData;
 
+// 이벤트 상세 정보 프레젠터
 public class DetailEventPresenter implements DetailEventContract.Presenter {
 
     private DetailEventContract.View view;
@@ -34,6 +35,7 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
         mInteractor = null;
     }
 
+    // 이벤트 요청
     public void getEvent(int eventCode) {
 
         OnFinishApiListener<EventData.EventCodeRes> onFinishApiListener = new OnFinishApiListener<EventData.EventCodeRes>() {
@@ -73,6 +75,7 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
         mInteractor.getEventByCode(eventCode, onFinishApiListener);
     }
 
+    // 이벤트 수정 요청
     public void updateEvent(int eventCode, String eventName, String eventContents, String startDate, String endDate) {
 
         OnFinishApiListener<EventData.StatusRes> onFinishApiListener = new OnFinishApiListener<EventData.StatusRes>() {
@@ -98,6 +101,7 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
         mInteractor.updateEvent(new EventData.UpdateReq(eventCode, eventName, eventContents, startDate, endDate), onFinishApiListener);
     }
 
+    // 이벤트 삭제 요청
     public void deleteEvent(int eventCode) {
 
         OnFinishApiListener<EventData.StatusRes> onFinishApiListener = new OnFinishApiListener<EventData.StatusRes>() {
@@ -108,7 +112,6 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
 
                     view.setDeleted();
                 }
-
             }
 
             @Override
@@ -120,6 +123,7 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
         mInteractor.deleteEvent(eventCode, onFinishApiListener);
     }
 
+    // 날짜 포맷에 맞게 수정
     public String getDateQuery(int year, int month, int day) {
 
         String dateQuery;
@@ -132,7 +136,6 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
 
                 dateQuery = "" + year + "-" + month + "-0" + day;
             }
-
         } else {
 
             if (month < 10) {
@@ -147,6 +150,7 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
         return dateQuery;
     }
 
+    // 문자열이 널이 아닌지 검사
     public Boolean isTextSet(String str) {
 
         return str != null && !str.equals("");

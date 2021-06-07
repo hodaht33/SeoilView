@@ -5,8 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+// 매출 DTO
 public class SalesData {
 
+    // 매출 추가 요청 DTO
     public static class Req {
 
         @SerializedName("salesCode")
@@ -74,6 +76,7 @@ public class SalesData {
         }
     }
 
+    // 매출 응답 DTO
     public static class GetRes {
 
         public class Result {
@@ -148,6 +151,7 @@ public class SalesData {
         }
     }
 
+    // 매출 통계 응답 DTO
     public static class GetStatisticsRes {
 
         public class Result {
@@ -200,6 +204,7 @@ public class SalesData {
         }
     }
 
+    // 서버 응답 DTO
     public static class StatusRes {
 
         @SerializedName("status")

@@ -219,4 +219,9 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
     public void hideProgress() {
 
     }
+
+    @Override
+    public void showDialog(String msg) {
+
+    }
 }

@@ -21,7 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seoil.capstone.som.R;
+import seoil.capstone.som.util.Utility;
 
+// 아이디 찾기 뷰(프레그먼트)
 public class FindIdFragment extends Fragment implements FindIdContract.View {
 
     private FindIdPresenter mPresenter;
@@ -33,6 +35,7 @@ public class FindIdFragment extends Fragment implements FindIdContract.View {
     private Button btnSendAndAuth;
     private Dialog mDialog;
 
+    // 프레젠터 생성
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,7 @@ public class FindIdFragment extends Fragment implements FindIdContract.View {
         mPresenter.createInteractor();
     }
 
+    // 프레젠터 삭제
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -51,9 +55,11 @@ public class FindIdFragment extends Fragment implements FindIdContract.View {
         mPresenter = null;
     }
 
+    // UI, 리스너 초기화
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+
         View view = inflater.inflate(R.layout.fragment_find_id, container, false);
 
         textInputLayoutPhoneNumber = view.findViewById(R.id.textLayoutFindIdPhoneNumber);
@@ -73,29 +79,25 @@ public class FindIdFragment extends Fragment implements FindIdContract.View {
         return view;
     }
 
+    // 다이얼로그 창 출력
     @Override
     public void showDialog(String msg) {
 
-        if (mDialog == null) {
+        DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage(msg)
-                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                if (mDialog != null) {
 
-                            if (mDialog != null) {
+                    mDialog = null;
+                }
+            }
+        };
 
-                                mDialog = null;
-                            }
-                        }
-                    });
-
-            mDialog = builder.create();
-            mDialog.show();
-        }
+        Utility.getInstance().showDialog(mDialog, msg, getContext(), onClickListener);
     }
 
+    // 인증번호 입력 뷰 활성화
     @Override
     public void visibleAuthView() {
 
@@ -110,6 +112,7 @@ public class FindIdFragment extends Fragment implements FindIdContract.View {
         });
     }
 
+    // 아이디 찾기 결과 뷰 활성화
     @Override
     public void visibleResultView(ArrayList<String> results) {
 

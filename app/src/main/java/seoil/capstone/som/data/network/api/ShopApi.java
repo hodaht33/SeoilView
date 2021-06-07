@@ -9,8 +9,10 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.ShopData;
 import seoil.capstone.som.data.network.model.retrofit.Shop;
 
+// 매장 api
 public class ShopApi {
 
+    // 매장 응답 코드
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
     public static final int ERROR_UNDEFINED_VALUE = 2;
@@ -23,6 +25,7 @@ public class ShopApi {
         mShopInfo = retrofit.create(Shop.class);
     }
 
+    // 매장 정보 요청
     public void getShopInformation(String shopId, OnFinishApiListener onFinishApiListener) {
 
         Call<ShopData.GetRes> call = mShopInfo.getShopInformation(shopId);
@@ -46,6 +49,7 @@ public class ShopApi {
         });
     }
 
+    // 키워드로 검색되는 매장 정보 요청
     public void getShopInfoWithKeyword(String keyword, int page, OnFinishApiListener onFinishApiListener) {
 
         Call<ShopData.GetRes> call = mShopInfo.getShopInfoWithKeyword(keyword, page);
@@ -69,6 +73,7 @@ public class ShopApi {
         });
     }
 
+    // 카테고리로 검색되는 매장 정보 요청
     public void getShopInfoWithCategory(String category, int page, OnFinishApiListener onFinishApiListener) {
 
         Call<ShopData.GetRes> call = mShopInfo.getShopInfoWithCategory(category, page);
@@ -92,6 +97,7 @@ public class ShopApi {
         });
     }
 
+    // 매장 정보 추가 요청
     public void insertShopInfo(ShopData.InsertReq req, OnFinishApiListener onFinishApiListener) {
 
         Call<ShopData.StatusRes> call = mShopInfo.insertShopInfo(req);
@@ -115,6 +121,7 @@ public class ShopApi {
         });
     }
 
+    // 매장 정보 수정 요청
     public void updateShopInfo(ShopData.UpdateReq req, OnFinishApiListener onFinishApiListener) {
 
         Call<ShopData.StatusRes> call = mShopInfo.updateShopInfo(req);
@@ -138,6 +145,7 @@ public class ShopApi {
         });
     }
 
+    // 가게 정보 삭제 요청
     public void deleteShopInfo(String shopId, String shopCode, OnFinishApiListener onFinishApiListener) {
 
         Call<ShopData.StatusRes> call = mShopInfo.deleteShopInfo(shopId, shopCode);
