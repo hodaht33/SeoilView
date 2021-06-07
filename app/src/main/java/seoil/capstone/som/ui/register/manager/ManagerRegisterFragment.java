@@ -12,18 +12,14 @@ import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,10 +40,10 @@ import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.ui.address.SearchAddressActivity;
 import seoil.capstone.som.ui.register.RegisterCommunicator;
-import seoil.capstone.som.ui.register.select.ProgressProcess;
 import seoil.capstone.som.ui.register.select.SelectUserFragment;
 import seoil.capstone.som.util.Utility;
 
+// 점주 회원가입 프레그먼트
 public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener, OnFinishApiListener<Auth.StatusRes> {
 
     private RegisterCommunicator.Communicator mCommunicator;
@@ -85,20 +81,16 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
     private TextView mTextViewPostalCode;
     private TextView mTextViewAddress;
     private Bundle mBundleData;
+    private Spinner mSpinnerCategory;
+    private Dialog mDialog;
     private boolean mIsIdValid;
     private boolean mIsValidPhoneNumber;
     private boolean mIsCategorySelected;
+    private long mLastTimeBackPressed;
     private int mIsValidCorporateNumber;
     private int mIdValidCode;
-    private LottieAnimationView mAnimationView;
-    private Spinner mSpinnerCategory;
-    private Dialog mDialog;
-    private long mLastTimeBackPressed;
 
-    public ManagerRegisterFragment() {
-
-    }
-
+    // 뒤로가기 버튼 콜백 생성 및 등록, 중계자 생성
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -133,6 +125,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         requireActivity().getOnBackPressedDispatcher().addCallback(mOnBackPressedCallback);
     }
 
+    // 뒤로가기 버튼 콜백, 중계자 삭제
     @Override
     public void onDetach() {
 
@@ -142,16 +135,31 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         super.onDetach();
     }
 
+    // 프레젠터 생성
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
+        mBundleData = new Bundle();
         mPresenter = new ManagerRegisterPresenter();
         mPresenter.setView(this);
         mPresenter.createInteractor();
     }
 
+    // 프레젠터 삭제
+    @Override
+    public void onDestroy() {
+
+        mBundleData = null;
+        mPresenter.releaseInteractor();
+        mPresenter.releaseView();
+        mPresenter = null;
+
+        super.onDestroy();
+    }
+
+    // UI, 리스너 초기화
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -169,9 +177,9 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mBundleData = getArguments();
         String platform = mBundleData.getString("platform");
 
+        // 네이버나 카톡 간편로그인을 통해 이미 있는 정보들은 입력받지 않기 위해 없앰
         if (platform.equals("naver")) {
 
-            // 이미 있는 정보들을 입력받지 않기 위해 없앰
             mTextLayoutId.setVisibility(View.GONE);
             mTextLayoutPwd.setVisibility(View.GONE);
             mTextLayoutCheckPwd.setVisibility(View.GONE);
@@ -195,6 +203,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         return view;
     }
 
+    // 다음 주소 api를 이용한 액티비티에서 주소를 받아옴
     @SuppressLint("SetTextI18n")
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -208,17 +217,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                 mTextViewAddress.setText(data.getStringExtra("Address") + " " + data.getStringExtra("BuildingName"));
             }
         }
-    }
-
-    @Override
-    public void onDestroy() {
-
-        mBundleData = null;
-        mPresenter.releaseInteractor();
-        mPresenter.releaseView();
-        mPresenter = null;
-
-        super.onDestroy();
     }
 
     @Override
@@ -376,7 +374,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mTextViewPostalCode = view.findViewById(R.id.editTextMRegitPostalCode);
         mTextViewAddress = view.findViewById(R.id.editTextMRegitAddress);
 
-        mAnimationView = view.findViewById(R.id.animationViewMRegitProgress);
         mSpinnerCategory = view.findViewById(R.id.spinnerMRegitCategory);
     }
 
@@ -756,11 +753,13 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         }
     }
 
+    // 에디트 텍스트의 문자열 받아오기
     private String editTextToString(EditText editText) {
 
         return editText.getText().toString();
     }
 
+    // 성별 구분
     private String discriminateGender() {
 
         if (mChkBoxMale.isChecked()) {
@@ -772,6 +771,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         }
     }
 
+    // 알림(다이얼로그) 창 출력
     @Override
     public void showDialog(String msg) {
 
@@ -795,6 +795,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         }
     }
 
+    // 핸드폰 인증 완료 시 인증 버튼 변경
     @Override
     public void changePhoneAuthButton(int status) {
 
@@ -812,6 +813,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         }
     }
 
+    // 회원가입 완료
     @Override
     public void finishRegister(Intent intent) {
 
@@ -821,6 +823,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         startActivity(intent);
     }
 
+    // 회원가입 수행
     private void doRegister(String platform) {
 
         if (checkValidAndPutData(platform)) {
@@ -841,11 +844,11 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
                     mBundleData.getString("shopAddress"),
                     mBundleData.getString("shopCategory"),
                     mChkBoxMarketingInfo.isChecked()
-
             );
         }
     }
 
+    // 아이디 중복 확인 성공
     @Override
     public void onSuccess(Auth.StatusRes res) {
 
@@ -863,6 +866,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         }
     }
 
+    // 아이디 중복 확인 실패
     @Override
     public void onFailure(Throwable t) {
 

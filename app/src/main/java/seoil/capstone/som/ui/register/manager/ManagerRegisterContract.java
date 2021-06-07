@@ -8,6 +8,7 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.UserData;
 
+// 점주 회원가입 MVP인터페이스
 public interface ManagerRegisterContract {
 
     interface Interactor extends BaseContract.Interactor {

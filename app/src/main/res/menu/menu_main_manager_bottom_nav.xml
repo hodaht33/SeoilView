@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 점주 네비게이션 목록 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/item_manager_home_fragment"
-        android:enabled="true"
-        android:icon="@drawable/ic_launcher_background"
-        android:title="홈" />
 
     <item
         android:id="@+id/item_manager_ledger_fragment"
@@ -24,5 +19,11 @@
         android:enabled="true"
         android:icon="@drawable/ic_launcher_background"
         android:title="이벤트 관리" />
+
+    <item
+        android:id="@+id/item_manager_info_fragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="사용자 정보" />
 
 </menu>

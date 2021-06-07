@@ -10,7 +10,7 @@ import seoil.capstone.som.data.network.model.Auth;
 import seoil.capstone.som.data.network.model.UserData;
 import seoil.capstone.som.ui.login.LoginActivity;
 import seoil.capstone.som.ui.main.MainActivity;
-import seoil.capstone.som.ui.register.ValidChecker;
+import seoil.capstone.som.util.ValidChecker;
 
 public class CustomerRegisterPresenter extends ValidChecker implements CustomerRegisterContract.Presenter {
 

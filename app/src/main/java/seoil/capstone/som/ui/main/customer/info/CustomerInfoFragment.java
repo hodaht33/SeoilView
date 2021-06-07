@@ -13,9 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.login.LoginActivity;
 
+// 손님 사용자 정보 관리 프레그먼트
 public class CustomerInfoFragment extends Fragment implements CustomerInfoContract.View, View.OnClickListener{
 
     private CustomerInfoPresenter mPresenter;
@@ -70,11 +72,13 @@ public class CustomerInfoFragment extends Fragment implements CustomerInfoContra
 
         if (viewId == R.id.btnCInfoLogout) {
 
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-
+            // 로그아웃
             SharedPreferences.Editor e = getContext().getSharedPreferences("keepLogin", Context.MODE_PRIVATE).edit();
             e.putBoolean("keepLoginState", false).commit();
 
+            ((GlobalApplication) getActivity().getApplicationContext()).logout();
+
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
 
             getActivity().finish();

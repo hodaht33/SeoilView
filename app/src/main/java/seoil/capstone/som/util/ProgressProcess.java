@@ -1,4 +1,4 @@
-package seoil.capstone.som.ui.register.select;
+package seoil.capstone.som.util;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -8,8 +8,7 @@ import android.view.WindowManager;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-import seoil.capstone.som.util.Utility;
-
+// 로딩 창 스레드
 public class ProgressProcess extends AsyncTask<Void, Void, Void> {
 
     private LottieAnimationView mAinimationView;
@@ -24,6 +23,7 @@ public class ProgressProcess extends AsyncTask<Void, Void, Void> {
         return this;
     }
 
+    // 스레드 실행 전
     @Override
     protected void onPreExecute() {
 
@@ -40,6 +40,7 @@ public class ProgressProcess extends AsyncTask<Void, Void, Void> {
         super.onPreExecute();
     }
 
+    // 스레드 종료 전
     @Override
     protected void onPostExecute(Void aVoid) {
 
@@ -52,6 +53,7 @@ public class ProgressProcess extends AsyncTask<Void, Void, Void> {
         super.onPostExecute(aVoid);
     }
 
+    // 스레드 실행 중
     @Override
     protected Void doInBackground(Void... voids) {
 
@@ -69,10 +71,12 @@ public class ProgressProcess extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
+    // 스레드 종료 상태 갱신
     public void endProgress() {
         mIsRunning = false;
     }
 
+    // 스레드 상태 반환
     public boolean getRunning() {
         
         return mIsRunning;

@@ -1,38 +1,47 @@
-package seoil.capstone.som.ui.register;
+package seoil.capstone.som.util;
 
 import android.util.Patterns;
 
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 
+// 회원가입 유효성 검사
 public class ValidChecker {
 
+    // 유효성 검사 코드
     public final int ID_VALID = 0;
     public final int ID_EMPTY = 1;
     public final int ID_SHORT = 2;
     public final int ID_LONG = 3;
+
     public final int PWD_VALID = 0;
     public final int PWD_EMPTY = 1;
     public final int PWD_CHECK_EMPTY = 2;
     public final int PWD_CHECK_NOT_EQUAL = 3;
     public final int PWD_INVALID = 4;
+
     public final int EMAIL_VALID = 0;
     public final int EMAIL_EMPTY = 1;
     public final int EMAIL_INVALID = 2;
+
     public final int PHONE_VALID = 0;
     public final int PHONE_EMPTY = 1;
     public final int PHONE_LENGTH_ERROR = 2;
     public final int PHONE_ERROR_OTHER_CHAR = 3;
+
     public final int BIRTH_VALID = 0;
     public final int BIRTH_EMPTY = 1;
     public final int BIRTH_ERROR_OTHER_CHAR = 2;
     public final int BIRTH_ERROR_LENGTH = 3;
+
     public final int GENDER_VALID = 0;
     public final int GENDER_INVALID = 1;
+
     public final int NEEDED_VALID = 0;
     public final int TERMS_OF_USE_NEEDED = 1;
     public final int PERSONAL_INFO_NEEDED = 2;
 
+    // 아이디 유효성 검사
     public int idValid(String id) {
 
         if (id.isEmpty()) {
@@ -49,6 +58,7 @@ public class ValidChecker {
         return ID_VALID;
     }
 
+    // 아이디 중복 검사
     public boolean checkIdValid(String id, OnFinishApiListener onFinishApiListener) {
 
         AppApiHelper.getInstance().checkIdDuplicate(id, onFinishApiListener);
@@ -56,6 +66,7 @@ public class ValidChecker {
         return true;
     }
 
+    // 비밀번호 유효성 검사
     public int pwdValid(String pwdText, String pwdCheckText) {
 
         if (pwdText.isEmpty()) {
@@ -76,6 +87,7 @@ public class ValidChecker {
         return PWD_VALID;
     }
 
+    // 이메일 유효성 검사
     public int emailValid(String emailText) {
 
         if (emailText.isEmpty()) {
@@ -89,6 +101,7 @@ public class ValidChecker {
         return EMAIL_VALID;
     }
 
+    // 핸드폰 번호 유효성 검사
     public int phoneNumberValid(String phoneNumberText) {
 
         if (phoneNumberText.isEmpty()) {
@@ -105,6 +118,7 @@ public class ValidChecker {
         return PHONE_VALID;
     }
 
+    // 생년월일 유효성 검사
     public int birthdateValid(String birthdateText) {
 
 
@@ -122,6 +136,7 @@ public class ValidChecker {
         return BIRTH_VALID;
     }
 
+    // 성별 유효성 검사
     public int genderValid(Boolean maleChkBoxBool, Boolean femaleChkBoxBool) {
 
         if (!(maleChkBoxBool || femaleChkBoxBool)) {
@@ -132,6 +147,7 @@ public class ValidChecker {
         return GENDER_VALID;
     }
 
+    // 정보 동의 체크 검사
     public int neededCheck(Boolean termsOfUseChkBoxBool, Boolean personalInfoChBoxBool) {
 
         if (!termsOfUseChkBoxBool) {
@@ -144,5 +160,4 @@ public class ValidChecker {
 
         return NEEDED_VALID;
     }
-
 }

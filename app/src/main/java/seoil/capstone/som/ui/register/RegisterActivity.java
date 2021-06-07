@@ -16,9 +16,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.register.select.SelectUserFragment;
 
-public class RegisterActivity extends AppCompatActivity implements RegisterContract.View, RegisterCommunicator.Communicator {
+// 사용자 분류에 따른 회원가입 프레그먼트를 보여주는 액티비티
+public class RegisterActivity extends AppCompatActivity implements RegisterCommunicator.Communicator {
 
-    private RegisterContract.Presenter mPresenter;
     private int mFragmentLayoutId;
 
     @Override
@@ -26,10 +26,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mPresenter = new RegisterPresenter();
         mFragmentLayoutId = R.id.fragmentLayoutRegit;
-
-        mPresenter.setView(this);
 
         SelectUserFragment selectUserFragment = new SelectUserFragment();
         selectUserFragment.setArguments(getIntent().getBundleExtra("data"));
@@ -40,15 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
                 .commit();
     }
 
-    @Override
-    protected void onDestroy() {
-
-        mPresenter.releaseView();
-        mPresenter = null;
-
-        super.onDestroy();
-    }
-
+    // 손님 또는 점주의 회원가입 화면을 전환하기 위한 메서드
     @Override
     public void changeAnotherFragment(Fragment fragment, Bundle bundle) {
 
@@ -58,15 +47,5 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
                 .beginTransaction()
                 .replace(mFragmentLayoutId, fragment)
                 .commit();
-    }
-
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
     }
 }

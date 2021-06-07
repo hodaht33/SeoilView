@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 손님 네비게이션 목록 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/item_customer_bookmark_fragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="즐겨찾기" />
 
     <item
         android:id="@+id/item_customer_point_fragment"
+        android:enabled="true"
         android:icon="@drawable/ic_launcher_background"
         android:title="포인트" />
 
     <item
         android:id="@+id/item_customer_search_fragment"
+        android:enabled="true"
         android:icon="@drawable/ic_launcher_background"
         android:title="검색" />
 
     <item
-        android:id="@+id/item_customer_bookmark_fragment"
-        android:icon="@drawable/ic_launcher_background"
-        android:title="즐겨찾기" />
-
-    <item
         android:id="@+id/item_customer_info_fragment"
+        android:enabled="true"
         android:icon="@drawable/ic_launcher_background"
         android:title="사용자 정보"/>
 

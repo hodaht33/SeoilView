@@ -1,29 +1,15 @@
 package seoil.capstone.som.util;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
-import android.text.Layout;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.util.TypedValue;
-import android.util.Xml;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.airbnb.lottie.LottieAnimationView;
-
-import org.xmlpull.v1.XmlPullParser;
-
-import okhttp3.internal.Util;
 import seoil.capstone.som.R;
-import seoil.capstone.som.ui.register.select.ProgressProcess;
 
+// 여러 공용 기능 포함
+// 싱글턴 클래스
 public class Utility {
 
     private static Utility mUtility;
@@ -44,18 +30,21 @@ public class Utility {
         mProgressProcess = new ProgressProcess();
     }
 
+    // 키보드 활성화
     public void activateKeyboard(Activity activity) {
 
         InputMethodManager manager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         manager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
+    // 키보드 비활성화
     public void deactivateKeyboard(Activity activity) {
 
         InputMethodManager manager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         manager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
+    // 로딩 창 활성화
     public void activateProgressAnim(Context context, ConstraintLayout layout) {
 
         float density = context.getResources().getDisplayMetrics().density;
@@ -72,11 +61,14 @@ public class Utility {
         mProgressProcess.setParameter(lottieAnimationView, (Activity) context).execute();
     }
 
+    // 로딩 창 비활성화
     public void deactivateProgressAnim() {
 
         mProgressProcess.endProgress();
     }
 
+    // xml이 아닌 자바 코드에서 ui크기를 지정할 땐 px단위로 지정되므로
+    // 일반적으로 안드로이드에서 사용하는 단위인 dp로 변경해주는 메서드
     public int changePxToDp(float density, int val) {
 
         return Math.round(val * density);

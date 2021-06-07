@@ -16,16 +16,12 @@ import seoil.capstone.som.ui.register.RegisterCommunicator;
 import seoil.capstone.som.ui.register.customer.CustomerRegisterFragment;
 import seoil.capstone.som.ui.register.manager.ManagerRegisterFragment;
 
-public class SelectUserFragment extends Fragment implements SelectUserContract.View, View.OnClickListener {
+// 회원가입 시 사용자 분류 선택 프레그먼트
+public class SelectUserFragment extends Fragment implements View.OnClickListener {
 
     private RegisterCommunicator.Communicator mCommunicator;
-    private SelectUserContract.Presenter mPresenter;
     private Button mBtnToCustomerReg;
     private Button mBtnToManagerReg;
-
-    public SelectUserFragment() {
-
-    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -44,8 +40,6 @@ public class SelectUserFragment extends Fragment implements SelectUserContract.V
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPresenter = new SelectUserPresenter();
-        mPresenter.setView(this);
     }
 
     @Override
@@ -54,7 +48,6 @@ public class SelectUserFragment extends Fragment implements SelectUserContract.V
 
         View view = inflater.inflate(R.layout.fragment_select_user, container, false);
 
-        mPresenter = new SelectUserPresenter();
         mBtnToCustomerReg = view.findViewById(R.id.btnToCustomerRegister);
         mBtnToManagerReg = view.findViewById(R.id.btnToManagerRegister);
 
@@ -65,30 +58,11 @@ public class SelectUserFragment extends Fragment implements SelectUserContract.V
     }
 
     @Override
-    public void onDestroy() {
-
-        mPresenter.releaseView();
-        mPresenter = null;
-
-        super.onDestroy();
-    }
-
-    @Override
     public void onDetach() {
 
         mCommunicator = null;
 
         super.onDetach();
-    }
-
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
     }
 
     @Override
