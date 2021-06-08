@@ -40,7 +40,8 @@ import seoil.capstone.som.util.Utility;
     private final int SELECTED_SALES = 0;
     private final int SELECTED_AGE = 1;
     private final int SELECTED_GENDER = 2;
-    private int selectedIndex;
+
+    private int selectedIndex;                                      //현재 선택된 탭
 
     //선택 날짜 저장
     private int mFirstYear, mFirstMonth, mFirstDay;
