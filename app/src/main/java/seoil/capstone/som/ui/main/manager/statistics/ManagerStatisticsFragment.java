@@ -89,8 +89,8 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         initListener();
 
         mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("매출"), SELECTED_SALES);
-        mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("나이별 통계"), SELECTED_AGE);
-        mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("성별 통계"), SELECTED_GENDER);
+        mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("나이"), SELECTED_AGE);
+        mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("성별"), SELECTED_GENDER);
 
         mShopId = ((GlobalApplication) getActivity().getApplicationContext()).getUserId();
 
@@ -116,7 +116,8 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
 
     }
 
-    void showDate(Boolean flag) {
+    private void showDate(Boolean flag) {
+
         DatePickerDialog datePickerDialog;
         Calendar date = Calendar.getInstance();
         if (flag) {                 //시작 날짜 선택
@@ -147,8 +148,6 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
 
             date.set(year, month - 1, day);
             datePickerDialog.getDatePicker().setMinDate(date.getTime().getTime());
-
-            datePickerDialog.show();
         } else {                    //종료 날짜 선택
 
             datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
@@ -170,11 +169,10 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
             datePickerDialog.getDatePicker().setMinDate(date.getTime().getTime());
             date.set(mFirstYear, mFirstMonth - 1, mFirstDay + 7);
             datePickerDialog.getDatePicker().setMaxDate(date.getTime().getTime());
-
-            datePickerDialog.show();
         }
-    }
 
+        datePickerDialog.show();
+    }
 
     @Override
     public void onClick(View v) {
