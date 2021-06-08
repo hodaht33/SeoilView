@@ -1,15 +1,12 @@
 package seoil.capstone.som.ui.main.manager.ledger;
 
-import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.api.StockApi;
-import seoil.capstone.som.data.network.model.SalesData;
-import seoil.capstone.som.data.network.model.StockData;
-import seoil.capstone.som.util.Utility;
+import seoil.capstone.som.data.network.model.StockDTO;
 
 public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
@@ -118,19 +115,19 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
     // 재고 조회
     public void getStock(String shopId) {
 
-        OnFinishApiListener<StockData.GetRes> onFinishApiListener = new OnFinishApiListener<StockData.GetRes>() {
+        OnFinishApiListener<StockDTO.GetRes> onFinishApiListener = new OnFinishApiListener<StockDTO.GetRes>() {
             @Override
-            public void onSuccess(StockData.GetRes getRes) {
+            public void onSuccess(StockDTO.GetRes getRes) {
 
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
 
-                    List<StockData.GetRes.Result> list = getRes.getResults();
+                    List<StockDTO.GetRes.Result> list = getRes.getResults();
                     
                     ArrayList<String> dataName = new ArrayList<>();
                     ArrayList<String> dataAmount = new ArrayList<>();
 
 
-                    for (StockData.GetRes.Result result : list) {
+                    for (StockDTO.GetRes.Result result : list) {
 
                         dataName.add(result.getStockName());
                         dataAmount.add(result.getStockAmount() + "개");
@@ -169,10 +166,10 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
     //view에서 shopId, name, amount를 받아와 Model에 전달 후 재고 조회
     public void insertStock(String shopId, String name, int amount) {
 
-        OnFinishApiListener<StockData.StatusRes> onFinishApiListener = new OnFinishApiListener<StockData.StatusRes>() {
+        OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<StockDTO.StatusRes>() {
 
             @Override
-            public void onSuccess(StockData.StatusRes statusRes) {
+            public void onSuccess(StockDTO.StatusRes statusRes) {
 
                 if (statusRes.getStatus() == StockApi.SUCCESS) {
 
@@ -191,9 +188,9 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
     //view에서 shopId, name, amount를 받아와 Model에 전달 후 재고 조회
     public void updateStock (String shopId, String name, int amount) {
 
-        OnFinishApiListener<StockData.StatusRes> onFinishApiListener = new OnFinishApiListener<StockData.StatusRes>() {
+        OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<StockDTO.StatusRes>() {
             @Override
-            public void onSuccess(StockData.StatusRes statusRes) {
+            public void onSuccess(StockDTO.StatusRes statusRes) {
 
                 view.initStock();
             }
@@ -209,9 +206,9 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
     //view에서 shopId, name, amount를 받아와 Model에 전달 후 재고 조회
     public void deleteStock(String shopId, String name) {
 
-        OnFinishApiListener<StockData.StatusRes> onFinishApiListener = new OnFinishApiListener<StockData.StatusRes>() {
+        OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<StockDTO.StatusRes>() {
             @Override
-            public void onSuccess(StockData.StatusRes statusRes) {
+            public void onSuccess(StockDTO.StatusRes statusRes) {
 
                 view.initStock();
             }

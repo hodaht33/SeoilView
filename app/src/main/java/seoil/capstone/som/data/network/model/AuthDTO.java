@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 // 인증번호 인증 DTO
-public class Auth {
+public class AuthDTO {
 
     // 인증번호 확인 요청 DTO
     public static class Req {

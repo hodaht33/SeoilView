@@ -4,10 +4,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.http.Path;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.BookmarkData;
+import seoil.capstone.som.data.network.model.BookmarkDTO;
 import seoil.capstone.som.data.network.model.retrofit.Bookmark;
 
 // 즐겨찾기 api
@@ -27,12 +26,12 @@ public class BookmarkApi {
     }
 
     // 점주 아이디 요청
-    public void getShopInfo(String userId, OnFinishApiListener<BookmarkData.ShopInfoRes> onFinishApiListener) {
+    public void getShopInfo(String userId, OnFinishApiListener<BookmarkDTO.ShopInfoRes> onFinishApiListener) {
 
-        Call<BookmarkData.ShopInfoRes> call = mBookmarkData.getShopInfo(userId);
-        call.enqueue(new Callback<BookmarkData.ShopInfoRes>() {
+        Call<BookmarkDTO.ShopInfoRes> call = mBookmarkData.getShopInfo(userId);
+        call.enqueue(new Callback<BookmarkDTO.ShopInfoRes>() {
             @Override
-            public void onResponse(Call<BookmarkData.ShopInfoRes> call, Response<BookmarkData.ShopInfoRes> response) {
+            public void onResponse(Call<BookmarkDTO.ShopInfoRes> call, Response<BookmarkDTO.ShopInfoRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -43,7 +42,7 @@ public class BookmarkApi {
             }
 
             @Override
-            public void onFailure(Call<BookmarkData.ShopInfoRes> call, Throwable t) {
+            public void onFailure(Call<BookmarkDTO.ShopInfoRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -51,12 +50,12 @@ public class BookmarkApi {
     }
 
     // 사용자 아이디 요청
-    public void getUserInfo(String shopId, OnFinishApiListener<BookmarkData.UserInfoRes> onFinishApiListener) {
+    public void getUserInfo(String shopId, OnFinishApiListener<BookmarkDTO.UserInfoRes> onFinishApiListener) {
 
-        Call<BookmarkData.UserInfoRes> call = mBookmarkData.getUserInfo(shopId);
-        call.enqueue(new Callback<BookmarkData.UserInfoRes>() {
+        Call<BookmarkDTO.UserInfoRes> call = mBookmarkData.getUserInfo(shopId);
+        call.enqueue(new Callback<BookmarkDTO.UserInfoRes>() {
             @Override
-            public void onResponse(Call<BookmarkData.UserInfoRes> call, Response<BookmarkData.UserInfoRes> response) {
+            public void onResponse(Call<BookmarkDTO.UserInfoRes> call, Response<BookmarkDTO.UserInfoRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -67,7 +66,7 @@ public class BookmarkApi {
             }
 
             @Override
-            public void onFailure(Call<BookmarkData.UserInfoRes> call, Throwable t) {
+            public void onFailure(Call<BookmarkDTO.UserInfoRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -75,12 +74,12 @@ public class BookmarkApi {
     }
 
     // 즐겨찾기 추가 요청
-    public void addBookmark(BookmarkData.InsertReq createReq, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
+    public void addBookmark(BookmarkDTO.InsertReq createReq, OnFinishApiListener<BookmarkDTO.StatusRes> onFinishApiListener) {
 
-        Call<BookmarkData.StatusRes> call = mBookmarkData.addBookmark(createReq);
-        call.enqueue(new Callback<BookmarkData.StatusRes>() {
+        Call<BookmarkDTO.StatusRes> call = mBookmarkData.addBookmark(createReq);
+        call.enqueue(new Callback<BookmarkDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<BookmarkData.StatusRes> call, Response<BookmarkData.StatusRes> response) {
+            public void onResponse(Call<BookmarkDTO.StatusRes> call, Response<BookmarkDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -91,7 +90,7 @@ public class BookmarkApi {
             }
 
             @Override
-            public void onFailure(Call<BookmarkData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<BookmarkDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -99,12 +98,12 @@ public class BookmarkApi {
     }
 
     // 즐겨찾기 삭제 요청
-    public void deleteBookmark(String userId, String shopId, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener) {
+    public void deleteBookmark(String userId, String shopId, OnFinishApiListener<BookmarkDTO.StatusRes> onFinishApiListener) {
 
-        Call<BookmarkData.StatusRes> call = mBookmarkData.deleteBookmark(userId, shopId);
-        call.enqueue(new Callback<BookmarkData.StatusRes>() {
+        Call<BookmarkDTO.StatusRes> call = mBookmarkData.deleteBookmark(userId, shopId);
+        call.enqueue(new Callback<BookmarkDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<BookmarkData.StatusRes> call, Response<BookmarkData.StatusRes> response) {
+            public void onResponse(Call<BookmarkDTO.StatusRes> call, Response<BookmarkDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -115,7 +114,7 @@ public class BookmarkApi {
             }
 
             @Override
-            public void onFailure(Call<BookmarkData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<BookmarkDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

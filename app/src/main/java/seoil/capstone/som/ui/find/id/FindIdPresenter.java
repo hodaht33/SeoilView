@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
-import seoil.capstone.som.data.network.model.Auth;
-import seoil.capstone.som.data.network.model.UserData;
+import seoil.capstone.som.data.network.model.AuthDTO;
+import seoil.capstone.som.data.network.model.UserDTO;
 
 // 아이디 찾기 프레젠터
 public class FindIdPresenter implements FindIdContract.Presenter{
@@ -53,9 +53,9 @@ public class FindIdPresenter implements FindIdContract.Presenter{
             mView.showDialog("숫자만 입력해주세요.");
         } else {
 
-            OnFinishApiListener<Auth.StatusRes> onFinishApiListener = new OnFinishApiListener<Auth.StatusRes>() {
+            OnFinishApiListener<AuthDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<AuthDTO.StatusRes>() {
                 @Override
-                public void onSuccess(Auth.StatusRes statusRes) {
+                public void onSuccess(AuthDTO.StatusRes statusRes) {
 
                     if (statusRes.getStatus() == UserApi.SUCCESS) {
 
@@ -75,7 +75,7 @@ public class FindIdPresenter implements FindIdContract.Presenter{
             };
 
             mUserPhoneNumber = phoneNumber;
-            mInteractor.sendSms(new Auth.Req(phoneNumber, null), onFinishApiListener);
+            mInteractor.sendSms(new AuthDTO.Req(phoneNumber, null), onFinishApiListener);
         }
     }
 
@@ -83,9 +83,9 @@ public class FindIdPresenter implements FindIdContract.Presenter{
     @Override
     public void sendAuthCode(String authCode) {
 
-        OnFinishApiListener<UserData.FindIdRes> onFinishApiListener = new OnFinishApiListener<UserData.FindIdRes>() {
+        OnFinishApiListener<UserDTO.FindIdRes> onFinishApiListener = new OnFinishApiListener<UserDTO.FindIdRes>() {
             @Override
-            public void onSuccess(UserData.FindIdRes res) {
+            public void onSuccess(UserDTO.FindIdRes res) {
 
                 if (res.getStatus() == UserApi.SUCCESS) {
 
@@ -98,7 +98,7 @@ public class FindIdPresenter implements FindIdContract.Presenter{
 
                     ArrayList<String> results = new ArrayList<String>();
 
-                    for (UserData.FindIdRes.Result result : res.getResults()) {
+                    for (UserDTO.FindIdRes.Result result : res.getResults()) {
 
                         results.add(result.getUserId());
                     }
@@ -120,6 +120,6 @@ public class FindIdPresenter implements FindIdContract.Presenter{
             }
         };
 
-        mInteractor.sendAuthCode(new Auth.Req(mUserPhoneNumber, authCode), onFinishApiListener);
+        mInteractor.sendAuthCode(new AuthDTO.Req(mUserPhoneNumber, authCode), onFinishApiListener);
     }
 }

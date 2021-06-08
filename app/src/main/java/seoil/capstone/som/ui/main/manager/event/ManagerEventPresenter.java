@@ -9,7 +9,7 @@ import java.util.List;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.EventApi;
-import seoil.capstone.som.data.network.model.EventData;
+import seoil.capstone.som.data.network.model.EventDataDTO;
 
 public class ManagerEventPresenter implements ManagerEventContract.Presenter {
 
@@ -43,13 +43,13 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
     //이벤트 조회 정보를 Interactor에 넘겨준다, Interactor에서 받은 데이터를 view에 전달
     public synchronized void getEvent(String shopId) {
 
-        OnFinishApiListener<EventData.GetRes> onFinishApiListener = new OnFinishApiListener<EventData.GetRes>() {
+        OnFinishApiListener<EventDataDTO.GetRes> onFinishApiListener = new OnFinishApiListener<EventDataDTO.GetRes>() {
             @Override
-            public void onSuccess(EventData.GetRes getRes) {
+            public void onSuccess(EventDataDTO.GetRes getRes) {
 
                 if (getRes.getStatus() == EventApi.SUCCESS) {
 
-                    List<EventData.GetRes.Result> list = getRes.getResults();
+                    List<EventDataDTO.GetRes.Result> list = getRes.getResults();
 
                     ArrayList<ManagerEventAdapter.Item> mainEventName = new ArrayList<>();
                     ArrayList<Integer> mainEventCode = new ArrayList<>();
@@ -98,7 +98,7 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
                         month = Integer.parseInt(nowDate.substring(5, 7));
                         day = Integer.parseInt(nowDate.substring(8));
 
-                        for (EventData.GetRes.Result result : list) {
+                        for (EventDataDTO.GetRes.Result result : list) {
 
                             String dateResult = result.getEndDate();
                             int yearResult = Integer.parseInt(dateResult.substring(0, 4));
@@ -166,9 +166,9 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
     //이벤트 추가
     public void insertEvent(String shopId, String eventName, String eventContents, String startDate, String endDate, Boolean isSendPush) {
 
-        OnFinishApiListener<EventData.StatusRes> onFinishApiListener = new OnFinishApiListener<EventData.StatusRes>() {
+        OnFinishApiListener<EventDataDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<EventDataDTO.StatusRes>() {
             @Override
-            public void onSuccess(EventData.StatusRes statusRes) {
+            public void onSuccess(EventDataDTO.StatusRes statusRes) {
 
                 if (statusRes.getStatus() == EventApi.SUCCESS) {
 
@@ -183,7 +183,7 @@ public class ManagerEventPresenter implements ManagerEventContract.Presenter {
             }
         };
 
-        mInteractor.insertEvent(new EventData.InsertReq(shopId, eventName, eventContents, startDate, endDate, isSendPush), onFinishApiListener);
+        mInteractor.insertEvent(new EventDataDTO.InsertReq(shopId, eventName, eventContents, startDate, endDate, isSendPush), onFinishApiListener);
     }
 
 

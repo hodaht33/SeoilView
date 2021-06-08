@@ -7,8 +7,8 @@ import java.util.List;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.SalesApi;
-import seoil.capstone.som.data.network.model.SalesData;
-import seoil.capstone.som.data.network.model.StatisticsData;
+import seoil.capstone.som.data.network.model.SalesDTO;
+import seoil.capstone.som.data.network.model.StatisticsDTO;
 
 public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Presenter{
 
@@ -66,20 +66,20 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
 
     public void getSalesStatistics(String shopId, String startDate, String endDate) {
 
-        OnFinishApiListener<SalesData.GetStatisticsRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetStatisticsRes>() {
+        OnFinishApiListener<SalesDTO.GetStatisticsRes> onFinishApiListener = new OnFinishApiListener<SalesDTO.GetStatisticsRes>() {
 
             @Override
-            public void onSuccess(SalesData.GetStatisticsRes getRes) {
+            public void onSuccess(SalesDTO.GetStatisticsRes getRes) {
 
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
 
-                    List<SalesData.GetStatisticsRes.Result> list = getRes.getResults();
+                    List<SalesDTO.GetStatisticsRes.Result> list = getRes.getResults();
 
                     ArrayList<Integer> listAmounts = new ArrayList<>();
                     ArrayList<String> listDates = new ArrayList<>();
                     int c = 0;
 
-                    for (SalesData.GetStatisticsRes.Result result : list) {
+                    for (SalesDTO.GetStatisticsRes.Result result : list) {
 
                         listAmounts.add(c, result.getSalesAmount());
                         listDates.add(c, result.getSalesDate());
@@ -103,19 +103,19 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
 
     public void getGenderTotal(String shopId, String startDate, String endDate) {
 
-        OnFinishApiListener<StatisticsData.GetGenderRes> onFinishApiListener = new OnFinishApiListener<StatisticsData.GetGenderRes>() {
+        OnFinishApiListener<StatisticsDTO.GetGenderRes> onFinishApiListener = new OnFinishApiListener<StatisticsDTO.GetGenderRes>() {
             @Override
-            public void onSuccess(StatisticsData.GetGenderRes getRes) {
+            public void onSuccess(StatisticsDTO.GetGenderRes getRes) {
 
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
 
-                    List<StatisticsData.GetGenderRes.Result> list = getRes.getResults();
+                    List<StatisticsDTO.GetGenderRes.Result> list = getRes.getResults();
 
                     ArrayList<String> genderList = new ArrayList<>();
                     ArrayList<Integer> countList = new ArrayList<>();
 
                     int c = 0;
-                    for (StatisticsData.GetGenderRes.Result result : list) {
+                    for (StatisticsDTO.GetGenderRes.Result result : list) {
 
                         Log.d("gender", result.getGender());
                         if (list.size() == 2) {
@@ -175,19 +175,19 @@ public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Pre
 
     public void getAgeTotal(String shopId, String startDate, String endDate) {
 
-        OnFinishApiListener<StatisticsData.GetAgeGroupRes> onFinishApiListener = new OnFinishApiListener<StatisticsData.GetAgeGroupRes>() {
+        OnFinishApiListener<StatisticsDTO.GetAgeGroupRes> onFinishApiListener = new OnFinishApiListener<StatisticsDTO.GetAgeGroupRes>() {
             @Override
-            public void onSuccess(StatisticsData.GetAgeGroupRes getAgeGroupRes) {
+            public void onSuccess(StatisticsDTO.GetAgeGroupRes getAgeGroupRes) {
 
                 if (getAgeGroupRes.getStatus() == SalesApi.SUCCESS) {
 
-                    List<StatisticsData.GetAgeGroupRes.Result> list = getAgeGroupRes.getResults();
+                    List<StatisticsDTO.GetAgeGroupRes.Result> list = getAgeGroupRes.getResults();
 
                     ArrayList<String> ageList = new ArrayList<>();
                     ArrayList<Integer> amountList = new ArrayList<>();
                     int c = 0;
 
-                    for (StatisticsData.GetAgeGroupRes.Result result : list) {
+                    for (StatisticsDTO.GetAgeGroupRes.Result result : list) {
 
                         if (c < result.getAgeGroup() - 1) {
 

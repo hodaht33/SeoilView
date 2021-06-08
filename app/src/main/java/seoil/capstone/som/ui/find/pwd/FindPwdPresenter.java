@@ -4,8 +4,8 @@ import android.util.Log;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
-import seoil.capstone.som.data.network.model.Auth;
-import seoil.capstone.som.data.network.model.UserData;
+import seoil.capstone.som.data.network.model.AuthDTO;
+import seoil.capstone.som.data.network.model.UserDTO;
 
 // 비밀번호 찾기(변경) 프레젠터
 public class FindPwdPresenter implements FindPwdContract.Presenter {
@@ -45,9 +45,9 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
             mView.showDialog("아이디를 입력해주세요.");
         } else {
 
-            OnFinishApiListener<UserData.GetUserInfoRes> onFinishApiListener = new OnFinishApiListener<UserData.GetUserInfoRes>() {
+            OnFinishApiListener<UserDTO.GetUserInfoRes> onFinishApiListener = new OnFinishApiListener<UserDTO.GetUserInfoRes>() {
                 @Override
-                public void onSuccess(UserData.GetUserInfoRes getUserInfoRes) {
+                public void onSuccess(UserDTO.GetUserInfoRes getUserInfoRes) {
 
                     if (getUserInfoRes.getStatus() == UserApi.SUCCESS) {
 
@@ -75,9 +75,9 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
     // 인증번호 문자 전송 요청
     private void sendSmsReq(String phoneNumber) {
 
-        OnFinishApiListener<Auth.StatusRes> onFinishApiListener = new OnFinishApiListener<Auth.StatusRes>() {
+        OnFinishApiListener<AuthDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<AuthDTO.StatusRes>() {
             @Override
-            public void onSuccess(Auth.StatusRes statusRes) {
+            public void onSuccess(AuthDTO.StatusRes statusRes) {
 
                 if (statusRes.getStatus() == UserApi.SUCCESS) {
 
@@ -98,7 +98,7 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
             }
         };
 
-        mInteractor.sendSms(new Auth.Req(phoneNumber, null), onFinishApiListener);
+        mInteractor.sendSms(new AuthDTO.Req(phoneNumber, null), onFinishApiListener);
     }
 
     // 인증번호 유효성 검사 후 확인 요청
@@ -116,9 +116,9 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
             mView.showDialog("숫자만 입력해주세요.");
         } else {
 
-            OnFinishApiListener<Auth.StatusRes> onFinishApiListener = new OnFinishApiListener<Auth.StatusRes>() {
+            OnFinishApiListener<AuthDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<AuthDTO.StatusRes>() {
                 @Override
-                public void onSuccess(Auth.StatusRes statusRes) {
+                public void onSuccess(AuthDTO.StatusRes statusRes) {
 
                     if (statusRes.getStatus() == UserApi.SUCCESS) {
 
@@ -140,7 +140,7 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
                 }
             };
 
-            mInteractor.sendAuthCode(new Auth.Req(mUserPhoneNumber, authCode), onFinishApiListener);
+            mInteractor.sendAuthCode(new AuthDTO.Req(mUserPhoneNumber, authCode), onFinishApiListener);
         }
     }
 
@@ -163,9 +163,9 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
             mView.showDialog("영문자, 숫자, 특수문자(@$!%*#?&)를 최소 1개씩 포함시켜 주세요.");
         } else {
 
-            OnFinishApiListener<UserData.StatusRes> onFinishApiListener = new OnFinishApiListener<UserData.StatusRes>() {
+            OnFinishApiListener<UserDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<UserDTO.StatusRes>() {
                 @Override
-                public void onSuccess(UserData.StatusRes statusRes) {
+                public void onSuccess(UserDTO.StatusRes statusRes) {
 
                     if (statusRes.getStatus() == UserApi.SUCCESS) {
 
@@ -184,7 +184,7 @@ public class FindPwdPresenter implements FindPwdContract.Presenter {
                 }
             };
 
-            mInteractor.changePassword(mUserId, new UserData.ChangePasswordReq(password), onFinishApiListener);
+            mInteractor.changePassword(mUserId, new UserDTO.ChangePasswordReq(password), onFinishApiListener);
         }
     }
 

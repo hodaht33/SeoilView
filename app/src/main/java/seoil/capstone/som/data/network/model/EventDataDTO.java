@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 // 이벤트 DTO
-public class EventData {
+public class EventDataDTO {
 
     // 추가 요청 DTO
     public static class InsertReq {

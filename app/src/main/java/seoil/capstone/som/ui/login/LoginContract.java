@@ -6,16 +6,16 @@ import android.content.res.Resources;
 
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.Login;
+import seoil.capstone.som.data.network.model.LoginDTO;
 
 // 로그인 MVP 인터페이스
 public interface LoginContract {
 
     interface Interactor {
 
-        void serverLogin(Login.LoginReq req, OnFinishApiListener<Login.LoginRes> onFinishApiListener);
-        void kakaoLogin(Context context, OnFinishApiListener<Login.KakaoLoginRes> onFinishApiListener);
-        void naverLogin(Context context, Resources resources, OnFinishApiListener<Login.NaverLoginRes> onFinishApiListener);
+        void serverLogin(LoginDTO.LoginReq req, OnFinishApiListener<LoginDTO.LoginRes> onFinishApiListener);
+        void kakaoLogin(Context context, OnFinishApiListener<LoginDTO.KakaoLoginRes> onFinishApiListener);
+        void naverLogin(Context context, Resources resources, OnFinishApiListener<LoginDTO.NaverLoginRes> onFinishApiListener);
     }
 
     interface View extends BaseContract.View {

@@ -7,9 +7,7 @@ import java.util.List;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.SalesApi;
-import seoil.capstone.som.data.network.model.SalesData;
-import seoil.capstone.som.ui.main.manager.ledger.ManagerLedgerContract;
-import seoil.capstone.som.ui.main.manager.ledger.ManagerLedgerInteractor;
+import seoil.capstone.som.data.network.model.SalesDTO;
 
 public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.Presenter{
 
@@ -44,10 +42,10 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
     public void getSales(String shopId, String dateQuery) {
 
         //DB 조회된 매출 정보를 view에 전달
-        OnFinishApiListener<SalesData.GetRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetRes>() {
+        OnFinishApiListener<SalesDTO.GetRes> onFinishApiListener = new OnFinishApiListener<SalesDTO.GetRes>() {
 
             @Override
-            public void onSuccess(SalesData.GetRes getRes) {
+            public void onSuccess(SalesDTO.GetRes getRes) {
 
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
 
@@ -55,9 +53,9 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
                     ArrayList<Integer> dataAmount = new ArrayList<>();
                     ArrayList<Integer> autoInc = new ArrayList<>();
 
-                    List<SalesData.GetRes.Result> list = getRes.getResults();
+                    List<SalesDTO.GetRes.Result> list = getRes.getResults();
 
-                    for (SalesData.GetRes.Result result : list) {
+                    for (SalesDTO.GetRes.Result result : list) {
 
                         dataDate.add(result.getSalesDate());
                         dataAmount.add(result.getSalesAmount());
@@ -85,20 +83,20 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
     //view에서 shopId, dateQuery를 받아 데이터 처리방식을 Model에 전달
     public void getCost(String shopId, String dateQuery) {
 
-        OnFinishApiListener<SalesData.GetRes> onFinishApiListener = new OnFinishApiListener<SalesData.GetRes>() {
+        OnFinishApiListener<SalesDTO.GetRes> onFinishApiListener = new OnFinishApiListener<SalesDTO.GetRes>() {
 
             //DB 조회된 지출 정보를 view에 전달
             @Override
-            public void onSuccess(SalesData.GetRes getRes) {
+            public void onSuccess(SalesDTO.GetRes getRes) {
                 if (getRes.getStatus() == SalesApi.SUCCESS) {
 
-                    List<SalesData.GetRes.Result> list = getRes.getResults();
+                    List<SalesDTO.GetRes.Result> list = getRes.getResults();
 
                     ArrayList<String> dataName = new ArrayList<>();
                     ArrayList<Integer> dataAmount = new ArrayList<>();
                     ArrayList<Integer> autoInc = new ArrayList<>();
 
-                    for (SalesData.GetRes.Result result : list) {
+                    for (SalesDTO.GetRes.Result result : list) {
 
                         dataName.add(result.getSalesName());
                         dataAmount.add(Math.abs(result.getSalesAmount()));
@@ -124,10 +122,10 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
     //지출 정보를 추가 후 지출 조회
     public void insertSalesWithDate(String shopId, String name, int amount, String dateQuery) {
 
-        OnFinishApiListener<SalesData.StatusRes> onFinishApiListener =  new OnFinishApiListener<SalesData.StatusRes>() {
+        OnFinishApiListener<SalesDTO.StatusRes> onFinishApiListener =  new OnFinishApiListener<SalesDTO.StatusRes>() {
 
             @Override
-            public void onSuccess(SalesData.StatusRes statusRes) {
+            public void onSuccess(SalesDTO.StatusRes statusRes) {
 
                 view.initCost();
             }
@@ -144,9 +142,9 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
     //지출 정보 삭제후 지출 조회
     public void deleteSpendingSales(String shopId, int salesCode, String salesDate, Boolean isCost) {
 
-        OnFinishApiListener<SalesData.StatusRes> onFinishApiListener = new OnFinishApiListener<SalesData.StatusRes>() {
+        OnFinishApiListener<SalesDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<SalesDTO.StatusRes>() {
             @Override
-            public void onSuccess(SalesData.StatusRes statusRes) {
+            public void onSuccess(SalesDTO.StatusRes statusRes) {
 
                 if (isCost) {
 
@@ -168,9 +166,9 @@ public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.P
     //지출 정보 갱신
     public void updateSpendingSales(int salesCode, String salesDate, String shopId, String salesName, int salesAmount, Boolean isCost) {
 
-        OnFinishApiListener<SalesData.StatusRes> onFinishApiListener = new OnFinishApiListener<SalesData.StatusRes>() {
+        OnFinishApiListener<SalesDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<SalesDTO.StatusRes>() {
             @Override
-            public void onSuccess(SalesData.StatusRes statusRes) {
+            public void onSuccess(SalesDTO.StatusRes statusRes) {
 
                 if (isCost) {
 

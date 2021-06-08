@@ -4,22 +4,21 @@ import java.util.ArrayList;
 
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.SalesData;
-import seoil.capstone.som.ui.main.manager.ledger.ManagerLedgerContract;
+import seoil.capstone.som.data.network.model.SalesDTO;
 
 public interface ManagerLedgerSalesContract {
 
     interface Interactor extends BaseContract.Interactor {
 
-        void getSales(String shopId, String dateQuery, OnFinishApiListener<SalesData.GetRes> onFinishApiListener);
+        void getSales(String shopId, String dateQuery, OnFinishApiListener<SalesDTO.GetRes> onFinishApiListener);
 
-        void getCost(String shopId, String dateQuery, OnFinishApiListener<SalesData.GetRes> onFinishApiListener);
+        void getCost(String shopId, String dateQuery, OnFinishApiListener<SalesDTO.GetRes> onFinishApiListener);
 
-        void insertSalesWithDate(String shopId, String name, int amount, String dateQuery ,OnFinishApiListener<SalesData.StatusRes> onFinishApiListener);
+        void insertSalesWithDate(String shopId, String name, int amount, String dateQuery ,OnFinishApiListener<SalesDTO.StatusRes> onFinishApiListener);
 
-        void deleteSpendingSales(String shopId, int salesCode, String salesDate, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener);
+        void deleteSpendingSales(String shopId, int salesCode, String salesDate, OnFinishApiListener<SalesDTO.StatusRes> onFinishApiListener);
 
-        void updateSpendingSales(int salesCode, String salesDate, String shopId, String salesName, int salesAmount, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener);
+        void updateSpendingSales(int salesCode, String salesDate, String shopId, String salesName, int salesAmount, OnFinishApiListener<SalesDTO.StatusRes> onFinishApiListener);
     }
 
     interface View extends BaseContract.View {

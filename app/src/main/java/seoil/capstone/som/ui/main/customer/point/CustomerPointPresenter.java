@@ -5,7 +5,7 @@ import java.util.List;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.PointApi;
-import seoil.capstone.som.data.network.model.PointData;
+import seoil.capstone.som.data.network.model.PointDTO;
 
 public class CustomerPointPresenter implements CustomerPointContract.Presenter {
 
@@ -41,9 +41,9 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
     public synchronized void getCurrentPoint(String id) {
 
         //DB에 조회 성공 했을 때 잔여 사용 포인트 정보, 사용 날짜를 view에 전달
-        OnFinishApiListener<PointData.GetCurrentRes> onFinishApiListener = new OnFinishApiListener<PointData.GetCurrentRes>() {
+        OnFinishApiListener<PointDTO.GetCurrentRes> onFinishApiListener = new OnFinishApiListener<PointDTO.GetCurrentRes>() {
             @Override
-            public void onSuccess(PointData.GetCurrentRes getCurrentRes) {
+            public void onSuccess(PointDTO.GetCurrentRes getCurrentRes) {
 
                 if (getCurrentRes.getStatus() == PointApi.SUCCESS) {
 
@@ -76,15 +76,15 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
     public synchronized void getSavePoint(String id) {
 
         //DB에 조회 성공 했을 때 적립 포인트 정보, 적립 날짜를 view에 전달
-        OnFinishApiListener<PointData.GetSaveRes> onFinishApiListener = new OnFinishApiListener<PointData.GetSaveRes>() {
+        OnFinishApiListener<PointDTO.GetSaveRes> onFinishApiListener = new OnFinishApiListener<PointDTO.GetSaveRes>() {
             @Override
-            public void onSuccess(PointData.GetSaveRes getSaveRes) {
+            public void onSuccess(PointDTO.GetSaveRes getSaveRes) {
 
                 if (getSaveRes.getStatus() == PointApi.SUCCESS) {
 
                     CustomerPointAdapter.Item savePoint = new CustomerPointAdapter.Item(CustomerPointAdapter.HEADER, "적립 포인트");
 
-                    List<PointData.GetSaveRes.Result> list = getSaveRes.getResults();
+                    List<PointDTO.GetSaveRes.Result> list = getSaveRes.getResults();
 
                     savePoint.invisibleChildren = new ArrayList<>();
 
@@ -98,7 +98,7 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
                     } else {
 
 
-                        for (PointData.GetSaveRes.Result result : list) {
+                        for (PointDTO.GetSaveRes.Result result : list) {
 
                             saveDate.add(result.getSavePointDate().substring(0, 10));
                             savePoint.invisibleChildren.add(new CustomerPointAdapter.Item(CustomerPointAdapter.CHILD, String.valueOf(result.getSavePointAmount())));
@@ -121,15 +121,15 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
     //Fragment에서 받아온 사용자 아이디와 조회된 사용 포인트를 처리할 방식을 Model에 전달
     public synchronized void getUsePoint(String id) {
 
-        OnFinishApiListener<PointData.GetUsingRes> onFinishApiListener = new OnFinishApiListener<PointData.GetUsingRes>() {
+        OnFinishApiListener<PointDTO.GetUsingRes> onFinishApiListener = new OnFinishApiListener<PointDTO.GetUsingRes>() {
             @Override
-            public void onSuccess(PointData.GetUsingRes getUsingRes) {
+            public void onSuccess(PointDTO.GetUsingRes getUsingRes) {
 
                 if (getUsingRes.getStatus() == PointApi.SUCCESS) {
 
                     CustomerPointAdapter.Item usePoint = new CustomerPointAdapter.Item(CustomerPointAdapter.HEADER, "사용 포인트");
 
-                    List<PointData.GetUsingRes.Result> list = getUsingRes.getResults();
+                    List<PointDTO.GetUsingRes.Result> list = getUsingRes.getResults();
 
                     usePoint.invisibleChildren = new ArrayList<>();
 
@@ -142,7 +142,7 @@ public class CustomerPointPresenter implements CustomerPointContract.Presenter {
                         useDate.add("");
                     } else {
 
-                        for (PointData.GetUsingRes.Result result : list) {
+                        for (PointDTO.GetUsingRes.Result result : list) {
 
                             useDate.add(result.getUsingPointDate().substring(0, 10));
                             usePoint.invisibleChildren.add(new CustomerPointAdapter.Item(CustomerPointAdapter.CHILD, String.valueOf(result.getUsingPointAmount())));

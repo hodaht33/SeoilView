@@ -6,7 +6,7 @@ import android.util.Log;
 import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
-import seoil.capstone.som.data.network.model.Login;
+import seoil.capstone.som.data.network.model.LoginDTO;
 
 public class SplashPresenter implements SplashContract.Presenter{
 
@@ -37,12 +37,13 @@ public class SplashPresenter implements SplashContract.Presenter{
         mInteractor = null;
     }
 
+    // 로그인 요청
     @Override
     public void login(String id, String pwd, Context context) {
 
-        OnFinishApiListener<Login.LoginRes> onFinishApiListener = new OnFinishApiListener<Login.LoginRes>() {
+        OnFinishApiListener<LoginDTO.LoginRes> onFinishApiListener = new OnFinishApiListener<LoginDTO.LoginRes>() {
             @Override
-            public void onSuccess(Login.LoginRes loginRes) {
+            public void onSuccess(LoginDTO.LoginRes loginRes) {
 
                 if (loginRes.getStatus() == UserApi.SUCCESS) {
 
@@ -63,6 +64,6 @@ public class SplashPresenter implements SplashContract.Presenter{
             }
         };
 
-        mInteractor.login(new Login.LoginReq(id, pwd), onFinishApiListener);
+        mInteractor.login(new LoginDTO.LoginReq(id, pwd), onFinishApiListener);
     }
 }

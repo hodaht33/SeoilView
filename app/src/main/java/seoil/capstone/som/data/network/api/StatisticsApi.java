@@ -4,11 +4,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.StatisticsData;
+import seoil.capstone.som.data.network.model.StatisticsDTO;
 import seoil.capstone.som.data.network.model.retrofit.Statistics;
 
 // 통계 api
@@ -30,10 +28,10 @@ public class StatisticsApi {
     // 나이대 통계 요청
     public void getAgeGroupStatistics(String shopId, String startDate, String endDate, OnFinishApiListener onFinishApiListener) {
 
-        Call<StatisticsData.GetAgeGroupRes> call = mStatisticsData.getAgeGroupStatistics(shopId, startDate, endDate);
-        call.enqueue(new Callback<StatisticsData.GetAgeGroupRes>() {
+        Call<StatisticsDTO.GetAgeGroupRes> call = mStatisticsData.getAgeGroupStatistics(shopId, startDate, endDate);
+        call.enqueue(new Callback<StatisticsDTO.GetAgeGroupRes>() {
             @Override
-            public void onResponse(Call<StatisticsData.GetAgeGroupRes> call, Response<StatisticsData.GetAgeGroupRes> response) {
+            public void onResponse(Call<StatisticsDTO.GetAgeGroupRes> call, Response<StatisticsDTO.GetAgeGroupRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -44,7 +42,7 @@ public class StatisticsApi {
             }
 
             @Override
-            public void onFailure(Call<StatisticsData.GetAgeGroupRes> call, Throwable t) {
+            public void onFailure(Call<StatisticsDTO.GetAgeGroupRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -54,10 +52,10 @@ public class StatisticsApi {
     // 성별 통계 요청
     public void getGenderStatistics(String shopId, String startDate, String endDate, OnFinishApiListener onFinishApiListener) {
 
-        Call<StatisticsData.GetGenderRes> call = mStatisticsData.getGenderStatistics(shopId, startDate, endDate);
-        call.enqueue(new Callback<StatisticsData.GetGenderRes>() {
+        Call<StatisticsDTO.GetGenderRes> call = mStatisticsData.getGenderStatistics(shopId, startDate, endDate);
+        call.enqueue(new Callback<StatisticsDTO.GetGenderRes>() {
             @Override
-            public void onResponse(Call<StatisticsData.GetGenderRes> call, Response<StatisticsData.GetGenderRes> response) {
+            public void onResponse(Call<StatisticsDTO.GetGenderRes> call, Response<StatisticsDTO.GetGenderRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -68,7 +66,7 @@ public class StatisticsApi {
             }
 
             @Override
-            public void onFailure(Call<StatisticsData.GetGenderRes> call, Throwable t) {
+            public void onFailure(Call<StatisticsDTO.GetGenderRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -78,10 +76,10 @@ public class StatisticsApi {
     // 일별 매출 통계 요청
     public void getDailySales(String shopId, String starDate, String endDate, OnFinishApiListener onFinishApiListener) {
 
-        Call<StatisticsData.GetDayRes> call = mStatisticsData.getDailySales(shopId, starDate, endDate);
-        call.enqueue(new Callback<StatisticsData.GetDayRes>() {
+        Call<StatisticsDTO.GetDayRes> call = mStatisticsData.getDailySales(shopId, starDate, endDate);
+        call.enqueue(new Callback<StatisticsDTO.GetDayRes>() {
             @Override
-            public void onResponse(Call<StatisticsData.GetDayRes> call, Response<StatisticsData.GetDayRes> response) {
+            public void onResponse(Call<StatisticsDTO.GetDayRes> call, Response<StatisticsDTO.GetDayRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -92,7 +90,7 @@ public class StatisticsApi {
             }
 
             @Override
-            public void onFailure(Call<StatisticsData.GetDayRes> call, Throwable t) {
+            public void onFailure(Call<StatisticsDTO.GetDayRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -103,10 +101,10 @@ public class StatisticsApi {
     // 주별 매출 통계 요청
     public void getWeeklySales(String shopId, String month, String startDate, OnFinishApiListener onFinishApiListener) {
 
-        Call<StatisticsData.GetWeekRes> call = mStatisticsData.getWeeklySales(shopId, month, startDate);
-        call.enqueue(new Callback<StatisticsData.GetWeekRes>() {
+        Call<StatisticsDTO.GetWeekRes> call = mStatisticsData.getWeeklySales(shopId, month, startDate);
+        call.enqueue(new Callback<StatisticsDTO.GetWeekRes>() {
             @Override
-            public void onResponse(Call<StatisticsData.GetWeekRes> call, Response<StatisticsData.GetWeekRes> response) {
+            public void onResponse(Call<StatisticsDTO.GetWeekRes> call, Response<StatisticsDTO.GetWeekRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -117,7 +115,7 @@ public class StatisticsApi {
             }
 
             @Override
-            public void onFailure(Call<StatisticsData.GetWeekRes> call, Throwable t) {
+            public void onFailure(Call<StatisticsDTO.GetWeekRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -127,10 +125,10 @@ public class StatisticsApi {
     // 월별 매출 통계 요청
     public void getMonthlySales(String shopId, String year, OnFinishApiListener onFinishApiListener) {
 
-        Call<StatisticsData.GetMonthRes> call = mStatisticsData.getMonthlySales(shopId, year);
-        call.enqueue(new Callback<StatisticsData.GetMonthRes>() {
+        Call<StatisticsDTO.GetMonthRes> call = mStatisticsData.getMonthlySales(shopId, year);
+        call.enqueue(new Callback<StatisticsDTO.GetMonthRes>() {
             @Override
-            public void onResponse(Call<StatisticsData.GetMonthRes> call, Response<StatisticsData.GetMonthRes> response) {
+            public void onResponse(Call<StatisticsDTO.GetMonthRes> call, Response<StatisticsDTO.GetMonthRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -141,7 +139,7 @@ public class StatisticsApi {
             }
 
             @Override
-            public void onFailure(Call<StatisticsData.GetMonthRes> call, Throwable t) {
+            public void onFailure(Call<StatisticsDTO.GetMonthRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -149,12 +147,12 @@ public class StatisticsApi {
     }
 
     // 통계(방문 정보) 추가 요청
-    public void insertStatisticsData(StatisticsData.InsertReq req, OnFinishApiListener onFinishApiListener) {
+    public void insertStatisticsData(StatisticsDTO.InsertReq req, OnFinishApiListener onFinishApiListener) {
 
-        Call<StatisticsData.StatusRes> call = mStatisticsData.insertStatisticsData(req);
-        call.enqueue(new Callback<StatisticsData.StatusRes>() {
+        Call<StatisticsDTO.StatusRes> call = mStatisticsData.insertStatisticsData(req);
+        call.enqueue(new Callback<StatisticsDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<StatisticsData.StatusRes> call, Response<StatisticsData.StatusRes> response) {
+            public void onResponse(Call<StatisticsDTO.StatusRes> call, Response<StatisticsDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -165,7 +163,7 @@ public class StatisticsApi {
             }
 
             @Override
-            public void onFailure(Call<StatisticsData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<StatisticsDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

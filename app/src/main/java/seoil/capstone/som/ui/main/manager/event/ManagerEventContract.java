@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.EventData;
+import seoil.capstone.som.data.network.model.EventDataDTO;
 
 public interface ManagerEventContract {
 
@@ -27,9 +27,9 @@ public interface ManagerEventContract {
     interface Interactor extends BaseContract.Interactor {
 
         //이벤트 조회
-        void getEvent(String shopId, OnFinishApiListener<EventData.GetRes> onFinishApiListener);
+        void getEvent(String shopId, OnFinishApiListener<EventDataDTO.GetRes> onFinishApiListener);
 
         //이벤트 삽입
-        void insertEvent(EventData.InsertReq req, OnFinishApiListener<EventData.StatusRes> onFinishApiListener);
+        void insertEvent(EventDataDTO.InsertReq req, OnFinishApiListener<EventDataDTO.StatusRes> onFinishApiListener);
     }
 }

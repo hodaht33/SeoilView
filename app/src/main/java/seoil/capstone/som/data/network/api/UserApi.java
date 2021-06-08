@@ -4,12 +4,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.http.Body;
-import retrofit2.http.Path;
 import seoil.capstone.som.data.network.AppApiHelper;
-import seoil.capstone.som.data.network.model.Auth;
-import seoil.capstone.som.data.network.model.Login;
-import seoil.capstone.som.data.network.model.UserData;
+import seoil.capstone.som.data.network.model.AuthDTO;
+import seoil.capstone.som.data.network.model.LoginDTO;
+import seoil.capstone.som.data.network.model.UserDTO;
 import seoil.capstone.som.data.network.model.retrofit.User;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 
@@ -42,12 +40,12 @@ public class UserApi {
     }
 
     // 로그인 요청
-    public void login(Login.LoginReq req, OnFinishApiListener onFinishApiListener) {
+    public void login(LoginDTO.LoginReq req, OnFinishApiListener onFinishApiListener) {
 
-        Call<Login.LoginRes> call = mUserData.getLoginData(req);
-        call.enqueue(new Callback<Login.LoginRes>() {
+        Call<LoginDTO.LoginRes> call = mUserData.getLoginData(req);
+        call.enqueue(new Callback<LoginDTO.LoginRes>() {
             @Override
-            public void onResponse(Call<Login.LoginRes> call, Response<Login.LoginRes> response) {
+            public void onResponse(Call<LoginDTO.LoginRes> call, Response<LoginDTO.LoginRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -58,7 +56,7 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<Login.LoginRes> call, Throwable t) {
+            public void onFailure(Call<LoginDTO.LoginRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -66,12 +64,12 @@ public class UserApi {
     }
 
     // 인증번호 sms전송 요청
-    public void sendSms(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
+    public void sendSms(AuthDTO.Req req, OnFinishApiListener<AuthDTO.StatusRes> onFinishApiListener) {
 
-        Call<Auth.StatusRes> call = mUserData.sendSms(req);
-        call.enqueue(new Callback<Auth.StatusRes>() {
+        Call<AuthDTO.StatusRes> call = mUserData.sendSms(req);
+        call.enqueue(new Callback<AuthDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<Auth.StatusRes> call, Response<Auth.StatusRes> response) {
+            public void onResponse(Call<AuthDTO.StatusRes> call, Response<AuthDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -82,7 +80,7 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<Auth.StatusRes> call, Throwable t) {
+            public void onFailure(Call<AuthDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -90,12 +88,12 @@ public class UserApi {
     }
 
     // 인증번호 확인 요청
-    public void sendAuthCode(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
+    public void sendAuthCode(AuthDTO.Req req, OnFinishApiListener<AuthDTO.StatusRes> onFinishApiListener) {
 
-        Call<Auth.StatusRes> call = mUserData.sendAuthCode(req);
-        call.enqueue(new Callback<Auth.StatusRes>() {
+        Call<AuthDTO.StatusRes> call = mUserData.sendAuthCode(req);
+        call.enqueue(new Callback<AuthDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<Auth.StatusRes> call, Response<Auth.StatusRes> response) {
+            public void onResponse(Call<AuthDTO.StatusRes> call, Response<AuthDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -106,7 +104,7 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<Auth.StatusRes> call, Throwable t) {
+            public void onFailure(Call<AuthDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -114,12 +112,12 @@ public class UserApi {
     }
 
     // 인증 확인 후 해당 번호로 가입된 아이디 정보 요청(아이디 찾기)
-    public void sendAuthForFindId(Auth.Req req, OnFinishApiListener<UserData.FindIdRes> onFinishApiListener) {
+    public void sendAuthForFindId(AuthDTO.Req req, OnFinishApiListener<UserDTO.FindIdRes> onFinishApiListener) {
 
-        Call<UserData.FindIdRes> call = mUserData.sendAuthForFindId(req);
-        call.enqueue(new Callback<UserData.FindIdRes>() {
+        Call<UserDTO.FindIdRes> call = mUserData.sendAuthForFindId(req);
+        call.enqueue(new Callback<UserDTO.FindIdRes>() {
             @Override
-            public void onResponse(Call<UserData.FindIdRes> call, Response<UserData.FindIdRes> response) {
+            public void onResponse(Call<UserDTO.FindIdRes> call, Response<UserDTO.FindIdRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -130,7 +128,7 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<UserData.FindIdRes> call, Throwable t) {
+            public void onFailure(Call<UserDTO.FindIdRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -138,12 +136,12 @@ public class UserApi {
     }
 
     // 사용자 핸드폰 번호 요청
-    public void getUserPhoneNumber(String userId, OnFinishApiListener<UserData.GetUserInfoRes> onFinishApiListener) {
+    public void getUserPhoneNumber(String userId, OnFinishApiListener<UserDTO.GetUserInfoRes> onFinishApiListener) {
 
-        Call<UserData.GetUserInfoRes> call = mUserData.getUserPhoneNumber(userId);
-        call.enqueue(new Callback<UserData.GetUserInfoRes>() {
+        Call<UserDTO.GetUserInfoRes> call = mUserData.getUserPhoneNumber(userId);
+        call.enqueue(new Callback<UserDTO.GetUserInfoRes>() {
             @Override
-            public void onResponse(Call<UserData.GetUserInfoRes> call, Response<UserData.GetUserInfoRes> response) {
+            public void onResponse(Call<UserDTO.GetUserInfoRes> call, Response<UserDTO.GetUserInfoRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -154,7 +152,7 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<UserData.GetUserInfoRes> call, Throwable t) {
+            public void onFailure(Call<UserDTO.GetUserInfoRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -162,12 +160,12 @@ public class UserApi {
     }
 
     // 아이디 중복 확인 요청
-    public void checkIdDuplicate(String id, OnFinishApiListener<Auth.StatusRes> onFinishApiListener) {
+    public void checkIdDuplicate(String id, OnFinishApiListener<AuthDTO.StatusRes> onFinishApiListener) {
 
-        Call<Auth.StatusRes> call = mUserData.checkIdDuplicate(id);
-        call.enqueue(new Callback<Auth.StatusRes>() {
+        Call<AuthDTO.StatusRes> call = mUserData.checkIdDuplicate(id);
+        call.enqueue(new Callback<AuthDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<Auth.StatusRes> call, Response<Auth.StatusRes> response) {
+            public void onResponse(Call<AuthDTO.StatusRes> call, Response<AuthDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -178,7 +176,7 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<Auth.StatusRes> call, Throwable t) {
+            public void onFailure(Call<AuthDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -186,12 +184,12 @@ public class UserApi {
     }
 
     // 손님 회원가입 요청
-    public void insertCustomer(UserData.Customer registerRequest, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
+    public void insertCustomer(UserDTO.Customer registerRequest, OnFinishApiListener<UserDTO.StatusRes> onFinishApiListener) {
 
-        Call<UserData.StatusRes> call = mUserData.insertCustomer(registerRequest);
-        call.enqueue(new Callback<UserData.StatusRes>() {
+        Call<UserDTO.StatusRes> call = mUserData.insertCustomer(registerRequest);
+        call.enqueue(new Callback<UserDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<UserData.StatusRes> call, Response<UserData.StatusRes> response) {
+            public void onResponse(Call<UserDTO.StatusRes> call, Response<UserDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -202,7 +200,7 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<UserData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<UserDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -210,12 +208,12 @@ public class UserApi {
     }
 
     // 점주 회원가입 요청
-    public void insertManager(UserData.Manager registerRequest, OnFinishApiListener onFinishApiListener) {
+    public void insertManager(UserDTO.Manager registerRequest, OnFinishApiListener onFinishApiListener) {
 
-        Call<UserData.StatusRes> call = mUserData.insertManager(registerRequest);
-        call.enqueue(new Callback<UserData.StatusRes>() {
+        Call<UserDTO.StatusRes> call = mUserData.insertManager(registerRequest);
+        call.enqueue(new Callback<UserDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<UserData.StatusRes> call, Response<UserData.StatusRes> response) {
+            public void onResponse(Call<UserDTO.StatusRes> call, Response<UserDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -226,7 +224,7 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<UserData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<UserDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -234,12 +232,12 @@ public class UserApi {
     }
 
     // 비밀번호 수정(비밀번호 찾기) 요청
-    public void updatePassword(String userId, UserData.ChangePasswordReq req, OnFinishApiListener<UserData.StatusRes> onFinishApiListener) {
+    public void updatePassword(String userId, UserDTO.ChangePasswordReq req, OnFinishApiListener<UserDTO.StatusRes> onFinishApiListener) {
 
-        Call<UserData.StatusRes> call = mUserData.updatePassword(userId, req);
-        call.enqueue(new Callback<UserData.StatusRes>() {
+        Call<UserDTO.StatusRes> call = mUserData.updatePassword(userId, req);
+        call.enqueue(new Callback<UserDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<UserData.StatusRes> call, Response<UserData.StatusRes> response) {
+            public void onResponse(Call<UserDTO.StatusRes> call, Response<UserDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -250,7 +248,7 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<UserData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<UserDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -260,10 +258,10 @@ public class UserApi {
     // 사업자 등록 번호 확인 요청
     public void checkRegistrationNumber(String number, OnFinishApiListener onFinishApiListener) {
 
-        Call<Auth.StatusRes> call = mUserData.checkRegistrationNumber(number);
-        call.enqueue(new Callback<Auth.StatusRes>() {
+        Call<AuthDTO.StatusRes> call = mUserData.checkRegistrationNumber(number);
+        call.enqueue(new Callback<AuthDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<Auth.StatusRes> call, Response<Auth.StatusRes> response) {
+            public void onResponse(Call<AuthDTO.StatusRes> call, Response<AuthDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -274,7 +272,7 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<Auth.StatusRes> call, Throwable t) {
+            public void onFailure(Call<AuthDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -284,10 +282,10 @@ public class UserApi {
     // 사용자 삭제 요청
     public void deleteUser(String id, OnFinishApiListener onFinishApiListener) {
 
-        Call<UserData.StatusRes> call = mUserData.deleteUser(id);
-        call.enqueue(new Callback<UserData.StatusRes>() {
+        Call<UserDTO.StatusRes> call = mUserData.deleteUser(id);
+        call.enqueue(new Callback<UserDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<UserData.StatusRes> call, Response<UserData.StatusRes> response) {
+            public void onResponse(Call<UserDTO.StatusRes> call, Response<UserDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -298,7 +296,7 @@ public class UserApi {
             }
 
             @Override
-            public void onFailure(Call<UserData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<UserDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

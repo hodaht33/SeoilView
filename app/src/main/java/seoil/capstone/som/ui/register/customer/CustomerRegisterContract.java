@@ -5,16 +5,17 @@ import android.content.Intent;
 
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.Auth;
-import seoil.capstone.som.data.network.model.UserData;
+import seoil.capstone.som.data.network.model.AuthDTO;
+import seoil.capstone.som.data.network.model.UserDTO;
 
+// 손님 회원가입 MVP 인터페이스
 public interface CustomerRegisterContract {
 
     interface Interactor extends BaseContract.Interactor {
 
-        void register(UserData.Customer customer, OnFinishApiListener<UserData.StatusRes> onFinishApiListener);
-        void sendSms(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener);
-        void sendAuthCode(Auth.Req req, OnFinishApiListener<Auth.StatusRes> onFinishApiListener);
+        void register(UserDTO.Customer customer, OnFinishApiListener<UserDTO.StatusRes> onFinishApiListener);
+        void sendSms(AuthDTO.Req req, OnFinishApiListener<AuthDTO.StatusRes> onFinishApiListener);
+        void sendAuthCode(AuthDTO.Req req, OnFinishApiListener<AuthDTO.StatusRes> onFinishApiListener);
     }
 
     interface View extends BaseContract.View {

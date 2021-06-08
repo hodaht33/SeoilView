@@ -31,13 +31,13 @@ import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
-import seoil.capstone.som.data.network.model.Auth;
+import seoil.capstone.som.data.network.model.AuthDTO;
 import seoil.capstone.som.ui.register.RegisterCommunicator;
 import seoil.capstone.som.ui.register.select.SelectUserFragment;
 import seoil.capstone.som.util.Utility;
 
 // TODO: 제대로된 MVP으로 만들어져 있지 않음, 추후 리팩토링 필요(presenter내에서 valid검사, id중복확인 요청은 interactor를 통해 수행)
-public class CustomerRegisterFragment extends Fragment implements CustomerRegisterContract.View, View.OnClickListener, OnFinishApiListener<Auth.StatusRes> {
+public class CustomerRegisterFragment extends Fragment implements CustomerRegisterContract.View, View.OnClickListener, OnFinishApiListener<AuthDTO.StatusRes> {
 
     private RegisterCommunicator.Communicator mCommunicator;
     private OnBackPressedCallback mOnBackPressedCallback;
@@ -686,7 +686,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
     }
 
     @Override
-    public void onSuccess(Auth.StatusRes res) {
+    public void onSuccess(AuthDTO.StatusRes res) {
 
         int status = res.getStatus();
         if (status == UserApi.SUCCESS) {

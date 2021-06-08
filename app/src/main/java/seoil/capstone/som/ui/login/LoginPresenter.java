@@ -7,10 +7,9 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 
-import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.data.network.api.UserApi;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.Login;
+import seoil.capstone.som.data.network.model.LoginDTO;
 import seoil.capstone.som.ui.main.MainActivity;
 import seoil.capstone.som.ui.register.RegisterActivity;
 
@@ -45,13 +44,13 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void serverLogin(String id, String pwd, Context context, OnFinishApiListener onFinishApiListener) {
 
-        OnFinishApiListener<Login.LoginRes> callback;
+        OnFinishApiListener<LoginDTO.LoginRes> callback;
 
         if (onFinishApiListener == null) {
 
-            callback = new OnFinishApiListener<Login.LoginRes>() {
+            callback = new OnFinishApiListener<LoginDTO.LoginRes>() {
                 @Override
-                public void onSuccess(Login.LoginRes loginResponse) {
+                public void onSuccess(LoginDTO.LoginRes loginResponse) {
 
                     int statusCode = loginResponse.getStatus();
 
@@ -107,16 +106,16 @@ public class LoginPresenter implements LoginContract.Presenter {
             callback = onFinishApiListener;
         }
 
-        mInteractor.serverLogin(new Login.LoginReq(id, pwd), callback);
+        mInteractor.serverLogin(new LoginDTO.LoginReq(id, pwd), callback);
     }
 
     // 카카오 간편 로그인
     @Override
     public void kakaoLogin(Context context) {
 
-        OnFinishApiListener<Login.KakaoLoginRes> callback = new OnFinishApiListener<Login.KakaoLoginRes>() {
+        OnFinishApiListener<LoginDTO.KakaoLoginRes> callback = new OnFinishApiListener<LoginDTO.KakaoLoginRes>() {
             @Override
-            public void onSuccess(Login.KakaoLoginRes loginResponse) {
+            public void onSuccess(LoginDTO.KakaoLoginRes loginResponse) {
 
                 // 카카오 아이디가 null이 아니면 성공한 것이므로 som api로 서버에 보내 사용자인지 검사
                 String kakaoId = loginResponse.getId();
@@ -141,18 +140,18 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void naverLogin(Context context, Resources resources) {
 
-        OnFinishApiListener<Login.NaverLoginRes> callback = new OnFinishApiListener<Login.NaverLoginRes>() {
+        OnFinishApiListener<LoginDTO.NaverLoginRes> callback = new OnFinishApiListener<LoginDTO.NaverLoginRes>() {
             @Override
-            public void onSuccess(Login.NaverLoginRes naverLoginResponse) {
+            public void onSuccess(LoginDTO.NaverLoginRes naverLoginResponse) {
 
                 // 네이버 아이디가 있으면 네이버 로그인 성공이므로 som rest api로 서버에 보내 사용자인지 검사
                 String naverId = naverLoginResponse.getId();
                 if (naverId != null) {
 
                     Log.d(TAG, "naverSuccess");
-                    serverLogin(naverId, "naver", context, new OnFinishApiListener<Login.LoginRes>() {
+                    serverLogin(naverId, "naver", context, new OnFinishApiListener<LoginDTO.LoginRes>() {
                         @Override
-                        public void onSuccess(Login.LoginRes serverLoginResponse) {
+                        public void onSuccess(LoginDTO.LoginRes serverLoginResponse) {
 
                             Log.d(TAG,"serverSuccess");
                             int statusCode = serverLoginResponse.getStatus();

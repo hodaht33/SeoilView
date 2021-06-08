@@ -7,7 +7,7 @@ import java.util.List;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.EventApi;
-import seoil.capstone.som.data.network.model.EventData;
+import seoil.capstone.som.data.network.model.EventDataDTO;
 
 // 이벤트 상세 정보 프레젠터
 public class DetailEventPresenter implements DetailEventContract.Presenter {
@@ -38,19 +38,19 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
     // 이벤트 요청
     public void getEvent(int eventCode) {
 
-        OnFinishApiListener<EventData.EventCodeRes> onFinishApiListener = new OnFinishApiListener<EventData.EventCodeRes>() {
+        OnFinishApiListener<EventDataDTO.EventCodeRes> onFinishApiListener = new OnFinishApiListener<EventDataDTO.EventCodeRes>() {
             @Override
-            public void onSuccess(EventData.EventCodeRes eventCodeRes) {
+            public void onSuccess(EventDataDTO.EventCodeRes eventCodeRes) {
 
                 Log.d("eventCode", String.valueOf(eventCodeRes.getStatus()));
 
                 if (eventCodeRes.getStatus() == EventApi.SUCCESS) {
 
-                    List<EventData.EventCodeRes.Result> list = eventCodeRes.getResults();
+                    List<EventDataDTO.EventCodeRes.Result> list = eventCodeRes.getResults();
 
                     HashMap<String, String> data = new HashMap<>();
 
-                    for (EventData.EventCodeRes.Result result : list) {
+                    for (EventDataDTO.EventCodeRes.Result result : list) {
 
                         data.put("shopName", result.getShopName());
                         data.put("shopAddress", result.getShopAddress());
@@ -78,9 +78,9 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
     // 이벤트 수정 요청
     public void updateEvent(int eventCode, String eventName, String eventContents, String startDate, String endDate) {
 
-        OnFinishApiListener<EventData.StatusRes> onFinishApiListener = new OnFinishApiListener<EventData.StatusRes>() {
+        OnFinishApiListener<EventDataDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<EventDataDTO.StatusRes>() {
             @Override
-            public void onSuccess(EventData.StatusRes statusRes) {
+            public void onSuccess(EventDataDTO.StatusRes statusRes) {
 
                 Log.d("eventstatus", String.valueOf(statusRes.getStatus()));
 
@@ -98,15 +98,15 @@ public class DetailEventPresenter implements DetailEventContract.Presenter {
             }
         };
 
-        mInteractor.updateEvent(new EventData.UpdateReq(eventCode, eventName, eventContents, startDate, endDate), onFinishApiListener);
+        mInteractor.updateEvent(new EventDataDTO.UpdateReq(eventCode, eventName, eventContents, startDate, endDate), onFinishApiListener);
     }
 
     // 이벤트 삭제 요청
     public void deleteEvent(int eventCode) {
 
-        OnFinishApiListener<EventData.StatusRes> onFinishApiListener = new OnFinishApiListener<EventData.StatusRes>() {
+        OnFinishApiListener<EventDataDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<EventDataDTO.StatusRes>() {
             @Override
-            public void onSuccess(EventData.StatusRes statusRes) {
+            public void onSuccess(EventDataDTO.StatusRes statusRes) {
 
                 if (statusRes.getStatus() == EventApi.SUCCESS) {
 

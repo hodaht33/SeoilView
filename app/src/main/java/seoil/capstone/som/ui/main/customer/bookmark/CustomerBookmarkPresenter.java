@@ -7,8 +7,8 @@ import java.util.List;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.BookmarkApi;
-import seoil.capstone.som.data.network.model.BookmarkData;
-import seoil.capstone.som.data.network.model.EventData;
+import seoil.capstone.som.data.network.model.BookmarkDTO;
+import seoil.capstone.som.data.network.model.EventDataDTO;
 
 // 손님 즐겨찾기 프레젠터
 public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Presenter{
@@ -41,9 +41,9 @@ public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Prese
     public void getBookmarkShopInfo(String userId) {
 
         //조회된 매장 즐겨찾기 정보를 view에 전달
-        OnFinishApiListener<BookmarkData.ShopInfoRes> onFinishApiListener = new OnFinishApiListener<BookmarkData.ShopInfoRes>() {
+        OnFinishApiListener<BookmarkDTO.ShopInfoRes> onFinishApiListener = new OnFinishApiListener<BookmarkDTO.ShopInfoRes>() {
             @Override
-            public void onSuccess(BookmarkData.ShopInfoRes shopInfoRes) {
+            public void onSuccess(BookmarkDTO.ShopInfoRes shopInfoRes) {
 
                 ArrayList<String> shopName = new ArrayList<>();
                 ArrayList<String> shopCategory = new ArrayList<>();
@@ -51,11 +51,11 @@ public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Prese
 
                 if (shopInfoRes.getStatus() == BookmarkApi.SUCCESS) {
 
-                    List<BookmarkData.ShopInfoRes.Result> list = shopInfoRes.getResults();
+                    List<BookmarkDTO.ShopInfoRes.Result> list = shopInfoRes.getResults();
 
                     if (list != null) {
 
-                        for (BookmarkData.ShopInfoRes.Result result : list) {
+                        for (BookmarkDTO.ShopInfoRes.Result result : list) {
 
                             shopName.add(result.getShopName());
                             shopCategory.add(result.getShopCategoory());
@@ -83,9 +83,9 @@ public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Prese
     //즐겨찾기 삭제
     public void deleteBookmark(String userId, String shopId, int position) {
 
-        OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener = new OnFinishApiListener<BookmarkData.StatusRes>() {
+        OnFinishApiListener<BookmarkDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<BookmarkDTO.StatusRes>() {
             @Override
-            public void onSuccess(BookmarkData.StatusRes statusRes) {
+            public void onSuccess(BookmarkDTO.StatusRes statusRes) {
 
                 if (statusRes.getStatus() == BookmarkApi.SUCCESS) {
 
@@ -113,9 +113,9 @@ public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Prese
     //즐겨찾기된 매장의 진행중 이벤트 조회
     public void getOnGoingEvent(String userId) {
 
-        OnFinishApiListener<EventData.OngoingEventRes> onFinishApiListener = new OnFinishApiListener<EventData.OngoingEventRes>() {
+        OnFinishApiListener<EventDataDTO.OngoingEventRes> onFinishApiListener = new OnFinishApiListener<EventDataDTO.OngoingEventRes>() {
             @Override
-            public void onSuccess(EventData.OngoingEventRes ongoingEventRes) {
+            public void onSuccess(EventDataDTO.OngoingEventRes ongoingEventRes) {
 
                 Log.d("ongoingEvent", String.valueOf(ongoingEventRes.getStatus()));
 
@@ -126,11 +126,11 @@ public class CustomerBookmarkPresenter implements CustomerBookmarkContract.Prese
                     ArrayList<String> marketEventName = new ArrayList<>();
                     ArrayList<String> marketEventDate = new ArrayList<>();
 
-                    List<EventData.OngoingEventRes.Result> list = ongoingEventRes.getResults();
+                    List<EventDataDTO.OngoingEventRes.Result> list = ongoingEventRes.getResults();
 
                     if (list != null) {
 
-                        for (EventData.OngoingEventRes.Result result : list) {
+                        for (EventDataDTO.OngoingEventRes.Result result : list) {
 
                             eventCode.add(result.getEventCode());
                             marketName.add(result.getShopName());

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 // 통계 DTO
-public class StatisticsData {
+public class StatisticsDTO {
 
     // 통계(방문 정보) 추가 요청 DTO
     public static class InsertReq {
@@ -167,9 +167,6 @@ public class StatisticsData {
             @SerializedName("salesDate")
             @Expose
             private String salesDate;
-            @SerializedName("salesName")
-            @Expose
-            private String salesName;
             @SerializedName("salesAmount")
             @Expose
             private int salesAmount;
@@ -180,14 +177,6 @@ public class StatisticsData {
 
             public void setSalesDate(String salesDate) {
                 this.salesDate = salesDate;
-            }
-
-            public String getSalesName() {
-                return salesName;
-            }
-
-            public void setSalesName(String salesName) {
-                this.salesName = salesName;
             }
 
             public int getSalesAmount() {
@@ -204,7 +193,7 @@ public class StatisticsData {
         private int status;
         @SerializedName("results")
         @Expose
-        private List<GetGenderRes.Result> results;
+        private List<Result> results;
 
         public int getStatus() {
             return status;
@@ -215,14 +204,77 @@ public class StatisticsData {
         }
 
 
-        public List<GetGenderRes.Result> getResults() {
+        public List<Result> getResults() {
             return results;
         }
 
-        public void setResults(List<GetGenderRes.Result> results) {
+        public void setResults(List<Result> results) {
             this.results = results;
         }
     }
+//    public static class GetDayRes {
+//
+//        public class Result {
+//
+//            @SerializedName("salesDate")
+//            @Expose
+//            private String salesDate;
+//            @SerializedName("salesName")
+//            @Expose
+//            private String salesName;
+//            @SerializedName("salesAmount")
+//            @Expose
+//            private int salesAmount;
+//
+//            public String getSalesDate() {
+//                return salesDate;
+//            }
+//
+//            public void setSalesDate(String salesDate) {
+//                this.salesDate = salesDate;
+//            }
+//
+//            public String getSalesName() {
+//                return salesName;
+//            }
+//
+//            public void setSalesName(String salesName) {
+//                this.salesName = salesName;
+//            }
+//
+//            public int getSalesAmount() {
+//                return salesAmount;
+//            }
+//
+//            public void setSalesAmount(int salesAmount) {
+//                this.salesAmount = salesAmount;
+//            }
+//        }
+//
+//        @SerializedName("status")
+//        @Expose
+//        private int status;
+//        @SerializedName("results")
+//        @Expose
+//        private List<Result> results;
+//
+//        public int getStatus() {
+//            return status;
+//        }
+//
+//        public void setStatus(int status) {
+//            this.status = status;
+//        }
+//
+//
+//        public List<Result> getResults() {
+//            return results;
+//        }
+//
+//        public void setResults(List<Result> results) {
+//            this.results = results;
+//        }
+//    }
 
     // 주별 매출 통계 응답 DTO
     public static class GetWeekRes {
@@ -280,7 +332,7 @@ public class StatisticsData {
         private int status;
         @SerializedName("results")
         @Expose
-        private List<GetGenderRes.Result> results;
+        private List<Result> results;
 
         public int getStatus() {
             return status;
@@ -291,11 +343,11 @@ public class StatisticsData {
         }
 
 
-        public List<GetGenderRes.Result> getResults() {
+        public List<Result> getResults() {
             return results;
         }
 
-        public void setResults(List<GetGenderRes.Result> results) {
+        public void setResults(List<Result> results) {
             this.results = results;
         }
     }
@@ -303,38 +355,65 @@ public class StatisticsData {
     // 월별 매출 통계 응답 DTO
     public static class GetMonthRes {
 
-        @SerializedName("type")
+        public class Result {
+
+            @SerializedName("type")
+            @Expose
+            private String type;
+            @SerializedName("salesDate")
+            @Expose
+            private String salesDate;
+            @SerializedName("salesAmount")
+            @Expose
+            private int salesAmount;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public String getSalesDate() {
+                return salesDate;
+            }
+
+            public void setSalesDate(String salesDate) {
+                this.salesDate = salesDate;
+            }
+
+            public int getSalesAmount() {
+                return salesAmount;
+            }
+
+            public void setSalesAmount(int salesAmount) {
+                this.salesAmount = salesAmount;
+            }
+        }
+
+        @SerializedName("status")
         @Expose
-        private String type;
-        @SerializedName("salesDate")
+        private int status;
+        @SerializedName("results")
         @Expose
-        private String salesDate;
-        @SerializedName("salesAmount")
-        @Expose
-        private int salesAmount;
+        private List<Result> results;
 
-        public String getType() {
-            return type;
+        public int getStatus() {
+            return status;
         }
 
-        public void setType(String type) {
-            this.type = type;
+        public void setStatus(int status) {
+            this.status = status;
         }
 
-        public String getSalesDate() {
-            return salesDate;
+
+        public List<Result> getResults() {
+            return results;
         }
 
-        public void setSalesDate(String salesDate) {
-            this.salesDate = salesDate;
-        }
-
-        public int getSalesAmount() {
-            return salesAmount;
-        }
-
-        public void setSalesAmount(int salesAmount) {
-            this.salesAmount = salesAmount;
+        public void setResults(List<Result> results) {
+            this.results = results;
         }
     }
 

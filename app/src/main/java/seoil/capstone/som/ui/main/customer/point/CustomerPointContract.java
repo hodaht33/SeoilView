@@ -4,7 +4,7 @@ import java.util.List;
 
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.PointData;
+import seoil.capstone.som.data.network.model.PointDTO;
 
 public interface CustomerPointContract {
 
@@ -24,10 +24,10 @@ public interface CustomerPointContract {
 
     interface Interactor extends BaseContract.Interactor {
 
-        void getCurrentPoint(String id, OnFinishApiListener<PointData.GetCurrentRes> onFinishApiListener);
+        void getCurrentPoint(String id, OnFinishApiListener<PointDTO.GetCurrentRes> onFinishApiListener);
 
-        void getSavePoint(String id, OnFinishApiListener<PointData.GetSaveRes> onFinishApiListener);
+        void getSavePoint(String id, OnFinishApiListener<PointDTO.GetSaveRes> onFinishApiListener);
 
-        void getUsingPoint(String id, OnFinishApiListener<PointData.GetUsingRes> onFinishApiListener);
+        void getUsingPoint(String id, OnFinishApiListener<PointDTO.GetUsingRes> onFinishApiListener);
     }
 }

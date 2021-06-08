@@ -1,7 +1,6 @@
 package seoil.capstone.som.ui.register.manager;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,7 +28,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -37,14 +35,14 @@ import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.UserApi;
-import seoil.capstone.som.data.network.model.Auth;
+import seoil.capstone.som.data.network.model.AuthDTO;
 import seoil.capstone.som.ui.address.SearchAddressActivity;
 import seoil.capstone.som.ui.register.RegisterCommunicator;
 import seoil.capstone.som.ui.register.select.SelectUserFragment;
 import seoil.capstone.som.util.Utility;
 
 // 점주 회원가입 프레그먼트
-public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener, OnFinishApiListener<Auth.StatusRes> {
+public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener, OnFinishApiListener<AuthDTO.StatusRes> {
 
     private RegisterCommunicator.Communicator mCommunicator;
     private OnBackPressedCallback mOnBackPressedCallback;
@@ -847,7 +845,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
 
     // 아이디 중복 확인 성공
     @Override
-    public void onSuccess(Auth.StatusRes res) {
+    public void onSuccess(AuthDTO.StatusRes res) {
 
         int status = res.getStatus();
         if (status == UserApi.SUCCESS) {

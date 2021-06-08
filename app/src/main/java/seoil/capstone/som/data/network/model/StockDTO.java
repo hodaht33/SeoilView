@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 // 재고 DTO
-public class StockData {
+public class StockDTO {
 
     // 추가, 수량 수정 요청 DTO
     public static class Req {

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 // 포인트 DTO
-public class PointData {
+public class PointDTO {
 
     /////////
     // 요청 //

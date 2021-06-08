@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 // 로그인 DTO
-public class Login {
+public class LoginDTO {
 
     /////////
     // 요청 //

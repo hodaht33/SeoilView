@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 // 매장 DTO
-public class ShopData {
+public class ShopDTO {
 
     // 매장 정보 요청 DTO
     public static class InsertReq {

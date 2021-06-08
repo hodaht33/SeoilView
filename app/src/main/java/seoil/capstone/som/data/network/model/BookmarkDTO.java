@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 // 즐겨찾기 DTO
-public class BookmarkData {
+public class BookmarkDTO {
 
     // 요청 //
 

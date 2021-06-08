@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.BookmarkData;
-import seoil.capstone.som.data.network.model.EventData;
+import seoil.capstone.som.data.network.model.BookmarkDTO;
+import seoil.capstone.som.data.network.model.EventDataDTO;
 
 // 즐겨찾기 MVP 인터페이스
 public interface CustomerBookmarkContract {
 
     interface Interactor extends BaseContract.Interactor {
 
-        void getBookmarkShopInfo(String userId, OnFinishApiListener<BookmarkData.ShopInfoRes> onFinishApiListener);
-        void deleteBookmark(String userId, String shopId, OnFinishApiListener<BookmarkData.StatusRes> onFinishApiListener);
-        void getOnGoingEvent(String userId, OnFinishApiListener<EventData.OngoingEventRes> onFinishApiListener);
+        void getBookmarkShopInfo(String userId, OnFinishApiListener<BookmarkDTO.ShopInfoRes> onFinishApiListener);
+        void deleteBookmark(String userId, String shopId, OnFinishApiListener<BookmarkDTO.StatusRes> onFinishApiListener);
+        void getOnGoingEvent(String userId, OnFinishApiListener<EventDataDTO.OngoingEventRes> onFinishApiListener);
     }
 
     interface View extends BaseContract.View {

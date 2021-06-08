@@ -6,7 +6,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.ShopData;
+import seoil.capstone.som.data.network.model.ShopDTO;
 import seoil.capstone.som.data.network.model.retrofit.Shop;
 
 // 매장 api
@@ -28,10 +28,10 @@ public class ShopApi {
     // 매장 정보 요청
     public void getShopInformation(String shopId, OnFinishApiListener onFinishApiListener) {
 
-        Call<ShopData.GetRes> call = mShopInfo.getShopInformation(shopId);
-        call.enqueue(new Callback<ShopData.GetRes>() {
+        Call<ShopDTO.GetRes> call = mShopInfo.getShopInformation(shopId);
+        call.enqueue(new Callback<ShopDTO.GetRes>() {
             @Override
-            public void onResponse(Call<ShopData.GetRes> call, Response<ShopData.GetRes> response) {
+            public void onResponse(Call<ShopDTO.GetRes> call, Response<ShopDTO.GetRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -42,7 +42,7 @@ public class ShopApi {
             }
 
             @Override
-            public void onFailure(Call<ShopData.GetRes> call, Throwable t) {
+            public void onFailure(Call<ShopDTO.GetRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -52,10 +52,10 @@ public class ShopApi {
     // 키워드로 검색되는 매장 정보 요청
     public void getShopInfoWithKeyword(String keyword, int page, OnFinishApiListener onFinishApiListener) {
 
-        Call<ShopData.GetRes> call = mShopInfo.getShopInfoWithKeyword(keyword, page);
-        call.enqueue(new Callback<ShopData.GetRes>() {
+        Call<ShopDTO.GetRes> call = mShopInfo.getShopInfoWithKeyword(keyword, page);
+        call.enqueue(new Callback<ShopDTO.GetRes>() {
             @Override
-            public void onResponse(Call<ShopData.GetRes> call, Response<ShopData.GetRes> response) {
+            public void onResponse(Call<ShopDTO.GetRes> call, Response<ShopDTO.GetRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -66,7 +66,7 @@ public class ShopApi {
             }
 
             @Override
-            public void onFailure(Call<ShopData.GetRes> call, Throwable t) {
+            public void onFailure(Call<ShopDTO.GetRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -76,10 +76,10 @@ public class ShopApi {
     // 카테고리로 검색되는 매장 정보 요청
     public void getShopInfoWithCategory(String category, int page, OnFinishApiListener onFinishApiListener) {
 
-        Call<ShopData.GetRes> call = mShopInfo.getShopInfoWithCategory(category, page);
-        call.enqueue(new Callback<ShopData.GetRes>() {
+        Call<ShopDTO.GetRes> call = mShopInfo.getShopInfoWithCategory(category, page);
+        call.enqueue(new Callback<ShopDTO.GetRes>() {
             @Override
-            public void onResponse(Call<ShopData.GetRes> call, Response<ShopData.GetRes> response) {
+            public void onResponse(Call<ShopDTO.GetRes> call, Response<ShopDTO.GetRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -90,7 +90,7 @@ public class ShopApi {
             }
 
             @Override
-            public void onFailure(Call<ShopData.GetRes> call, Throwable t) {
+            public void onFailure(Call<ShopDTO.GetRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -98,12 +98,12 @@ public class ShopApi {
     }
 
     // 매장 정보 추가 요청
-    public void insertShopInfo(ShopData.InsertReq req, OnFinishApiListener onFinishApiListener) {
+    public void insertShopInfo(ShopDTO.InsertReq req, OnFinishApiListener onFinishApiListener) {
 
-        Call<ShopData.StatusRes> call = mShopInfo.insertShopInfo(req);
-        call.enqueue(new Callback<ShopData.StatusRes>() {
+        Call<ShopDTO.StatusRes> call = mShopInfo.insertShopInfo(req);
+        call.enqueue(new Callback<ShopDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<ShopData.StatusRes> call, Response<ShopData.StatusRes> response) {
+            public void onResponse(Call<ShopDTO.StatusRes> call, Response<ShopDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -114,7 +114,7 @@ public class ShopApi {
             }
 
             @Override
-            public void onFailure(Call<ShopData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<ShopDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -122,12 +122,12 @@ public class ShopApi {
     }
 
     // 매장 정보 수정 요청
-    public void updateShopInfo(ShopData.UpdateReq req, OnFinishApiListener onFinishApiListener) {
+    public void updateShopInfo(ShopDTO.UpdateReq req, OnFinishApiListener onFinishApiListener) {
 
-        Call<ShopData.StatusRes> call = mShopInfo.updateShopInfo(req);
-        call.enqueue(new Callback<ShopData.StatusRes>() {
+        Call<ShopDTO.StatusRes> call = mShopInfo.updateShopInfo(req);
+        call.enqueue(new Callback<ShopDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<ShopData.StatusRes> call, Response<ShopData.StatusRes> response) {
+            public void onResponse(Call<ShopDTO.StatusRes> call, Response<ShopDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -138,7 +138,7 @@ public class ShopApi {
             }
 
             @Override
-            public void onFailure(Call<ShopData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<ShopDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -148,10 +148,10 @@ public class ShopApi {
     // 가게 정보 삭제 요청
     public void deleteShopInfo(String shopId, String shopCode, OnFinishApiListener onFinishApiListener) {
 
-        Call<ShopData.StatusRes> call = mShopInfo.deleteShopInfo(shopId, shopCode);
-        call.enqueue(new Callback<ShopData.StatusRes>() {
+        Call<ShopDTO.StatusRes> call = mShopInfo.deleteShopInfo(shopId, shopCode);
+        call.enqueue(new Callback<ShopDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<ShopData.StatusRes> call, Response<ShopData.StatusRes> response) {
+            public void onResponse(Call<ShopDTO.StatusRes> call, Response<ShopDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -162,7 +162,7 @@ public class ShopApi {
             }
 
             @Override
-            public void onFailure(Call<ShopData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<ShopDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

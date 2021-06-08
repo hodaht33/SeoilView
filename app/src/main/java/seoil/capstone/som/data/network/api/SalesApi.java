@@ -6,7 +6,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.SalesData;
+import seoil.capstone.som.data.network.model.SalesDTO;
 import seoil.capstone.som.data.network.model.retrofit.Sales;
 
 // 매출 api
@@ -26,12 +26,12 @@ public class SalesApi {
     }
 
     // 수입 요청
-    public void getIncomeSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+    public void getIncomeSales(String shopId, String salesDate, OnFinishApiListener<SalesDTO.GetRes> onFinishApiListener) {
 
-        Call<SalesData.GetRes> call = mSalesInfo.getIncomeSales(shopId, salesDate);
-        call.enqueue(new Callback<SalesData.GetRes>() {
+        Call<SalesDTO.GetRes> call = mSalesInfo.getIncomeSales(shopId, salesDate);
+        call.enqueue(new Callback<SalesDTO.GetRes>() {
             @Override
-            public void onResponse(Call<SalesData.GetRes> call, Response<SalesData.GetRes> response) {
+            public void onResponse(Call<SalesDTO.GetRes> call, Response<SalesDTO.GetRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -42,7 +42,7 @@ public class SalesApi {
             }
 
             @Override
-            public void onFailure(Call<SalesData.GetRes> call, Throwable t) {
+            public void onFailure(Call<SalesDTO.GetRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -50,12 +50,12 @@ public class SalesApi {
     }
 
     // 지출 요청
-    public void getSpendingSales(String shopId, String salesDate, OnFinishApiListener<SalesData.GetRes> onFinishApiListener) {
+    public void getSpendingSales(String shopId, String salesDate, OnFinishApiListener<SalesDTO.GetRes> onFinishApiListener) {
 
-        Call<SalesData.GetRes> call = mSalesInfo.getSpendingSales(shopId, salesDate);
-        call.enqueue(new Callback<SalesData.GetRes>() {
+        Call<SalesDTO.GetRes> call = mSalesInfo.getSpendingSales(shopId, salesDate);
+        call.enqueue(new Callback<SalesDTO.GetRes>() {
             @Override
-            public void onResponse(Call<SalesData.GetRes> call, Response<SalesData.GetRes> response) {
+            public void onResponse(Call<SalesDTO.GetRes> call, Response<SalesDTO.GetRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -66,7 +66,7 @@ public class SalesApi {
             }
 
             @Override
-            public void onFailure(Call<SalesData.GetRes> call, Throwable t) {
+            public void onFailure(Call<SalesDTO.GetRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -74,12 +74,12 @@ public class SalesApi {
     }
 
     // 매출 통계 요청
-    public void getSalesStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetStatisticsRes> onFinishApiListener) {
+    public void getSalesStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<SalesDTO.GetStatisticsRes> onFinishApiListener) {
 
-        Call<SalesData.GetStatisticsRes> call = mSalesInfo.getStatisticsSales(shopId, startDate, endDate);
-        call.enqueue(new Callback<SalesData.GetStatisticsRes>() {
+        Call<SalesDTO.GetStatisticsRes> call = mSalesInfo.getStatisticsSales(shopId, startDate, endDate);
+        call.enqueue(new Callback<SalesDTO.GetStatisticsRes>() {
             @Override
-            public void onResponse(Call<SalesData.GetStatisticsRes> call, Response<SalesData.GetStatisticsRes> response) {
+            public void onResponse(Call<SalesDTO.GetStatisticsRes> call, Response<SalesDTO.GetStatisticsRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -90,7 +90,7 @@ public class SalesApi {
             }
 
             @Override
-            public void onFailure(Call<SalesData.GetStatisticsRes> call, Throwable t) {
+            public void onFailure(Call<SalesDTO.GetStatisticsRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -98,12 +98,12 @@ public class SalesApi {
     }
 
     // 날짜와 함께 매출 추가 요청
-    public void insertSalesWithDate(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+    public void insertSalesWithDate(SalesDTO.Req req, OnFinishApiListener<SalesDTO.StatusRes> onFinishApiListener) {
 
-        Call<SalesData.StatusRes> call = mSalesInfo.insertSalesWithDate(req);
-        call.enqueue(new Callback<SalesData.StatusRes>() {
+        Call<SalesDTO.StatusRes> call = mSalesInfo.insertSalesWithDate(req);
+        call.enqueue(new Callback<SalesDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<SalesData.StatusRes> call, Response<SalesData.StatusRes> response) {
+            public void onResponse(Call<SalesDTO.StatusRes> call, Response<SalesDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -114,7 +114,7 @@ public class SalesApi {
             }
 
             @Override
-            public void onFailure(Call<SalesData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<SalesDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -122,12 +122,12 @@ public class SalesApi {
     }
 
     // 매출 추가 요청(금일 날짜로 추가)
-    public void insertSales(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+    public void insertSales(SalesDTO.Req req, OnFinishApiListener<SalesDTO.StatusRes> onFinishApiListener) {
 
-        Call<SalesData.StatusRes> call = mSalesInfo.insertSales(req);
-        call.enqueue(new Callback<SalesData.StatusRes>() {
+        Call<SalesDTO.StatusRes> call = mSalesInfo.insertSales(req);
+        call.enqueue(new Callback<SalesDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<SalesData.StatusRes> call, Response<SalesData.StatusRes> response) {
+            public void onResponse(Call<SalesDTO.StatusRes> call, Response<SalesDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -138,7 +138,7 @@ public class SalesApi {
             }
 
             @Override
-            public void onFailure(Call<SalesData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<SalesDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -146,12 +146,12 @@ public class SalesApi {
     }
 
     // 지출 수정 요청
-    public void updateSpendingSales(SalesData.Req req, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+    public void updateSpendingSales(SalesDTO.Req req, OnFinishApiListener<SalesDTO.StatusRes> onFinishApiListener) {
 
-        Call<SalesData.StatusRes> call = mSalesInfo.updateSpendingSales(req);
-        call.enqueue(new Callback<SalesData.StatusRes>() {
+        Call<SalesDTO.StatusRes> call = mSalesInfo.updateSpendingSales(req);
+        call.enqueue(new Callback<SalesDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<SalesData.StatusRes> call, Response<SalesData.StatusRes> response) {
+            public void onResponse(Call<SalesDTO.StatusRes> call, Response<SalesDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -162,7 +162,7 @@ public class SalesApi {
             }
 
             @Override
-            public void onFailure(Call<SalesData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<SalesDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -170,12 +170,12 @@ public class SalesApi {
     }
 
     // 지출 삭제 요청
-    public void deleteSpendingSales(String shopId, int salesCode, String salesDate, OnFinishApiListener<SalesData.StatusRes> onFinishApiListener) {
+    public void deleteSpendingSales(String shopId, int salesCode, String salesDate, OnFinishApiListener<SalesDTO.StatusRes> onFinishApiListener) {
 
-        Call<SalesData.StatusRes> call = mSalesInfo.deleteSpendingSales(shopId, salesCode, salesDate);
-        call.enqueue(new Callback<SalesData.StatusRes>() {
+        Call<SalesDTO.StatusRes> call = mSalesInfo.deleteSpendingSales(shopId, salesCode, salesDate);
+        call.enqueue(new Callback<SalesDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<SalesData.StatusRes> call, Response<SalesData.StatusRes> response) {
+            public void onResponse(Call<SalesDTO.StatusRes> call, Response<SalesDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -186,7 +186,7 @@ public class SalesApi {
             }
 
             @Override
-            public void onFailure(Call<SalesData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<SalesDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

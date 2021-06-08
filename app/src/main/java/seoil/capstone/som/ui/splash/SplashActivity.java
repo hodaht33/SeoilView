@@ -18,11 +18,13 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.ui.login.LoginActivity;
 import seoil.capstone.som.ui.main.MainActivity;
 
+// 시작 스플래시 뷰(액티비티)
 public class SplashActivity extends AppCompatActivity implements SplashContract.View {
 
     private SharedPreferences mSharedPreferences;
     private SplashPresenter mPresenter;
 
+    // 프레젠터 생성, 로그인 상태 유지가 되어있는지 검사
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         keepLogin();
     }
 
+    // 프레젠터 삭제
     @Override
     protected void onDestroy() {
 
@@ -48,6 +51,8 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         super.onDestroy();
     }
 
+    // sharedPreferences에 아이디와 비밀번호가 저장되어 있으면 로그인
+    // TODO: 추후 비밀번호가 아닌 손님 또는 점주에 따른 정보만 저장해두고 서버에 로그인 요청을 하지 않도록 변경
     private void keepLogin() {
 
         String id = mSharedPreferences.getString("id","");
@@ -64,6 +69,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         }
     }
 
+    // 메인 뷰 또는 로그인 뷰로 화면 전환
     @Override
     public void changeView(boolean isMain) {
 
@@ -77,7 +83,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
             intent.setComponent(new ComponentName(this, LoginActivity.class));
         }
 
-        // 3초 지연시간 후 해당 액티비티로 전환
+        // 2초 지연시간 후 해당 액티비티로 전환
         Handler delayHandler = new Handler(Looper.getMainLooper());
         delayHandler.postDelayed(new Runnable() {
             @Override
@@ -86,7 +92,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
                 startActivity(intent);
                 finish();
             }
-        }, 3000);
+        }, 2000);
     }
 
     @Override

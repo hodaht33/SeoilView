@@ -6,7 +6,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.StockData;
+import seoil.capstone.som.data.network.model.StockDTO;
 import seoil.capstone.som.data.network.model.retrofit.Stock;
 
 // 재고 api
@@ -26,12 +26,12 @@ public class StockApi {
     }
 
     // 재고 정보 요청
-    public void getStock(String shopId , OnFinishApiListener<StockData.GetRes> onFinishApiListener) {
+    public void getStock(String shopId , OnFinishApiListener<StockDTO.GetRes> onFinishApiListener) {
 
-        Call<StockData.GetRes> call = mStockData.getStock(shopId);
-        call.enqueue(new Callback<StockData.GetRes>() {
+        Call<StockDTO.GetRes> call = mStockData.getStock(shopId);
+        call.enqueue(new Callback<StockDTO.GetRes>() {
             @Override
-            public void onResponse(Call<StockData.GetRes> call, Response<StockData.GetRes> response) {
+            public void onResponse(Call<StockDTO.GetRes> call, Response<StockDTO.GetRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -42,7 +42,7 @@ public class StockApi {
             }
 
             @Override
-            public void onFailure(Call<StockData.GetRes> call, Throwable t) {
+            public void onFailure(Call<StockDTO.GetRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -50,12 +50,12 @@ public class StockApi {
     }
 
     // 재고 추가 요청
-    public void insertStock(StockData.Req req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+    public void insertStock(StockDTO.Req req, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
 
-        Call<StockData.StatusRes> call = mStockData.insertStock(req);
-        call.enqueue(new Callback<StockData.StatusRes>() {
+        Call<StockDTO.StatusRes> call = mStockData.insertStock(req);
+        call.enqueue(new Callback<StockDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<StockData.StatusRes> call, Response<StockData.StatusRes> response) {
+            public void onResponse(Call<StockDTO.StatusRes> call, Response<StockDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -66,7 +66,7 @@ public class StockApi {
             }
 
             @Override
-            public void onFailure(Call<StockData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<StockDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -74,12 +74,12 @@ public class StockApi {
     }
 
     // 재고 수량 수정 요청
-    public void updateStockAmount(StockData.Req req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+    public void updateStockAmount(StockDTO.Req req, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
 
-        Call<StockData.StatusRes> call = mStockData.updateStockAmount(req);
-        call.enqueue(new Callback<StockData.StatusRes>() {
+        Call<StockDTO.StatusRes> call = mStockData.updateStockAmount(req);
+        call.enqueue(new Callback<StockDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<StockData.StatusRes> call, Response<StockData.StatusRes> response) {
+            public void onResponse(Call<StockDTO.StatusRes> call, Response<StockDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -90,7 +90,7 @@ public class StockApi {
             }
 
             @Override
-            public void onFailure(Call<StockData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<StockDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -98,12 +98,12 @@ public class StockApi {
     }
 
     // 재고 수정 요청
-    public void updateStock(StockData.UpdateAllReq req, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+    public void updateStock(StockDTO.UpdateAllReq req, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
 
-        Call<StockData.StatusRes> call = mStockData.updateStock(req);
-        call.enqueue(new Callback<StockData.StatusRes>() {
+        Call<StockDTO.StatusRes> call = mStockData.updateStock(req);
+        call.enqueue(new Callback<StockDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<StockData.StatusRes> call, Response<StockData.StatusRes> response) {
+            public void onResponse(Call<StockDTO.StatusRes> call, Response<StockDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -114,7 +114,7 @@ public class StockApi {
             }
 
             @Override
-            public void onFailure(Call<StockData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<StockDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }
@@ -122,12 +122,12 @@ public class StockApi {
     }
 
     // 재고 삭제 요청
-    public void deleteStock(String shopId, String stockName, OnFinishApiListener<StockData.StatusRes> onFinishApiListener) {
+    public void deleteStock(String shopId, String stockName, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
 
-        Call<StockData.StatusRes> call = mStockData.deleteStock(shopId, stockName);
-        call.enqueue(new Callback<StockData.StatusRes>() {
+        Call<StockDTO.StatusRes> call = mStockData.deleteStock(shopId, stockName);
+        call.enqueue(new Callback<StockDTO.StatusRes>() {
             @Override
-            public void onResponse(Call<StockData.StatusRes> call, Response<StockData.StatusRes> response) {
+            public void onResponse(Call<StockDTO.StatusRes> call, Response<StockDTO.StatusRes> response) {
 
                 if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
 
@@ -138,7 +138,7 @@ public class StockApi {
             }
 
             @Override
-            public void onFailure(Call<StockData.StatusRes> call, Throwable t) {
+            public void onFailure(Call<StockDTO.StatusRes> call, Throwable t) {
 
                 onFinishApiListener.onFailure(t);
             }

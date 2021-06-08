@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 // 사용자 DTO
-public class UserData {
+public class UserDTO {
 
     /////////
     // 요청 //

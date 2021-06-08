@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.SalesData;
-import seoil.capstone.som.data.network.model.StatisticsData;
-import seoil.capstone.som.data.network.model.StockData;
+import seoil.capstone.som.data.network.model.SalesDTO;
+import seoil.capstone.som.data.network.model.StatisticsDTO;
 
 public interface ManagerStatisticsContract {
 
@@ -25,10 +24,10 @@ public interface ManagerStatisticsContract {
 
     interface Interactor extends BaseContract.Interactor {
 
-        void getSalesStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<SalesData.GetStatisticsRes> onFinishApiListener);
+        void getSalesStatistics(String shopId, String startDate, String endDate, OnFinishApiListener<SalesDTO.GetStatisticsRes> onFinishApiListener);
 
-        void getGenderTotal (String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsData.GetGenderRes> onFinishApiListener);
+        void getGenderTotal (String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsDTO.GetGenderRes> onFinishApiListener);
 
-        void getAgeTotal (String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsData.GetAgeGroupRes> onFinishApiListener);
+        void getAgeTotal (String shopId, String startDate, String endDate, OnFinishApiListener<StatisticsDTO.GetAgeGroupRes> onFinishApiListener);
     }
 }
