@@ -7,8 +7,7 @@ import java.util.List;
 
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.ShopApi;
-import seoil.capstone.som.data.network.model.ShopData;
-import seoil.capstone.som.data.network.model.ShopData;
+import seoil.capstone.som.data.network.model.ShopDTO;
 import seoil.capstone.som.data.network.model.retrofit.Shop;
 
 public class CustomerSearchPresenter implements CustomerSearchContract.Presenter {
@@ -40,16 +39,16 @@ public class CustomerSearchPresenter implements CustomerSearchContract.Presenter
 
     public void getShop(String shopId){
 
-        OnFinishApiListener<ShopData.GetRes> onFinishApiListener = new OnFinishApiListener<ShopData.GetRes>() {
+        OnFinishApiListener<ShopDTO.GetRes> onFinishApiListener = new OnFinishApiListener<ShopDTO.GetRes>() {
             @Override
-            public void onSuccess(ShopData.GetRes getRes) {
+            public void onSuccess(ShopDTO.GetRes getRes) {
                 if(getRes.getStatus() == ShopApi.SUCCESS){
 
-                    List<ShopData.GetRes.Result> list = getRes.getResults();
+                    List<ShopDTO.GetRes.Result> list = getRes.getResults();
 
                     ArrayList<String> ShopName = new ArrayList<>();
                     ArrayList<String> ShopAddress = new ArrayList<>();
-                    for (ShopData.GetRes.Result result : list){
+                    for (ShopDTO.GetRes.Result result : list){
 
                         ShopName.add(result.getShopName());
                         ShopName.add(result.getShopAddress());
@@ -71,9 +70,9 @@ public class CustomerSearchPresenter implements CustomerSearchContract.Presenter
 
     public void insertShop(String ShopId, String ShopName, String ShopAddrees){
 
-        OnFinishApiListener<ShopData.StatusRes> onFinishApiListener = new OnFinishApiListener<ShopData.StatusRes>() {
+        OnFinishApiListener<ShopDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<ShopDTO.StatusRes>() {
             @Override
-            public void onSuccess(ShopData.StatusRes statusRes) {
+            public void onSuccess(ShopDTO.StatusRes statusRes) {
 
                 view.initShop();
             }

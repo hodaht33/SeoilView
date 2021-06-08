@@ -4,15 +4,14 @@ import java.util.ArrayList;
 
 import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
-import seoil.capstone.som.data.network.model.ShopData;
-import seoil.capstone.som.data.network.model.ShopData;
+import seoil.capstone.som.data.network.model.ShopDTO;
 
 public interface CustomerSearchContract {
 
     interface Interactor extends BaseContract.Interactor{
-        void getShop(String shopId, OnFinishApiListener<ShopData.GetRes> onFinishApiListener);
+        void getShop(String shopId, OnFinishApiListener<ShopDTO.GetRes> onFinishApiListener);
 
-        void insertShop(String ShopId, String ShopName, String ShopAddress, OnFinishApiListener<ShopData.StatusRes> onFinishApiListener);
+        void insertShop(String ShopId, String ShopName, String ShopAddress, OnFinishApiListener<ShopDTO.StatusRes> onFinishApiListener);
     }
 
     interface View extends BaseContract.View {
