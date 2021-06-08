@@ -40,6 +40,7 @@ import seoil.capstone.som.util.Utility;
     private final int SELECTED_SALES = 0;
     private final int SELECTED_AGE = 1;
     private final int SELECTED_GENDER = 2;
+    private int selectedIndex;
 
     //선택 날짜 저장
     private int mFirstYear, mFirstMonth, mFirstDay;
@@ -80,6 +81,8 @@ import seoil.capstone.som.util.Utility;
 
         isBtnStartDateSelected = false;
         isBtnEndDateSelected = false;
+
+        selectedIndex = SELECTED_SALES;
 
         mSalesData = new ArrayList<>();
 
@@ -269,16 +272,19 @@ import seoil.capstone.som.util.Utility;
 
                     mChartView.setVisibility(View.GONE);
                     mRecyclerViewMain.setVisibility(View.VISIBLE);
+                    selectedIndex = SELECTED_SALES;
                 } else if (id == SELECTED_AGE) {        //현재 선택된 탭이 나이대 별 통계일 때
 
                     mChartView.setVisibility(View.VISIBLE);
                     mRecyclerViewMain.setVisibility(View.GONE);
+                    selectedIndex = SELECTED_AGE;
                     mPieChart.title("나이 통계");
                     mPieChart.data(mAgeStatistics);
                 } else if (id == SELECTED_GENDER) {     //현재 선택된 탭이 성별 통계일 때
 
                     mChartView.setVisibility(View.VISIBLE);
                     mRecyclerViewMain.setVisibility(View.GONE);
+                    selectedIndex = SELECTED_GENDER;
                     mPieChart.title("성별 통계");
                     mPieChart.data(mGenderStatistics);
                 }
@@ -320,6 +326,10 @@ import seoil.capstone.som.util.Utility;
      public void setGenderChart(ArrayList<DataEntry> genderData) {
 
         mGenderStatistics = genderData;
+        if (selectedIndex == SELECTED_GENDER) {     //현재 탭이 성별일 때 차트 데이터 설정
+
+            mPieChart.data(mGenderStatistics);
+        }
      }
 
      //프레젠터에서 나이대 별 통계 전달
@@ -327,6 +337,10 @@ import seoil.capstone.som.util.Utility;
      public void setAgeChart(ArrayList<DataEntry> ageData) {
 
         mAgeStatistics = ageData;
+         if (selectedIndex == SELECTED_AGE) {       //현재 탭이 나이일 때 차트 데이터 설정
+
+             mPieChart.data(mAgeStatistics);
+         }
      }
 
      //프레젠터에서 일별 통계 전달
