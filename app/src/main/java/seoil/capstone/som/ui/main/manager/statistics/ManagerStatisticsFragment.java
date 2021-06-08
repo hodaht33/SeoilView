@@ -78,7 +78,7 @@ import seoil.capstone.som.util.Utility;
         mPresenter.createInteractor();
         mPresenter.setView(this);
 
-        isBtnEndDateSelected = false;
+        isBtnStartDateSelected = false;
         isBtnEndDateSelected = false;
 
         mSalesData = new ArrayList<>();
@@ -168,6 +168,12 @@ import seoil.capstone.som.util.Utility;
                     mBtnStartDate.setText(mStartDateQuery);
 
                     isBtnStartDateSelected = true;
+                    isBtnEndDateSelected = false;
+                    mBtnEndDate.setText("종료 날짜");
+                    mLateYear = -1;
+                    mLateMonth = -1;
+                    mLateDay = -1;
+                    mEndDateQuery = "";
                 }
             },year, month - 1, day );
 
@@ -225,10 +231,7 @@ import seoil.capstone.som.util.Utility;
             if (!isBtnStartDateSelected) {                  //시작 날짜가 선택되지 않을 경우
 
                 showDialog("시작 날짜를 선택해주세요.");
-            } else if (!isBtnEndDateSelected ||
-                    mFirstYear > mLateYear ||
-                    (mFirstMonth > mLateYear && mFirstYear == mLateYear) ||
-                    (mFirstYear == mLateYear && mFirstMonth == mLateMonth && mFirstDay > mLateDay)) {       //종료 날짜가 선택 되지 않거나 잘못 선택된 경우
+            } else if (!isBtnEndDateSelected) {       //종료 날짜가 선택 되지 않았을 때
 
                 showDialog("종료 날짜를 선택해주세요.");
             } else {//날짜 선택 완료시 데이터 조회
