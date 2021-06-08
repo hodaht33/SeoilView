@@ -2,6 +2,8 @@
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,9 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.charts.Pie;
+import com.anychart.enums.Align;
+import com.anychart.enums.LegendLayout;
 import com.google.android.material.tabs.TabLayout;
 
 import java.text.SimpleDateFormat;
@@ -25,27 +32,37 @@ import java.util.Date;
 
 import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
+import seoil.capstone.som.util.Utility;
 
-public class ManagerStatisticsFragment extends Fragment implements ManagerStatisticsContract.View, View.OnClickListener{
-
+ public class ManagerStatisticsFragment extends Fragment implements ManagerStatisticsContract.View, View.OnClickListener{
+     
+    //탭 구분 
     private final int SELECTED_SALES = 0;
     private final int SELECTED_AGE = 1;
     private final int SELECTED_GENDER = 2;
+
+    //선택 날짜 저장
     private int mFirstYear, mFirstMonth, mFirstDay;
     private int mLateYear, mLateMonth, mLateDay;
-    private Button mBtnStartDate;
-    private Button mBtnEndDate;
     private String mStartDateQuery, mEndDateQuery;
-    private String mShopId;
-    private int selectedIndexMain;
-    private Boolean isBtnStartDateSelected;
-    private Boolean isBtnEndDateSelected;
-    private ManagerStatisticsPresenter mPresenter;
-    private TabLayout mTabLayoutMain;
-    private RecyclerView mRecyclerViewMain;
-    private ArrayList<ManagerStatisticsAdapter.Item> testData;
-    private ManagerStatisticsAdapter mAdapter;
-    private AnyChartView mChartView;
+
+    private Button mBtnStartDate;                                   //시작 날짜 선택 버튼
+    private Button mBtnEndDate;                                     //종료 날짜 선택 버튼
+
+    private String mShopId;                                         //점주의 아이디
+    private Boolean isBtnStartDateSelected;                         //시작 날짜 선택 확인 변수
+    private Boolean isBtnEndDateSelected;                           //종료 날짜 선택 확인 변수
+    private ManagerStatisticsPresenter mPresenter;                  //점주 통계 프레그먼트의 프레젠터
+    private TabLayout mTabLayoutMain;                               //점주 통계 프레그먼트의 탭
+    private RecyclerView mRecyclerViewMain;                         //점주 통계 프레그먼트의 매출 리사이클러뷰
+    private ArrayList<ManagerStatisticsAdapter.Item> mSalesData;    //매출 통계 정보
+    private ManagerStatisticsAdapter mAdapter;                      //점주 통계 프레그먼트의 리사이클러뷰의 어댑터
+    private AnyChartView mChartView;                                //차트를 보여줄 뷰
+    private Pie mPieChart;                                          //차트 정보
+    private Dialog mDialog;                                         //확인창
+    private ImageView mImageViewDate;                               //조회 버튼
+    private ArrayList<DataEntry> mAgeStatistics;                    //나이대 별 통계 정보
+    private ArrayList<DataEntry> mGenderStatistics;                 //성별 통계 정보
 
 
 
@@ -64,20 +81,10 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         isBtnEndDateSelected = false;
         isBtnEndDateSelected = false;
 
-        selectedIndexMain = SELECTED_SALES;
+        mSalesData = new ArrayList<>();
 
-        testData = new ArrayList<>();
-
-        for (int i = 1; i < 10; i ++) {
-
-            ManagerStatisticsAdapter.Item temp = new ManagerStatisticsAdapter.Item();
-            temp.date = "2021-01-0" + String.valueOf(i);
-            temp.sales = String.valueOf(2 * i);
-            temp.cost = String.valueOf(3* i);
-            testData.add(temp);
-        }
-
-        mAdapter = new ManagerStatisticsAdapter(testData);
+        mAgeStatistics = new ArrayList<>();
+        mGenderStatistics = new ArrayList<>();
     }
 
     @Override
@@ -88,6 +95,9 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         initView(view);
         initListener();
 
+        mPieChart = makePieChart();
+        mChartView.setChart(mPieChart);
+
         mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("매출"), SELECTED_SALES);
         mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("나이"), SELECTED_AGE);
         mTabLayoutMain.addTab(mTabLayoutMain.newTab().setText("성별"), SELECTED_GENDER);
@@ -95,8 +105,8 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         mShopId = ((GlobalApplication) getActivity().getApplicationContext()).getUserId();
 
         mRecyclerViewMain.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAdapter = new ManagerStatisticsAdapter(mSalesData);
         mRecyclerViewMain.setAdapter(mAdapter);
-        mAdapter.setData(testData);
 
         return view;
     }
@@ -114,8 +124,24 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
     @Override
     public void showDialog(String msg) {
 
+        DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (mDialog != null) {
+
+                    mDialog = null;
+                }
+            }
+        };
+
+        if (mDialog == null) {
+
+            Utility.getInstance().showDialog(mDialog, msg, getContext(), onClickListener);
+        }
     }
 
+    //날짜 선택
     private void showDate(Boolean flag) {
 
         DatePickerDialog datePickerDialog;
@@ -145,8 +171,7 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
                 }
             },year, month - 1, day );
 
-
-            date.set(year, month - 1, day);
+            date.set(2021, 0, 0);
             datePickerDialog.getDatePicker().setMinDate(date.getTime().getTime());
         } else {                    //종료 날짜 선택
 
@@ -177,6 +202,42 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
     @Override
     public void onClick(View v) {
 
+        int viewId = v.getId();
+
+        if (viewId == R.id.btnMStatisticsStartDate) {       //시작 날짜 선택 버튼
+
+            showDate(true);
+        }
+
+        if (viewId == R.id.btnMStatisticsEndDate) {         //종료 날짜 선택 버튼
+
+            if (!isBtnStartDateSelected) {
+
+                showDialog("시작 날짜를 선택해주세요.");
+            } else {
+
+                showDate(false);
+            }
+        }
+
+        if (viewId == R.id.imageViewMStatisticsSelect) {    //조회 이미지 버튼
+
+            if (!isBtnStartDateSelected) {                  //시작 날짜가 선택되지 않을 경우
+
+                showDialog("시작 날짜를 선택해주세요.");
+            } else if (!isBtnEndDateSelected ||
+                    mFirstYear > mLateYear ||
+                    (mFirstMonth > mLateYear && mFirstYear == mLateYear) ||
+                    (mFirstYear == mLateYear && mFirstMonth == mLateMonth && mFirstDay > mLateDay)) {       //종료 날짜가 선택 되지 않거나 잘못 선택된 경우
+
+                showDialog("종료 날짜를 선택해주세요.");
+            } else {//날짜 선택 완료시 데이터 조회
+
+                mPresenter.getDailySales(mShopId, mStartDateQuery, mEndDateQuery);
+                mPresenter.getGenderTotal(mShopId, mStartDateQuery, mEndDateQuery);
+                mPresenter.getAgeTotal(mShopId, mStartDateQuery, mEndDateQuery);
+            }
+        }
     }
 
     private void initView(View view) {
@@ -186,12 +247,14 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
         mTabLayoutMain = view.findViewById(R.id.tabLayoutMStatisticsSelectView);
         mRecyclerViewMain = view.findViewById(R.id.recyclerViewMStatisticsSales);
         mChartView = view.findViewById(R.id.anyChartViewMStatistics);
+        mImageViewDate = view.findViewById(R.id.imageViewMStatisticsSelect);
     }
 
     private void initListener() {
 
         mBtnStartDate.setOnClickListener(this);
         mBtnEndDate.setOnClickListener(this);
+        mImageViewDate.setOnClickListener(this);
 
         mTabLayoutMain.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -199,18 +262,22 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
 
                 int id = tab.getPosition();
 
-                if (id == SELECTED_SALES) {
+                if (id == SELECTED_SALES) {             //현재 선택된 탭이 매출일 때
 
                     mChartView.setVisibility(View.GONE);
                     mRecyclerViewMain.setVisibility(View.VISIBLE);
-                } else if (id == SELECTED_AGE) {
+                } else if (id == SELECTED_AGE) {        //현재 선택된 탭이 나이대 별 통계일 때
 
                     mChartView.setVisibility(View.VISIBLE);
                     mRecyclerViewMain.setVisibility(View.GONE);
-                } else if (id == SELECTED_GENDER) {
+                    mPieChart.title("나이 통계");
+                    mPieChart.data(mAgeStatistics);
+                } else if (id == SELECTED_GENDER) {     //현재 선택된 탭이 성별 통계일 때
 
                     mChartView.setVisibility(View.VISIBLE);
                     mRecyclerViewMain.setVisibility(View.GONE);
+                    mPieChart.title("성별 통계");
+                    mPieChart.data(mGenderStatistics);
                 }
             }
 
@@ -225,22 +292,45 @@ public class ManagerStatisticsFragment extends Fragment implements ManagerStatis
             }
         });
     }
+    
+    private Pie makePieChart() {        //차트 생성 및 초기화
 
+        Pie pie = AnyChart.pie();
 
-    @Override
-    public void sendSalesData(ArrayList<String> listDates, ArrayList<Integer> listAmounts) {
+        pie.labels().position("outside");
 
+        pie.legend().title().enabled(true);
+        pie.legend().title()
+                .text("분류")
+                .padding(0d, 0d, 10d, 0d);
+
+        pie.legend()
+                .position("center-bottom")
+                .itemsLayout(LegendLayout.HORIZONTAL)
+                .align(Align.CENTER);
+
+        return pie;
     }
+    
+    //프레젠터에서 성별 통계 전달
+     @Override
+     public void setGenderChart(ArrayList<DataEntry> genderData) {
 
-    @Override
-    public void sendGenderTotal(ArrayList<String> genderList, ArrayList<Integer> countList) {
+        mGenderStatistics = genderData;
+     }
 
+     //프레젠터에서 나이대 별 통계 전달
+     @Override
+     public void setAgeChart(ArrayList<DataEntry> ageData) {
 
-    }
+        mAgeStatistics = ageData;
+     }
 
-    @Override
-    public void sendAgeTotal(ArrayList<String> ageList, ArrayList<Integer> amountList) {
+     //프레젠터에서 일별 통계 전달
+     @Override
+     public void setAdapterDaily(ArrayList<ManagerStatisticsAdapter.Item> salesData) {
 
-
-    }
-}
+        mSalesData = salesData;
+        mAdapter.setData(salesData);
+     }
+ }

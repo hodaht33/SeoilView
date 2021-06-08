@@ -14,12 +14,14 @@ import seoil.capstone.som.R;
 
 public class ManagerStatisticsAdapter extends RecyclerView.Adapter<ManagerStatisticsAdapter.ViewHolder> {
 
-    private ArrayList<Item> data;
+    private ArrayList<Item> data;       //점주 통계 어댑터의 데이터
 
-    public ManagerStatisticsAdapter(ArrayList<Item> data) {
+    public ManagerStatisticsAdapter(ArrayList<Item> data) {     //점주 통계 어댑터의 생성자
 
         this.data = data;
     }
+    
+    //뷰 홀더가 생성될 때
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,13 +31,31 @@ public class ManagerStatisticsAdapter extends RecyclerView.Adapter<ManagerStatis
         return new ViewHolder(view);
     }
 
+    //데이터가 뷰 홀더에 적용될 때
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         final Item temp = data.get(position);
         holder.textViewDate.setText(temp.date);
-        holder.textViewSales.setText(temp.sales);
-        holder.textViewCost.setText(temp.cost);
+
+        if (temp.sales == null) {               //매출의 널값 처리
+
+            holder.textViewSales.setText("0원");
+        } else {
+
+            final String tempSales = temp.sales + "원";
+            holder.textViewSales.setText(tempSales);
+        }
+
+        if (temp.cost == null) {                //지출의 널값 처리
+
+            holder.textViewCost.setText("0원");
+        } else {
+
+            final String tempCost = Math.abs(temp.cost) + "원";
+            holder.textViewCost.setText(tempCost);
+        }
+
     }
 
     @Override
@@ -47,6 +67,7 @@ public class ManagerStatisticsAdapter extends RecyclerView.Adapter<ManagerStatis
         return data.size();
     }
 
+    //점주 통계 어댑터의 뷰홀더
     static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView textViewDate;
@@ -62,16 +83,48 @@ public class ManagerStatisticsAdapter extends RecyclerView.Adapter<ManagerStatis
         }
     }
 
+    //점주 통계 어댑터에서 사용하는 아이템 형식
     public static class Item {
 
         String date;
-        String sales;
-        String cost;
+        Integer sales;
+        Integer cost;
+
+        public Item(String date, Integer sales, Integer cost) {
+
+            this.date = date;
+            this.sales = sales;
+            this.cost = cost;
+        }
     }
 
+    //데이터 초기화
+    private void clear() {
+
+        if (data == null) {
+
+            return;
+        }
+
+        int size = data.size();
+
+        if (data.size() > 0) {
+            data.subList(0, data.size()).clear();
+        }
+
+        notifyItemMoved(size, 0);
+    }
+
+    //어댑터의 데이터를 외부에서 전달받은 데이터로 설정
     public void setData(ArrayList<Item> data) {
 
-        this.data = data;
-        notifyDataSetChanged();
+        if (data == null) {
+
+            clear();
+        } else {
+
+            this.data = data;
+            notifyDataSetChanged();
+        }
     }
 }
