@@ -1,6 +1,7 @@
 package seoil.capstone.som.ui.main.customer.search;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,8 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.ShopApi;
 import seoil.capstone.som.data.network.model.ShopDTO;
 import seoil.capstone.som.data.network.model.retrofit.Shop;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class CustomerSearchPresenter implements CustomerSearchContract.Presenter {
 
@@ -28,34 +31,77 @@ public class CustomerSearchPresenter implements CustomerSearchContract.Presenter
 
     @Override
     public void createInteractor() {
-
+        mInteractor = new CustomerSearchInteractor();
     }
 
     @Override
     public void releaseInteractor() {
-
+        mInteractor = null;
     }
 
+    //ShopID검색
+    public void getShop(String shopName){
 
-    public void getShop(String shopId){
+        OnFinishApiListener<ShopDTO.GetRes> onFinishApiListener = new OnFinishApiListener<ShopDTO.GetRes>() {
+
+            ArrayList<String> ShopName = new ArrayList<>();
+            ArrayList<String> ShopCategory = new ArrayList<>();
+
+            @Override
+            public void onSuccess(ShopDTO.GetRes getRes) {
+
+                if(getRes.getStatus() == ShopApi.SUCCESS){ //검색 한 값이 shopID가 맞으면
+
+                    Log.d("tag", "SHOPID Acsses");
+                    List<ShopDTO.GetRes.Result> list = getRes.getResults();
+
+                    for (ShopDTO.GetRes.Result result : list){
+
+                        ShopName.add(result.getShopName());
+                        ShopCategory.add(result.getShopCategory());
+
+                    }
+                    view.setLayoutAdapterShop(ShopName, ShopCategory);
+                } else{
+
+                    Log.d("tag", "ShopId NoneData");
+
+                }
+            }
+            @Override
+            public void onFailure(Throwable t) {
+
+                Log.d("tag", "Fail");
+            }
+        };
+        mInteractor.getShop(shopName, onFinishApiListener);
+    }
+
+    //가게이름 검색
+    public void getShopKeyword(String keyword, int page){
+
+        ArrayList<String> ShopName = new ArrayList<>();
+        ArrayList<String> ShopCategory = new ArrayList<>();
 
         OnFinishApiListener<ShopDTO.GetRes> onFinishApiListener = new OnFinishApiListener<ShopDTO.GetRes>() {
             @Override
             public void onSuccess(ShopDTO.GetRes getRes) {
-                if(getRes.getStatus() == ShopApi.SUCCESS){
 
+                if(getRes.getStatus() == ShopApi.SUCCESS){ //검색 한 값이 shopID가 맞으면
+
+                    Log.d("tag", "가게 접속성공");
                     List<ShopDTO.GetRes.Result> list = getRes.getResults();
 
-                    ArrayList<String> ShopName = new ArrayList<>();
-                    ArrayList<String> ShopAddress = new ArrayList<>();
                     for (ShopDTO.GetRes.Result result : list){
 
                         ShopName.add(result.getShopName());
-                        ShopName.add(result.getShopAddress());
+                        ShopCategory.add(result.getShopCategory());
 
                     }
-                    view.setLayoutAdapterShop(ShopName, ShopAddress);
+                    view.setLayoutAdapterShop(ShopName, ShopCategory);
                 } else{
+
+                    Log.d("tag", "nonedate");
 
                 }
             }
@@ -63,28 +109,48 @@ public class CustomerSearchPresenter implements CustomerSearchContract.Presenter
             @Override
             public void onFailure(Throwable t) {
 
+                Log.d("tag", "Fail");
             }
         };
-        mInteractor.getShop(shopId, onFinishApiListener);
+        mInteractor.getShopKeyword(keyword, page, onFinishApiListener);
     }
 
-    public void insertShop(String ShopId, String ShopName, String ShopAddrees){
+    //카테고리 검색
+    public void getShopKeywordCategory(String category, int page){
 
-        OnFinishApiListener<ShopDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<ShopDTO.StatusRes>() {
+        ArrayList<String> ShopName = new ArrayList<>();
+        ArrayList<String> ShopCategory = new ArrayList<>();
+
+        OnFinishApiListener<ShopDTO.GetRes> onFinishApiListener = new OnFinishApiListener<ShopDTO.GetRes>() {
             @Override
-            public void onSuccess(ShopDTO.StatusRes statusRes) {
+            public void onSuccess(ShopDTO.GetRes getRes) {
 
-                view.initShop();
+                if(getRes.getStatus() == ShopApi.SUCCESS){
+
+                    Log.d("tag", "카테고리 접속성공");
+                    List<ShopDTO.GetRes.Result> list = getRes.getResults();
+
+                    for (ShopDTO.GetRes.Result result : list){
+
+                        ShopName.add(result.getShopName());
+                        ShopCategory.add(result.getShopCategory());
+
+                    }
+                    view.setLayoutAdapterShop(ShopName, ShopCategory);
+                } else{
+
+                    view.showDialog("검색 된 가계가 없습니다.");
+                    Log.d("tag", "nonedate");
+
+                }
             }
-
             @Override
             public void onFailure(Throwable t) {
-
-                Log.d("setShop",t.getMessage());
-
+                Log.d("tag", "Fail");
             }
         };
-        mInteractor.insertShop(ShopId, ShopName, ShopAddrees, onFinishApiListener);
+
+        mInteractor.getShopKeywordCategory(category, page, onFinishApiListener);
 
     }
 }
