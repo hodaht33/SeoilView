@@ -29,8 +29,7 @@ public class Utility {
     }
 
     public Utility() {
-
-        mProgressProcess = new ProgressProcess();
+        
     }
 
     // 키보드 활성화
@@ -50,6 +49,8 @@ public class Utility {
     // 로딩 창 활성화
     public void activateProgressAnim(Context context, ConstraintLayout layout) {
 
+        mProgressProcess = new ProgressProcess();
+
         float density = context.getResources().getDisplayMetrics().density;
 
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -68,6 +69,7 @@ public class Utility {
     public void deactivateProgressAnim() {
 
         mProgressProcess.endProgress();
+        mProgressProcess = null;
     }
 
     // 다이얼로그 창 활성화
