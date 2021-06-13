@@ -8,11 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.Toast;
-
-import java.util.TimerTask;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.login.LoginActivity;
