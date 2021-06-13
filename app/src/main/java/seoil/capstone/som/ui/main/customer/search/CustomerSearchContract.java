@@ -16,7 +16,7 @@ public interface CustomerSearchContract {
 
     interface Interactor extends BaseContract.Interactor{
 
-        //set? DB에 가계조회
+        //DB에 가계조회
         void getShop(String shopId, OnFinishApiListener<ShopDTO.GetRes> onFinishApiListener);
 
         //DB에서 keyword 조회

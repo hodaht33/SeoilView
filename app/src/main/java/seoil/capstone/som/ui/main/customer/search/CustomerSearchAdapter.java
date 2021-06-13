@@ -28,7 +28,6 @@ public class CustomerSearchAdapter extends  RecyclerView.Adapter<CustomerSearchA
     private String mShopId; //ShopId로
     private Context mContext;
 
-
     public CustomerSearchAdapter(ArrayList<String> listShopName, ArrayList<String> listShopCategory, CustomerSearchPresenter presenter, String shopId, Context context) {
 
         mShopName = listShopName;

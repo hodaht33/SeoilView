@@ -62,7 +62,7 @@ public class CustomerInfoFragment extends Fragment implements CustomerInfoContra
 
     private void initView(View view) {
 
-        mBtnLogout = view.findViewById(R.id.btnCInfoLogout);
+        mBtnLogout = view.findViewById(R.id.btnCLogout);
     }
 
     private void initListener() {
@@ -75,7 +75,7 @@ public class CustomerInfoFragment extends Fragment implements CustomerInfoContra
 
         int viewId = v.getId();
 
-        if (viewId == R.id.btnCInfoLogout) {
+        if (viewId == R.id.btnCLogout) {
 
             // 로그아웃
             SharedPreferences.Editor e = getContext().getSharedPreferences("keepLogin", Context.MODE_PRIVATE).edit();

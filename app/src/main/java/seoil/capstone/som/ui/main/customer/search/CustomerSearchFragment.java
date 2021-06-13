@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -45,11 +44,11 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
     private String mInputText;
     private int mCategoryPage;
     private int mShopNamepage;
+    private int mPage;
 
     private ProgressBar mProgress;
     private Button mBtnSearch;
     private Spinner mSpinner;
-    private ScrollView mScrollview;
     private TextInputLayout mTextInputLayout;
     private boolean mIsShopCategorySelected;
     private RecyclerView mRecyclerview;
@@ -112,13 +111,11 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
 
     private void initListener( ) {
 
-
         mEditText.addTextChangedListener(new TextWatcher() {
 
             //글자가 바뀌기전
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                mRecyclerview.scrollBy(0, -200);
 
             }
 
@@ -132,8 +129,6 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
             //글자가 바뀐 뒤
             @Override
             public void afterTextChanged(Editable s) {
-
-
 
                 if(mEditText.length() > 0){
 
@@ -156,7 +151,6 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
         ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.spinnerArray, R.layout.spinner_item);
         mSpinner.setAdapter(spinnerAdapter);
         mSpinner.setFocusable(true);
-        mSpinner.setFocusableInTouchMode(true);
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override //Spinner 선택
@@ -197,8 +191,8 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
                 }
                 else {
 
-                    mPresenter.getShopKeyword(mInputText, mShopNamepage);
-                    mPresenter.getShopKeywordCategory(mInputText, mCategoryPage);
+                    mPresenter.getShopKeyword(mInputText, mPage);
+                    mPresenter.getShopKeywordCategory(mInputText, mPage);
                     mRecyclerview.setVisibility(View.VISIBLE);
                     mSpinner.setVisibility(View.GONE);
                     mBtnSearch.setVisibility(View.GONE);
@@ -208,7 +202,6 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
 
         });
     }
-
 
     @Override
     public String getQueryString() {
@@ -234,13 +227,13 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
     @Override
     public void initShopKeyword() {
 
-        mPresenter.getShopKeyword(mInputText, mShopNamepage);
+        mPresenter.getShopKeyword(mInputText, mPage);
     }
 
     @Override
     public void initShopKeywordCategory() {
 
-        mPresenter.getShopKeywordCategory(mInputText, mCategoryPage);
+        mPresenter.getShopKeywordCategory(mInputText, mPage);
     }
 
     @Override
@@ -278,6 +271,5 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
         }
 
     }
-
 
 }

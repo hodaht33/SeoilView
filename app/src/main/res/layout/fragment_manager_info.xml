@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
 
 
+    android:background="@color/grayLight"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarMInfo"
+            android:id="@+id/toolbarCInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
@@ -35,107 +36,91 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/labelMInfoUserId"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnMLogout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:text="아이디"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineLabel"
+        android:backgroundTint="@color/grayMedium"
+        android:gravity="left"
+        android:text="로그아웃"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMLogin" />
+
+    <TextView
+        android:id="@+id/textViewMLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="로그인"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnMLogout"
         app:layout_constraintTop_toBottomOf="@+id/appbar" />
 
-    <TextView
-        android:id="@+id/textViewMInfoUserId"
-        android:layout_width="0dp"
+    <Switch
+        android:id="@+id/switchMAutoLogin"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="아이디"
+        android:text="자동로그인"
+        app:layout_constraintTop_toBottomOf="@+id/btnMLogout" />
+
+    <TextView
+        android:id="@+id/textViewMInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="사용자 정보"
         android:textSize="20dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/labelMInfoUserId"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineText"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLabel" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchMAutoLogin" />
 
     <Button
-        android:id="@+id/btnMInfoLogout"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnMUserInfo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/btn_color"
-        android:text="로그아웃"
-        app:layout_constraintBaseline_toBaselineOf="@+id/labelMInfoUserId"
+        android:text="사용자 정보 수정"
+        android:gravity="left"
+        android:backgroundTint="@color/grayMedium"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guidelineText" />
-
-    <TextView
-        android:id="@+id/labelMInfoShopName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="8dp"
-        android:text="매장명"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineLabel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelMInfoUserId" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewMInfo" />
 
-    <TextView
-        android:id="@+id/textViewMInfoShopName"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/btnMShopInfo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="가게이름"
-        android:textSize="20dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/labelMInfoShopName"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineText"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLabel" />
-
-    <TextView
-        android:id="@+id/labelMInfoPhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="8dp"
-        android:text="핸드폰"
-        android:textAlignment="center"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineLabel"
+        android:text="가게 정보 수정"
+        android:gravity="left"
+        android:backgroundTint="@color/grayMedium"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelMInfoShopName" />
+        app:layout_constraintTop_toBottomOf="@+id/btnMUserInfo" />
 
     <TextView
-        android:id="@+id/textViewMInfoPhoneNumber"
-        android:layout_width="0dp"
+        android:id="@+id/textViewMVersion"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="01000000000"
+        android:layout_marginTop="30dp"
+        android:text="버전"
         android:textSize="20dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/labelMInfoPhoneNumber"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineText"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLabel" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMShopInfo" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineLabel"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/btnMVersionInfo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="70dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="300dp" />
+        android:text="버전정보"
+        android:gravity="left"
+        android:backgroundTint="@color/grayMedium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMVersion" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

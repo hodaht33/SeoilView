@@ -18,7 +18,6 @@ public class CustomerSearchPresenter implements CustomerSearchContract.Presenter
     private CustomerSearchContract.View view;
     private CustomerSearchContract.Interactor mInteractor;
 
-
     @Override
     public void setView(CustomerSearchContract.View view) {
         this.view = view;
@@ -42,10 +41,10 @@ public class CustomerSearchPresenter implements CustomerSearchContract.Presenter
     //ShopID검색
     public void getShop(String shopName){
 
-        OnFinishApiListener<ShopDTO.GetRes> onFinishApiListener = new OnFinishApiListener<ShopDTO.GetRes>() {
+        ArrayList<String> ShopName = new ArrayList<>();
+        ArrayList<String> ShopCategory = new ArrayList<>();
 
-            ArrayList<String> ShopName = new ArrayList<>();
-            ArrayList<String> ShopCategory = new ArrayList<>();
+        OnFinishApiListener<ShopDTO.GetRes> onFinishApiListener = new OnFinishApiListener<ShopDTO.GetRes>() {
 
             @Override
             public void onSuccess(ShopDTO.GetRes getRes) {

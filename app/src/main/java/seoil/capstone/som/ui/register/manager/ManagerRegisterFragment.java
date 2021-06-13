@@ -444,7 +444,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.spinnerArray, R.layout.spinner_item);
         mSpinnerCategory.setAdapter(spinnerAdapter);
         mSpinnerCategory.setFocusable(true);
-        mSpinnerCategory.setFocusableInTouchMode(true);
         mSpinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override

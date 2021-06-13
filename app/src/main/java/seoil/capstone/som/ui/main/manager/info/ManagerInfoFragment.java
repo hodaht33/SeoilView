@@ -46,7 +46,7 @@ public class ManagerInfoFragment extends Fragment implements ManagerInfoContract
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manager_info, container, false);
 
-        btnLogout = view.findViewById(R.id.btnMInfoLogout);
+        btnLogout = view.findViewById(R.id.btnMLogout);
 
         btnLogout.setOnClickListener(this);
 
@@ -58,7 +58,7 @@ public class ManagerInfoFragment extends Fragment implements ManagerInfoContract
 
         int viewId = v.getId();
 
-        if (viewId == R.id.btnMInfoLogout) {
+        if (viewId == R.id.btnMLogout) {
             // 로그아웃
 
             // 로그인 지속 기능 비활성화
