@@ -1,7 +1,6 @@
 package seoil.capstone.som.ui.main.manager.ledger;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -108,8 +107,8 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
             super(itemView);
 
 
-            textViewItemName = itemView.findViewById(R.id.textView_ledger_item_name);
-            textViewItemAmount = itemView.findViewById(R.id.textView_ledger_item_amount);
+            textViewItemName = itemView.findViewById(R.id.textViewMLedgerItemName);
+            textViewItemAmount = itemView.findViewById(R.id.textViewMLedgerItemAmount);
 
             itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
                 @Override
