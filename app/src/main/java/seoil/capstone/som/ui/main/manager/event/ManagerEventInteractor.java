@@ -4,6 +4,7 @@ import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.EventDataDTO;
 
+// 이벤트 모델
 public class ManagerEventInteractor implements ManagerEventContract.Interactor{
     
     //DB에 점주의 아이디로 이벤트 정보 조회

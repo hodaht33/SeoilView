@@ -1,5 +1,6 @@
 package seoil.capstone.som.ui.main.customer.info;
 
+// TODO: 미완성 상태
 public class CustomerInfoPresenter implements CustomerInfoContract.Presenter{
 
     private CustomerInfoContract.View mView;

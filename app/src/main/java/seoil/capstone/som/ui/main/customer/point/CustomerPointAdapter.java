@@ -15,7 +15,7 @@ import java.util.List;
 
 import seoil.capstone.som.R;
 
-
+// 포인트 리사이클러뷰 어댑터
 public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdapter.ViewHolder> {
 
     public static final int HEADER = 0;         //포인트 구분

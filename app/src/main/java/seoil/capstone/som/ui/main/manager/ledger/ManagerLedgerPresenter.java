@@ -8,6 +8,7 @@ import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.api.StockApi;
 import seoil.capstone.som.data.network.model.StockDTO;
 
+// 가계부 프레젠터
 public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
 
     private ManagerLedgerContract.View view;

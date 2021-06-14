@@ -18,6 +18,7 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.ui.login.LoginActivity;
 
 // 손님 사용자 정보 관리 프레그먼트
+// TODO: 미완성 상태
 public class CustomerInfoFragment extends Fragment implements CustomerInfoContract.View, View.OnClickListener{
 
     private CustomerInfoPresenter mPresenter;

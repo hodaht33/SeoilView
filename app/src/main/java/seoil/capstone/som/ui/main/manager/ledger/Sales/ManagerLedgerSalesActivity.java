@@ -20,11 +20,11 @@ import java.util.ArrayList;
 
 import seoil.capstone.som.R;
 
+// 가계부 매출 뷰
 public class ManagerLedgerSalesActivity extends AppCompatActivity implements ManagerLedgerSalesContract.View{
 
     public final int SELECTED_SALE = 0;
     public final int SELECTED_COST = 1;
-
 
     private ManagerLedgerSalesPresenter mPresenter;
     private ArrayList<String> mDataName;                    //매출 이름
@@ -77,25 +77,28 @@ public class ManagerLedgerSalesActivity extends AppCompatActivity implements Man
         mPresenter.getSales(mShopId, mDateQuery);
     }
 
+    // 어댑터에 데이터 초기화
     @Override
     public void setLayoutAdapterSales(ArrayList<String> listName, ArrayList<Integer> listAmount, ArrayList<Integer> autoInc) {
 
         mAdapter.setData(listName, listAmount, autoInc);
     }
 
+    // 비용 초기화
     @Override
     public void initCost() {
 
         mPresenter.getCost(mShopId, mDateQuery);
     }
 
+    // 매출 초기화
     @Override
     public void initSales() {
 
         mPresenter.getSales(mShopId, mDateQuery);
     }
 
-
+    // 리스너 초기화
     private void initListener() {
 
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

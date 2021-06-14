@@ -15,6 +15,7 @@ import java.util.List;
 
 import seoil.capstone.som.R;
 
+// 이벤트 리사이클러뷰 어댑터
 public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapter.ViewHolder> {
 
     public static final int HEADER = 0;

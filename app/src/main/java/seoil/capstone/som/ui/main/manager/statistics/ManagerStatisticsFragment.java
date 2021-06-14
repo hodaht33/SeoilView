@@ -34,6 +34,7 @@ import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.util.Utility;
 
+// 통계 뷰
  public class ManagerStatisticsFragment extends Fragment implements ManagerStatisticsContract.View, View.OnClickListener{
      
     //탭 구분 
@@ -65,12 +66,6 @@ import seoil.capstone.som.util.Utility;
     private ImageView mImageViewDate;                               //조회 버튼
     private ArrayList<DataEntry> mAgeStatistics;                    //나이대 별 통계 정보
     private ArrayList<DataEntry> mGenderStatistics;                 //성별 통계 정보
-
-
-
-    public ManagerStatisticsFragment() {
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -247,6 +242,7 @@ import seoil.capstone.som.util.Utility;
         }
     }
 
+    // UI 초기화
     private void initView(View view) {
 
         mBtnStartDate = view.findViewById(R.id.btnMStatisticsStartDate);
@@ -257,6 +253,7 @@ import seoil.capstone.som.util.Utility;
         mImageViewDate = view.findViewById(R.id.imageViewMStatisticsSelect);
     }
 
+    // 리스너 초기화
     private void initListener() {
 
         mBtnStartDate.setOnClickListener(this);
@@ -302,8 +299,9 @@ import seoil.capstone.som.util.Utility;
             }
         });
     }
-    
-    private Pie makePieChart() {        //차트 생성 및 초기화
+
+    //차트 생성 및 초기화
+    private Pie makePieChart() {
 
         Pie pie = AnyChart.pie();
 
