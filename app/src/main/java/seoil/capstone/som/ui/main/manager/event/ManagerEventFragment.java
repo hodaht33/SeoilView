@@ -97,7 +97,7 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
         mShopId = ((GlobalApplication) getActivity().getApplicationContext()).getUserId();
 
         mRecyclerViewMain.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapterMain = new ManagerEventAdapter(mEventName, mEventCode, mEventDate, mPresenter);
+        mAdapterMain = new ManagerEventAdapter(mEventName, mEventCode, mEventDate, mPresenter, getResources());
         mRecyclerViewMain.setAdapter(mAdapterMain);
 
         mPresenter.getEvent(mShopId);

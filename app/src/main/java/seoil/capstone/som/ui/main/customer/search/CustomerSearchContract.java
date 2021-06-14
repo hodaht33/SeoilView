@@ -30,15 +30,6 @@ public interface CustomerSearchContract {
 
     interface View extends BaseContract.View {
 
-        String getQueryString();
-
-        boolean isListEmpty();
-
-        void initShopKeyword();
-
-        void initShopKeywordCategory();
-
-        void initShop();
 
         void showProgress();
 

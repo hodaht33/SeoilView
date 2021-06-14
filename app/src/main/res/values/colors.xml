@@ -19,5 +19,6 @@
     <color name="grayLight">#ddd</color>
     <color name="grayMedium">#777</color>
     <color name="grayDark">#444</color>
+    <color name="purple_bts">#FFCC66FF</color>
 
 </resources>

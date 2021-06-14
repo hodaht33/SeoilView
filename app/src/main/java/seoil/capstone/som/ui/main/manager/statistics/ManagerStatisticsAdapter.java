@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 import seoil.capstone.som.R;
 
-public class ManagerStatisticsAdapter extends RecyclerView.Adapter<ManagerStatisticsAdapter.ViewHolder> {
+public class
+ManagerStatisticsAdapter extends RecyclerView.Adapter<ManagerStatisticsAdapter.ViewHolder> {
 
     private ArrayList<Item> data;       //점주 통계 어댑터의 데이터
 

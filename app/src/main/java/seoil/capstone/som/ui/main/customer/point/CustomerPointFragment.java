@@ -62,7 +62,7 @@ public class CustomerPointFragment extends Fragment implements CustomerPointCont
         initPoint();
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        mAdapter = new CustomerPointAdapter(mPoint, getContext(), mPointDate);
+        mAdapter = new CustomerPointAdapter(mPoint, getContext(), mPointDate, getResources());
         mRecyclerView.setAdapter(mAdapter);
 
         return view;

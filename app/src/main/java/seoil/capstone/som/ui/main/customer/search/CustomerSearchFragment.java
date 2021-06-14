@@ -203,15 +203,7 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
         });
     }
 
-    @Override
-    public String getQueryString() {
-        return null;
-    }
 
-    @Override
-    public boolean isListEmpty() {
-        return false;
-    }
 
     //어댑터 데이터 정보
     @Override
@@ -219,7 +211,7 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
         mAdapterShop.setData(listShopName, listShopCategory);
     }
 
-    @Override
+/*    @Override
     public void initShop() {
         mPresenter.getShop(mInputText);
     }
@@ -234,7 +226,7 @@ public class CustomerSearchFragment extends Fragment implements CustomerSearchCo
     public void initShopKeywordCategory() {
 
         mPresenter.getShopKeywordCategory(mInputText, mPage);
-    }
+    }*/
 
     @Override
     public void showProgress() {

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
 
 
-    android:background="@color/grayLight"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="로그인"
+        android:text=" 로그인"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnMLogout"
@@ -72,7 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="사용자 정보"
+        android:text=" 사용자 정보"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,9 +82,9 @@
         android:id="@+id/btnMUserInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="사용자 정보 수정"
-        android:gravity="left"
         android:backgroundTint="@color/grayMedium"
+        android:gravity="left"
+        android:text="사용자 정보 수정"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMInfo" />
@@ -93,9 +93,9 @@
         android:id="@+id/btnMShopInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="가게 정보 수정"
-        android:gravity="left"
         android:backgroundTint="@color/grayMedium"
+        android:gravity="left"
+        android:text="가게 정보 수정"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnMUserInfo" />
@@ -105,7 +105,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="버전"
+        android:text=" 버전"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,9 +115,9 @@
         android:id="@+id/btnMVersionInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="버전정보"
-        android:gravity="left"
         android:backgroundTint="@color/grayMedium"
+        android:gravity="left"
+        android:text="버전정보"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMVersion" />

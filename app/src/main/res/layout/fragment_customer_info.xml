@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_customer_info_layout"
-    android:background="@color/grayLight"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -44,9 +43,9 @@
         android:id="@+id/btnCLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="로그아웃"
-        android:gravity="left"
         android:backgroundTint="@color/grayMedium"
+        android:gravity="left"
+        android:text="로그아웃"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCLogin" />
@@ -56,8 +55,8 @@
         android:id="@+id/switchCAutoLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="자동로그인"
         android:backgroundTint="@color/grayMedium"
+        android:text="자동로그인"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCLogout" />
@@ -77,9 +76,9 @@
         android:id="@+id/btnCUserInfoSeting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text= "사용자 정보 설정"
-        android:gravity="left"
         android:backgroundTint="@color/grayMedium"
+        android:gravity="left"
+        android:text="사용자 정보 설정"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCUserInfo" />
@@ -99,9 +98,9 @@
         android:id="@+id/btnCCuponInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="쿠폰"
-        android:gravity="left"
         android:backgroundTint="@color/grayMedium"
+        android:gravity="left"
+        android:text="쿠폰"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCCupon" />
@@ -121,9 +120,9 @@
         android:id="@+id/btnCVersionInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="버전정보"
-        android:gravity="left"
         android:backgroundTint="@color/grayMedium"
+        android:gravity="left"
+        android:text="버전정보"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCVersionInfo" />
