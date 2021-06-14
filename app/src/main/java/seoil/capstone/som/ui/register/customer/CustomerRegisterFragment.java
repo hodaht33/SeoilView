@@ -355,7 +355,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             public void afterTextChanged(Editable s) {
 
                 mIsIdValid = false;
-                mBtnCheckIdDuplication.setBackgroundColor(Color.BLACK);
+                mBtnCheckIdDuplication.setBackgroundColor(getActivity().getResources().getColor(R.color.black));
                 mBtnCheckIdDuplication.setText("중복 확인");
                 mBtnCheckIdDuplication.setEnabled(true);
                 mTextLayoutId.setEndIconMode(TextInputLayout.END_ICON_NONE);
