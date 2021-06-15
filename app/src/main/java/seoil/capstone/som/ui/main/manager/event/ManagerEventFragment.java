@@ -30,6 +30,7 @@ import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.event.detail.DetailEventActivity;
 
+// 이벤트 뷰
 public class ManagerEventFragment extends Fragment implements ManagerEventContract.View, View.OnClickListener{
 
     private ManagerEventPresenter mPresenter;           //Fragment에서 발생하는 데이터를 처리 및 View 와 Interactor 연결

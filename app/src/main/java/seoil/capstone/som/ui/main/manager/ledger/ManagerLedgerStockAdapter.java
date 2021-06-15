@@ -19,19 +19,20 @@ import java.util.ArrayList;
 
 import seoil.capstone.som.R;
 
+// 가계부 재고 어댑터
 public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedgerStockAdapter.ViewHolder> {
+
+    public final int ADAPTER_EDIT = 1001;
+    public final int ADAPTER_DELETE = 1002;
 
     private ArrayList<String> mDataName;            //재고명
     private ArrayList<String> mDataAmount;          //재고 수량
-
     private ManagerLedgerPresenter mPresenter;
     private String mShopId;                         //점주 아이디
     private Context mContext;
-    public final int ADAPTER_EDIT = 1001;
-    public final int ADAPTER_DELETE = 1002;
     private AlertDialog mAlertDialog;               //재고 추가창
 
-    ManagerLedgerStockAdapter(ArrayList<String> listName, ArrayList<String> listAmount, ManagerLedgerPresenter presenter, String shopId, Context context) {
+    public ManagerLedgerStockAdapter(ArrayList<String> listName, ArrayList<String> listAmount, ManagerLedgerPresenter presenter, String shopId, Context context) {
 
         mDataName = listName;
         mDataAmount = listAmount;
@@ -177,15 +178,12 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
                             notifyItemChanged(getAdapterPosition());
                             mAlertDialog.dismiss();
                         }
-
                     }
-
                 });
             }
 
             return true;
         }
     }
-
 }
 

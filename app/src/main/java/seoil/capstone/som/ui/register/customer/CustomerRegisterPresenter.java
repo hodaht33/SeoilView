@@ -12,6 +12,7 @@ import seoil.capstone.som.ui.login.LoginActivity;
 import seoil.capstone.som.ui.main.MainActivity;
 import seoil.capstone.som.util.ValidChecker;
 
+// 손님 회원가입 프레젠터
 public class CustomerRegisterPresenter extends ValidChecker implements CustomerRegisterContract.Presenter {
 
     public static final String TAG = "CRegitPresenter";
@@ -38,6 +39,7 @@ public class CustomerRegisterPresenter extends ValidChecker implements CustomerR
         this.mInteractor = null;
     }
 
+    // 회원가입
     @Override
     public void register(Context context, String platform, String id, String pwd, String birthdate, String gender, String email, String phoneNumber, boolean marketingAgreement) {
 
@@ -76,6 +78,7 @@ public class CustomerRegisterPresenter extends ValidChecker implements CustomerR
         mInteractor.register(new UserDTO.Customer(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement), onFinishApiListener);
     }
 
+    // 인증번호 문자 전송
     @Override
     public void sendSms(String phoneNumber) {
 
@@ -99,6 +102,7 @@ public class CustomerRegisterPresenter extends ValidChecker implements CustomerR
         mInteractor.sendSms(new AuthDTO.Req(phoneNumber, null), onFinishApiListener);
     }
 
+    // 인증번호 전송
     @Override
     public void sendAuthCode(String phoneNumber, String authCode) {
 

@@ -4,6 +4,7 @@ import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.PointDTO;
 
+// 포인트 모델
 public class CustomerPointInteractor implements CustomerPointContract.Interactor{
     
     //DB 잔여 포인트 조회

@@ -4,6 +4,7 @@ import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.StatisticsDTO;
 
+// 통계 모델
 public class ManagerStatisticsInteractor implements ManagerStatisticsContract.Interactor {
     
     //DB에 일별 매출 통계 조회

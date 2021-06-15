@@ -6,7 +6,7 @@ import seoil.capstone.som.base.BaseContract;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.EventDataDTO;
 
-// 점주 이벤트 MVP 인터페이스
+// 이벤트 MVP 인터페이스
 public interface ManagerEventContract {
 
     interface View extends BaseContract.View {

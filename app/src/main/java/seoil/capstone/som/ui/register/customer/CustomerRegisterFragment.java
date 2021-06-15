@@ -36,7 +36,7 @@ import seoil.capstone.som.ui.register.RegisterCommunicator;
 import seoil.capstone.som.ui.register.select.SelectUserFragment;
 import seoil.capstone.som.util.Utility;
 
-// TODO: 제대로된 MVP으로 만들어져 있지 않음, 추후 리팩토링 필요(presenter내에서 valid검사, id중복확인 요청은 interactor를 통해 수행)
+// 손님 회원가입 뷰
 public class CustomerRegisterFragment extends Fragment implements CustomerRegisterContract.View, View.OnClickListener, OnFinishApiListener<AuthDTO.StatusRes> {
 
     private RegisterCommunicator.Communicator mCommunicator;
@@ -72,10 +72,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
     private Dialog mDialog;
     private long mLastTimeBackPressed;
 
-    public CustomerRegisterFragment() {
-
-    }
-
+    // 뒤로가기 버튼 콜백 메서드 적용
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -88,7 +85,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
             throw new RuntimeException(context.toString() + " not implement Communicator");
         }
 
-        // 뒤로가기 버튼 콜백 함수
+        // 뒤로가기 버튼 콜백 객체 생성
         mOnBackPressedCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -111,6 +108,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         requireActivity().getOnBackPressedDispatcher().addCallback(mOnBackPressedCallback);
     }
 
+    // 뒤로가기 버튼 콜백 메서드 해제
     @Override
     public void onDetach() {
 
@@ -120,6 +118,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         super.onDetach();
     }
 
+    // 프레젠터 생성
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,6 +128,19 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         mPresenter.createInteractor();
     }
 
+    // 프레젠터 삭제
+    @Override
+    public void onDestroy() {
+
+        mBundleData = null;
+        mPresenter.releaseInteractor();
+        mPresenter.releaseView();
+        mPresenter = null;
+
+        super.onDestroy();
+    }
+
+    // UI 초기화
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -168,17 +180,6 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         }
 
         return view;
-    }
-
-    @Override
-    public void onDestroy() {
-
-        mBundleData = null;
-        mPresenter.releaseInteractor();
-        mPresenter.releaseView();
-        mPresenter = null;
-
-        super.onDestroy();
     }
 
     @Override
@@ -261,29 +262,28 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         }
     }
 
+    // 다이얼로그 창 출력
     @Override
     public void showDialog(String msg) {
 
+        DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                if (mDialog != null) {
+
+                    mDialog = null;
+                }
+            }
+        };
+
         if (mDialog == null) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage(msg)
-                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            if (mDialog != null) {
-
-                                mDialog = null;
-                            }
-                        }
-                    });
-
-            mDialog = builder.create();
-            mDialog.show();
+            Utility.getInstance().showDialog(mDialog, msg, getContext(), onClickListener);
         }
     }
 
+    // 핸드폰 인증 버튼 완료 여부에 따라 UI변경
     @Override
     public void changePhoneAuthButton(int status) {
 
@@ -301,6 +301,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         }
     }
 
+    // 회원가입 완료 및 뷰 전환
     @Override
     public void finishRegister(Intent intent) {
 
@@ -309,6 +310,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         startActivity(intent);
     }
 
+    // UI 초기화
     private void initView(View view) {
         mEditTextId = view.findViewById(R.id.editTextCRegitId);
         mEditTextPwd = view.findViewById(R.id.editTextCRegitPw);
@@ -338,6 +340,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         mBtnFinish = view.findViewById(R.id.btnCRegitFinish);
     }
 
+    // 리스너 초기화
     private void initListener() {
 
         mEditTextId.addTextChangedListener(new TextWatcher() {
@@ -390,9 +393,9 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         mBtnFinish.setOnClickListener(this);
     }
 
+    // 서버에 회원가입 데이터 전송
     private void doRegister(String platform) {
 
-        // TODO: 비즈니스 로직이므로 presenter로 옮겨야 함?
         if (checkValidAndPutData(platform)) {
 
             mPresenter.register(
@@ -409,6 +412,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         }
     }
 
+    // 유효성 검사
     private boolean checkValidAndPutData(String platform) {
 
         int emailCode;
@@ -669,11 +673,13 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         }
     }
 
+    // editText의 내용을 String으로 변환
     private String editTextToString(EditText editText) {
 
         return editText.getText().toString();
     }
 
+    // 성별 확인
     private String discriminateGender() {
 
         if (mChkBoxMale.isChecked()) {
@@ -685,6 +691,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         }
     }
 
+    // 서버 응답 완료
     @Override
     public void onSuccess(AuthDTO.StatusRes res) {
 
@@ -702,6 +709,7 @@ public class CustomerRegisterFragment extends Fragment implements CustomerRegist
         }
     }
 
+    // 서버 오류 발생
     @Override
     public void onFailure(Throwable t) {
 

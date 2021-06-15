@@ -11,6 +11,7 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.EventApi;
 import seoil.capstone.som.data.network.model.EventDataDTO;
 
+// 이벤트 프레젠터
 public class ManagerEventPresenter implements ManagerEventContract.Presenter {
 
     private ManagerEventContract.View view;             //Presenter에 설정할 뷰

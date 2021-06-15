@@ -13,6 +13,7 @@ import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.api.StatisticsApi;
 import seoil.capstone.som.data.network.model.StatisticsDTO;
 
+// 통계 프레젠터
 public class ManagerStatisticsPresenter implements ManagerStatisticsContract.Presenter{
 
     private ManagerStatisticsContract.View mView;               //점주 통계 프레그먼트의 뷰
