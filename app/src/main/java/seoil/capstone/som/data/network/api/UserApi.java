@@ -22,7 +22,8 @@ public class UserApi {
 
     public static final int LOGIN_FAIL_ID = 3;
     public static final int LOGIN_FAIL_PWD = 4;
-    public static final int NEW_USER = 5;   // 카카오나 네이버로 로그인 시 새로운 회원이면 이에 맞는 처리 수행
+    public static final int LOGIN_FAIL_NOT_MANAGER = 5; // POS기 로그인 시 점주가 아닐 경우
+    public static final int NEW_USER = 6;   // 카카오나 네이버로 로그인 시 새로운 회원이면 이에 맞는 처리 수행
 
     public static final int ID_DUPLICATE = 3;
 
@@ -43,6 +44,30 @@ public class UserApi {
     public void login(LoginDTO.LoginReq req, OnFinishApiListener onFinishApiListener) {
 
         Call<LoginDTO.LoginRes> call = mUserData.getLoginData(req);
+        call.enqueue(new Callback<LoginDTO.LoginRes>() {
+            @Override
+            public void onResponse(Call<LoginDTO.LoginRes> call, Response<LoginDTO.LoginRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<LoginDTO.LoginRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    // POS기 로그인 요청
+    public void posLogin(LoginDTO.LoginReq req, OnFinishApiListener onFinishApiListener) {
+
+        Call<LoginDTO.LoginRes> call = mUserData.getPosLoginData(req);
         call.enqueue(new Callback<LoginDTO.LoginRes>() {
             @Override
             public void onResponse(Call<LoginDTO.LoginRes> call, Response<LoginDTO.LoginRes> response) {

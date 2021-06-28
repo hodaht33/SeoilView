@@ -73,30 +73,6 @@ public class StockApi {
         });
     }
 
-    // 재고 수량 수정 요청
-    public void updateStockAmount(StockDTO.Req req, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
-
-        Call<StockDTO.StatusRes> call = mStockData.updateStockAmount(req);
-        call.enqueue(new Callback<StockDTO.StatusRes>() {
-            @Override
-            public void onResponse(Call<StockDTO.StatusRes> call, Response<StockDTO.StatusRes> response) {
-
-                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
-
-                    return;
-                }
-
-                onFinishApiListener.onSuccess(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<StockDTO.StatusRes> call, Throwable t) {
-
-                onFinishApiListener.onFailure(t);
-            }
-        });
-    }
-
     // 재고 수정 요청
     public void updateStock(StockDTO.UpdateAllReq req, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
 
@@ -121,10 +97,58 @@ public class StockApi {
         });
     }
 
-    // 재고 삭제 요청
-    public void deleteStock(String shopId, String stockName, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
+    // 재고 수량 수정 요청
+    public void updateStockAmount(StockDTO.Req req, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
 
-        Call<StockDTO.StatusRes> call = mStockData.deleteStock(shopId, stockName);
+        Call<StockDTO.StatusRes> call = mStockData.updateStockAmount(req);
+        call.enqueue(new Callback<StockDTO.StatusRes>() {
+            @Override
+            public void onResponse(Call<StockDTO.StatusRes> call, Response<StockDTO.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<StockDTO.StatusRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    // 재고 가격 수정 요청
+    public void updateStockPrice(StockDTO.Req req, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
+
+        Call<StockDTO.StatusRes> call = mStockData.updateStockPrice(req);
+        call.enqueue(new Callback<StockDTO.StatusRes>() {
+            @Override
+            public void onResponse(Call<StockDTO.StatusRes> call, Response<StockDTO.StatusRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<StockDTO.StatusRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
+    // 재고 삭제 요청
+    public void deleteStock(String shopId, int stockCode, String stockName, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
+
+        Call<StockDTO.StatusRes> call = mStockData.deleteStock(shopId, stockCode, stockName);
         call.enqueue(new Callback<StockDTO.StatusRes>() {
             @Override
             public void onResponse(Call<StockDTO.StatusRes> call, Response<StockDTO.StatusRes> response) {

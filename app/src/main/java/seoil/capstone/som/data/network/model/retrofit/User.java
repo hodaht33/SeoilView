@@ -18,6 +18,11 @@ public interface User {
     @POST("login")
     Call<LoginDTO.LoginRes> getLoginData(@Body LoginDTO.LoginReq req);
 
+    // POS기 로그인
+    // getLoginData와는 다르게 pos기는 점주만 로그인 가능하므로 code가 정해져있어 받아오지 않음
+    @POST("login/pos")
+    Call<LoginDTO.LoginRes> getPosLoginData(@Body LoginDTO.LoginReq req);
+
     // 인증번호 문자 전송 요청
     @POST("phone-auth/send")
     Call<AuthDTO.StatusRes> sendSms(@Body AuthDTO.Req req);

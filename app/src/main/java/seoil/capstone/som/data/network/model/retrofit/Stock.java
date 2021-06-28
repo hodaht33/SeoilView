@@ -7,6 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import seoil.capstone.som.data.network.model.StockDTO;
 
 // 재고 api 라우팅 인터페이스
@@ -20,7 +21,7 @@ public interface Stock {
     @POST("stock")
     Call<StockDTO.StatusRes> insertStock(@Body StockDTO.Req req);
 
-    // 재고 이름, 수량 수정 요청
+    // 재고 이름, 수량, 가격 수정 요청
     @PUT("stock")
     Call<StockDTO.StatusRes> updateStock(@Body StockDTO.UpdateAllReq req);
 
@@ -28,7 +29,11 @@ public interface Stock {
     @PUT("stock/amount")
     Call<StockDTO.StatusRes> updateStockAmount(@Body StockDTO.Req req);
 
+    // 재고 가격 수정 요청
+    @PUT("stock/price")
+    Call<StockDTO.StatusRes> updateStockPrice(@Body StockDTO.Req req);
+
     // 재고 특정 매장의 특정 재고 삭제 요청
-    @DELETE("stock/{shopId}/{stockName}")
-    Call<StockDTO.StatusRes> deleteStock(@Path("shopId") String shopId, @Path("stockName") String stockName);
+    @DELETE("stock/{shopId}")
+    Call<StockDTO.StatusRes> deleteStock(@Path("shopId") String shopId, @Query("stockCode") int stockCode, @Query("stockName") String stockName);
 }
