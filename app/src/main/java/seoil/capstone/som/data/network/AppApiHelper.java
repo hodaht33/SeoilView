@@ -107,11 +107,6 @@ public class AppApiHelper {
         mUserApi.login(req, onFinishApiListener);
     }
 
-    public void posLogin(LoginDTO.LoginReq req, OnFinishApiListener<LoginDTO.LoginRes> onFinishApiListener) {
-
-        mUserApi.posLogin(req, onFinishApiListener);
-    }
-
     // 카카오 간편 로그인 요청
     public void kakaoLogin(Context context, OnFinishApiListener<LoginDTO.KakaoLoginRes> onFinishApiListener) {
 

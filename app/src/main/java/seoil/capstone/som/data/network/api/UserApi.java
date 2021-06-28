@@ -64,30 +64,6 @@ public class UserApi {
         });
     }
 
-    // POS기 로그인 요청
-    public void posLogin(LoginDTO.LoginReq req, OnFinishApiListener onFinishApiListener) {
-
-        Call<LoginDTO.LoginRes> call = mUserData.getPosLoginData(req);
-        call.enqueue(new Callback<LoginDTO.LoginRes>() {
-            @Override
-            public void onResponse(Call<LoginDTO.LoginRes> call, Response<LoginDTO.LoginRes> response) {
-
-                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
-
-                    return;
-                }
-
-                onFinishApiListener.onSuccess(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<LoginDTO.LoginRes> call, Throwable t) {
-
-                onFinishApiListener.onFailure(t);
-            }
-        });
-    }
-
     // 인증번호 sms전송 요청
     public void sendSms(AuthDTO.Req req, OnFinishApiListener<AuthDTO.StatusRes> onFinishApiListener) {
 
