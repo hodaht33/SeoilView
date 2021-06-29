@@ -17,6 +17,10 @@ public interface Shop {
     @GET("shop/{shopId}/information")
     Call<ShopDTO.GetRes> getShopInformation(@Path("shopId") String shopId);
 
+    // 매장 카테고리 요청
+    @GET("shop/{shopId}/category")
+    Call<ShopDTO.GetRes> getShopCategory(@Path("shopId") String shopId);
+
     // 키워드로 검색되는 매장 정보 요청
     @GET("shop/name")
     Call<ShopDTO.GetRes> getShopInfoWithKeyword(@Query("keyword") String keyword, @Query("page") int page);

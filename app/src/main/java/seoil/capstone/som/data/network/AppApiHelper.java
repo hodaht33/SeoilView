@@ -337,6 +337,12 @@ public class AppApiHelper {
         mShopApi.getShopInformation(shopId, onFinishApiListener);
     }
 
+    // 매장 카테고리 요청
+    public void getShopCategory(String shopId, OnFinishApiListener onFinishApiListener) {
+
+        mShopApi.getShopCategory(shopId, onFinishApiListener);
+    }
+
     // 키워드로 검색된 매장 정보 요청
     public void getShopInfoWithKeyword(String keyword, int page, OnFinishApiListener<ShopDTO.GetRes> onFinishApiListener) {
 

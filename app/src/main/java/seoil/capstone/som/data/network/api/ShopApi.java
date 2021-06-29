@@ -49,6 +49,30 @@ public class ShopApi {
         });
     }
 
+    // 매장 카테고리 요청
+    public void getShopCategory(String shopId, OnFinishApiListener onFinishApiListener) {
+
+        Call<ShopDTO.GetRes> call = mShopInfo.getShopCategory(shopId);
+        call.enqueue(new Callback<ShopDTO.GetRes>() {
+            @Override
+            public void onResponse(Call<ShopDTO.GetRes> call, Response<ShopDTO.GetRes> response) {
+
+                if (AppApiHelper.getInstance().check404Error(response, onFinishApiListener)) {
+
+                    return;
+                }
+
+                onFinishApiListener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ShopDTO.GetRes> call, Throwable t) {
+
+                onFinishApiListener.onFailure(t);
+            }
+        });
+    }
+
     // 키워드로 검색되는 매장 정보 요청
     public void getShopInfoWithKeyword(String keyword, int page, OnFinishApiListener onFinishApiListener) {
 
