@@ -11,6 +11,9 @@ public class StockDTO {
     // 추가, 수량 수정 요청 DTO
     public static class Req {
 
+        @SerializedName("stockCode")
+        @Expose
+        private int stockCode;
         @SerializedName("shopId")
         @Expose
         private String shopId;
@@ -21,10 +24,19 @@ public class StockDTO {
         @Expose
         private int stockAmount;
 
-        public Req(String shopId, String stockName, int stockAmount) {
+        public Req(int stockCode, String shopId, String stockName, int stockAmount) {
+            this.stockCode = stockCode;
             this.shopId = shopId;
             this.stockName = stockName;
             this.stockAmount = stockAmount;
+        }
+
+        public int getStockCode() {
+            return stockCode;
+        }
+
+        public void setStockCode(int stockCode) {
+            this.stockCode = stockCode;
         }
 
         public String getShopId() {
@@ -55,6 +67,9 @@ public class StockDTO {
     // 이름, 수량 수정 요청 DTO
     public static class UpdateAllReq {
 
+        @SerializedName("stockCode")
+        @Expose
+        private int stockCode;
         @SerializedName("shopId")
         @Expose
         private String shopId;
@@ -68,11 +83,20 @@ public class StockDTO {
         @Expose
         private int stockAmount;
 
-        public UpdateAllReq(String shopId, String stockPrevName, String stockNewName, int stockAmount) {
+        public UpdateAllReq(int stockCode, String shopId, String stockPrevName, String stockNewName, int stockAmount) {
+            this.stockCode = stockCode;
             this.shopId = shopId;
             this.stockPrevName = stockPrevName;
             this.stockNewName = stockNewName;
             this.stockAmount = stockAmount;
+        }
+
+        public int getStockCode() {
+            return stockCode;
+        }
+
+        public void setStockCode(int stockCode) {
+            this.stockCode = stockCode;
         }
 
         public String getShopId() {
@@ -113,12 +137,23 @@ public class StockDTO {
 
         public class Result {
 
+            @SerializedName("stockCode")
+            @Expose
+            private int stockCode;
             @SerializedName("stockName")
             @Expose
             private String stockName;
             @SerializedName("stockAmount")
             @Expose
             private int stockAmount;
+
+            public int getStockCode() {
+                return stockCode;
+            }
+
+            public void setStockCode(int stockCode) {
+                this.stockCode = stockCode;
+            }
 
             public String getStockName() {
                 return stockName;
