@@ -1,5 +1,7 @@
 package seoil.capstone.som.ui.main.manager.event;
 
+import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +15,25 @@ import java.util.List;
 
 import seoil.capstone.som.R;
 
+// 이벤트 리사이클러뷰 어댑터
 public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapter.ViewHolder> {
 
     public static final int HEADER = 0;
     public static final int CHILD = 1;
 
+
     private ArrayList<Integer> mEventCode = new ArrayList<>();          //이벤트 구분코드
     private ArrayList<Item> mEventName = new ArrayList<>();           //이벤트 이름
     private ArrayList<String> mEventDate = new ArrayList<>();        //이벤트 기간
+    private Resources mResources;
 
     private ManagerEventPresenter mPresenter;
 
     public ManagerEventAdapter(ArrayList<Item> eventName, ArrayList<Integer> eventCode,
                                ArrayList<String> eventEndDate,
-                               ManagerEventPresenter presenter) {
+                               ManagerEventPresenter presenter, Resources resources) {
 
+        mResources = resources;
         mEventCode = eventCode;
         mEventName = eventName;
         mEventDate = eventEndDate;
@@ -52,12 +58,15 @@ public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapte
         final ViewHolder itemController =  holder;
 
         switch (item.type) {
+
             case HEADER:
 
                 itemController.refferalItem = item;
                 itemController.textViewDate.setEnabled(false);
                 itemController.textViewDate.setVisibility(View.GONE);
                 itemController.textViewContentName.setText(item.textName);
+                itemController.textViewContentName.setTextColor(mResources.getColor(R.color.black));
+                itemController.textViewContentName.setBackground(mResources.getDrawable(R.drawable.meneger_event_radius));
                 itemController.textViewContentName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -96,6 +105,8 @@ public class ManagerEventAdapter extends RecyclerView.Adapter<ManagerEventAdapte
 
                 itemController.textViewDate.setEnabled(true);
                 itemController.textViewDate.setVisibility(View.VISIBLE);
+                itemController.textViewContentName.setBackgroundColor(mResources.getColor(R.color.white));
+                itemController.textViewContentName.setTextColor(mResources.getColor(R.color.black));
 
                 int count = 0;
                 for (int i = 0; i <= position; i ++) {

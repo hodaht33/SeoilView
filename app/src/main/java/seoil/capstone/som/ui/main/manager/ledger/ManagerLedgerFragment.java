@@ -39,12 +39,13 @@ import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.main.manager.ledger.Sales.ManagerLedgerSalesActivity;
 
+// 가계부 뷰
 public class ManagerLedgerFragment extends Fragment implements ManagerLedgerContract.View{
-
-    private MaterialCalendarView mCalendarView;         //매출,지출 조회 날짜를 얻어올 달력
 
     public final int SELECTED_CALENDAR = 10;
     public final int SELECTED_STOCK = 11;
+
+    private MaterialCalendarView mCalendarView;         //매출,지출 조회 날짜를 얻어올 달력
     private ArrayList<String> mDataNameStock;           //재고 이름
     private ArrayList<String> mDataAmountStock;         //재고 수량
     private int mYear;                                  //선택된 연도
@@ -60,10 +61,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
     private TabLayout mTabLayoutMain;
     private AlertDialog mAlertDialogInsert;             //재고 추가시 데이터 입력 창
 
-    /*TODO:// getMonth() 사용시 값이 1 작게 리턴됨*/
-    public ManagerLedgerFragment() {
-
-    }
+    // TODO: getMonth() 사용시 값이 1 작게 리턴됨
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +75,19 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         mDataAmountStock = new ArrayList<>();
 
         selectedIndexMain = SELECTED_CALENDAR;
+    }
+
+    @Override
+    public void onDestroy() {
+
+        mPresenter.releaseInteractor();
+        mPresenter.releaseView();
+        mPresenter = null;
+
+        mDataAmountStock = null;
+        mDataNameStock = null;
+
+        super.onDestroy();
     }
 
     @Override

@@ -4,6 +4,7 @@ import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.SalesDTO;
 
+// 가계부 매출 모델
 public class ManagerLedgerSalesInteractor implements ManagerLedgerSalesContract.Interactor{
 
     //지출 조회

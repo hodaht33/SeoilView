@@ -1,7 +1,6 @@
 package seoil.capstone.som.ui.main.manager.ledger.Sales;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 
 import seoil.capstone.som.R;
 
+
 public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedgerTextAdapter.ViewHolder> {
 
     public final int ADAPTER_EDIT = 1003;
@@ -35,9 +35,7 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
     private AlertDialog mAlertDialog;
     private Boolean isCost;
 
-
-
-    ManagerLedgerTextAdapter(ArrayList<String> listName, ArrayList<Integer> listAmount, ArrayList<Integer> autoInc, Context context, String shopId,
+    public ManagerLedgerTextAdapter(ArrayList<String> listName, ArrayList<Integer> listAmount, ArrayList<Integer> autoInc, Context context, String shopId,
                              ManagerLedgerSalesPresenter presenter, String dateQuery) {
 
         mDataName = listName;
@@ -79,6 +77,7 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
         return mDataName.size();
     }
 
+    // 리사이클러뷰 데이터 목록 초기화
     public void setData(ArrayList<String> listName, ArrayList<Integer> listAmount, ArrayList<Integer> autoInc) {
 
         mDataName = listName;
@@ -107,8 +106,8 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textViewItemName;
-        TextView textViewItemAmount;
+        private TextView textViewItemName;
+        private TextView textViewItemAmount;
 
         final MenuItem.OnMenuItemClickListener onMenuItemClickListener = new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -183,8 +182,8 @@ public class ManagerLedgerTextAdapter extends RecyclerView.Adapter<ManagerLedger
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textViewItemName = itemView.findViewById(R.id.textView_ledger_item_name);
-            textViewItemAmount = itemView.findViewById(R.id.textView_ledger_item_amount);
+            textViewItemName = itemView.findViewById(R.id.textViewMLedgerItemName);
+            textViewItemAmount = itemView.findViewById(R.id.textViewMLedgerItemAmount);
 
             itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
                 @Override

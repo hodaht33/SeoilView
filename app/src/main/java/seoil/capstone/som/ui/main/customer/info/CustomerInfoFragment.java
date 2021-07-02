@@ -18,6 +18,7 @@ import seoil.capstone.som.R;
 import seoil.capstone.som.ui.login.LoginActivity;
 
 // 손님 사용자 정보 관리 프레그먼트
+// TODO: 미완성 상태
 public class CustomerInfoFragment extends Fragment implements CustomerInfoContract.View, View.OnClickListener{
 
     private CustomerInfoPresenter mPresenter;
@@ -62,7 +63,7 @@ public class CustomerInfoFragment extends Fragment implements CustomerInfoContra
 
     private void initView(View view) {
 
-        mBtnLogout = view.findViewById(R.id.btnCInfoLogout);
+        mBtnLogout = view.findViewById(R.id.btnCLogout);
     }
 
     private void initListener() {
@@ -75,7 +76,7 @@ public class CustomerInfoFragment extends Fragment implements CustomerInfoContra
 
         int viewId = v.getId();
 
-        if (viewId == R.id.btnCInfoLogout) {
+        if (viewId == R.id.btnCLogout) {
 
             // 로그아웃
             SharedPreferences.Editor e = getContext().getSharedPreferences("keepLogin", Context.MODE_PRIVATE).edit();

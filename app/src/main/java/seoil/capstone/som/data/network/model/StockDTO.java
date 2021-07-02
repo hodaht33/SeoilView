@@ -82,6 +82,9 @@ public class StockDTO {
         @SerializedName("stockAmount")
         @Expose
         private int stockAmount;
+        @SerializedName("stockPrice")
+        @Expose
+        private int stockPrice;
 
         public UpdateAllReq(int stockCode, String shopId, String stockPrevName, String stockNewName, int stockAmount) {
             this.stockCode = stockCode;

@@ -23,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.api.BookmarkApi;
 import seoil.capstone.som.data.network.api.EventApi;
+import seoil.capstone.som.data.network.api.MenuApi;
 import seoil.capstone.som.data.network.api.PointApi;
 import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.api.ShopApi;
@@ -33,6 +34,7 @@ import seoil.capstone.som.data.network.model.BookmarkDTO;
 import seoil.capstone.som.data.network.model.AuthDTO;
 import seoil.capstone.som.data.network.model.EventDataDTO;
 import seoil.capstone.som.data.network.model.LoginDTO;
+import seoil.capstone.som.data.network.model.MenuDTO;
 import seoil.capstone.som.data.network.model.PointDTO;
 import seoil.capstone.som.data.network.model.UserDTO;
 import seoil.capstone.som.data.network.model.SalesDTO;
@@ -55,6 +57,7 @@ public class AppApiHelper {
     private StockApi mStockApi;
     private StatisticsApi mStatisticsApi;
     private EventApi mEventApi;
+    private MenuApi mMenuApi;
 
     public AppApiHelper() {
 
@@ -72,6 +75,7 @@ public class AppApiHelper {
         mStockApi = new StockApi(retrofit);
         mStatisticsApi = new StatisticsApi(retrofit);
         mEventApi = new EventApi(retrofit);
+        mMenuApi = new MenuApi(retrofit);
     }
 
     public static AppApiHelper getInstance() {
@@ -457,22 +461,28 @@ public class AppApiHelper {
         mStockApi.insertStock(req, onFinishApiListener);
     }
 
-    // 재고 수량 수정 요청
-    public void updateStockAmount(StockDTO.Req req, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
-
-        mStockApi.updateStockAmount(req, onFinishApiListener);
-    }
-
     // 재고 수정 요청
     public void updateStock(StockDTO.UpdateAllReq req, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
 
         mStockApi.updateStock(req, onFinishApiListener);
     }
 
-    // 재고 삭제 요청
-    public void deleteStock(String shopId, String stockName, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
+    // 재고 수량 수정 요청
+    public void updateStockAmount(StockDTO.Req req, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
 
-        mStockApi.deleteStock(shopId, stockName, onFinishApiListener);
+        mStockApi.updateStockAmount(req, onFinishApiListener);
+    }
+
+    // 재고 가격 수정 요청
+    public void updateStockPrice(StockDTO.Req req, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
+
+        mStockApi.updateStockPrice(req, onFinishApiListener);
+    }
+
+    // 재고 삭제 요청
+    public void deleteStock(String shopId, int stockCode, String stockName, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
+
+        mStockApi.deleteStock(shopId, stockCode, stockName, onFinishApiListener);
     }
 
     // 나이대 통계 요청
@@ -539,5 +549,46 @@ public class AppApiHelper {
     public void deleteEvent(int eventCode, OnFinishApiListener onFinishApiListener) {
 
         mEventApi.deleteEvent(eventCode, onFinishApiListener);
+    }
+
+    public void getMenu(String shopId , OnFinishApiListener onFinishApiListener) {
+
+        mMenuApi.getMenu(shopId, onFinishApiListener);
+    }
+
+    public void insertMenu(String shopId, MenuDTO.Req req, OnFinishApiListener onFinishApiListener) {
+
+        mMenuApi.insertMenu(shopId, req, onFinishApiListener);
+    }
+
+    public void updateMenu(String shopId, String menuName, String menuNewName,
+                           int menuPrice, String menuIngredients, OnFinishApiListener onFinishApiListener) {
+
+        mMenuApi.updateMenu(shopId, menuName, menuNewName, menuPrice, menuIngredients, onFinishApiListener);
+    }
+
+    public void updateMenuName(String shopId, String menuName, String menuNewName, OnFinishApiListener onFinishApiListener) {
+
+        mMenuApi.updateMenuName(shopId, menuName, menuNewName, onFinishApiListener);
+    }
+
+    public void updateMenuPrice(String shopId, String menuName, int menuPrice, OnFinishApiListener onFinishApiListener) {
+
+        mMenuApi.updateMenuPrice(shopId, menuName, menuPrice, onFinishApiListener);
+    }
+
+    public void updateMenuIngredients(String shopId, String menuName, String menuIngredients, OnFinishApiListener onFinishApiListener) {
+
+        mMenuApi.updateMenuIngredients(shopId, menuName, menuIngredients, onFinishApiListener);
+    }
+
+    public void deleteAllMenu(String shopId, OnFinishApiListener onFinishApiListener) {
+
+        mMenuApi.deleteAllMenu(shopId, onFinishApiListener);
+    }
+
+    public void deleteMenu(String shopId, String menuName, OnFinishApiListener onFinishApiListener) {
+
+        mMenuApi.deleteMenu(shopId, menuName, onFinishApiListener);
     }
 }

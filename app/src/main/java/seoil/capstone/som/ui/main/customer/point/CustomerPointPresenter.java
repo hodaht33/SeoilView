@@ -7,6 +7,7 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.PointApi;
 import seoil.capstone.som.data.network.model.PointDTO;
 
+// 포인트 프레젠터
 public class CustomerPointPresenter implements CustomerPointContract.Presenter {
 
     private CustomerPointContract.View view;

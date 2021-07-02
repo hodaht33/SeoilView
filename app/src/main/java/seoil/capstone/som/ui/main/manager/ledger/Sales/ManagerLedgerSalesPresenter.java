@@ -9,10 +9,11 @@ import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.api.SalesApi;
 import seoil.capstone.som.data.network.model.SalesDTO;
 
+// 가계부 매출 프레젠터
 public class ManagerLedgerSalesPresenter implements ManagerLedgerSalesContract.Presenter{
 
+    private ManagerLedgerSalesContract.View view;
     private ManagerLedgerSalesInteractor mInteractor;
-    ManagerLedgerSalesContract.View view;
 
     public final int TEXT_LENGTH_NONE = 0;
     public final int TEXT_LENGTH_OVER = 1;

@@ -4,6 +4,7 @@ import seoil.capstone.som.data.network.AppApiHelper;
 import seoil.capstone.som.data.network.OnFinishApiListener;
 import seoil.capstone.som.data.network.model.StockDTO;
 
+// 가계부 모델
 public class ManagerLedgerInteractor implements ManagerLedgerContract.Interactor{
 
     //DB에 재고 조회

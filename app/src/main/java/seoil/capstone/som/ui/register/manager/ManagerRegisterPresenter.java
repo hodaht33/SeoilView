@@ -14,6 +14,7 @@ import seoil.capstone.som.ui.login.LoginActivity;
 import seoil.capstone.som.ui.main.MainActivity;
 import seoil.capstone.som.util.ValidChecker;
 
+// 점주 회원가입 프레젠터
 public class ManagerRegisterPresenter extends ValidChecker implements ManagerRegisterContract.Presenter {
 
     public static final String TAG = "MRegitPresenter";
@@ -54,6 +55,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         mInteractor = null;
     }
 
+    // 회원가입
     @Override
     public void register(Context context, String platform, String id, String pwd, String birthdate, String gender, String email, String phoneNumber,
                          String shopCode, String shopName, String shopPostCode, String shopAddress, String shopCategory, boolean marketingAgreement) {
@@ -93,6 +95,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         mInteractor.register(new UserDTO.Manager(id, pwd, birthdate, gender, email, phoneNumber, marketingAgreement, shopCode, shopName, shopPostCode, shopAddress, shopCategory), onFinishApiListener);
     }
 
+    // 인증번호 문자 전송
     @Override
     public void sendSms(String phoneNumber) {
 
@@ -116,6 +119,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         mInteractor.sendSms(new AuthDTO.Req(phoneNumber, null), onFinishApiListener);
     }
 
+    // 인증번호 전송
     @Override
     public void sendAuthCode(String phoneNumber, String authCode) {
 
@@ -136,6 +140,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         mInteractor.sendAuthCode(new AuthDTO.Req(phoneNumber, authCode), onFinishApiListener);
     }
 
+    // 사업자 등록 번호 검사
     public int checkCorporateNumber(String corporateNumber) {
 
         final int[] LOGIC_NUM = {1, 3, 7, 1, 3, 7, 1, 3, 5};
@@ -169,6 +174,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         return CORPORATE_NUMBER_NOT_VALID;
     }
 
+    // 사업자 등록 번호 유효성 검사
     public void checkCorporateNumberValid(String corporateNumber) {
 
         OnFinishApiListener<AuthDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<AuthDTO.StatusRes>() {
@@ -197,6 +203,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         AppApiHelper.getInstance().checkRegistrationNumber(corporateNumber, onFinishApiListener);
     }
 
+    // 문자열이 숫자로 이루어져 있는지 검사
     public boolean isNumeric(String str) {
         if(str == null) {
 
@@ -213,6 +220,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         return true;
     }
 
+    // 가계명 빈칸인지 검사
     public int marketNameValid(String name) {
 
         if (name.isEmpty()) {
@@ -223,6 +231,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         return MARKET_NAME_VALID;
     }
 
+    // 주소 빈칸인지 검사
     public int addressValid(String address) {
 
         if(address.isEmpty()) {
@@ -233,6 +242,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         return MARKET_ADDRESS_VALID;
     }
 
+    // 우편번호 빈칸인지 검사
     public int postalCodeValid(String postalCode) {
 
         if(postalCode.isEmpty()) {
@@ -243,6 +253,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         return POSTAL_CODE_VALID;
     }
 
+    // 상세주소 빈칸인지 검사
     public int detailedAddressValid(String detailedAddress) {
 
         if(detailedAddress.isEmpty()) {
@@ -253,6 +264,7 @@ public class ManagerRegisterPresenter extends ValidChecker implements ManagerReg
         return DETAILED_ADDRESS_VALID;
     }
 
+    // 모두 유효한지 검사
     public boolean getIsValid() {
 
         return mIsValid;

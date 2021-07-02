@@ -7,4 +7,5 @@
     <color name="black">#FFFFFFFF</color>
     <color name="white">#FF000000</color>
     <color name="blue">#FF00FFFF</color>
+    <color name="purple_bts">#FFCC6699</color>
 </resources>

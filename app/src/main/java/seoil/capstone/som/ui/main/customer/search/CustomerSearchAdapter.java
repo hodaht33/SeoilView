@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import seoil.capstone.som.R;
 import seoil.capstone.som.data.network.model.ShopDTO;
 
-
+// 검색 리사이클러뷰 어댑터
 public class CustomerSearchAdapter extends  RecyclerView.Adapter<CustomerSearchAdapter.ViewHolder>{
 
     private ArrayList<ShopDTO> arrayList;
@@ -27,7 +27,6 @@ public class CustomerSearchAdapter extends  RecyclerView.Adapter<CustomerSearchA
     private CustomerSearchPresenter mPresenter;
     private String mShopId; //ShopId로
     private Context mContext;
-
 
     public CustomerSearchAdapter(ArrayList<String> listShopName, ArrayList<String> listShopCategory, CustomerSearchPresenter presenter, String shopId, Context context) {
 
@@ -57,12 +56,13 @@ public class CustomerSearchAdapter extends  RecyclerView.Adapter<CustomerSearchA
         holder.textViewShopName.setText(mShopName.get(position));
         holder.textViewShopCategory.setText(mShopCategory.get(position));
 
-        //listview가 클릭 됬을때
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener(){
 
             @Override
-            public void onClick(View v) { //클릭시 shop이름 보여주기
+            public void onClick(View v) {
+
+                //클릭시 shop이름 보여주기
                 String Shopname = holder.textViewShopName.getText().toString();
                 Toast.makeText(v.getContext() , Shopname,Toast.LENGTH_SHORT).show();
             }
@@ -77,13 +77,13 @@ public class CustomerSearchAdapter extends  RecyclerView.Adapter<CustomerSearchA
 
     }
 
-    public  void  setData(ArrayList<String> listShopName, ArrayList<String> listShopCategory){
+    public void setData(ArrayList<String> listShopName, ArrayList<String> listShopCategory){
         mShopName = listShopName;
         mShopCategory = listShopCategory;
         notifyDataSetChanged();
     }
 
-    // 아이템 데이터  연결
+    // 아이템 데이터 연결
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewShopName;
         TextView textViewShopCategory;

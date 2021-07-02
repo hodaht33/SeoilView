@@ -1,6 +1,7 @@
 package seoil.capstone.som.ui.main.customer.point;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import java.util.List;
 
 import seoil.capstone.som.R;
 
-
+// 포인트 리사이클러뷰 어댑터
 public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdapter.ViewHolder> {
 
     public static final int HEADER = 0;         //포인트 구분
@@ -24,13 +25,16 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
 
     private List<Item> mPointList;              //전체 포인트 정보
     private List<String> mPointDate;            //사용, 적립 포인트 날짜
+    private  Resources mResources;
 
-    public CustomerPointAdapter(List<Item> point, Context context, List<String> pointDate) {
+    public CustomerPointAdapter(List<Item> point, Context context, List<String> pointDate, Resources resources) {
 
         mPointList = point;
 
         mContext = context;
         mPointDate = pointDate;
+
+        mResources = resources;
     }
 
     @NonNull
@@ -63,11 +67,14 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
         final Item item = mPointList.get(position);
         switch (item.type) {
             case HEADER:
+
                 final ViewHolder itemController =  holder;
                 itemController.refferalItem = item;
                 itemController.headerTitle.setText(item.text);
+                itemController.headerTitle.setBackground(mResources.getDrawable(R.drawable.customer_radius));
                 itemController.headerTitle.setPadding(0, 0, 0, 0);
                 itemController.headerTitle.setOnClickListener(new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
 
@@ -103,6 +110,7 @@ public class CustomerPointAdapter extends RecyclerView.Adapter<CustomerPointAdap
                 break;
             case CHILD:
 
+                holder.headerTitle.setBackground(null);
                 float dp = mContext.getResources().getDisplayMetrics().density;
                 int subItemPaddingLeft = (int) (18 * dp);
                 int subItemPaddingTopAndBottom = (int) (5 * dp);

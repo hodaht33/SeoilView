@@ -41,7 +41,7 @@ import seoil.capstone.som.ui.register.RegisterCommunicator;
 import seoil.capstone.som.ui.register.select.SelectUserFragment;
 import seoil.capstone.som.util.Utility;
 
-// 점주 회원가입 프레그먼트
+// 점주 회원가입 뷰
 public class ManagerRegisterFragment extends Fragment implements ManagerRegisterContract.View, View.OnClickListener, OnFinishApiListener<AuthDTO.StatusRes> {
 
     private RegisterCommunicator.Communicator mCommunicator;
@@ -334,6 +334,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         }
     }
 
+    // UI 초기화
     private void initView(View view) {
 
         mTextLayoutId = view.findViewById(R.id.textLayoutMRegitId);
@@ -375,6 +376,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mSpinnerCategory = view.findViewById(R.id.spinnerMRegitCategory);
     }
 
+    // 리스너 초기화
     private void initListener() {
 
         mEditTextId.addTextChangedListener(new TextWatcher() {
@@ -444,7 +446,6 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.spinnerArray, R.layout.spinner_item);
         mSpinnerCategory.setAdapter(spinnerAdapter);
         mSpinnerCategory.setFocusable(true);
-        mSpinnerCategory.setFocusableInTouchMode(true);
         mSpinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -474,6 +475,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
         mBtnCheckAuthCode.setOnClickListener(this);
     }
 
+    // 유효성 검사
     private boolean checkValidAndPutData(String platform) {
 
         int emailCode;

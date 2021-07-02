@@ -30,6 +30,7 @@ import seoil.capstone.som.GlobalApplication;
 import seoil.capstone.som.R;
 import seoil.capstone.som.ui.event.detail.DetailEventActivity;
 
+// 이벤트 뷰
 public class ManagerEventFragment extends Fragment implements ManagerEventContract.View, View.OnClickListener{
 
     private ManagerEventPresenter mPresenter;           //Fragment에서 발생하는 데이터를 처리 및 View 와 Interactor 연결
@@ -97,7 +98,7 @@ public class ManagerEventFragment extends Fragment implements ManagerEventContra
         mShopId = ((GlobalApplication) getActivity().getApplicationContext()).getUserId();
 
         mRecyclerViewMain.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapterMain = new ManagerEventAdapter(mEventName, mEventCode, mEventDate, mPresenter);
+        mAdapterMain = new ManagerEventAdapter(mEventName, mEventCode, mEventDate, mPresenter, getResources());
         mRecyclerViewMain.setAdapter(mAdapterMain);
 
         mPresenter.getEvent(mShopId);

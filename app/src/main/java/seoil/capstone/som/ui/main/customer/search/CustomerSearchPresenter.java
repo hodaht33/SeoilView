@@ -18,7 +18,6 @@ public class CustomerSearchPresenter implements CustomerSearchContract.Presenter
     private CustomerSearchContract.View view;
     private CustomerSearchContract.Interactor mInteractor;
 
-
     @Override
     public void setView(CustomerSearchContract.View view) {
         this.view = view;
@@ -40,12 +39,13 @@ public class CustomerSearchPresenter implements CustomerSearchContract.Presenter
     }
 
     //ShopID검색
-    public void getShop(String shopName){
+    @Override
+    public void getShop(String shopName) {
+
+        ArrayList<String> ShopName = new ArrayList<>();
+        ArrayList<String> ShopCategory = new ArrayList<>();
 
         OnFinishApiListener<ShopDTO.GetRes> onFinishApiListener = new OnFinishApiListener<ShopDTO.GetRes>() {
-
-            ArrayList<String> ShopName = new ArrayList<>();
-            ArrayList<String> ShopCategory = new ArrayList<>();
 
             @Override
             public void onSuccess(ShopDTO.GetRes getRes) {
@@ -74,10 +74,12 @@ public class CustomerSearchPresenter implements CustomerSearchContract.Presenter
                 Log.d("tag", "Fail");
             }
         };
+
         mInteractor.getShop(shopName, onFinishApiListener);
     }
 
     //가게이름 검색
+    @Override
     public void getShopKeyword(String keyword, int page){
 
         ArrayList<String> ShopName = new ArrayList<>();
@@ -112,11 +114,13 @@ public class CustomerSearchPresenter implements CustomerSearchContract.Presenter
                 Log.d("tag", "Fail");
             }
         };
+
         mInteractor.getShopKeyword(keyword, page, onFinishApiListener);
     }
 
     //카테고리 검색
-    public void getShopKeywordCategory(String category, int page){
+    @Override
+    public void getShopKeywordCategory(String category, int page) {
 
         ArrayList<String> ShopName = new ArrayList<>();
         ArrayList<String> ShopCategory = new ArrayList<>();
@@ -144,13 +148,14 @@ public class CustomerSearchPresenter implements CustomerSearchContract.Presenter
 
                 }
             }
+
             @Override
             public void onFailure(Throwable t) {
+
                 Log.d("tag", "Fail");
             }
         };
 
         mInteractor.getShopKeywordCategory(category, page, onFinishApiListener);
-
     }
 }
