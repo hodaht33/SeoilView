@@ -22,7 +22,8 @@ public class UserApi {
 
     public static final int LOGIN_FAIL_ID = 3;
     public static final int LOGIN_FAIL_PWD = 4;
-    public static final int NEW_USER = 5;   // 카카오나 네이버로 로그인 시 새로운 회원이면 이에 맞는 처리 수행
+    public static final int LOGIN_FAIL_NOT_MANAGER = 5; // POS기 로그인 시 점주가 아닐 경우
+    public static final int NEW_USER = 6;   // 카카오나 네이버로 로그인 시 새로운 회원이면 이에 맞는 처리 수행
 
     public static final int ID_DUPLICATE = 3;
 
