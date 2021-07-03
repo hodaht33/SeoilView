@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -394,7 +393,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             public void afterTextChanged(Editable s) {
 
                 mIsIdValid = false;
-                mBtnCheckIdDuplication.setBackgroundColor(Color.BLACK);
+                mBtnCheckIdDuplication.setBackgroundColor(getActivity().getResources().getColor(R.color.black));
                 mBtnCheckIdDuplication.setText("중복 확인");
                 mBtnCheckIdDuplication.setEnabled(true);
                 mTextLayoutId.setEndIconMode(TextInputLayout.END_ICON_NONE);
@@ -434,7 +433,7 @@ public class ManagerRegisterFragment extends Fragment implements ManagerRegister
             public void afterTextChanged(Editable s) {
 
                 mIsValidCorporateNumber = mPresenter.CORPORATE_NUMBER_NOT_VALID;
-                mBtnCheckCorporateNumber.setBackgroundColor(Color.BLACK);
+                mBtnCheckCorporateNumber.setBackgroundColor(getActivity().getResources().getColor(R.color.black));
                 mBtnCheckCorporateNumber.setText("확인");
                 mBtnCheckCorporateNumber.setEnabled(true);
                 mTextLayoutCorporateNumber.setEndIconMode(TextInputLayout.END_ICON_NONE);

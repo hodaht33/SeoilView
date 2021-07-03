@@ -26,15 +26,22 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
     public final int ADAPTER_DELETE = 1002;
 
     private ArrayList<String> mDataName;            //재고명
-    private ArrayList<String> mDataAmount;          //재고 수량
-    private ManagerLedgerPresenter mPresenter;
-    private String mShopId;                         //점주 아이디
-    private Context mContext;
+    private ArrayList<Integer> mDataAmount;          //재고 수량
+    private ArrayList<Integer> mDataCode;
+    private final ManagerLedgerPresenter mPresenter;
+    private final String mShopId;                         //점주 아이디
+    private final Context mContext;
     private AlertDialog mAlertDialog;               //재고 추가창
 
-    public ManagerLedgerStockAdapter(ArrayList<String> listName, ArrayList<String> listAmount, ManagerLedgerPresenter presenter, String shopId, Context context) {
+    public ManagerLedgerStockAdapter(ArrayList<String> listName,
+                                     ArrayList<Integer> listCode,
+                                     ArrayList<Integer> listAmount,
+                                     ManagerLedgerPresenter presenter,
+                                     String shopId, Context context
+    ) {
 
         mDataName = listName;
+        mDataCode = listCode;
         mDataAmount = listAmount;
         mPresenter = presenter;
         mShopId = shopId;
@@ -49,8 +56,7 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View view = inflater.inflate(R.layout.recyclerview_manager_ledger_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -59,7 +65,8 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
         TextView textView = holder.textViewItemName;
         textView.setText(mDataName.get(position));
         TextView textView1 = holder.textViewItemAmount;
-        textView1.setText(mDataAmount.get(position));
+        final String temp = mDataAmount.get(position) + "개";
+        textView1.setText(temp);
     }
 
     @Override
@@ -71,10 +78,11 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
     }
 
     //데이터 설정
-    public void setData(ArrayList<String> listName, ArrayList<String> listAmount) {
+    public void setData(ArrayList<String> listName, ArrayList<Integer> listCode, ArrayList<Integer> listAmount) {
 
         mDataName = listName;
         mDataAmount = listAmount;
+        mDataCode = listCode;
         notifyDataSetChanged();
     }
 
@@ -131,7 +139,7 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
 
             if (id == ADAPTER_DELETE) {
 
-                mPresenter.deleteStock(mShopId, mDataName.get(getAdapterPosition()));
+                mPresenter.deleteStock(mShopId, mDataCode.get(getAdapterPosition()), mDataName.get(getAdapterPosition()));
             } else if (id == ADAPTER_EDIT) {
 
                 if (mAlertDialog != null) {
@@ -146,13 +154,13 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
                 builder.setView(view);
 
                 Button btnSubmit = view.findViewById(R.id.btnMLedgerSubmitDialogStock);
-                TextView textViewName = view.findViewById(R.id.textViewMLedgerNameDialogStock);
+                EditText editTextName = view.findViewById(R.id.editTextMLedgerNameDialogStock);
                 EditText editTextAmount = view.findViewById(R.id.editTextMLedgerAmountDialogStock);
 
                 btnSubmit.setText("확인");
 
-                textViewName.setText(mDataName.get(getAdapterPosition()));
-                editTextAmount.setText(mDataAmount.get(getAdapterPosition()).substring(0, mDataAmount.get(getAdapterPosition()).length() - 1));
+                editTextName.setText(mDataName.get(getAdapterPosition()));
+                editTextAmount.setText(String.valueOf(mDataAmount.get(getAdapterPosition())));
 
                 mAlertDialog = builder.create();
                 mAlertDialog.show();
@@ -163,6 +171,7 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
                     public void onClick(View v) {
 
                         String amount = editTextAmount.getText().toString();
+                        String newName = editTextName.getText().toString();
 
                         if (mPresenter.isTextSet(amount) != mPresenter.TEXT_LENGTH_INVALID) {
 
@@ -173,8 +182,9 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
                             editTextAmount.setError("숫자만 입력해주세요");
                             editTextAmount.requestFocus();
                         } else {
+                            int position = getAdapterPosition();
 
-                            mPresenter.updateStock(mShopId, mDataName.get(getAdapterPosition()), Integer.parseInt(amount));
+                            mPresenter.updateStock(mDataCode.get(position), mShopId, mDataName.get(position), newName, Integer.parseInt(amount));
                             notifyItemChanged(getAdapterPosition());
                             mAlertDialog.dismiss();
                         }

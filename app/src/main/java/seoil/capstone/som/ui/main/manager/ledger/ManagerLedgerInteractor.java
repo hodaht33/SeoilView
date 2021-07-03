@@ -16,23 +16,23 @@ public class ManagerLedgerInteractor implements ManagerLedgerContract.Interactor
     
     //DB에 재고 삽입
     @Override
-    public void insertStock(String shopId, String name, int amount, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
+    public void insertStock(Integer stockCode,String shopId, String name, int amount, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
 
-        AppApiHelper.getInstance().insertStock(new StockDTO.Req(shopId, name, amount), onFinishApiListener);
+        AppApiHelper.getInstance().insertStock(new StockDTO.Req(stockCode, shopId, name, amount), onFinishApiListener);
     }
     
     //DB에 재고 갱신
     @Override
-    public void updateStock(String shopId, String name, int amount, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
+    public void updateStock(Integer stockCode, String shopId, String name, String newName, Integer amount, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
 
-        AppApiHelper.getInstance().updateStockAmount(new StockDTO.Req(shopId, name, amount), onFinishApiListener);
+        AppApiHelper.getInstance().updateStock(new StockDTO.UpdateAllReq(stockCode, shopId, name, newName, amount), onFinishApiListener);
     }
 
     //DB에 재고 삭제
     @Override
-    public void deleteStock(String shopId, String name, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
+    public void deleteStock(String shopId, Integer stockCode, String name, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
 
-        AppApiHelper.getInstance().deleteStock(shopId, name, onFinishApiListener);
+        AppApiHelper.getInstance().deleteStock(shopId, stockCode ,name, onFinishApiListener);
     }
 
 }
