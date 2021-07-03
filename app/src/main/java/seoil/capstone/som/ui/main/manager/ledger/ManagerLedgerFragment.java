@@ -47,7 +47,8 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
     private MaterialCalendarView mCalendarView;         //매출,지출 조회 날짜를 얻어올 달력
     private ArrayList<String> mDataNameStock;           //재고 이름
-    private ArrayList<String> mDataAmountStock;         //재고 수량
+    private ArrayList<Integer> mDataAmountStock;         //재고 수량
+    private ArrayList<Integer> mDataCodeStock;
     private int mYear;                                  //선택된 연도
     private int mMonth;                                 //선택된 달
     private int mDay;                                   //선택된 일
@@ -73,6 +74,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
         mDataNameStock = new ArrayList<>();
         mDataAmountStock = new ArrayList<>();
+        mDataCodeStock = new ArrayList<>();
 
         selectedIndexMain = SELECTED_CALENDAR;
     }
@@ -107,7 +109,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
         mCalendarView.setSelectionColor(R.color.black);
 
         mRecyclerViewMain.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapterStock = new ManagerLedgerStockAdapter(mDataNameStock, mDataAmountStock, mPresenter, mShopId, getContext());
+        mAdapterStock = new ManagerLedgerStockAdapter(mDataNameStock, mDataCodeStock, mDataAmountStock, mPresenter, mShopId, getContext());
         mRecyclerViewMain.setAdapter(mAdapterStock);
 
 
@@ -254,7 +256,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
                             if (selectedIndexMain == SELECTED_STOCK) {
 
-                                mPresenter.insertStock(mShopId, name, Integer.parseInt(amount));
+                                mPresenter.insertStock(null ,mShopId, name, Integer.parseInt(amount));
                             }
 
                             mAlertDialogInsert.dismiss();
@@ -268,9 +270,9 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
     //재고 어댑터에 데이터 설정
     @Override
-    public void setLayoutAdapterStock(ArrayList<String> listName, ArrayList<String> listAmount) {
+    public void setLayoutAdapterStock(ArrayList<String> listName, ArrayList<Integer> listCode, ArrayList<Integer> listAmount) {
 
-        mAdapterStock.setData(listName, listAmount);
+        mAdapterStock.setData(listName, listCode ,listAmount);
     }
     
     //재고 조회

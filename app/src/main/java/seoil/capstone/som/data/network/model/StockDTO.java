@@ -23,16 +23,12 @@ public class StockDTO {
         @SerializedName("stockAmount")
         @Expose
         private int stockAmount;
-        @SerializedName("stockPrice")
-        @Expose
-        private int stockPrice;
 
-        public Req(int stockCode, String shopId, String stockName, int stockAmount, int stockPrice) {
+        public Req(int stockCode, String shopId, String stockName, int stockAmount) {
             this.stockCode = stockCode;
             this.shopId = shopId;
             this.stockName = stockName;
             this.stockAmount = stockAmount;
-            this.stockPrice = stockPrice;
         }
 
         public int getStockCode() {
@@ -66,14 +62,6 @@ public class StockDTO {
         public void setStockAmount(int stockAmount) {
             this.stockAmount = stockAmount;
         }
-
-        public int getStockPrice() {
-            return stockPrice;
-        }
-
-        public void setStockPrice(int stockPrice) {
-            this.stockPrice = stockPrice;
-        }
     }
 
     // 이름, 수량 수정 요청 DTO
@@ -94,17 +82,13 @@ public class StockDTO {
         @SerializedName("stockAmount")
         @Expose
         private int stockAmount;
-        @SerializedName("stockPrice")
-        @Expose
-        private int stockPrice;
 
-        public UpdateAllReq(int stockCode, String shopId, String stockPrevName, String stockNewName, int stockAmount, int stockPrice) {
+        public UpdateAllReq(int stockCode, String shopId, String stockPrevName, String stockNewName, int stockAmount) {
             this.stockCode = stockCode;
             this.shopId = shopId;
             this.stockPrevName = stockPrevName;
             this.stockNewName = stockNewName;
             this.stockAmount = stockAmount;
-            this.stockPrice = stockPrice;
         }
 
         public int getStockCode() {
@@ -145,14 +129,6 @@ public class StockDTO {
 
         public void setStockAmount(int stockAmount) {
             this.stockAmount = stockAmount;
-        }
-
-        public int getStockPrice() {
-            return stockPrice;
-        }
-
-        public void setStockPrice(int stockPrice) {
-            this.stockPrice = stockPrice;
         }
     }
 
