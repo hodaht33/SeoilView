@@ -256,7 +256,7 @@ public class ManagerLedgerFragment extends Fragment implements ManagerLedgerCont
 
                             if (selectedIndexMain == SELECTED_STOCK) {
 
-                                mPresenter.insertStock(null ,mShopId, name, Integer.parseInt(amount));
+                                mPresenter.insertStock(-1 ,mShopId, name, Integer.parseInt(amount));
                             }
 
                             mAlertDialogInsert.dismiss();

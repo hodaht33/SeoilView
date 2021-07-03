@@ -23,7 +23,7 @@ public class ManagerLedgerInteractor implements ManagerLedgerContract.Interactor
     
     //DB에 재고 갱신
     @Override
-    public void updateStock(Integer stockCode, String shopId, String name, String newName, int amount, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
+    public void updateStock(Integer stockCode, String shopId, String name, String newName, Integer amount, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener) {
 
         AppApiHelper.getInstance().updateStock(new StockDTO.UpdateAllReq(stockCode, shopId, name, newName, amount), onFinishApiListener);
     }

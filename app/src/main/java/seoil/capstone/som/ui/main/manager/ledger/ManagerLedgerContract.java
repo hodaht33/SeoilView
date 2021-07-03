@@ -13,7 +13,7 @@ public interface ManagerLedgerContract {
 
         void getStock(String shopId, OnFinishApiListener<StockDTO.GetRes> onFinishApiListener);
         void insertStock(Integer stockCode,String shopId, String name, int amount, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener);
-        void updateStock(Integer stockCode, String shopId, String name, String newName, int amount, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener);
+        void updateStock(Integer stockCode, String shopId, String name, String newName, Integer amount, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener);
         void deleteStock(String shopId, Integer stockCode, String name, OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener);
 
     }

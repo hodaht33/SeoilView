@@ -189,7 +189,7 @@ public class ManagerLedgerPresenter implements  ManagerLedgerContract.Presenter{
     }
 
     //view에서 shopId, name, amount를 받아와 Model에 전달 후 재고 조회
-    public void updateStock (Integer stockCode, String shopId, String name, String newName, int amount) {
+    public void updateStock (Integer stockCode, String shopId, String name, String newName, Integer amount) {
 
         OnFinishApiListener<StockDTO.StatusRes> onFinishApiListener = new OnFinishApiListener<StockDTO.StatusRes>() {
             @Override

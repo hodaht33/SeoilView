@@ -28,9 +28,9 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
     private ArrayList<String> mDataName;            //재고명
     private ArrayList<Integer> mDataAmount;          //재고 수량
     private ArrayList<Integer> mDataCode;
-    private ManagerLedgerPresenter mPresenter;
-    private String mShopId;                         //점주 아이디
-    private Context mContext;
+    private final ManagerLedgerPresenter mPresenter;
+    private final String mShopId;                         //점주 아이디
+    private final Context mContext;
     private AlertDialog mAlertDialog;               //재고 추가창
 
     public ManagerLedgerStockAdapter(ArrayList<String> listName,
@@ -82,6 +82,7 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
 
         mDataName = listName;
         mDataAmount = listAmount;
+        mDataCode = listCode;
         notifyDataSetChanged();
     }
 
@@ -159,7 +160,7 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
                 btnSubmit.setText("확인");
 
                 editTextName.setText(mDataName.get(getAdapterPosition()));
-                editTextAmount.setText(mDataAmount.get(getAdapterPosition()));
+                editTextAmount.setText(String.valueOf(mDataAmount.get(getAdapterPosition())));
 
                 mAlertDialog = builder.create();
                 mAlertDialog.show();
@@ -181,7 +182,7 @@ public class ManagerLedgerStockAdapter extends RecyclerView.Adapter<ManagerLedge
                             editTextAmount.setError("숫자만 입력해주세요");
                             editTextAmount.requestFocus();
                         } else {
-                            final int position = getAdapterPosition();
+                            int position = getAdapterPosition();
 
                             mPresenter.updateStock(mDataCode.get(position), mShopId, mDataName.get(position), newName, Integer.parseInt(amount));
                             notifyItemChanged(getAdapterPosition());
